@@ -25,8 +25,9 @@
 #		descended from Apple Sample Code, but that you've made changes.
 #
 *************************************************************************************/
+#include "OpenPlay.h"
 
-#if (!OP_PLATFORM_MAC_MACHO)
+#if !(OP_PLATFORM_MAC_MACHO)
 	#include <AppleEvents.h>
 	#include <MacWindows.h>
 #endif

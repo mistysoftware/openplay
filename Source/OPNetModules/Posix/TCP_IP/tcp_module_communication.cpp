@@ -1784,7 +1784,7 @@ NMBoolean NMStartAdvertising(NMEndpointRef Endpoint)
 	DEBUG_ENTRY_EXIT("NMStartAdvertising");
 
 	if (module_inited < 1)
-		return kNMInternalErr;
+		return(false);   //kNMInternalErr;
 
 	if (!Endpoint)
 		return(false);
@@ -1817,7 +1817,7 @@ NMBoolean NMStopAdvertising(NMEndpointRef Endpoint)
 	DEBUG_ENTRY_EXIT("NMStopAdvertising");
 
 	if (module_inited < 1)
-		return kNMInternalErr;
+		return(false);  //kNMInternalErr;
 
 	if (!Endpoint)
 		return(false);

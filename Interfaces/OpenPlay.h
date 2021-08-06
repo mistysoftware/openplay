@@ -21,8 +21,8 @@
  * 
  * @APPLE_LICENSE_HEADER_END@
  *
- * Modified: $Date: 2003/10/13 03:05:15 $
- * Revision: $Id: OpenPlay.h,v 1.4 2003/10/13 03:05:15 raving Exp $
+ * Modified: $Date: 2003/11/19 23:46:25 $
+ * Revision: $Id: OpenPlay.h,v 1.6 2003/11/19 23:46:25 raving Exp $
  */
 
 #ifndef __OPENPLAY__
@@ -57,6 +57,7 @@
 
 			#ifdef __MACH__
 				#define OP_PLATFORM_MAC_MACHO	1
+				#define OP_API_NETWORK_SOCKETS 1
 
 				#include <machine/endian.h> /*bsd,osx,etc*/
 			#else
@@ -1366,11 +1367,11 @@ extern "C" {
 	NSpPlayer_ReleaseEnumeration	(NSpGameReference 		inGame,
 									 NSpPlayerEnumerationPtr  inPlayers);
 	
-	OP_DEFINE_API_C( NMUInt32 )
+	OP_DEFINE_API_C( NMSInt32 )
 	NSpPlayer_GetRoundTripTime		(NSpGameReference 		inGame,
 									 NSpPlayerID 			inPlayer);
 	
-	OP_DEFINE_API_C( NMUInt32 )
+	OP_DEFINE_API_C( NMSInt32 )
 	NSpPlayer_GetThruput			(NSpGameReference 		inGame,
 									 NSpPlayerID 			inPlayer);
 	

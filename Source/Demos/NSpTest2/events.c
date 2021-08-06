@@ -26,6 +26,8 @@
 #
 *************************************************************************************/
 
+#include "OpenPlay.h"
+
 #if (!OP_PLATFORM_MAC_MACHO)
 	#include <Devices.h>
 	#include <DiskInit.h>

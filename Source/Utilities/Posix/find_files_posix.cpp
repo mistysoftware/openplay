@@ -118,7 +118,7 @@ static FileError enumerate_files(struct find_file_pb *param_block)
 	long counter;
 	FileDesc temp_file;
 	NMBoolean result;
-	moduleURLs = CFBundleCopyResourceURLsOfType(param_block->start_search_from.bundle,CFSTR("bundle"),CFSTR("OpenPlay Modules"));
+	moduleURLs = CFBundleCopyResourceURLsOfType(param_block->start_search_from.bundle,CFSTR("bundle"),CFSTR("modules"));
 	long count = CFArrayGetCount(moduleURLs);
 	DEBUG_PRINT("found %d modules",count);		
 	

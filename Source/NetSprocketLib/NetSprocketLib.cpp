@@ -1299,7 +1299,7 @@ NSpPlayer_ReleaseEnumeration(NSpGameReference inGame, NSpPlayerEnumerationPtr in
 // NSpPlayer_GetRoundTripTime
 //----------------------------------------------------------------------------------------
 
-NMUInt32
+NMSInt32
 NSpPlayer_GetRoundTripTime(NSpGameReference inGame, NSpPlayerID inPlayer)
 {
 	UNUSED_PARAMETER(inPlayer);
@@ -1317,7 +1317,7 @@ NSpPlayer_GetRoundTripTime(NSpGameReference inGame, NSpPlayerID inPlayer)
 // NSpPlayer_GetThruput
 //----------------------------------------------------------------------------------------
 
-NMUInt32
+NMSInt32
 NSpPlayer_GetThruput(NSpGameReference inGame, NSpPlayerID inPlayer)
 {
 	UNUSED_PARAMETER(inPlayer);
@@ -1587,7 +1587,7 @@ NSpGetCurrentTimeStamp(NSpGameReference inGame)
 {
 	NSpGamePrivate	*theGame = (NSpGamePrivate *)inGame;
 	
-	op_vassert_return(NULL != inGame, "NSpGetCurrentTimeStamp: inGame == NULL", kNSpInvalidGameRefErr);
+	op_vassert_return(NULL != inGame, "NSpGetCurrentTimeStamp: inGame == NULL", (NMUInt32)kNSpInvalidGameRefErr);
 
 	return ((theGame->GetGameObject())->GetCurrentTimeStamp());
 }
