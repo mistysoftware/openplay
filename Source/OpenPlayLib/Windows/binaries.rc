@@ -1,0 +1,163 @@
+//Microsoft Developer Studio generated resource script.
+//
+
+#include "afxres.h"
+#include "resource.h"
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DLG_HOST DIALOG DISCARDABLE  0, 0, 195, 148
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Game Host Setup"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "Accept",IDOK,146,127,42,14
+    PUSHBUTTON      "Cancel",IDCANCEL,96,127,38,14
+    LTEXT           "Game Name:",IDC_STATIC1,23,22,42,8
+    LTEXT           "Host Port:",IDC_STATIC2,33,40,32,8
+    LTEXT           "Player Name:",IDC_STATIC3,23,80,43,8
+    LTEXT           "Password:",IDC_STATIC4,32,98,34,8
+    GROUPBOX        "Game Information",IDC_STATIC1,7,7,181,53
+    GROUPBOX        "Player Information",IDC_STATIC1,7,65,181,51
+    EDITTEXT        IDC_EDIT_GAME,69,18,113,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_PORT,69,37,70,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_PLAYER,69,77,113,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_PSWD,69,96,70,14,ES_AUTOHSCROLL
+END
+
+IDD_DLG_JOIN DIALOG DISCARDABLE  0, 0, 203, 149
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Join Game Setup"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "Accept",IDOK,154,128,42,14
+    PUSHBUTTON      "Cancel",IDCANCEL,102,128,39,14
+    LTEXT           "Game IP Address:",IDC_STATIC1,14,22,58,8
+    LTEXT           "Host Port:",IDC_STATIC2,39,40,32,8
+    LTEXT           "Player Name:",IDC_STATIC3,29,80,43,8
+    LTEXT           "Password:",IDC_STATIC4,38,98,34,8
+    GROUPBOX        "Game Information",IDC_STATIC1,7,7,189,53
+    GROUPBOX        "Player Information",IDC_STATIC1,7,65,189,51
+    EDITTEXT        IDC_EDIT_GAME,75,18,113,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_PORT,75,37,70,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_PLAYER,75,77,113,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_PSWD,75,96,70,14,ES_AUTOHSCROLL
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_DLG_HOST, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 188
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 141
+    END
+
+    IDD_DLG_JOIN, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 196
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 142
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 2,2,0,0
+ PRODUCTVERSION 2,2,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x9L
+#else
+ FILEFLAGS 0x8L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "Comments", "www.sf.net/projects/openplay\0"
+            VALUE "CompanyName", "Apple Computer\0"
+            VALUE "FileDescription", "OpenPlay\0"
+            VALUE "FileVersion", "2, 2, 0, 0\0"
+            VALUE "InternalName", "OpenPlay DLL\0"
+            VALUE "LegalCopyright", "Copyright © 1999-2003 Apple Computer, Inc.\0"
+            VALUE "LegalTrademarks", "Apple Computer Inc.\0"
+            VALUE "OriginalFilename", "OpenPlay.dll\0"
+            VALUE "PrivateBuild", "d11\0"
+            VALUE "ProductName", "Apple OpenSource Networking\0"
+            VALUE "ProductVersion", "2, 2, 0, 0\0"
+            VALUE "SpecialBuild", "031020\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    0                       "OpenPlay Modules"
+END
+
+#endif    // English (U.S.) resources
+

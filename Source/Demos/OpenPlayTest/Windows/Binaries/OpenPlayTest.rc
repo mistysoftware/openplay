@@ -1,0 +1,71 @@
+/*
+ * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ *
+ * @APPLE_LICENSE_HEADER_START@
+ * 
+ * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Reserved.  This file contains Original Code and/or Modifications of
+ * Original Code as defined in and that are subject to the Apple Public
+ * Source License Version 1.1 (the "License").  You may not use this file
+ * except in compliance with the License.  Please obtain a copy of the
+ * License at http://www.apple.com/publicsource and read it before using
+ * this file.
+ * 
+ * The Original Code and all software distributed under the License are
+ * distributed on an "AS IS" basis, WITHOUT WARRANTY OF ANY KIND, EITHER
+ * EXPRESS OR IMPLIED, AND APPLE HEREBY DISCLAIMS ALL SUCH WARRANTIES,
+ * INCLUDING WITHOUT LIMITATION, ANY WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE OR NON- INFRINGEMENT.  Please see the
+ * License for the specific language governing rights and limitations
+ * under the License.
+ * 
+ * @APPLE_LICENSE_HEADER_END@
+ *
+ */
+
+#include <windows.h>
+#include "wintypes.h"
+
+// Menus follow
+128 MENU
+BEGIN
+
+	POPUP "File"
+	BEGIN
+		MENUITEM "Open Active",	(129<<8 | 1)
+		MENUITEM "Open Passive",	(129<<8 | 2)
+		MENUITEM "Open Active UI",	(129<<8 | 3)
+		MENUITEM "Open Passive UI",	(129<<8 | 4)
+		MENUITEM "Close",	(129<<8 | 5)
+		MENUITEM SEPARATOR
+		MENUITEM "Quit",	(129<<8 | 7)
+	END
+
+	POPUP "Special"
+	BEGIN
+		MENUITEM "Send Packet",	(130<<8 | 1)
+		MENUITEM "Send Stream",	(130<<8 | 2)
+		MENUITEM "IsAlive",	(130<<8 | 3)
+		MENUITEM "Accepting Connections",	(130<<8 | 4)
+		MENUITEM "Active Enumeration",	(130<<8 | 5)
+		MENUITEM "Set Timeout",	(130<<8 | 6)
+		MENUITEM "Get Module Info",	(130<<8 | 7)
+	END
+
+	POPUP "Windows"
+	BEGIN
+		MENUITEM "Cascade", (131<<8 | 1)
+		MENUITEM "Tile", (131<<8 | 2)
+	END
+END
+
+// End Menus
+
+// Dialogs follow
+#include "dialogs.dlg"
+// End Dialogs
+
+// Ditls follow
+#include "ditls.dlg"
+// End Ditls
+

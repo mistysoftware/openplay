@@ -1,0 +1,51 @@
+/*	------------------------------------------------------------------------------------------
+
+	Copyright © 1996-1998 Apple Computer, Inc., All Rights Reserved
+
+
+		You may incorporate this sample code into your applications without
+		restriction, though the sample code has been provided "AS IS" and the
+		responsibility for its operation is 100% yours.  However, what you are
+		not permitted to do is to redistribute the source as "DSC Sample Code"
+		after having made changes. If you're going to re-distribute the source,
+		we require that you make it clear in the source that the code was
+		descended from Apple Sample Code, but that you've made changes.
+
+	------------------------------------------------------------------------------------------	*/
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 2,2,0,0
+ PRODUCTVERSION 2,2,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x9L
+#else
+ FILEFLAGS 0x8L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "Comments", "www.sf.net/projects/openplay\0"
+            VALUE "CompanyName", "Apple Computer\0"
+            VALUE "FileDescription", "OpenPlay\0"
+            VALUE "FileVersion", "2, 2, 0, 0\0"
+            VALUE "InternalName", "OpenPlay DLL\0"
+            VALUE "LegalCopyright", "Copyright © 1999-2003 Apple Computer, Inc.\0"
+            VALUE "LegalTrademarks", "Apple Computer Inc.\0"
+            VALUE "OriginalFilename", "OpenPlay.dll\0"
+            VALUE "PrivateBuild", "d11\0"
+            VALUE "ProductName", "Apple OpenSource Networking\0"
+            VALUE "ProductVersion", "2, 2, 0, 0\0"
+            VALUE "SpecialBuild", "031020\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END

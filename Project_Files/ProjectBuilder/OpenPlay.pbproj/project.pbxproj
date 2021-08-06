@@ -1,0 +1,2338 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 38;
+	objects = {
+		034768DDFF38A45A11DB9C8B = {
+			children = (
+				F5FE302102558CD301A80105,
+				F5FE3011025586E501A80105,
+				034768DEFF38A45A11DB9C8B,
+				F5530D670256BEDD01A80105,
+				F5CE6DFA025AF5E601A80105,
+				F5CE6E0A025AF81F01A80105,
+				F5CE6E1A025AFB1901A80105,
+				F587B67C025C6D4501A80105,
+				F587B68D025C70BB01A80105,
+				F5A736FD02667C1101A80105,
+			);
+			isa = PBXGroup;
+			name = "Products,Libs,Frameworks";
+			path = "";
+			refType = 2;
+		};
+		034768DEFF38A45A11DB9C8B = {
+			isa = PBXFrameworkReference;
+			path = OpenPlay.framework;
+			refType = 3;
+		};
+//030
+//031
+//032
+//033
+//034
+//080
+//081
+//082
+//083
+//084
+		0867D690FE84028FC02AAC07 = {
+			buildStyles = (
+				4F0BB7EC011F40E904CA0E50,
+				4F0BB7ED011F40E904CA0E50,
+			);
+			isa = PBXProject;
+			mainGroup = 0867D691FE84028FC02AAC07;
+			productRefGroup = 034768DDFF38A45A11DB9C8B;
+			projectDirPath = "";
+			targets = (
+				0867D69CFE84028FC02AAC07,
+				F5530D680256BEDD01A80105,
+				F5FE3012025586E501A80105,
+				F5CE6DFB025AF5E601A80105,
+				F5CE6E1B025AFB1901A80105,
+				F5CE6E0B025AF81F01A80105,
+				F587B67D025C6D4501A80105,
+				F587B68E025C70BB01A80105,
+				F5A736FE02667C1101A80105,
+				F5530D640256BDA501A80105,
+			);
+		};
+		0867D691FE84028FC02AAC07 = {
+			children = (
+				F5ABE64002556D8F01A80105,
+				F5530D6F0256BF5501A80105,
+				F5FE301902558C6F01A80105,
+				F5CE6DF9025AF5E601A80105,
+				F5CE6E19025AFB1901A80105,
+				F5CE6E09025AF81F01A80105,
+				F587B67B025C6D4501A80105,
+				F5A736FC02667C1101A80105,
+				F5FE302C02558DCB01A80105,
+				034768DDFF38A45A11DB9C8B,
+			);
+			isa = PBXGroup;
+			name = OpenPlay;
+			refType = 4;
+		};
+		0867D69CFE84028FC02AAC07 = {
+			buildPhases = (
+				0867D69DFE84028FC02AAC07,
+				0867D69EFE84028FC02AAC07,
+				0867D69FFE84028FC02AAC07,
+				0867D6A0FE84028FC02AAC07,
+				0867D6A2FE84028FC02AAC07,
+			);
+			buildSettings = {
+				DEBUGGING_SYMBOLS = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXPORTED_SYMBOLS_FILE = ../../Source/OpenPlayLib/posix/openplay_darwin.exp;
+				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_VERSION = A;
+				HEADER_SEARCH_PATHS = "../../Source/Utilities/posix ../../Source/OPNetModules ../../Source/OPNetModules/Common ../../Source/NetSprocketLib ../../Source/Utilities ../../Source/OpenPlayLib/Common ../../Source/OpenPlayLib/posix ../../Interfaces";
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_LDFLAGS = "";
+				PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				PRODUCT_NAME = OpenPlay;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = "-Wno-four-char-constants -Wno-unknown-pragmas";
+				WRAPPER_EXTENSION = framework;
+			};
+			dependencies = (
+			);
+			isa = PBXFrameworkTarget;
+			name = "OpenPlay Framework";
+			productInstallPath = "@executable_path/../Frameworks";
+			productName = OpenPlay;
+			productReference = 034768DEFF38A45A11DB9C8B;
+			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>OpenPlay</string>
+	<key>CFBundleGetInfoString</key>
+	<string>© 1999-2002</string>
+	<key>CFBundleIconFile</key>
+	<string></string>
+	<key>CFBundleIdentifier</key>
+	<string>com.apple.OpenPlay</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>OpenPlay Framework</string>
+	<key>CFBundlePackageType</key>
+	<string>FMWK</string>
+	<key>CFBundleShortVersionString</key>
+	<string>v2.2</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>2.2b4</string>
+	<key>CSResourcesFileMapped</key>
+	<true/>
+</dict>
+</plist>
+";
+			shouldUseHeadermap = 1;
+		};
+		0867D69DFE84028FC02AAC07 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXHeadersBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0867D69EFE84028FC02AAC07 = {
+			buildActionMask = 2147483647;
+			files = (
+				089C1668FE841158C02AAC07,
+			);
+			isa = PBXResourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0867D69FFE84028FC02AAC07 = {
+			buildActionMask = 2147483647;
+			files = (
+				F5ABE65502556F3701A80105,
+				F5ABE65602556F3701A80105,
+				F5ABE65702556F3701A80105,
+				F5ABE65802556F3701A80105,
+				F5ABE65902556F3701A80105,
+				F5ABE65A02556F3701A80105,
+				F5ABE65B02556F3701A80105,
+				F5ABE65C02556F3701A80105,
+				F5ABE65D02556F3701A80105,
+				F5ABE65E02556F3701A80105,
+				F5ABE65F02556F3701A80105,
+				F5ABE66002556F3701A80105,
+				F5ABE66102556F3701A80105,
+				F5ABE66202556F3701A80105,
+				F5ABE66302556F3701A80105,
+				F5ABE66402556F3701A80105,
+				F5ABE66502556F3701A80105,
+				F5ABE66602556F3701A80105,
+				F5ABE66702556F3701A80105,
+				F5ABE66802556F3701A80105,
+				F5ABE66B02556F5F01A80105,
+				F5ABE66C02556F5F01A80105,
+				F5ABE67402556F8801A80105,
+				F5ABE67502556F8801A80105,
+				F5ABE67602556F8801A80105,
+				F5ABE67702556F8801A80105,
+				F5ABE67802556F8801A80105,
+				F5ABE67902556F8801A80105,
+				F5ABE67A02556F8801A80105,
+				F5679E14026A383B01A80105,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0867D6A0FE84028FC02AAC07 = {
+			buildActionMask = 2147483647;
+			files = (
+				F5679E15026A38E201A80105,
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0867D6A2FE84028FC02AAC07 = {
+			buildActionMask = 2147483647;
+			files = (
+				F5679E13026A382401A80105,
+			);
+			isa = PBXRezBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		089C1665FE841158C02AAC07 = {
+			children = (
+				F5679E12026A382401A80105,
+				089C1666FE841158C02AAC07,
+			);
+			isa = PBXGroup;
+			name = Resources;
+			path = "";
+			refType = 4;
+		};
+		089C1666FE841158C02AAC07 = {
+			children = (
+				089C1667FE841158C02AAC07,
+			);
+			isa = PBXVariantGroup;
+			name = InfoPlist.strings;
+			path = "";
+			refType = 2;
+		};
+		089C1667FE841158C02AAC07 = {
+			fileEncoding = 10;
+			isa = PBXFileReference;
+			name = English;
+			path = English.lproj/InfoPlist.strings;
+			refType = 4;
+		};
+		089C1668FE841158C02AAC07 = {
+			fileRef = 089C1666FE841158C02AAC07;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		08FB77ACFE841707C02AAC07 = {
+			children = (
+				F5679E0E026A340201A80105,
+				F5ABE64102556F3701A80105,
+				F5ABE64202556F3701A80105,
+				F5ABE64302556F3701A80105,
+				F5ABE64402556F3701A80105,
+				F5ABE64502556F3701A80105,
+				F5ABE64602556F3701A80105,
+				F5ABE64702556F3701A80105,
+				F5ABE64802556F3701A80105,
+				F5ABE64902556F3701A80105,
+				F5ABE64A02556F3701A80105,
+				F5ABE64B02556F3701A80105,
+				F5ABE64C02556F3701A80105,
+				F5ABE64D02556F3701A80105,
+				F5ABE64E02556F3701A80105,
+				F5ABE64F02556F3701A80105,
+				F5ABE65002556F3701A80105,
+				F5ABE65102556F3701A80105,
+				F5ABE65202556F3701A80105,
+				F5ABE65302556F3701A80105,
+				F5ABE65402556F3701A80105,
+				F5ABE66902556F5F01A80105,
+				F5ABE66A02556F5F01A80105,
+				F5ABE66D02556F8801A80105,
+				F5ABE66F02556F8801A80105,
+				F5ABE67302556F8801A80105,
+			);
+			isa = PBXGroup;
+			name = Source;
+			path = "";
+			refType = 4;
+		};
+//080
+//081
+//082
+//083
+//084
+//4F0
+//4F1
+//4F2
+//4F3
+//4F4
+		4F0BB7EC011F40E904CA0E50 = {
+			buildRules = (
+			);
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				OPTIMIZATION_CFLAGS = "-O0";
+				OTHER_CFLAGS = "-DDEBUG -DDEBUGCALLCHAIN -Dproject_builder -Dmacho_build";
+			};
+			isa = PBXBuildStyle;
+			name = Development;
+		};
+		4F0BB7ED011F40E904CA0E50 = {
+			buildRules = (
+			);
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUGGING_SYMBOLS = NO;
+				OTHER_CFLAGS = "-Dproject_builder -Dmacho_build";
+			};
+			isa = PBXBuildStyle;
+			name = Deployment;
+		};
+//4F0
+//4F1
+//4F2
+//4F3
+//4F4
+//F50
+//F51
+//F52
+//F53
+//F54
+		F536EB9D03232CB401A8008C = {
+			isa = PBXFileReference;
+			name = NSpTest2Mach.r;
+			path = /Volumes/IFD/OpenSource/OpenPlay/proj/OpenPlay/Source/Demos/NSpTest2/NSpTest2Mach.r;
+			refType = 0;
+		};
+		F536EB9E03232CB401A8008C = {
+			fileRef = F536EB9D03232CB401A8008C;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5530D5B0256B46901A80105 = {
+			children = (
+				F5530D5C0256B46901A80105,
+			);
+			isa = PBXVariantGroup;
+			name = OPTestInfoPlist.strings;
+			path = "";
+			refType = 2;
+		};
+		F5530D5C0256B46901A80105 = {
+			isa = PBXFileReference;
+			name = English;
+			path = English.lproj/OPTestInfoPlist.strings;
+			refType = 4;
+		};
+		F5530D5D0256B46901A80105 = {
+			fileRef = F5530D5B0256B46901A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5530D5F0256B56901A80105 = {
+			isa = PBXFileReference;
+			name = OpenPlayTestMachO.r;
+			path = ../../Source/Demos/OpenPlayTest/Macintosh/Binaries/OpenPlayTestMachO.r;
+			refType = 2;
+		};
+		F5530D600256B56901A80105 = {
+			fileRef = F5530D5F0256B56901A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5530D620256BB5C01A80105 = {
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F5530D630256BCF801A80105,
+			);
+			isa = PBXCopyFilesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5530D630256BCF801A80105 = {
+			fileRef = 034768DEFF38A45A11DB9C8B;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5530D640256BDA501A80105 = {
+			buildPhases = (
+			);
+			buildSettings = {
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = "Build All";
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wmost -Wno-four-char-constants -Wno-unknown-pragmas";
+			};
+			dependencies = (
+				F5530D650256BDBC01A80105,
+				F5530D6E0256BEDD01A80105,
+				F5530D660256BDBC01A80105,
+				F5CE6E08025AF80301A80105,
+				F5CE6E18025AFA7C01A80105,
+				F5CE6E35025AFBF001A80105,
+				F587B69B025C726401A80105,
+				F587B69C025C726401A80105,
+				F5A7370402667C1101A80105,
+			);
+			isa = PBXAggregateTarget;
+			name = "Build All";
+			productName = "Build All";
+			shouldUseHeadermap = 0;
+		};
+		F5530D650256BDBC01A80105 = {
+			isa = PBXTargetDependency;
+			target = 0867D69CFE84028FC02AAC07;
+		};
+		F5530D660256BDBC01A80105 = {
+			isa = PBXTargetDependency;
+			target = F5FE3012025586E501A80105;
+		};
+		F5530D670256BEDD01A80105 = {
+			isa = PBXBundleReference;
+			path = tcpip.so.bundle;
+			refType = 3;
+		};
+		F5530D680256BEDD01A80105 = {
+			buildPhases = (
+				F5530D690256BEDD01A80105,
+				F5530D6A0256BEDD01A80105,
+				F5530D6B0256BEDD01A80105,
+				F5530D6C0256BEDD01A80105,
+				F5530D6D0256BEDD01A80105,
+			);
+			buildSettings = {
+				EXPORTED_SYMBOLS_FILE = ../../Source/OPNetModules/posix/NetModuleDarwin.exp;
+				HEADER_SEARCH_PATHS = "../../Source/Utilities/posix ../../Source/OPNetModules ../../Source/OPNetModules/Common ../../Source/OPNetModules/posix/TCP_IP ../../Source/OPNetModules/ ../../Source/Utilities ../../Source/OpenPlayLib/Common ../../Source/OpenPlayLib/posix ../../Interfaces";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				PRODUCT_NAME = tcpip.so;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wno-four-char-constants -Wno-unknown-pragmas";
+				WRAPPER_EXTENSION = bundle;
+			};
+			dependencies = (
+			);
+			isa = PBXBundleTarget;
+			name = "IP Module";
+			productInstallPath = "$(USER_LIBRARY_DIR)/Bundles";
+			productName = "IP Module";
+			productReference = F5530D670256BEDD01A80105;
+			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>tcpip.so</string>
+	<key>CFBundleGetInfoString</key>
+	<string>© 1999-2002 Apple Computer, Inc.</string>
+	<key>CFBundleIconFile</key>
+	<string></string>
+	<key>CFBundleIdentifier</key>
+	<string></string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>OpenPlay TCP/IP Module</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>v2.2</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>2.2</string>
+</dict>
+</plist>
+";
+			shouldUseHeadermap = 0;
+		};
+		F5530D690256BEDD01A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXHeadersBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5530D6A0256BEDD01A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXResourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5530D6B0256BEDD01A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+				F5530D780256BFDF01A80105,
+				F5530D790256BFDF01A80105,
+				F5530D7A0256BFDF01A80105,
+				F5530D7C0256BFDF01A80105,
+				F5530D7D0256BFDF01A80105,
+				F5530D7E0256BFDF01A80105,
+				F5530D7F0256BFDF01A80105,
+				F5530D800256BFDF01A80105,
+				F5530D810256BFDF01A80105,
+				F5530D820256C02201A80105,
+				F5679E08026A1E3701A80105,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5530D6C0256BEDD01A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+				F5679E0C026A1FA201A80105,
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5530D6D0256BEDD01A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+				F5679E0A026A1F2001A80105,
+			);
+			isa = PBXRezBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5530D6E0256BEDD01A80105 = {
+			isa = PBXTargetDependency;
+			target = F5530D680256BEDD01A80105;
+		};
+		F5530D6F0256BF5501A80105 = {
+			children = (
+				F5530D700256BF5501A80105,
+				F5679E06026A1DF401A80105,
+			);
+			isa = PBXGroup;
+			name = "IP Module";
+			refType = 4;
+		};
+		F5530D700256BF5501A80105 = {
+			children = (
+				F5530D710256BFDF01A80105,
+				F5530D720256BFDF01A80105,
+				F5530D730256BFDF01A80105,
+				F5679E07026A1E3701A80105,
+				F5530D750256BFDF01A80105,
+				F5530D760256BFDF01A80105,
+				F5530D770256BFDF01A80105,
+			);
+			isa = PBXGroup;
+			name = Source;
+			refType = 4;
+		};
+		F5530D710256BFDF01A80105 = {
+			isa = PBXFileReference;
+			name = tcp_module_communication.cpp;
+			path = ../../Source/OPNetModules/posix/TCP_IP/tcp_module_communication.cpp;
+			refType = 2;
+		};
+		F5530D720256BFDF01A80105 = {
+			isa = PBXFileReference;
+			name = tcp_module_config.cpp;
+			path = ../../Source/OPNetModules/posix/TCP_IP/tcp_module_config.cpp;
+			refType = 2;
+		};
+		F5530D730256BFDF01A80105 = {
+			isa = PBXFileReference;
+			name = tcp_module_enumeration.cpp;
+			path = ../../Source/OPNetModules/posix/TCP_IP/tcp_module_enumeration.cpp;
+			refType = 2;
+		};
+		F5530D750256BFDF01A80105 = {
+			isa = PBXFileReference;
+			name = tcp_module_main.cpp;
+			path = ../../Source/OPNetModules/posix/TCP_IP/tcp_module_main.cpp;
+			refType = 2;
+		};
+		F5530D760256BFDF01A80105 = {
+			isa = PBXFileReference;
+			name = configuration.c;
+			path = ../../Source/OPNetModules/Common/configuration.c;
+			refType = 2;
+		};
+		F5530D770256BFDF01A80105 = {
+			isa = PBXFileReference;
+			name = ip_enumeration.c;
+			path = ../../Source/OPNetModules/Common/ip_enumeration.c;
+			refType = 2;
+		};
+		F5530D780256BFDF01A80105 = {
+			fileRef = F5530D710256BFDF01A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5530D790256BFDF01A80105 = {
+			fileRef = F5530D720256BFDF01A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5530D7A0256BFDF01A80105 = {
+			fileRef = F5530D730256BFDF01A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5530D7C0256BFDF01A80105 = {
+			fileRef = F5530D750256BFDF01A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5530D7D0256BFDF01A80105 = {
+			fileRef = F5ABE67102556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5530D7E0256BFDF01A80105 = {
+			fileRef = F5ABE66E02556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5530D7F0256BFDF01A80105 = {
+			fileRef = F5ABE67002556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5530D800256BFDF01A80105 = {
+			fileRef = F5530D760256BFDF01A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5530D810256BFDF01A80105 = {
+			fileRef = F5530D770256BFDF01A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5530D820256C02201A80105 = {
+			fileRef = F5ABE67202556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5679E06026A1DF401A80105 = {
+			children = (
+				F5679E09026A1F2001A80105,
+			);
+			isa = PBXGroup;
+			name = Resources;
+			path = "";
+			refType = 4;
+		};
+		F5679E07026A1E3701A80105 = {
+			isa = PBXFileReference;
+			name = tcp_module_gui_mac.cpp;
+			path = ../../Source/OPNetModules/posix/TCP_IP/tcp_module_gui_mac.cpp;
+			refType = 2;
+		};
+		F5679E08026A1E3701A80105 = {
+			fileRef = F5679E07026A1E3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5679E09026A1F2001A80105 = {
+			isa = PBXFileReference;
+			name = tcp_module_mac.r;
+			path = ../../Source/OPNetModules/posix/TCP_IP/tcp_module_mac.r;
+			refType = 2;
+		};
+		F5679E0A026A1F2001A80105 = {
+			fileRef = F5679E09026A1F2001A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5679E0B026A1F2001A80105 = {
+			fileRef = F5679E09026A1F2001A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5679E0C026A1FA201A80105 = {
+			fileRef = F5FE302102558CD301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5679E0E026A340201A80105 = {
+			isa = PBXFileReference;
+			name = NSpDialogMacOS.cpp;
+			path = ../../Source/NetSprocketLib/Macintosh/NSpDialogMacOS.cpp;
+			refType = 2;
+		};
+		F5679E12026A382401A80105 = {
+			isa = PBXFileReference;
+			name = NetSprocketMachO.r;
+			path = ../../Source/NetSprocketLib/Macintosh/NetSprocketMachO.r;
+			refType = 2;
+		};
+		F5679E13026A382401A80105 = {
+			fileRef = F5679E12026A382401A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5679E14026A383B01A80105 = {
+			fileRef = F5679E0E026A340201A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5679E15026A38E201A80105 = {
+			fileRef = F5FE302102558CD301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F587B67B025C6D4501A80105 = {
+			children = (
+				F587B687025C6DD401A80105,
+				F587B688025C6DD401A80105,
+				F587B68C025C70BB01A80105,
+			);
+			isa = PBXGroup;
+			name = OP/NSpExample1;
+			refType = 4;
+		};
+		F587B67C025C6D4501A80105 = {
+			isa = PBXApplicationReference;
+			path = OPExample1.app;
+			refType = 3;
+		};
+		F587B67D025C6D4501A80105 = {
+			buildPhases = (
+				F587B67E025C6D4501A80105,
+				F587B67F025C6D4501A80105,
+				F587B680025C6D4501A80105,
+				F587B681025C6D4501A80105,
+				F587B682025C6D4501A80105,
+				F587B685025C6D9401A80105,
+			);
+			buildSettings = {
+				HEADER_SEARCH_PATHS = "../../Source/Utilities ../../Source/Demos/OPExample1 ../../Interfaces";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				PRODUCT_NAME = OPExample1;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wno-four-char-constants -Wno-unknown-pragmas";
+				WRAPPER_EXTENSION = app;
+			};
+			dependencies = (
+			);
+			isa = PBXApplicationTarget;
+			name = OPExample1;
+			productInstallPath = "$(USER_APPS_DIR)";
+			productName = OPExample1;
+			productReference = F587B67C025C6D4501A80105;
+			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>OPExample1</string>
+	<key>CFBundleGetInfoString</key>
+	<string>© 1999-2002 Apple Computer, Inc.</string>
+	<key>CFBundleIconFile</key>
+	<string></string>
+	<key>CFBundleIdentifier</key>
+	<string></string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>OpenPlay Protocol Example</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>v2.2</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>2.2</string>
+</dict>
+</plist>
+";
+			shouldUseHeadermap = 0;
+		};
+		F587B67E025C6D4501A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXHeadersBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F587B67F025C6D4501A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+				F5679E0B026A1F2001A80105,
+			);
+			isa = PBXResourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F587B680025C6D4501A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+				F587B689025C6DD401A80105,
+				F587B68A025C6DD401A80105,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F587B681025C6D4501A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+				F587B684025C6D9401A80105,
+				F587B68B025C6ECD01A80105,
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F587B682025C6D4501A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXRezBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F587B684025C6D9401A80105 = {
+			fileRef = 034768DEFF38A45A11DB9C8B;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F587B685025C6D9401A80105 = {
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F587B686025C6D9401A80105,
+			);
+			isa = PBXCopyFilesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F587B686025C6D9401A80105 = {
+			fileRef = 034768DEFF38A45A11DB9C8B;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F587B687025C6DD401A80105 = {
+			isa = PBXFileReference;
+			name = main.c;
+			path = ../../Source/Demos/OPExample1/main.c;
+			refType = 2;
+		};
+		F587B688025C6DD401A80105 = {
+			isa = PBXFileReference;
+			name = op_network.cpp;
+			path = ../../Source/Demos/OPExample1/op_network.cpp;
+			refType = 2;
+		};
+		F587B689025C6DD401A80105 = {
+			fileRef = F587B687025C6DD401A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F587B68A025C6DD401A80105 = {
+			fileRef = F587B688025C6DD401A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F587B68B025C6ECD01A80105 = {
+			fileRef = F5FE302102558CD301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F587B68C025C70BB01A80105 = {
+			isa = PBXFileReference;
+			name = nsp_network.c;
+			path = ../../Source/Demos/OPExample1/nsp_network.c;
+			refType = 2;
+		};
+		F587B68D025C70BB01A80105 = {
+			isa = PBXApplicationReference;
+			path = NSpExample1.app;
+			refType = 3;
+		};
+		F587B68E025C70BB01A80105 = {
+			buildPhases = (
+				F587B68F025C70BB01A80105,
+				F587B690025C70BB01A80105,
+				F587B691025C70BB01A80105,
+				F587B694025C70BB01A80105,
+				F587B696025C70BB01A80105,
+				F587B697025C70BB01A80105,
+			);
+			buildSettings = {
+				HEADER_SEARCH_PATHS = "../../Source/Utilities ../../Source/Demos/OPExample1 ../../Interfaces";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				PRODUCT_NAME = NSpExample1;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wno-four-char-constants -Wno-unknown-pragmas";
+				WRAPPER_EXTENSION = app;
+			};
+			dependencies = (
+			);
+			isa = PBXApplicationTarget;
+			name = NSpExample1;
+			productInstallPath = "$(USER_APPS_DIR)";
+			productName = NSpExample1;
+			productReference = F587B68D025C70BB01A80105;
+			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>NSpExample1</string>
+	<key>CFBundleGetInfoString</key>
+	<string>© 1999-2002 Apple Computer, Inc.</string>
+	<key>CFBundleIconFile</key>
+	<string></string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>OpenPlay NSp Example</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>v2.2</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>2.2</string>
+</dict>
+</plist>
+";
+			shouldUseHeadermap = 0;
+		};
+		F587B68F025C70BB01A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXHeadersBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F587B690025C70BB01A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXResourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F587B691025C70BB01A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+				F587B692025C70BB01A80105,
+				F587B693025C70BB01A80105,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F587B692025C70BB01A80105 = {
+			fileRef = F587B687025C6DD401A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F587B693025C70BB01A80105 = {
+			fileRef = F587B68C025C70BB01A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F587B694025C70BB01A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+				F587B69A025C723301A80105,
+				F587B695025C70BB01A80105,
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F587B695025C70BB01A80105 = {
+			fileRef = 034768DEFF38A45A11DB9C8B;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F587B696025C70BB01A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXRezBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F587B697025C70BB01A80105 = {
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F587B698025C70BB01A80105,
+			);
+			isa = PBXCopyFilesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F587B698025C70BB01A80105 = {
+			fileRef = 034768DEFF38A45A11DB9C8B;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F587B69A025C723301A80105 = {
+			fileRef = F5FE302102558CD301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F587B69B025C726401A80105 = {
+			isa = PBXTargetDependency;
+			target = F587B67D025C6D4501A80105;
+		};
+		F587B69C025C726401A80105 = {
+			isa = PBXTargetDependency;
+			target = F587B68E025C70BB01A80105;
+		};
+		F5A736FB0265070301A80105 = {
+			fileRef = F5ABE67102556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5A736FC02667C1101A80105 = {
+			children = (
+				F5A7370502667C4401A80105,
+			);
+			isa = PBXGroup;
+			name = OpenPlayMiniDemo;
+			path = "";
+			refType = 4;
+		};
+		F5A736FD02667C1101A80105 = {
+			isa = PBXApplicationReference;
+			path = OpenPlayMiniDemo.app;
+			refType = 3;
+		};
+		F5A736FE02667C1101A80105 = {
+			buildPhases = (
+				F5A736FF02667C1101A80105,
+				F5A7370002667C1101A80105,
+				F5A7370102667C1101A80105,
+				F5A7370202667C1101A80105,
+				F5A7370302667C1101A80105,
+				F5A7370802667CA401A80105,
+			);
+			buildSettings = {
+				HEADER_SEARCH_PATHS = "../../Source/Utilities ../../Interfaces";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				PRODUCT_NAME = OpenPlayMiniDemo;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wno-four-char-constants -Wno-unknown-pragmas";
+				WRAPPER_EXTENSION = app;
+			};
+			dependencies = (
+			);
+			isa = PBXApplicationTarget;
+			name = OpenPlayMiniDemo;
+			productName = OpenPlayMiniDemo;
+			productReference = F5A736FD02667C1101A80105;
+			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>OPMiniDemo</string>
+	<key>CFBundleGetInfoString</key>
+	<string>© 1999-2002 Apple Computer, Inc.</string>
+	<key>CFBundleIconFile</key>
+	<string></string>
+	<key>CFBundleIdentifier</key>
+	<string></string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>OpenPlay MiniDemo</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>v2.2</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>2.2</string>
+</dict>
+</plist>
+";
+			shouldUseHeadermap = 0;
+		};
+		F5A736FF02667C1101A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXHeadersBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5A7370002667C1101A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXResourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5A7370102667C1101A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+				F5A7370602667C4501A80105,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5A7370202667C1101A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+				F5A7370702667CA401A80105,
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5A7370302667C1101A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXRezBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5A7370402667C1101A80105 = {
+			isa = PBXTargetDependency;
+			target = F5A736FE02667C1101A80105;
+		};
+		F5A7370502667C4401A80105 = {
+			isa = PBXFileReference;
+			name = miniplay.c;
+			path = ../../Source/Demos/OPMiniDemo/miniplay.c;
+			refType = 2;
+		};
+		F5A7370602667C4501A80105 = {
+			fileRef = F5A7370502667C4401A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5A7370702667CA401A80105 = {
+			fileRef = 034768DEFF38A45A11DB9C8B;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5A7370802667CA401A80105 = {
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F5A7370902667CA401A80105,
+			);
+			isa = PBXCopyFilesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5A7370902667CA401A80105 = {
+			fileRef = 034768DEFF38A45A11DB9C8B;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE64002556D8F01A80105 = {
+			children = (
+				089C1665FE841158C02AAC07,
+				08FB77ACFE841707C02AAC07,
+			);
+			isa = PBXGroup;
+			name = "OpenPlay Framework";
+			refType = 4;
+		};
+		F5ABE64102556F3701A80105 = {
+			isa = PBXFileReference;
+			name = module_management.cpp;
+			path = ../../Source/OpenPlayLib/Common/module_management.cpp;
+			refType = 2;
+		};
+		F5ABE64202556F3701A80105 = {
+			isa = PBXFileReference;
+			name = op_endpoint.cpp;
+			path = ../../Source/OpenPlayLib/Common/op_endpoint.cpp;
+			refType = 2;
+		};
+		F5ABE64302556F3701A80105 = {
+			isa = PBXFileReference;
+			name = op_hi.cpp;
+			path = ../../Source/OpenPlayLib/Common/op_hi.cpp;
+			refType = 2;
+		};
+		F5ABE64402556F3701A80105 = {
+			isa = PBXFileReference;
+			name = op_module_mgmt.cpp;
+			path = ../../Source/OpenPlayLib/Common/op_module_mgmt.cpp;
+			refType = 2;
+		};
+		F5ABE64502556F3701A80105 = {
+			isa = PBXFileReference;
+			name = op_packet.cpp;
+			path = ../../Source/OpenPlayLib/Common/op_packet.cpp;
+			refType = 2;
+		};
+		F5ABE64602556F3701A80105 = {
+			isa = PBXFileReference;
+			name = openplay.cpp;
+			path = ../../Source/OpenPlayLib/Common/openplay.cpp;
+			refType = 2;
+		};
+		F5ABE64702556F3701A80105 = {
+			isa = PBXFileReference;
+			name = op_dlopen.c;
+			path = ../../Source/OpenPlayLib/posix/op_dlopen.c;
+			refType = 2;
+		};
+		F5ABE64802556F3701A80105 = {
+			isa = PBXFileReference;
+			name = openplay_posix.cpp;
+			path = ../../Source/OpenPlayLib/posix/openplay_posix.cpp;
+			refType = 2;
+		};
+		F5ABE64902556F3701A80105 = {
+			isa = PBXFileReference;
+			name = CATEndpoint_OP.cpp;
+			path = ../../Source/NetSprocketLib/CATEndpoint_OP.cpp;
+			refType = 2;
+		};
+		F5ABE64A02556F3701A80105 = {
+			isa = PBXFileReference;
+			name = CEndpoint_OP.cpp;
+			path = ../../Source/NetSprocketLib/CEndpoint_OP.cpp;
+			refType = 2;
+		};
+		F5ABE64B02556F3701A80105 = {
+			isa = PBXFileReference;
+			name = CIPEndpoint_OP.cpp;
+			path = ../../Source/NetSprocketLib/CIPEndpoint_OP.cpp;
+			refType = 2;
+		};
+		F5ABE64C02556F3701A80105 = {
+			isa = PBXFileReference;
+			name = EntryPoint.cpp;
+			path = ../../Source/NetSprocketLib/EntryPoint.cpp;
+			refType = 2;
+		};
+		F5ABE64D02556F3701A80105 = {
+			isa = PBXFileReference;
+			name = NetSprocketLib.cpp;
+			path = ../../Source/NetSprocketLib/NetSprocketLib.cpp;
+			refType = 2;
+		};
+		F5ABE64E02556F3701A80105 = {
+			isa = PBXFileReference;
+			name = NSp_InterruptSafeList.cpp;
+			path = ../../Source/NetSprocketLib/NSp_InterruptSafeList.cpp;
+			refType = 2;
+		};
+		F5ABE64F02556F3701A80105 = {
+			isa = PBXFileReference;
+			name = NSpGame.cpp;
+			path = ../../Source/NetSprocketLib/NSpGame.cpp;
+			refType = 2;
+		};
+		F5ABE65002556F3701A80105 = {
+			isa = PBXFileReference;
+			name = NSpGameMaster.cpp;
+			path = ../../Source/NetSprocketLib/NSpGameMaster.cpp;
+			refType = 2;
+		};
+		F5ABE65102556F3701A80105 = {
+			isa = PBXFileReference;
+			name = NSpGamePrivate.cpp;
+			path = ../../Source/NetSprocketLib/NSpGamePrivate.cpp;
+			refType = 2;
+		};
+		F5ABE65202556F3701A80105 = {
+			isa = PBXFileReference;
+			name = NSpGameSlave.cpp;
+			path = ../../Source/NetSprocketLib/NSpGameSlave.cpp;
+			refType = 2;
+		};
+		F5ABE65302556F3701A80105 = {
+			isa = PBXFileReference;
+			name = NSpLists_OP.cpp;
+			path = ../../Source/NetSprocketLib/NSpLists_OP.cpp;
+			refType = 2;
+		};
+		F5ABE65402556F3701A80105 = {
+			isa = PBXFileReference;
+			name = NSpProtocolRef.cpp;
+			path = ../../Source/NetSprocketLib/NSpProtocolRef.cpp;
+			refType = 2;
+		};
+		F5ABE65502556F3701A80105 = {
+			fileRef = F5ABE64102556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE65602556F3701A80105 = {
+			fileRef = F5ABE64202556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE65702556F3701A80105 = {
+			fileRef = F5ABE64302556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE65802556F3701A80105 = {
+			fileRef = F5ABE64402556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE65902556F3701A80105 = {
+			fileRef = F5ABE64502556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE65A02556F3701A80105 = {
+			fileRef = F5ABE64602556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE65B02556F3701A80105 = {
+			fileRef = F5ABE64702556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE65C02556F3701A80105 = {
+			fileRef = F5ABE64802556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE65D02556F3701A80105 = {
+			fileRef = F5ABE64902556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE65E02556F3701A80105 = {
+			fileRef = F5ABE64A02556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE65F02556F3701A80105 = {
+			fileRef = F5ABE64B02556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE66002556F3701A80105 = {
+			fileRef = F5ABE64C02556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE66102556F3701A80105 = {
+			fileRef = F5ABE64D02556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE66202556F3701A80105 = {
+			fileRef = F5ABE64E02556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE66302556F3701A80105 = {
+			fileRef = F5ABE64F02556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE66402556F3701A80105 = {
+			fileRef = F5ABE65002556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE66502556F3701A80105 = {
+			fileRef = F5ABE65102556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE66602556F3701A80105 = {
+			fileRef = F5ABE65202556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE66702556F3701A80105 = {
+			fileRef = F5ABE65302556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE66802556F3701A80105 = {
+			fileRef = F5ABE65402556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE66902556F5F01A80105 = {
+			isa = PBXFileReference;
+			name = dll_utils_posix.cpp;
+			path = ../../Source/Utilities/posix/dll_utils_posix.cpp;
+			refType = 2;
+		};
+		F5ABE66A02556F5F01A80105 = {
+			isa = PBXFileReference;
+			name = find_files_posix.cpp;
+			path = ../../Source/Utilities/posix/find_files_posix.cpp;
+			refType = 2;
+		};
+		F5ABE66B02556F5F01A80105 = {
+			fileRef = F5ABE66902556F5F01A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE66C02556F5F01A80105 = {
+			fileRef = F5ABE66A02556F5F01A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE66D02556F8801A80105 = {
+			isa = PBXFileReference;
+			name = ByteSwapping.cpp;
+			path = ../../Source/Utilities/ByteSwapping.cpp;
+			refType = 2;
+		};
+		F5ABE66E02556F8801A80105 = {
+			isa = PBXFileReference;
+			name = DebugPrint.cpp;
+			path = ../../Source/Utilities/DebugPrint.cpp;
+			refType = 2;
+		};
+		F5ABE66F02556F8801A80105 = {
+			isa = PBXFileReference;
+			name = ERObject.cpp;
+			path = ../../Source/Utilities/ERObject.cpp;
+			refType = 2;
+		};
+		F5ABE67002556F8801A80105 = {
+			isa = PBXFileReference;
+			name = machine_lock.cpp;
+			path = ../../Source/Utilities/machine_lock.cpp;
+			refType = 2;
+		};
+		F5ABE67102556F8801A80105 = {
+			isa = PBXFileReference;
+			name = OPUtils.cpp;
+			path = ../../Source/Utilities/OPUtils.cpp;
+			refType = 2;
+		};
+		F5ABE67202556F8801A80105 = {
+			isa = PBXFileReference;
+			name = String_Utils.cpp;
+			path = ../../Source/Utilities/String_Utils.cpp;
+			refType = 2;
+		};
+		F5ABE67302556F8801A80105 = {
+			isa = PBXFileReference;
+			name = TPointerArray.cpp;
+			path = ../../Source/Utilities/TPointerArray.cpp;
+			refType = 2;
+		};
+		F5ABE67402556F8801A80105 = {
+			fileRef = F5ABE66D02556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE67502556F8801A80105 = {
+			fileRef = F5ABE66E02556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE67602556F8801A80105 = {
+			fileRef = F5ABE66F02556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE67702556F8801A80105 = {
+			fileRef = F5ABE67002556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE67802556F8801A80105 = {
+			fileRef = F5ABE67102556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE67902556F8801A80105 = {
+			fileRef = F5ABE67202556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5ABE67A02556F8801A80105 = {
+			fileRef = F5ABE67302556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5CE6DF9025AF5E601A80105 = {
+			children = (
+				F5CE6E01025AF68701A80105,
+			);
+			isa = PBXGroup;
+			name = NetSprocketTest;
+			refType = 4;
+		};
+		F5CE6DFA025AF5E601A80105 = {
+			isa = PBXApplicationReference;
+			path = NetSprocketTest.app;
+			refType = 3;
+		};
+		F5CE6DFB025AF5E601A80105 = {
+			buildPhases = (
+				F5CE6DFC025AF5E601A80105,
+				F5CE6DFD025AF5E601A80105,
+				F5CE6DFE025AF5E601A80105,
+				F5CE6DFF025AF5E601A80105,
+				F5CE6E00025AF5E601A80105,
+				F5CE6E04025AF68701A80105,
+			);
+			buildSettings = {
+				HEADER_SEARCH_PATHS = "../../Source/Utilities ../../Source/Demos/NSpTestApp ../../Interfaces";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PREFIX_HEADER = ../../Source/Utilities/Macintosh/prefixMacCarbon.h;
+				PRODUCT_NAME = NetSprocketTest;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wno-four-char-constants -Wno-unknown-pragmas";
+				WRAPPER_EXTENSION = app;
+			};
+			dependencies = (
+			);
+			isa = PBXApplicationTarget;
+			name = NetSprocketTest;
+			productInstallPath = "$(USER_APPS_DIR)";
+			productName = NetSprocketTest;
+			productReference = F5CE6DFA025AF5E601A80105;
+			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>NSpTest</string>
+	<key>CFBundleGetInfoString</key>
+	<string>© 1999-2002 Apple Computer, Inc.</string>
+	<key>CFBundleIconFile</key>
+	<string></string>
+	<key>CFBundleIdentifier</key>
+	<string></string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>OpenPlay NSp Test Bed</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>v2.2</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>2.2</string>
+</dict>
+</plist>
+";
+			shouldUseHeadermap = 0;
+		};
+		F5CE6DFC025AF5E601A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXHeadersBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5CE6DFD025AF5E601A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXResourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5CE6DFE025AF5E601A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+				F5CE6E02025AF68701A80105,
+				F5A736FB0265070301A80105,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5CE6DFF025AF5E601A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+				F5CE6E03025AF68701A80105,
+				F5CE6E07025AF7AF01A80105,
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5CE6E00025AF5E601A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXRezBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5CE6E01025AF68701A80105 = {
+			isa = PBXFileReference;
+			name = NSpTestApp.cpp;
+			path = ../../Source/Demos/NSpTestApp/NSpTestApp.cpp;
+			refType = 2;
+		};
+		F5CE6E02025AF68701A80105 = {
+			fileRef = F5CE6E01025AF68701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5CE6E03025AF68701A80105 = {
+			fileRef = 034768DEFF38A45A11DB9C8B;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5CE6E04025AF68701A80105 = {
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F5CE6E05025AF68701A80105,
+			);
+			isa = PBXCopyFilesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5CE6E05025AF68701A80105 = {
+			fileRef = 034768DEFF38A45A11DB9C8B;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5CE6E07025AF7AF01A80105 = {
+			fileRef = F5FE302102558CD301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5CE6E08025AF80301A80105 = {
+			isa = PBXTargetDependency;
+			target = F5CE6DFB025AF5E601A80105;
+		};
+		F5CE6E09025AF81F01A80105 = {
+			children = (
+				F5CE6E11025AF8AC01A80105,
+			);
+			isa = PBXGroup;
+			name = OPEnumTest;
+			refType = 4;
+		};
+		F5CE6E0A025AF81F01A80105 = {
+			isa = PBXApplicationReference;
+			path = OPEnumTest.app;
+			refType = 3;
+		};
+		F5CE6E0B025AF81F01A80105 = {
+			buildPhases = (
+				F5CE6E0C025AF81F01A80105,
+				F5CE6E0D025AF81F01A80105,
+				F5CE6E0E025AF81F01A80105,
+				F5CE6E0F025AF81F01A80105,
+				F5CE6E10025AF81F01A80105,
+				F5CE6E13025AF8AC01A80105,
+			);
+			buildSettings = {
+				HEADER_SEARCH_PATHS = "../../Source/Utilities ../../Interfaces";
+				OTHER_CFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				PRODUCT_NAME = OPEnumTest;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wno-four-char-constants -Wno-unknown-pragmas";
+				WRAPPER_EXTENSION = app;
+			};
+			dependencies = (
+			);
+			isa = PBXApplicationTarget;
+			name = OPEnumTest;
+			productInstallPath = "$(USER_APPS_DIR)";
+			productName = OPEnumTest;
+			productReference = F5CE6E0A025AF81F01A80105;
+			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>OPEnumTest</string>
+	<key>CFBundleGetInfoString</key>
+	<string>© 1999-2002 Apple Computer, Inc.</string>
+	<key>CFBundleIconFile</key>
+	<string></string>
+	<key>CFBundleIdentifier</key>
+	<string></string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>OpenPlay Enum Test</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>v2.2</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>2.2</string>
+</dict>
+</plist>
+";
+			shouldUseHeadermap = 0;
+		};
+		F5CE6E0C025AF81F01A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXHeadersBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5CE6E0D025AF81F01A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXResourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5CE6E0E025AF81F01A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+				F5CE6E12025AF8AC01A80105,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5CE6E0F025AF81F01A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+				F5CE6E17025AF90401A80105,
+				F5CE6E16025AF8E301A80105,
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5CE6E10025AF81F01A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXRezBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5CE6E11025AF8AC01A80105 = {
+			isa = PBXFileReference;
+			name = OPEnumTest.cpp;
+			path = ../../Source/Demos/OPEnumTest/OPEnumTest.cpp;
+			refType = 2;
+		};
+		F5CE6E12025AF8AC01A80105 = {
+			fileRef = F5CE6E11025AF8AC01A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5CE6E13025AF8AC01A80105 = {
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F5CE6E14025AF8AC01A80105,
+			);
+			isa = PBXCopyFilesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5CE6E14025AF8AC01A80105 = {
+			fileRef = 034768DEFF38A45A11DB9C8B;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5CE6E16025AF8E301A80105 = {
+			fileRef = F5FE302102558CD301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5CE6E17025AF90401A80105 = {
+			fileRef = 034768DEFF38A45A11DB9C8B;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5CE6E18025AFA7C01A80105 = {
+			isa = PBXTargetDependency;
+			target = F5CE6E0B025AF81F01A80105;
+		};
+		F5CE6E19025AFB1901A80105 = {
+			children = (
+				F5CE6E2D025AFB7901A80105,
+				F5CE6E2E025AFB7901A80105,
+			);
+			isa = PBXGroup;
+			name = NetSprocketTest2;
+			refType = 4;
+		};
+		F5CE6E1A025AFB1901A80105 = {
+			isa = PBXApplicationReference;
+			path = NetSprocketTest2.app;
+			refType = 3;
+		};
+		F5CE6E1B025AFB1901A80105 = {
+			buildPhases = (
+				F5CE6E1C025AFB1901A80105,
+				F5CE6E1D025AFB1901A80105,
+				F5CE6E1E025AFB1901A80105,
+				F5CE6E1F025AFB1901A80105,
+				F5CE6E20025AFB1901A80105,
+				F5CE6E33025AFBF001A80105,
+			);
+			buildSettings = {
+				HEADER_SEARCH_PATHS = "../../Source/Utilities ../../Source/Demos/NSpTest2 ../../Interfaces";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				PRODUCT_NAME = NetSprocketTest2;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wno-four-char-constants -Wno-unknown-pragmas";
+				WRAPPER_EXTENSION = app;
+			};
+			dependencies = (
+			);
+			isa = PBXApplicationTarget;
+			name = NetSprocketTest2;
+			productInstallPath = "$(USER_APPS_DIR)";
+			productName = NetSprocketTest2;
+			productReference = F5CE6E1A025AFB1901A80105;
+			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>NSpTest2</string>
+	<key>CFBundleGetInfoString</key>
+	<string>© 1999-2002 Apple Computer, Inc.</string>
+	<key>CFBundleIconFile</key>
+	<string></string>
+	<key>CFBundleIdentifier</key>
+	<string></string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>OpenPlay NSpTest</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>v2.2</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>2.2</string>
+</dict>
+</plist>
+";
+			shouldUseHeadermap = 0;
+		};
+		F5CE6E1C025AFB1901A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXHeadersBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5CE6E1D025AFB1901A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXResourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5CE6E1E025AFB1901A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+				F5CE6E27025AFB5301A80105,
+				F5CE6E28025AFB5301A80105,
+				F5CE6E29025AFB5301A80105,
+				F5CE6E2A025AFB5301A80105,
+				F5CE6E2B025AFB5301A80105,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5CE6E1F025AFB1901A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+				F5CE6E30025AFBF001A80105,
+				F5CE6E31025AFBF001A80105,
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5CE6E20025AFB1901A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+				F536EB9E03232CB401A8008C,
+			);
+			isa = PBXRezBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5CE6E21025AFB5301A80105 = {
+			isa = PBXFileReference;
+			name = aevt.c;
+			path = ../../../OpenPlay/Source/Demos/NSpTest2/aevt.c;
+			refType = 2;
+		};
+		F5CE6E22025AFB5301A80105 = {
+			isa = PBXFileReference;
+			name = events.c;
+			path = ../../../OpenPlay/Source/Demos/NSpTest2/events.c;
+			refType = 2;
+		};
+		F5CE6E23025AFB5301A80105 = {
+			isa = PBXFileReference;
+			name = init.c;
+			path = ../../../OpenPlay/Source/Demos/NSpTest2/init.c;
+			refType = 2;
+		};
+		F5CE6E24025AFB5301A80105 = {
+			isa = PBXFileReference;
+			name = main.c;
+			path = ../../../OpenPlay/Source/Demos/NSpTest2/main.c;
+			refType = 2;
+		};
+		F5CE6E25025AFB5301A80105 = {
+			isa = PBXFileReference;
+			name = NetStuff.cp;
+			path = ../../../OpenPlay/Source/Demos/NSpTest2/NetStuff.cp;
+			refType = 2;
+		};
+		F5CE6E27025AFB5301A80105 = {
+			fileRef = F5CE6E21025AFB5301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5CE6E28025AFB5301A80105 = {
+			fileRef = F5CE6E22025AFB5301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5CE6E29025AFB5301A80105 = {
+			fileRef = F5CE6E23025AFB5301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5CE6E2A025AFB5301A80105 = {
+			fileRef = F5CE6E24025AFB5301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5CE6E2B025AFB5301A80105 = {
+			fileRef = F5CE6E25025AFB5301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5CE6E2D025AFB7901A80105 = {
+			children = (
+				F5CE6E21025AFB5301A80105,
+				F5CE6E22025AFB5301A80105,
+				F5CE6E23025AFB5301A80105,
+				F5CE6E24025AFB5301A80105,
+				F5CE6E25025AFB5301A80105,
+			);
+			isa = PBXGroup;
+			name = Source;
+			refType = 4;
+		};
+		F5CE6E2E025AFB7901A80105 = {
+			children = (
+				F536EB9D03232CB401A8008C,
+			);
+			isa = PBXGroup;
+			name = Resources;
+			path = "";
+			refType = 4;
+		};
+		F5CE6E30025AFBF001A80105 = {
+			fileRef = F5FE302102558CD301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5CE6E31025AFBF001A80105 = {
+			fileRef = 034768DEFF38A45A11DB9C8B;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5CE6E33025AFBF001A80105 = {
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F5CE6E34025AFBF001A80105,
+			);
+			isa = PBXCopyFilesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5CE6E34025AFBF001A80105 = {
+			fileRef = 034768DEFF38A45A11DB9C8B;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5CE6E35025AFBF001A80105 = {
+			isa = PBXTargetDependency;
+			target = F5CE6E1B025AFB1901A80105;
+		};
+		F5FE3011025586E501A80105 = {
+			isa = PBXApplicationReference;
+			path = OpenPlayTest.app;
+			refType = 3;
+		};
+		F5FE3012025586E501A80105 = {
+			buildPhases = (
+				F5FE3013025586E501A80105,
+				F5FE3014025586E501A80105,
+				F5FE3015025586E501A80105,
+				F5FE3016025586E501A80105,
+				F5FE3017025586E501A80105,
+				F5530D620256BB5C01A80105,
+			);
+			buildSettings = {
+				HEADER_SEARCH_PATHS = "../../Source/Utilities ../../Source/Demos/OpenPlayTest/Common ../../Source/Demos/OpenPlayTest/Macintosh ../../Interfaces";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				PRODUCT_NAME = OpenPlayTest;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wno-four-char-constants -Wno-unknown-pragmas";
+				WRAPPER_EXTENSION = app;
+			};
+			dependencies = (
+			);
+			isa = PBXApplicationTarget;
+			name = OpenPlayTest;
+			productInstallPath = "$(USER_APPS_DIR)";
+			productName = OpenPlayTest;
+			productReference = F5FE3011025586E501A80105;
+			productSettingsXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">
+<plist version=\"1.0\">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>English</string>
+	<key>CFBundleExecutable</key>
+	<string>OPTest</string>
+	<key>CFBundleGetInfoString</key>
+	<string>© 1999-2002 Apple Computer, Inc.</string>
+	<key>CFBundleIconFile</key>
+	<string></string>
+	<key>CFBundleIdentifier</key>
+	<string></string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>OpenPlay Protocol API Test bed</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>v2.2</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>2.2</string>
+</dict>
+</plist>
+";
+			shouldUseHeadermap = 0;
+		};
+		F5FE3013025586E501A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXHeadersBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5FE3014025586E501A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+				F5530D5D0256B46901A80105,
+			);
+			isa = PBXResourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5FE3015025586E501A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+				F5FE302D02558DCB01A80105,
+				F5FE302E02558DCB01A80105,
+				F5FE302F02558E2201A80105,
+				F5FE303002558E2201A80105,
+				F5FE303102558E2201A80105,
+				F5FE303202558E2201A80105,
+				F5FE303302558E2201A80105,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5FE3016025586E501A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+				F5FE303402558E2201A80105,
+				F5FE303502558E2201A80105,
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5FE3017025586E501A80105 = {
+			buildActionMask = 2147483647;
+			files = (
+				F5530D600256B56901A80105,
+			);
+			isa = PBXRezBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F5FE301902558C6F01A80105 = {
+			children = (
+				F5FE302302558CE701A80105,
+				F5FE301A02558C6F01A80105,
+			);
+			isa = PBXGroup;
+			name = OpenPlayTest;
+			path = "";
+			refType = 4;
+		};
+		F5FE301A02558C6F01A80105 = {
+			children = (
+				F5FE301B02558C6F01A80105,
+				F5FE301C02558C6F01A80105,
+				F5FE302602558D7901A80105,
+				F5FE302702558D7901A80105,
+				F5FE302802558D7901A80105,
+			);
+			isa = PBXGroup;
+			name = Source;
+			refType = 4;
+		};
+		F5FE301B02558C6F01A80105 = {
+			isa = PBXFileReference;
+			name = dialog_utils.c;
+			path = ../../Source/Demos/OpenPlayTest/Common/dialog_utils.c;
+			refType = 2;
+		};
+		F5FE301C02558C6F01A80105 = {
+			isa = PBXFileReference;
+			name = testbed.c;
+			path = ../../Source/Demos/OpenPlayTest/Common/testbed.c;
+			refType = 2;
+		};
+		F5FE302102558CD301A80105 = {
+			isa = PBXFrameworkReference;
+			name = Carbon.framework;
+			path = /System/Library/Frameworks/Carbon.framework;
+			refType = 0;
+		};
+		F5FE302302558CE701A80105 = {
+			children = (
+				F5530D5F0256B56901A80105,
+				F5530D5B0256B46901A80105,
+			);
+			isa = PBXGroup;
+			name = Resources;
+			path = "";
+			refType = 4;
+		};
+		F5FE302602558D7901A80105 = {
+			isa = PBXFileReference;
+			name = dialog_lists.c;
+			path = ../../Source/Demos/OpenPlayTest/Macintosh/dialog_lists.c;
+			refType = 2;
+		};
+		F5FE302702558D7901A80105 = {
+			isa = PBXFileReference;
+			name = log.c;
+			path = ../../Source/Demos/OpenPlayTest/Macintosh/log.c;
+			refType = 2;
+		};
+		F5FE302802558D7901A80105 = {
+			isa = PBXFileReference;
+			name = shell.c;
+			path = ../../Source/Demos/OpenPlayTest/Macintosh/shell.c;
+			refType = 2;
+		};
+		F5FE302C02558DCB01A80105 = {
+			children = (
+				F5ABE67002556F8801A80105,
+				F5ABE66E02556F8801A80105,
+				F5ABE67102556F8801A80105,
+				F5ABE67202556F8801A80105,
+			);
+			isa = PBXGroup;
+			name = "Utility Source";
+			refType = 4;
+		};
+		F5FE302D02558DCB01A80105 = {
+			fileRef = F5ABE67102556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5FE302E02558DCB01A80105 = {
+			fileRef = F5ABE67202556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5FE302F02558E2201A80105 = {
+			fileRef = F5FE301B02558C6F01A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5FE303002558E2201A80105 = {
+			fileRef = F5FE301C02558C6F01A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5FE303102558E2201A80105 = {
+			fileRef = F5FE302602558D7901A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5FE303202558E2201A80105 = {
+			fileRef = F5FE302702558D7901A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5FE303302558E2201A80105 = {
+			fileRef = F5FE302802558D7901A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5FE303402558E2201A80105 = {
+			fileRef = 034768DEFF38A45A11DB9C8B;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		F5FE303502558E2201A80105 = {
+			fileRef = F5FE302102558CD301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+	};
+	rootObject = 0867D690FE84028FC02AAC07;
+}

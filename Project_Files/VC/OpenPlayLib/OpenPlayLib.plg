@@ -1,0 +1,140 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: OpenPlayLib - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x409 /fo"Debug/binaries.res" /i "\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\OpenPlayLib\Windows" /d "_DEBUG" "\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\OpenPlayLib\Windows\binaries.rc"" 
+Creating temporary file "C:\DOCUME~1\ERICFR~1\LOCALS~1\Temp\RSP28.tmp" with contents
+[
+/nologo /MTd /W3 /Gm /GX /ZI /Od /I "../../../Interfaces/" /I "../../../Source/NetSprocketLib" /I "../../../Source/NetSprocketLib/Common/" /I "../../../Source/NetSprocketLib/Windows/../../../Source/OpenPlayLib" /I "../../../Source/OpenPlayLib/Common/" /I "../../../Source/OpenPlayLib/Windows/" /I "../../../Source/Utilities/" /I "../../../Source/Utilities/Windows/" /I "../../../Source/OPNetModules/" /I "../../../Source/OPNetModules/Common/" /I "../../../Source/OPNetModules/Windows/" /D "WIN32" /D "OPENPLAY_DLLEXPORT" /D "DEBUG" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /D "_USRDLL" /D "OPENPLAYLIB_EXPORTS" /Fp"Debug/OpenPlayLib.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\Utilities\ByteSwapping.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\NetSprocketLib\CATEndpoint_OP.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\NetSprocketLib\CEndpoint_OP.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\NetSprocketLib\CIPEndpoint_OP.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\Utilities\Windows\dll_utils_windows.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\NetSprocketLib\EntryPoint.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\Utilities\ERObject.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\Utilities\Windows\find_files_win32.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\Utilities\machine_lock.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\OpenPlayLib\Common\module_management.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\NetSprocketLib\NetSprocketLib.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\NetSprocketLib\NSp_InterruptSafeList.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\NetSprocketLib\NSpGame.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\NetSprocketLib\NSpGameMaster.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\NetSprocketLib\NSpGamePrivate.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\NetSprocketLib\NSpGameSlave.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\NetSprocketLib\NSpLists_OP.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\NetSprocketLib\NSpProtocolRef.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\OpenPlayLib\Common\op_endpoint.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\OpenPlayLib\Common\op_hi.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\OpenPlayLib\Common\op_module_mgmt.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\OpenPlayLib\Common\op_packet.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\OpenPlayLib\Common\openplay.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\OpenPlayLib\Windows\openplay_win32.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\Utilities\OPUtils.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\Utilities\String_Utils.cpp"
+"\\froemlaptop\ecfroeml\Documents\Programming\OpenPlay\OpenPlay\Source\Utilities\TPointerArray.cpp"
+]
+Creating command line "cl.exe @C:\DOCUME~1\ERICFR~1\LOCALS~1\Temp\RSP28.tmp" 
+Creating temporary file "C:\DOCUME~1\ERICFR~1\LOCALS~1\Temp\RSP29.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib WS2_32.LIB /nologo /dll /incremental:yes /pdb:"Debug/OpenPlay.pdb" /debug /machine:I386 /out:"../../../Targets/VC/Windows/Debug/OpenPlay.dll" /implib:"Debug/OpenPlay.lib" /pdbtype:sept 
+.\Debug\ByteSwapping.obj
+.\Debug\CATEndpoint_OP.obj
+.\Debug\CEndpoint_OP.obj
+.\Debug\CIPEndpoint_OP.obj
+.\Debug\dll_utils_windows.obj
+.\Debug\EntryPoint.obj
+.\Debug\ERObject.obj
+.\Debug\find_files_win32.obj
+.\Debug\machine_lock.obj
+.\Debug\module_management.obj
+.\Debug\NetSprocketLib.obj
+.\Debug\NSp_InterruptSafeList.obj
+.\Debug\NSpGame.obj
+.\Debug\NSpGameMaster.obj
+.\Debug\NSpGamePrivate.obj
+.\Debug\NSpGameSlave.obj
+.\Debug\NSpLists_OP.obj
+.\Debug\NSpProtocolRef.obj
+.\Debug\op_endpoint.obj
+.\Debug\op_hi.obj
+.\Debug\op_module_mgmt.obj
+.\Debug\op_packet.obj
+.\Debug\openplay.obj
+.\Debug\openplay_win32.obj
+.\Debug\OPUtils.obj
+.\Debug\String_Utils.obj
+.\Debug\TPointerArray.obj
+.\Debug\binaries.res
+]
+Creating command line "link.exe @C:\DOCUME~1\ERICFR~1\LOCALS~1\Temp\RSP29.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+ByteSwapping.cpp
+CATEndpoint_OP.cpp
+CEndpoint_OP.cpp
+CIPEndpoint_OP.cpp
+dll_utils_windows.cpp
+EntryPoint.cpp
+ERObject.cpp
+find_files_win32.cpp
+machine_lock.cpp
+module_management.cpp
+NetSprocketLib.cpp
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\netsprocketlib\netsprocketlib.cpp(1094) : warning C4102: 'error' : unreferenced label
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\netsprocketlib\netsprocketlib.cpp(1217) : warning C4102: 'error' : unreferenced label
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\netsprocketlib\netsprocketlib.cpp(1250) : warning C4102: 'error' : unreferenced label
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\netsprocketlib\netsprocketlib.cpp(1293) : warning C4102: 'error' : unreferenced label
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\netsprocketlib\netsprocketlib.cpp(1320) : warning C4102: 'error' : unreferenced label
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\netsprocketlib\netsprocketlib.cpp(1346) : warning C4102: 'error' : unreferenced label
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\netsprocketlib\netsprocketlib.cpp(1373) : warning C4102: 'error' : unreferenced label
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\netsprocketlib\netsprocketlib.cpp(1487) : warning C4102: 'error' : unreferenced label
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\netsprocketlib\netsprocketlib.cpp(1515) : warning C4102: 'error' : unreferenced label
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\netsprocketlib\netsprocketlib.cpp(1543) : warning C4102: 'error' : unreferenced label
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\netsprocketlib\netsprocketlib.cpp(1571) : warning C4102: 'error' : unreferenced label
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\netsprocketlib\netsprocketlib.cpp(1599) : warning C4102: 'error' : unreferenced label
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\netsprocketlib\netsprocketlib.cpp(1626) : warning C4102: 'error' : unreferenced label
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\netsprocketlib\netsprocketlib.cpp(1652) : warning C4102: 'error' : unreferenced label
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\netsprocketlib\netsprocketlib.cpp(1679) : warning C4102: 'error' : unreferenced label
+NSp_InterruptSafeList.cpp
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\netsprocketlib\nsp_interruptsafelist.cpp(77) : warning C4786: 'std::reverse_bidirectional_iterator<std::list<NSp_InterruptSafeListIterator *,std::allocator<NSp_InterruptSafeListIterator *> >::const_iterator,NSp_InterruptSafeListIterator *,NSp_InterruptSafeListIterator * const &,NSp_InterruptSafeListIterator * const *,int>' : identifier was truncated to '255' characters in the debug information
+NSpGame.cpp
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\netsprocketlib\nspgame.cpp(684) : warning C4102: 'error' : unreferenced label
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\netsprocketlib\nspgame.cpp(1399) : warning C4102: 'error' : unreferenced label
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\netsprocketlib\nspgame.cpp(1464) : warning C4102: 'error' : unreferenced label
+NSpGameMaster.cpp
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\netsprocketlib\nspgamemaster.cpp(816) : warning C4102: 'error' : unreferenced label
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\netsprocketlib\nspgamemaster.cpp(957) : warning C4102: 'error' : unreferenced label
+NSpGamePrivate.cpp
+NSpGameSlave.cpp
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\netsprocketlib\nspgameslave.cpp(548) : warning C4102: 'error' : unreferenced label
+NSpLists_OP.cpp
+NSpProtocolRef.cpp
+op_endpoint.cpp
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\openplaylib\common\op_endpoint.cpp(654) : warning C4068: unknown pragma
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\openplaylib\common\op_endpoint.cpp(683) : warning C4068: unknown pragma
+op_hi.cpp
+op_module_mgmt.cpp
+op_packet.cpp
+openplay.cpp
+openplay_win32.cpp
+OPUtils.cpp
+String_Utils.cpp
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\utilities\string_utils.cpp(46) : warning C4244: '=' : conversion from 'long' to 'unsigned char', possible loss of data
+\\froemlaptop\ecfroeml\documents\programming\openplay\openplay\source\utilities\string_utils.cpp(63) : warning C4244: '=' : conversion from 'long' to 'unsigned char', possible loss of data
+TPointerArray.cpp
+Linking...
+   Creating library Debug/OpenPlay.lib and object Debug/OpenPlay.exp
+
+
+
+<h3>Results</h3>
+OpenPlay.dll - 0 error(s), 26 warning(s)
+</pre>
+</body>
+</html>

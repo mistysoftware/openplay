@@ -1,0 +1,758 @@
+{\rtf1\mac\ansicpg10000\cocoartf100
+{\fonttbl\f0\froman\fcharset77 Times-Bold;\f1\froman\fcharset77 Times-Roman;\f2\ftech\fcharset2 Symbol;
+\f3\fmodern\fcharset77 Courier;}
+{\colortbl;\red255\green255\blue255;}
+\vieww14700\viewh8320\viewkind1\viewscale128
+\pard\sa100\qc
+
+\f0\b\fs48 \cf0 Writing an OpenPlay Net Module\
+\pard\sa240\ql\qnatural
+
+\f1\b0\fs20 \cf0 \U8232 \uc0 \u8232 
+\fs15 Copyright \'a91996-99 Apple Computer, Inc.\U8232 \uc0 \u8232 All rights reserved
+\fs20 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 Writing an OpenPlay Net Module\
+\pard\sa100\ql\qnatural
+
+\f1\b0\fs20 \cf0 OpenPlay uses the Net Module Manager and Net Modules to provide various transports for OpenPlay clients. Any game that is written to the OpenPlay interface can work with any Net Module written to this spec. In order to be playable on any platform, a Net Module should be written for all platforms that OpenPlay supports, if at all possible. \
+Net Modules writers need to implement five specific areas:\
+\pard\ql\qnatural
+
+\f2 \cf0 \'b7	
+\f1 Configuration functions\
+
+\f2 \'b7	
+\f1 Data transfer functions\
+
+\f2 \'b7	
+\f1 Enumeration functions\
+
+\f2 \'b7	
+\f1 Human interface\
+
+\f2 \'b7	
+\f1 Miscellaneous functions\
+\pard\sa100\ql\qnatural
+\cf0 This document describes all of the functions that must minimally be implemented by a Net Module. This constitutes the public interface to your module as defined in NetModule.h. \
+You should be able to generate a debugging and non-debugging version of your net module with a compiler switch. Debugging versions should do complete parameter checking. Non-debugging versions should do no parameter checking. \
+All modules must be able to run (send/receive data) asynchronously, or at least simulate asynchronous operation by making the appropriate callbacks to the client. \'d2out\'d3 parameters must be valid when no error is returned (from functions that return errors). When one of your functions returns an error, any \'d2out\'d3 parameters are considered undefined. \
+\pard\ql\qnatural
+\cf0 \
+\
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 Endpoint \'d2modes\'d3\
+\pard\sa100\ql\qnatural
+
+\f1\b0\fs20 \cf0 Endpoints can operate in three different modes: unreliable, reliable, and \'d2\'86ber\'d3 mode. These modes correspond to datagram, stream, and both. The client specifies what mode it wants an endpoint to be in by setting a value in the configuration string, or by specifying the mode to NMCreateConfig. \
+When an endpoint is not in \'86ber mode, it must not add any additional data to the payload section of the underlying protocol. It must be completely compatible with an endpoint of the same protocol that is not being controlled from a Net Module. A number of functions behave differently depending on whether the endpoint is in \'86ber mode or not. For instance, NMSend() returns an error if the endpoint is in unreliable mode. \
+When an endpoint is in \'86ber mode, it can attach any extra data necessary. For example, the IP module sends the port of the datagram endpoint down the stream endpoint in order to tell the client where to send datagrams. \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs27 \cf0 Configuration\
+\pard\sa100\ql\qnatural
+
+\f1\b0\fs20 \cf0 All endpoint configuration is handled through configurators, opaque structures that tell a particular endpoint all it needs to know in order to bind the underlying protocol\'d5s endpoint(s). Configurators may be collapsed into configuration strings, which are ASCII text descriptions of what is in the configurator structure. These strings may be modified or even created by the client application, or they may be created as a result of enumeration or configuration through your module\'d5s UI functions. \
+The following fields are common to all configurators, and your module must correctly parse the following fields in a config string: \
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\fs15 \cf0 \
+     const char *kConfigModuleType    = "type";     // UInt32\
+     const char *kConfigModuleVersion = "version";  // UInt32\
+     const char *kConfigGameID        = "gameID";   // UInt32\
+     const char *kConfigGameName      = "gameName"; // C string\
+     const char *kConfigEndpointMode  = "mode";     // UInt32\
+     const char *kConfigCustomData    = "enumData"; // Binary Data\
+\pard\sa100\ql\qnatural
+
+\f1\fs20 \cf0 The utility functions get_token and put_token will help you parse and create config strings. \
+The endpoint \'d2mode\'d3 is 1, 2, or 3. 1 is unreliable. 2 is reliable. 3 is \'d2\'86ber mode.\'d3 \
+\pard\sa240\ql\qnatural
+\cf0 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMCreateConfig\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+NMErr EXPORTED\
+NMCreateConfig( char        *inConfigStr, \
+                UInt32      inGameID, \
+                const char  *inGameName,\
+                const void  *inEnumData, \
+                UInt32      inDataLen, \
+                NMConfigRef *outConfig\
+              );\
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 inConfigStr
+\f1\b0  - a string that contains information on how to configure an endpoint. See the section on config strings for more information.\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inGameID
+\f1\b0  - a unique identifier from the application.\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inGameName
+\f1\b0  - C string to be used for advertising a passive endpoint on the net.\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inEnumData
+\f1\b0  - arbitrary data, up to 256 bytes, that you include in enumeration responses.\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inDataLen
+\f1\b0  - length of the enum data. If 0, inEnumData is not valid.\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b outConfig
+\f1\b0  - filled in with an opaque reference you designate. This ref is used as an input parameter to other functions, such as NMOpen.\
+\pard\sa100\ql\qnatural
+\cf0 Creates a new NMConfigRef, or configurator. A configurator is an opaque structure that your modules uses to store configuration information (such as the port and address of a remote client, or the port on which to listen). This function is the only way a client can get a config ref from your module. \
+A config ref is private to your module, but it must contain enough information for you to create a config string, given a config ref and no other state information. Also, you must publish the domain and range of your module\'d5s config string fields so that they may be created dynamically. \
+If the inConfigStr is null, you should create a default configurator. You may use the information provided in the other parameters, such as the inGameID or the inGameName to create your default configurator. For instance, you can use the inGameID to select a default port for a passive open. \
+In the case where the specified config string contains a value that is also set from a parameter to NMCreateConfig, you should use the parameter value if it is non-zero, and the config string\'d5s value otherwise. \
+Your module owns the memory associated with the returned config ref, though it is not your responsibility to release the memory when your module is unloaded. The client should call your NMDeleteConfig before your module is unloaded. \
+Return an error only if the outConfig parameter contains an invalid configurator on return. \
+\pard\sa240\ql\qnatural
+\cf0 Mac OS notes\U8232 \uc0 \u8232 \U8232 \u8232 Will be called at system-time only.\U8232 \u8232 \U8232 \u8232 Win95 notes\U8232 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMGetConfigLen\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+short EXPORTED\
+NMGetConfigLen( NMConfigRef inConfig );\
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 inConfig
+\f1\b0  - a config ref for your module.\
+\pard\sa100\ql\qnatural
+\cf0 Given a valid configurator for your module, return the number of bytes required to flatten the specified configurator into a \'d2C\'d3 string. If the specified config is invalid, return 0. \
+\pard\sa240\ql\qnatural
+\cf0 Mac OS notes\U8232 \uc0 \u8232 \U8232 \u8232 Will be called at system-time only.\U8232 \u8232 \U8232 \u8232 Win95 notes\U8232 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMGetConfig\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+NMErr EXPORTED\
+NMGetConfig( NMConfigRef inConfig, \
+             char        *outConfigStr, \
+             short       *ioConfigStrLen);\
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 inConfig
+\f1\b0  - a config ref for your module.\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b outConfigStr
+\f1\b0  - pointer to memory for the config string.\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b ioConfigStrLen
+\f1\b0  - on entry, size of memory allocation. On exit, length of config string.\
+\pard\sa100\ql\qnatural
+\cf0 Given a valid configurator for your module, flatten the configuration information into a \'d2C\'d3 string. The memory for the string is allocated by the client. On entry, ioConfigStrLen contains the number of bytes the client has allocated for the string. Returns the number of bytes actually used in this parameter. \
+If the allocated memory is not sufficiently large for the config string, return an error without writing anything into the string. \
+Use the utility functions get_token and put_token to create your string. \
+\pard\sa240\ql\qnatural
+\cf0 Mac OS notes\U8232 \uc0 \u8232 \U8232 \u8232 Will be called at system-time only.\U8232 \u8232 \U8232 \u8232 Win95 notes\U8232 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMDeleteConfig\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+NMErr EXPORTED\
+NMDeleteConfig( NMConfigRef inConfig );\
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 inConfig
+\f1\b0  - a config ref for your module.\
+\pard\sa100\ql\qnatural
+\cf0 Given a valid configurator for your module, free the memory associated with that configurator. \
+Returns an error if the configurator is invalid or there was some other kind of failure. \
+\pard\sa240\ql\qnatural
+\cf0 Mac OS notes\U8232 \uc0 \u8232 \U8232 \u8232 Will be called at system-time only.\U8232 \u8232 \U8232 \u8232 Win95 notes\U8232 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\qc
+
+\f0\b\fs48 \cf0 Data transfer\
+\pard\ql\qnatural
+
+\f1\b0\fs20 \cf0 \
+\pard\sa100\ql\qnatural
+\cf0 Your protocol module must provide (or simulate) reliable and unreliable transport. Endpoints can be opened as either passive or active. A passive endpoint is one that listens for connections. An active endpoint is one that makes a connection to a given address. Many protocol modules, such as the TCP/IP one, have a single endpoint that listens for connections, then hands them off to new endpoints once they come in. \
+\pard\sa240\ql\qnatural
+\cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMOpen\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+NMErr EXPORTED\
+NMOpen( NMConfigRef                inConfig, \
+        NMEndpointCallbackFunction *inCallback,\
+        void                       *inContext, \
+        NMEndpointRef              *outEndpoint, \
+        NMBoolean                  inActive\
+      );\
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 inConfig
+\f1\b0  - a config ref for your module.\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inCallback
+\f1\b0  - pointer to the client\'d5s callback function. This parameter must be non-nil.\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inContext
+\f1\b0  - a value that you pass back to the client when you make a callback.\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b outEndpoint
+\f1\b0  - the new endpoint your module creates\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inActive
+\f1\b0  - boolean specifying a passive or active endpoint\
+\pard\sa100\ql\qnatural
+\cf0 This function is synchronous. \
+Opens a new endpoint for the module. Since Net Module endpoints export functions for unreliable (datagram) and reliable (stream) service, you must make sure that you open the appropriate protocol endpoints in your module. For example, the AppleTalk module opens both a DDP and an ADSP endpoint and uses the appropriate one for the different send functions. \
+The inCallback parameter is not optional. It must contain a non-null value for the address of the callback function. Your module will call back this function to notify the client of various events, such as the arrival of new data. \
+The configurator passed should contain all the information you need to open an endpoint of either kind (since your module is usually the one that created the configurator in the first place!). \
+Your module must fill in the outEndpoint parameter with an opaque endpoint reference that is passed to your module as the first parameter to most of the data transfer routines. \
+Return an error (and clean up) if there is any problem opening the endpoint. \
+\pard\sa240\ql\qnatural
+\cf0 Mac OS notes\U8232 \uc0 \u8232 \U8232 \u8232 Will be called at system-time only.\U8232 \u8232 \U8232 \u8232 Win95 notes\U8232 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMClose\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+NMErr EXPORTED\
+NMClose( NMEndpointRef inEndpoint, \
+         NMBoolean     inOrderly);\
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 inEndpoint
+\f1\b0  - the endpoint to close\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inOrderly
+\f1\b0  - boolean specifying an orderly or disorderly disconnect\
+\pard\sa100\ql\qnatural
+\cf0 Closes your endpoint. You must close and clean up all memory and state associated with any underlying protocols you are using. Disconnect any streams. \
+inOrderly specifies whether the close should be orderly or not. Your module doesn\'d5t have to support both orderly and disorderly closes, but if your underlying protocol supports it, so should you. A disorderly close is the same as an abortive close. \
+This function must run asynchronously and make a callback with kNMCloseComplete when it has finished closing. Once close has been called, you should return an error for any calls NMSend. If your underlying protocol supports receiving data after a disconnect has been initiated, you should still call back the client with data. \
+Return an error if you could not begin closing the endpoint. Since this leaves the endpoint in an undefined state, and could lead to memory leaks, you should only return an error as a last resort. \
+\pard\sa240\ql\qnatural
+\cf0 Mac OS notes\U8232 \uc0 \u8232 \U8232 \u8232 Will be called at system-time only.\U8232 \u8232 \U8232 \u8232 Win95 notes\U8232 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMAcceptConnection\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+NMErr EXPORTED\
+NMAcceptConnection( NMEndpointRef              inEndpoint, \
+                    void                       *inCookie,\
+                    NMEndpointCallbackFunction *inCallback, \
+                    void                       *inContext);\
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 inEndpoint
+\f1\b0  - the passive endpoint that received the connection request\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inCookie
+\f1\b0  - the cookie that was passed to the client\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inCallback
+\f1\b0  - the callback to be associated with the new endpoint\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inContext
+\f1\b0  - the context to be associated with the new endpoint\
+\pard\sa100\ql\qnatural
+\cf0 Accepts a connection from a passive endpoint. The client should only call this function in response to a connection request callback from your module. When a passive protocol endpoint receives a connection request, you must relay that request to the client. The client will then call either this function or the next one to tell your module how to handle the connection. The connection request callback includes a cookie which the client passes back to you here in the inCookie parameter. This is your cookie that you passed to the client in the callback. \
+The inCallback and inContext parameters are passed to you to be associated with the new endpoint that your module will create for the newly accepted connection. Once you have created the new endpoint, you must make another callback to the client with the new endpoint. You must also make a callback to the passive endpoint to inform it that your module has finished handing off the new connection to the new endpoint. \
+If an error occurs, you should release the memory associated with your cookie before returning. Also, you must try to release any other state or memory that you have allocated on behalf of the new connection. Basically, you must return things to the way they were before the connection request came in. \
+\pard\sa240\ql\qnatural
+\cf0 Mac OS notes\U8232 \uc0 \u8232 \U8232 \u8232 Can be called at notifier (callback) time.\U8232 \u8232 \U8232 \u8232 Win95 notes\U8232 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMRejectConnection\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+NMErr EXPORTED\
+NMRejectConnection( NMEndpointRef inEndpoint, \
+                    void          *inCookie\
+                  );\
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 inEndpoint
+\f1\b0  the passive endpoint that received the connection request\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inCookie
+\f1\b0  the cookie that was passed to the client\
+\pard\sa100\ql\qnatural
+\cf0 Rejects an incoming connection request. The client may call this in response to a connection request event you have sent it. \
+Should a connection request be rejected by the client, you must clean up all state and memory associated with that connection request, and make the underlying protocol calls to reject the connection. \
+\pard\sa240\ql\qnatural
+\cf0 Mac OS notes\U8232 \uc0 \u8232 \U8232 \u8232 Can be called at notifier (callback) time.\U8232 \u8232 \U8232 \u8232 Win95 notes\U8232 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMSendDatagram\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+NMErr EXPORTED\
+NMSendDatagram( NMEndpointRef inEndpoint, \
+                UInt8         *inData, \
+                unsigned long inSize, \
+                NMFlags       inFlags\
+              );\
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 inEndpoint
+\f1\b0  - the endpoint on which to send the datagram\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inData
+\f1\b0  - address of the buffer holding the datagram data\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inSize
+\f1\b0  - the size, in bytes, of the datagram\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inFlags
+\f1\b0  - options for this send\
+\pard\sa100\ql\qnatural
+\cf0 Sends a unit of data no larger than your maximum datagram size. If the client tries to send more data than your datagram size, return an error. \
+Data sent with this function is delivered as best-effort. Though the underlying deliver is up to the module writer (and may be guaranteed), it is preferred to send the data through a non-stream endpoint in order to minimize delivery time. \
+inFlags specifies options for this send. The only valid option is kNMBlocking which will cause all of the data to be sent synchronously; the function will not return until it has sent all of the data. \
+\pard\sa240\ql\qnatural
+\cf0 Mac OS notes\U8232 \uc0 \u8232 \U8232 \u8232 Can be called at notifier (callback) time.\U8232 \u8232 \U8232 \u8232 Win95 notes\U8232 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMReceiveDatagram\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+NMErr EXPORTED\
+NMReceiveDatagram( NMEndpointRef inEndpoint, \
+                   UInt8         *ioData, \
+                   unsigned long *ioSize, \
+                   NMFlags       *outFlags);\U8232 \uc0 \u8232 \
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 inEndpoint
+\f1\b0  - the endpoint from which to receive a datagram\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b ioData
+\f1\b0  - the buffer to receive the data\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b ioSize
+\f1\b0  - the number of bytes requested/actually received\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b outFlags
+\f1\b0  - unused\
+\pard\sa100\ql\qnatural
+\cf0 Called in response to a kNMDatagramData event, this function receives datagram-based data. You must copy the data into the specified buffer, up to the specified amount. Set the ioSize field with the actual number of bytes read. \
+The client will make repeated calls to NMReceiveDatagram until there is no more data left to be read, at which point the module returns kNMNoDataErr. Note, this error should be returned only when there is no data left and the function is called. \
+Whenever the module copies any data into the client\'d5s buffer, kNMNoError should be returned. \
+If your module returns any error besides kNMNoDataErr, the client will not call NMReceiveDatagram until it has made another kNMDatagramData callback. the outFlags parameter is not currently used. \
+\pard\sa240\ql\qnatural
+\cf0 Mac OS notes\U8232 \uc0 \u8232 \U8232 \u8232 Can be called at notifier (callback) time.\U8232 \u8232 \U8232 \u8232 Win95 notes\U8232 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMSend\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+NMErr EXPORTED\
+NMSend( NMEndpointRef inEndpoint, \
+        void          *inData, \
+        unsigned long *ioSize,\
+        NMFlags       inFlags);\
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 inEndpoint
+\f1\b0  - the endpoint on which to send the data\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inData
+\f1\b0  - address of the buffer holding the data\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b ioSize
+\f1\b0  - size, in bytes, of the data buffer\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inFlags
+\f1\b0  - options for this transmission\
+\pard\sa100\ql\qnatural
+\cf0 Sends an arbitrary amount of data. Send is guaranteed delivery. The module should handle any flow control problems silently, if possible. Usually this can only be done if send is called at regular system task time. If the module can not deal with a flow-control problem, it should what it can and return a flow control error. \
+Fill in the ioSize parameter with the actual number of bytes sent. \
+inFlags determines whether this call is called asynchronously or not. If inFlags has the kNMBlocking flag set then the call should not return until all of the buffer has been sent. \
+\pard\sa240\ql\qnatural
+\cf0 Mac OS notes\U8232 \uc0 \u8232 \U8232 \u8232 Can be called at notifier (callback) time.\U8232 \u8232 \U8232 \u8232 Win95 notes\U8232 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMReceive\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+NMErr EXPORTED\
+NMReceive( NMEndpointRef inEndpoint, \
+           void          *ioData, \
+           unsigned long *ioSize,\
+           NMFlags       *outFlags\
+         );\
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 inEndPoint
+\f1\b0  - the endpoint from which to receive the data\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b ioData
+\f1\b0  - the buffer to hold the received data\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b ioSize
+\f1\b0  - the number of bytes requested/returned\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b outFlags
+\f1\b0  - unused\
+\pard\sa100\ql\qnatural
+\cf0 Called in response to a kNMStreamData event, this function retrieves any data that has arrived for the endpoint. As with NMReceiveDatagram, the client will continue calling this function until it return kNMNoDataErr. \
+The module copies the data from the receive buffers into the client\'d5s buffer, filling in the ioSize with the actual number of bytes copies. If there is more data that there is space in the client\'d5s buffer, copy the amount given, and return kNMNoError. \
+The outFlags parameter is not currently used. \
+\pard\sa240\ql\qnatural
+\cf0 Mac OS notes\U8232 \uc0 \u8232 \U8232 \u8232 Can be called at notifier (callback) time.\U8232 \u8232 \U8232 \u8232 Win95 notes\U8232 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\qc
+
+\f0\b\fs48 \cf0 Enumeration\
+\pard\ql\qnatural
+
+\f1\b0\fs20 \cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMBindEnumerationItemToConfig\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+NMErr EXPORTED\U8232 \uc0 \u8232 \
+NMBindEnumerationItemToConfig( NMConfigRef inConfig, \
+                               NMHostID    inID \
+                             );\
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 inConfig
+\f1\b0  the configuration to be bound to the host\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inID
+\f1\b0  the host ID on which to bind\
+\pard\sa100\ql\qnatural
+\cf0 Given a config ref (created from a call to NMCreateConfig) and a host id (returned from an enumeration callback), set up the config to connect to the specified host. \
+During enumeration, the module maintains a list of all entities that it knows about on the net. When it notifies the client of a new entity found on the net, it provides the client with some kind of unique reference it then uses for this function. Your host ID can be whatever you want (commonly a pointer or index to an item in an array), as long as you can completely set up a configurator given only that reference. \
+\pard\sa240\ql\qnatural
+\cf0 Mac OS notes\U8232 \uc0 \u8232 \U8232 \u8232 Can be called at notifier (callback) time.\U8232 \u8232 \U8232 \u8232 Win95 notes\U8232 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMStartEnumeration\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+NMErr EXPORTED\
+NMStartEnumeration( NMConfigRef              inConfig, \
+                    NMEnumerationCallbackPtr inCallback,\
+                    void                     *inContext, \
+                    NMBoolean                inActive\
+                  );\
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 inConfig
+\f1\b0  - the configuration on which to enumerate\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inCallback
+\f1\b0  - a function to be called for each host found\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inContext
+\f1\b0  - a context to be passed to the callback\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inActive
+\f1\b0  - boolean specifying whether to actively search or use cached info\
+\pard\sa100\ql\qnatural
+\cf0 Starts enumerating all the known hosts (passive endpoints) to which a connection can be made. If inActive is true, the module may use the network to seek out hosts (for instance, by sending out a broadcast packet). If it\'d5s false, the module can only use cached information (for instance, from a preferences file) to list the known hosts. The config gives your module any information it needs (such as the game id of the client) to do the enumeration. \
+The client passes in a pointer to a callback function and a context that the module uses to notify the client of each known host on the network. \
+The module should only make the callback to the client during calls to NMIdleEnumeration. \
+The module can use whatever means it wants to enumerate the available hosts (e.g. broadcasting, caching in preferences, communicating with a metaserver), as long as its method is compatible with all versions (i.e. Win95 and Mac OS) of the module. \
+\pard\sa240\ql\qnatural
+\cf0 Mac OS notes\U8232 \uc0 \u8232 \U8232 \u8232 Will be called at system-time only.\U8232 \u8232 \U8232 \u8232 Win95 notes\U8232 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMIdleEnumeration\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+NMErr EXPORTED\
+NMIdleEnumeration( NMConfigRef inConfig );\
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 inConfig
+\f1\b0  - the configuration currently being enumerated\
+\pard\sa100\ql\qnatural
+\cf0 Clients call this function repeatedly while enumerating to give your module time to process enumerations. You may only make enumeration callbacks during calls to this function. \
+\pard\sa240\ql\qnatural
+\cf0 Mac OS notes\U8232 \uc0 \u8232 \U8232 \u8232 Will be called at system-time only.\U8232 \u8232 \U8232 \u8232 Win95 notes\U8232 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMEndEnumeration\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+NMErr EXPORTED\
+NMEndEnumeration( NMConfigRef inConfig );\
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 inConfig
+\f1\b0  - the configuration for which enumeration is to cease\
+\pard\sa100\ql\qnatural
+\cf0 Finish enumerating available hosts and clean up any state or allocations associated with enumerating. \
+\pard\sa240\ql\qnatural
+\cf0 Mac OS notes\U8232 \uc0 \u8232 \U8232 \u8232 Will be called at system-time only.\U8232 \u8232 \U8232 \u8232 Win95 notes\U8232 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\qc
+
+\f0\b\fs48 \cf0 Human Interface\
+\pard\ql\qnatural
+
+\f1\b0\fs20 \cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMGetRequiredDialogFrame\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+void EXPORTED\
+NMGetRequiredDialogFrame( RECT        *r, \
+                          NMConfigRef inConfig\
+                        );\
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 r
+\f1\b0  - a RECT to receive the dialog dimensions\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inConfig
+\f1\b0  - the configuration associated with this dialog\
+\pard\sa100\ql\qnatural
+\cf0 Fill in the rect with the size of your configuration area. You should set top and left to 0, and fill in right and bottom with the width and height your configuration area requires. \
+\pard\sa240\ql\qnatural
+\cf0 Mac OS notes\U8232 \uc0 \u8232 \U8232 \u8232 Will be called at system-time only.\U8232 \u8232 \U8232 \u8232 Win95 notes\U8232 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMSetupDialog\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+NMErr EXPORTED\U8232 \uc0 \u8232 \
+NMSetupDialog( DIALOGPTR   dialog, \
+               short       frame, \
+               short       inBaseItem,\
+               NMConfigRef inConfig\
+             );\
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 dialog
+\f1\b0  - a platform-specific reference to a dialog box\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b frame
+\f1\b0  - a platform-specific identifier indicating the method in which your module should add its elements to the dialog.\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inBaseItem
+\f1\b0  - last item number of OpenPlay-owned dialog elements\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inConfig
+\f1\b0  - the configuration associated with this dialog\
+\pard\sa100\ql\qnatural
+\cf0 Given a dialog pointer and a dialog item number, set up the modules configuration dialog items within the frame given. On the Mac OS, this means calling AppendDITL, passing the inverse of the frame as the location for the new DITL. \
+The inBaseItem is the number to add to your dialog item number to arrive at the item number to use for all dialog functions (i.e. it\'d5s the last item number in the dialog before you appended your DITL). \
+\pard\sa240\ql\qnatural
+\cf0 Mac OS notes\U8232 \uc0 \u8232 \U8232 \u8232 Will be called at system-time only.\U8232 \u8232 \U8232 \u8232 Win95 notes\U8232 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMHandleEvent\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+NMBoolean EXPORTED\
+NMHandleEvent( DIALOGPTR   dialog, \
+               EVENT       *event, \
+               NMConfigRef inConfig\
+             );\
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 dialog
+\f1\b0  - the dialog for this event\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b event
+\f1\b0  - a platform-specific event record defining the event that has occurred\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inConfig
+\f1\b0  - the configuration associated with this dialog\
+\pard\sa100\ql\qnatural
+\cf0 Handle a dialog event, just like dialog filter procs. \
+If your code handled the event, return true. If you did not process the event, OR you processed it but still wish to pass it through to the platform\'d5s dialog manager, return false. \
+\pard\sa240\ql\qnatural
+\cf0 Mac OS notes\U8232 \uc0 \u8232 \U8232 \u8232 Will be called at system-time only.\U8232 \u8232 \U8232 \u8232 Win95 notes\U8232 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMHandleItemHit\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+NMErr EXPORTED\
+NMHandleItemHit( DIALOGPTR   dialog, \
+                 short       inItemHit, \
+                 NMConfigRef inConfig\
+               );\
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 dialog
+\f1\b0  - the dialog that received the hit\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inItemHit
+\f1\b0  - the dialog element that was clicked\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inConfig
+\f1\b0  - the configuration associated with this dialog\
+\pard\sa100\ql\qnatural
+\cf0 Handle one of your dialog items being hit by the user. The inItemHit is the item number of the dialog item. \
+\pard\sa240\ql\qnatural
+\cf0 Mac OS notes\U8232 \uc0 \u8232 \U8232 \u8232 Will be called at system-time only.\U8232 \u8232 \U8232 \u8232 Win95 notes\U8232 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMTeardownDialog\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+NMBoolean EXPORTED\
+NMTeardownDialog( DIALOGPTR   dialog, \
+                  NMBoolean   inUpdateConfig, \
+                  NMConfigRef ioConfig\
+                );\
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 dialog
+\f1\b0  - the dialog to tear down\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inUpdateConfig
+\f1\b0  - boolean specifying whether the dialog\'d5s new values should be processed\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b ioConfig
+\f1\b0  - the configuration associated with this dialog\
+\pard\sa100\ql\qnatural
+\cf0 Teardown your dialog items. Return true if inUpdateCofig is true and your fields are valid, false otherwise. \
+If inUpdateConfig is true (the user clicked an \'d2OK\'d3 button), ioConfig is the configurator you must set up with values from your dialog items. Otherwise (the user canceled) it is considered invalid. \
+\pard\sa240\ql\qnatural
+\cf0 Mac OS notes\U8232 \uc0 \u8232 \U8232 \u8232 Will be called at system-time only.\U8232 \u8232 \U8232 \u8232 Win95 notes\U8232 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\qc
+
+\f0\b\fs48 \cf0 Miscellaneous\
+\pard\ql\qnatural
+
+\f1\b0\fs20 \cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMGetModuleInfo\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+NMErr EXPORTED\
+NMGetModuleInfo( NMModuleInfo *outInfo );\
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 outInfo
+\f1\b0  - module info record to receive the module info\
+\pard\sa100\ql\qnatural
+\cf0 Fills in a module info structure with information on your module. \
+\pard\sa240\ql\qnatural
+\cf0 Mac OS notes\U8232 \uc0 \u8232 \U8232 \u8232 Will be called at system-time only.\U8232 \u8232 \U8232 \u8232 Win95 notes\U8232 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMIsAlive\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+NMTriState EXPORTED\
+NMIsAlive( NMEndpointRef inEndpoint );\
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 inEndpoint
+\f1\b0  - the endpoint being queried\
+\pard\sa100\ql\qnatural
+\cf0 Given an endpoint, specifies whether the endpoint is alive (capable of sending and receiving data). You may assume that it is live based on internal state information, or you may ping the other end (in \'86ber mode only). \
+\pard\sa240\ql\qnatural
+\cf0 Mac OS notes\U8232 \uc0 \u8232 \U8232 \u8232 Will be called at system-time only.\U8232 \u8232 \U8232 \u8232 Win95 notes\U8232 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMSetTimeout\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+NMErr EXPORTED\
+NMSetTimeout( NMEndpointRef inEndpoint, \
+              unsigned long inTimeout\
+            );\
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 inEndpoint
+\f1\b0  - the endpoint to adjust\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inTimeout
+\f1\b0  - the new timeout value, in milliseconds\
+\pard\sa100\ql\qnatural
+\cf0 Specifies the timeout, in milliseconds, that should be used for all asynchronous actions, such as making a connection or waiting for a response to data. \
+\pard\sa240\ql\qnatural
+\cf0 Mac OS notes\U8232 \uc0 \u8232 \U8232 \u8232 Will be called at system-time only.\U8232 \u8232 \U8232 \u8232 Win95 notes\U8232 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMIdle\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+NMErr EXPORTED\
+NMIdle( NMEndpointRef inEndpoint );\
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 inEndpoint
+\f1\b0  - the endpoint on which to perform periodic processing\
+\pard\sa100\ql\qnatural
+\cf0 Gives your function idle time. You should only specify that your module requires idle time if it really needs it. \
+\pard\sa240\ql\qnatural
+\cf0 Mac OS notes\U8232 \uc0 \u8232 \U8232 \u8232 Will be called at system-time only.\U8232 \u8232 \U8232 \u8232 Win95 notes\U8232 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+\pard\sa100\ql\qnatural
+
+\f0\b\fs36 \cf0 NMFunctionPassThrough\
+\pard\tx915\tx1831\tx2747\tx3663\tx4580\tx5495\tx6412\tx7327\tx8244\tx9160\tx10075\tx10991\tx11908\tx12824\tx13740\tx14655\ql\qnatural
+
+\f3\b0\fs15 \cf0 \
+NMErr EXPORTED\
+NMFunctionPassThrough( NMEndpointRef inEndpoint, \
+                       unsigned long inSelector,\
+                       void          *inParamBlock\
+                     );\
+\pard\sa240\ql\qnatural
+
+\f0\b\fs20 \cf0 inEndpoint
+\f1\b0  - the endpoint being called\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inSelector
+\f1\b0  - indicates which module-specific function to perform\U8232 \uc0 \u8232 \U8232 \u8232 
+\f0\b inParamBlock
+\f1\b0  - a module-specific parameter block with input data for the selected custom function\
+\pard\sa100\ql\qnatural
+\cf0 Allows you to have \'d2back-door\'d3 access to any special protocol-specific functions you want to expose to the client. \
+\pard\sa240\ql\qnatural
+\cf0 \U8232 \uc0 \u8232 \
+\pard\ql\qnatural
+\cf0 \
+}
