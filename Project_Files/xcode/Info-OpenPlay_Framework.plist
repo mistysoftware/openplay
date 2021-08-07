@@ -17,11 +17,11 @@
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.2r3</string>
+	<string>2.2r4</string>
 	<key>CFBundleSignature</key>
 	<string>OPLY</string>
 	<key>CFBundleVersion</key>
-	<string>2.2r3</string>
+	<string>2.2r4</string>
 	<key>CSResourcesFileMapped</key>
 	<true/>
 	<key>NSHumanReadableCopyright</key>

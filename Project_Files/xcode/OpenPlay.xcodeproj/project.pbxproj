@@ -1,0 +1,2384 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		9758F2DB0588DE89008F071A /* Build All */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 2CF360AF26AE179A00D26910 /* Build configuration list for PBXAggregateTarget "Build All" */;
+			buildPhases = (
+			);
+			dependencies = (
+				9758F2E80588DE89008F071A /* PBXTargetDependency */,
+				9758F2E60588DE89008F071A /* PBXTargetDependency */,
+				9758F2EA0588DE89008F071A /* PBXTargetDependency */,
+				9758F2EC0588DE89008F071A /* PBXTargetDependency */,
+				9758F2EE0588DE89008F071A /* PBXTargetDependency */,
+				9758F2F00588DE89008F071A /* PBXTargetDependency */,
+				9758F2F20588DE89008F071A /* PBXTargetDependency */,
+				9758F2F40588DE89008F071A /* PBXTargetDependency */,
+				9758F2F60588DE89008F071A /* PBXTargetDependency */,
+			);
+			name = "Build All";
+			productName = "Build All";
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		186CFACD05D43B8F00BE49C2 /* OPUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE67102556F8801A80105 /* OPUtils.cpp */; };
+		18AD33E105D0708E006D9A32 /* OpenPlay.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
+		18AD33EC05D070A8006D9A32 /* OpenPlay.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
+		18AD33F005D070AF006D9A32 /* OpenPlay.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
+		18AD33F705D070B8006D9A32 /* OpenPlay.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
+		18AD33FB05D070C0006D9A32 /* OpenPlay.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
+		18AD33FF05D070C8006D9A32 /* OpenPlay.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
+		18EB655A05D055CF006B1F7B /* tcpip.so.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9758F2610588DE88008F071A /* tcpip.so.bundle */; };
+		18EB657F05D05794006B1F7B /* OpenPlay.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
+		9758F2250588DE88008F071A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
+		9758F2270588DE88008F071A /* module_management.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE64102556F3701A80105 /* module_management.cpp */; };
+		9758F2280588DE88008F071A /* op_endpoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE64202556F3701A80105 /* op_endpoint.cpp */; };
+		9758F2290588DE88008F071A /* op_hi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE64302556F3701A80105 /* op_hi.cpp */; };
+		9758F22A0588DE88008F071A /* op_module_mgmt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE64402556F3701A80105 /* op_module_mgmt.cpp */; };
+		9758F22B0588DE88008F071A /* op_packet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE64502556F3701A80105 /* op_packet.cpp */; };
+		9758F22C0588DE88008F071A /* openplay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE64602556F3701A80105 /* openplay.cpp */; };
+		9758F22D0588DE88008F071A /* op_dlopen.c in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE64702556F3701A80105 /* op_dlopen.c */; };
+		9758F22E0588DE88008F071A /* openplay_posix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE64802556F3701A80105 /* openplay_posix.cpp */; };
+		9758F22F0588DE88008F071A /* CATEndpoint_OP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE64902556F3701A80105 /* CATEndpoint_OP.cpp */; };
+		9758F2300588DE88008F071A /* CEndpoint_OP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE64A02556F3701A80105 /* CEndpoint_OP.cpp */; };
+		9758F2310588DE88008F071A /* CIPEndpoint_OP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE64B02556F3701A80105 /* CIPEndpoint_OP.cpp */; };
+		9758F2320588DE88008F071A /* EntryPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE64C02556F3701A80105 /* EntryPoint.cpp */; };
+		9758F2330588DE88008F071A /* NetSprocketLib.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE64D02556F3701A80105 /* NetSprocketLib.cpp */; };
+		9758F2340588DE88008F071A /* NSp_InterruptSafeList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE64E02556F3701A80105 /* NSp_InterruptSafeList.cpp */; };
+		9758F2350588DE88008F071A /* NSpGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE64F02556F3701A80105 /* NSpGame.cpp */; };
+		9758F2360588DE88008F071A /* NSpGameMaster.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE65002556F3701A80105 /* NSpGameMaster.cpp */; };
+		9758F2370588DE88008F071A /* NSpGamePrivate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE65102556F3701A80105 /* NSpGamePrivate.cpp */; };
+		9758F2380588DE88008F071A /* NSpGameSlave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE65202556F3701A80105 /* NSpGameSlave.cpp */; };
+		9758F2390588DE88008F071A /* NSpLists_OP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE65302556F3701A80105 /* NSpLists_OP.cpp */; };
+		9758F23A0588DE88008F071A /* NSpProtocolRef.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE65402556F3701A80105 /* NSpProtocolRef.cpp */; };
+		9758F23B0588DE88008F071A /* dll_utils_posix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE66902556F5F01A80105 /* dll_utils_posix.cpp */; };
+		9758F23C0588DE88008F071A /* find_files_posix.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE66A02556F5F01A80105 /* find_files_posix.cpp */; };
+		9758F23D0588DE88008F071A /* ByteSwapping.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE66D02556F8801A80105 /* ByteSwapping.cpp */; };
+		9758F23E0588DE88008F071A /* DebugPrint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE66E02556F8801A80105 /* DebugPrint.cpp */; };
+		9758F23F0588DE88008F071A /* ERObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE66F02556F8801A80105 /* ERObject.cpp */; };
+		9758F2400588DE88008F071A /* machine_lock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE67002556F8801A80105 /* machine_lock.cpp */; };
+		9758F2410588DE88008F071A /* OPUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE67102556F8801A80105 /* OPUtils.cpp */; };
+		9758F2420588DE88008F071A /* String_Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE67202556F8801A80105 /* String_Utils.cpp */; };
+		9758F2430588DE88008F071A /* TPointerArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE67302556F8801A80105 /* TPointerArray.cpp */; };
+		9758F2440588DE88008F071A /* NSpDialogMacOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5679E0E026A340201A80105 /* NSpDialogMacOS.cpp */; };
+		9758F2460588DE88008F071A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5FE302102558CD301A80105 /* Carbon.framework */; };
+		9758F2480588DE88008F071A /* NetSprocketMachO.r in Rez */ = {isa = PBXBuildFile; fileRef = F5679E12026A382401A80105 /* NetSprocketMachO.r */; };
+		9758F2500588DE88008F071A /* tcp_module_communication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5530D710256BFDF01A80105 /* tcp_module_communication.cpp */; };
+		9758F2510588DE88008F071A /* tcp_module_config.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5530D720256BFDF01A80105 /* tcp_module_config.cpp */; };
+		9758F2520588DE88008F071A /* tcp_module_enumeration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5530D730256BFDF01A80105 /* tcp_module_enumeration.cpp */; };
+		9758F2530588DE88008F071A /* tcp_module_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5530D750256BFDF01A80105 /* tcp_module_main.cpp */; };
+		9758F2540588DE88008F071A /* OPUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE67102556F8801A80105 /* OPUtils.cpp */; };
+		9758F2550588DE88008F071A /* DebugPrint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE66E02556F8801A80105 /* DebugPrint.cpp */; };
+		9758F2560588DE88008F071A /* machine_lock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE67002556F8801A80105 /* machine_lock.cpp */; };
+		9758F2570588DE88008F071A /* configuration.c in Sources */ = {isa = PBXBuildFile; fileRef = F5530D760256BFDF01A80105 /* configuration.c */; };
+		9758F2580588DE88008F071A /* ip_enumeration.c in Sources */ = {isa = PBXBuildFile; fileRef = F5530D770256BFDF01A80105 /* ip_enumeration.c */; };
+		9758F2590588DE88008F071A /* String_Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE67202556F8801A80105 /* String_Utils.cpp */; };
+		9758F25A0588DE88008F071A /* tcp_module_gui_mac.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5679E07026A1E3701A80105 /* tcp_module_gui_mac.cpp */; };
+		9758F25C0588DE88008F071A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5FE302102558CD301A80105 /* Carbon.framework */; };
+		9758F25E0588DE88008F071A /* tcp_module_mac.r in Rez */ = {isa = PBXBuildFile; fileRef = F5679E09026A1F2001A80105 /* tcp_module_mac.r */; };
+		9758F2650588DE88008F071A /* OPTestInfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F5530D5B0256B46901A80105 /* OPTestInfoPlist.strings */; };
+		9758F2670588DE88008F071A /* OPUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE67102556F8801A80105 /* OPUtils.cpp */; };
+		9758F2680588DE88008F071A /* String_Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE67202556F8801A80105 /* String_Utils.cpp */; };
+		9758F2690588DE88008F071A /* dialog_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = F5FE301B02558C6F01A80105 /* dialog_utils.c */; };
+		9758F26A0588DE88008F071A /* testbed.c in Sources */ = {isa = PBXBuildFile; fileRef = F5FE301C02558C6F01A80105 /* testbed.c */; };
+		9758F26B0588DE88008F071A /* dialog_lists.c in Sources */ = {isa = PBXBuildFile; fileRef = F5FE302602558D7901A80105 /* dialog_lists.c */; };
+		9758F26C0588DE88008F071A /* log.c in Sources */ = {isa = PBXBuildFile; fileRef = F5FE302702558D7901A80105 /* log.c */; };
+		9758F26D0588DE88008F071A /* shell.c in Sources */ = {isa = PBXBuildFile; fileRef = F5FE302802558D7901A80105 /* shell.c */; };
+		9758F2700588DE88008F071A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5FE302102558CD301A80105 /* Carbon.framework */; };
+		9758F2720588DE88008F071A /* OpenPlayTestMachO.r in Rez */ = {isa = PBXBuildFile; fileRef = F5530D5F0256B56901A80105 /* OpenPlayTestMachO.r */; };
+		9758F27D0588DE88008F071A /* NSpTestApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5CE6E01025AF68701A80105 /* NSpTestApp.cpp */; };
+		9758F27E0588DE88008F071A /* OPUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE67102556F8801A80105 /* OPUtils.cpp */; };
+		9758F2810588DE88008F071A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5FE302102558CD301A80105 /* Carbon.framework */; };
+		9758F28D0588DE88008F071A /* aevt.c in Sources */ = {isa = PBXBuildFile; fileRef = F5CE6E21025AFB5301A80105 /* aevt.c */; };
+		9758F28E0588DE88008F071A /* events.c in Sources */ = {isa = PBXBuildFile; fileRef = F5CE6E22025AFB5301A80105 /* events.c */; };
+		9758F28F0588DE88008F071A /* init.c in Sources */ = {isa = PBXBuildFile; fileRef = F5CE6E23025AFB5301A80105 /* init.c */; };
+		9758F2900588DE88008F071A /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = F5CE6E24025AFB5301A80105 /* main.c */; };
+		9758F2910588DE88008F071A /* NetStuff.cp in Sources */ = {isa = PBXBuildFile; fileRef = F5CE6E25025AFB5301A80105 /* NetStuff.cp */; };
+		9758F2930588DE88008F071A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5FE302102558CD301A80105 /* Carbon.framework */; };
+		9758F2960588DE88008F071A /* NSpTest2Mach.r in Rez */ = {isa = PBXBuildFile; fileRef = F536EB9D03232CB401A8008C /* NSpTest2Mach.r */; };
+		9758F2A10588DE88008F071A /* OPEnumTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5CE6E11025AF8AC01A80105 /* OPEnumTest.cpp */; };
+		9758F2A40588DE88008F071A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5FE302102558CD301A80105 /* Carbon.framework */; };
+		9758F2AF0588DE88008F071A /* tcp_module_mac.r in Resources */ = {isa = PBXBuildFile; fileRef = F5679E09026A1F2001A80105 /* tcp_module_mac.r */; };
+		9758F2B10588DE88008F071A /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = F587B687025C6DD401A80105 /* main.c */; };
+		9758F2B20588DE88008F071A /* op_network.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F587B688025C6DD401A80105 /* op_network.cpp */; };
+		9758F2B50588DE88008F071A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5FE302102558CD301A80105 /* Carbon.framework */; };
+		9758F2C10588DE89008F071A /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = F587B687025C6DD401A80105 /* main.c */; };
+		9758F2C20588DE89008F071A /* nsp_network.c in Sources */ = {isa = PBXBuildFile; fileRef = F587B68C025C70BB01A80105 /* nsp_network.c */; };
+		9758F2C40588DE89008F071A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5FE302102558CD301A80105 /* Carbon.framework */; };
+		9758F2D10588DE89008F071A /* miniplay.c in Sources */ = {isa = PBXBuildFile; fileRef = F5A7370502667C4401A80105 /* miniplay.c */; };
+		9758F2F70588DE89008F071A /* OpenPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
+		9758F2F80588DE89008F071A /* OpenPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
+		9758F2F90588DE89008F071A /* OpenPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
+		9758F2FA0588DE89008F071A /* OpenPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
+		9758F2FB0588DE89008F071A /* OpenPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
+		9758F2FC0588DE89008F071A /* OpenPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
+		9758F2FD0588DE89008F071A /* OpenPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		188F165A05D2FF7A00A6EDA9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9758F24C0588DE88008F071A;
+			remoteInfo = "IP Module";
+		};
+		188F165E05D2FF9000A6EDA9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9758F2220588DE88008F071A;
+			remoteInfo = "OpenPlay Framework";
+		};
+		9758F2E50588DE89008F071A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9758F2220588DE88008F071A;
+			remoteInfo = "OpenPlay Framework (Upgraded)";
+		};
+		9758F2E70588DE89008F071A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9758F24C0588DE88008F071A;
+			remoteInfo = "IP Module (Upgraded)";
+		};
+		9758F2E90588DE89008F071A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9758F2620588DE88008F071A;
+			remoteInfo = "OpenPlayTest (Upgraded)";
+		};
+		9758F2EB0588DE89008F071A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9758F2790588DE88008F071A;
+			remoteInfo = "NetSprocketTest (Upgraded)";
+		};
+		9758F2ED0588DE89008F071A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9758F29D0588DE88008F071A;
+			remoteInfo = "OPEnumTest (Upgraded)";
+		};
+		9758F2EF0588DE89008F071A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9758F2890588DE88008F071A;
+			remoteInfo = "NetSprocketTest2 (Upgraded)";
+		};
+		9758F2F10588DE89008F071A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9758F2AC0588DE88008F071A;
+			remoteInfo = "OPExample1 (Upgraded)";
+		};
+		9758F2F30588DE89008F071A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9758F2BD0588DE89008F071A;
+			remoteInfo = "NSpExample1 (Upgraded)";
+		};
+		9758F2F50588DE89008F071A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9758F2CD0588DE89008F071A;
+			remoteInfo = "OpenPlayMiniDemo (Upgraded)";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		18EB655905D055B8006B1F7B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = modules;
+			dstSubfolderSpec = 7;
+			files = (
+				18EB655A05D055CF006B1F7B /* tcpip.so.bundle in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2730588DE88008F071A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				18AD33FF05D070C8006D9A32 /* OpenPlay.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2830588DE88008F071A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				18AD33FB05D070C0006D9A32 /* OpenPlay.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2970588DE88008F071A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				18AD33F705D070B8006D9A32 /* OpenPlay.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2A60588DE88008F071A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				18AD33F005D070AF006D9A32 /* OpenPlay.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2B70588DE88008F071A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				18AD33EC05D070A8006D9A32 /* OpenPlay.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2C70588DE89008F071A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				18EB657F05D05794006B1F7B /* OpenPlay.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2D50588DE89008F071A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				18AD33E105D0708E006D9A32 /* OpenPlay.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		089C1667FE841158C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9758F24A0588DE88008F071A /* Info-OpenPlay_Framework.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Info-OpenPlay_Framework.plist"; sourceTree = "<group>"; };
+		9758F24B0588DE88008F071A /* OpenPlay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OpenPlay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9758F2600588DE88008F071A /* Info-IP_Module.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Info-IP_Module.plist"; sourceTree = "<group>"; };
+		9758F2610588DE88008F071A /* tcpip.so.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tcpip.so.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		9758F2760588DE88008F071A /* Info-OpenPlayTest.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Info-OpenPlayTest.plist"; sourceTree = "<group>"; };
+		9758F2770588DE88008F071A /* OpenPlayTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenPlayTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9758F2860588DE88008F071A /* Info-NetSprocketTest.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Info-NetSprocketTest.plist"; sourceTree = "<group>"; };
+		9758F2870588DE88008F071A /* NetSprocketTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetSprocketTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9758F29A0588DE88008F071A /* Info-NetSprocketTest2.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Info-NetSprocketTest2.plist"; sourceTree = "<group>"; };
+		9758F29B0588DE88008F071A /* NetSprocketTest2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetSprocketTest2.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9758F2A90588DE88008F071A /* Info-OPEnumTest.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Info-OPEnumTest.plist"; sourceTree = "<group>"; };
+		9758F2AA0588DE88008F071A /* OPEnumTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OPEnumTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9758F2BA0588DE89008F071A /* Info-OPExample1.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Info-OPExample1.plist"; sourceTree = "<group>"; };
+		9758F2BB0588DE89008F071A /* OPExample1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OPExample1.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9758F2CA0588DE89008F071A /* Info-NSpExample1.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Info-NSpExample1.plist"; sourceTree = "<group>"; };
+		9758F2CB0588DE89008F071A /* NSpExample1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NSpExample1.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9758F2D80588DE89008F071A /* Info-OpenPlayMiniDemo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Info-OpenPlayMiniDemo.plist"; sourceTree = "<group>"; };
+		9758F2D90588DE89008F071A /* OpenPlayMiniDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenPlayMiniDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F536EB9D03232CB401A8008C /* NSpTest2Mach.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; path = NSpTest2Mach.r; sourceTree = "<group>"; };
+		F5530D5C0256B46901A80105 /* English */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/OPTestInfoPlist.strings; sourceTree = "<group>"; };
+		F5530D5F0256B56901A80105 /* OpenPlayTestMachO.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; name = OpenPlayTestMachO.r; path = ../../Source/Demos/OpenPlayTest/Macintosh/Binaries/OpenPlayTestMachO.r; sourceTree = SOURCE_ROOT; };
+		F5530D710256BFDF01A80105 /* tcp_module_communication.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = tcp_module_communication.cpp; path = ../../Source/OPNetModules/posix/TCP_IP/tcp_module_communication.cpp; sourceTree = SOURCE_ROOT; };
+		F5530D720256BFDF01A80105 /* tcp_module_config.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = tcp_module_config.cpp; path = ../../Source/OPNetModules/posix/TCP_IP/tcp_module_config.cpp; sourceTree = SOURCE_ROOT; };
+		F5530D730256BFDF01A80105 /* tcp_module_enumeration.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = tcp_module_enumeration.cpp; path = ../../Source/OPNetModules/posix/TCP_IP/tcp_module_enumeration.cpp; sourceTree = SOURCE_ROOT; };
+		F5530D750256BFDF01A80105 /* tcp_module_main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = tcp_module_main.cpp; path = ../../Source/OPNetModules/posix/TCP_IP/tcp_module_main.cpp; sourceTree = SOURCE_ROOT; };
+		F5530D760256BFDF01A80105 /* configuration.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = configuration.c; path = ../../Source/OPNetModules/Common/configuration.c; sourceTree = SOURCE_ROOT; };
+		F5530D770256BFDF01A80105 /* ip_enumeration.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = ip_enumeration.c; path = ../../Source/OPNetModules/Common/ip_enumeration.c; sourceTree = SOURCE_ROOT; };
+		F5679E07026A1E3701A80105 /* tcp_module_gui_mac.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = tcp_module_gui_mac.cpp; path = ../../Source/OPNetModules/posix/TCP_IP/tcp_module_gui_mac.cpp; sourceTree = SOURCE_ROOT; };
+		F5679E09026A1F2001A80105 /* tcp_module_mac.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; name = tcp_module_mac.r; path = ../../Source/OPNetModules/posix/TCP_IP/tcp_module_mac.r; sourceTree = SOURCE_ROOT; };
+		F5679E0E026A340201A80105 /* NSpDialogMacOS.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = NSpDialogMacOS.cpp; path = ../../Source/NetSprocketLib/Macintosh/NSpDialogMacOS.cpp; sourceTree = SOURCE_ROOT; };
+		F5679E12026A382401A80105 /* NetSprocketMachO.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; name = NetSprocketMachO.r; path = ../../Source/NetSprocketLib/Macintosh/NetSprocketMachO.r; sourceTree = SOURCE_ROOT; };
+		F587B687025C6DD401A80105 /* main.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = main.c; path = ../../Source/Demos/OPExample1/main.c; sourceTree = SOURCE_ROOT; };
+		F587B688025C6DD401A80105 /* op_network.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = op_network.cpp; path = ../../Source/Demos/OPExample1/op_network.cpp; sourceTree = SOURCE_ROOT; };
+		F587B68C025C70BB01A80105 /* nsp_network.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = nsp_network.c; path = ../../Source/Demos/OPExample1/nsp_network.c; sourceTree = SOURCE_ROOT; };
+		F5A7370502667C4401A80105 /* miniplay.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = miniplay.c; path = ../../Source/Demos/OPMiniDemo/miniplay.c; sourceTree = SOURCE_ROOT; };
+		F5ABE64102556F3701A80105 /* module_management.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = module_management.cpp; path = ../../Source/OpenPlayLib/Common/module_management.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE64202556F3701A80105 /* op_endpoint.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = op_endpoint.cpp; path = ../../Source/OpenPlayLib/Common/op_endpoint.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE64302556F3701A80105 /* op_hi.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = op_hi.cpp; path = ../../Source/OpenPlayLib/Common/op_hi.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE64402556F3701A80105 /* op_module_mgmt.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = op_module_mgmt.cpp; path = ../../Source/OpenPlayLib/Common/op_module_mgmt.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE64502556F3701A80105 /* op_packet.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = op_packet.cpp; path = ../../Source/OpenPlayLib/Common/op_packet.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE64602556F3701A80105 /* openplay.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = openplay.cpp; path = ../../Source/OpenPlayLib/Common/openplay.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE64702556F3701A80105 /* op_dlopen.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = op_dlopen.c; path = ../../Source/OpenPlayLib/posix/op_dlopen.c; sourceTree = SOURCE_ROOT; };
+		F5ABE64802556F3701A80105 /* openplay_posix.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = openplay_posix.cpp; path = ../../Source/OpenPlayLib/posix/openplay_posix.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE64902556F3701A80105 /* CATEndpoint_OP.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = CATEndpoint_OP.cpp; path = ../../Source/NetSprocketLib/CATEndpoint_OP.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE64A02556F3701A80105 /* CEndpoint_OP.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = CEndpoint_OP.cpp; path = ../../Source/NetSprocketLib/CEndpoint_OP.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE64B02556F3701A80105 /* CIPEndpoint_OP.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = CIPEndpoint_OP.cpp; path = ../../Source/NetSprocketLib/CIPEndpoint_OP.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE64C02556F3701A80105 /* EntryPoint.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = EntryPoint.cpp; path = ../../Source/NetSprocketLib/EntryPoint.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE64D02556F3701A80105 /* NetSprocketLib.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = NetSprocketLib.cpp; path = ../../Source/NetSprocketLib/NetSprocketLib.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE64E02556F3701A80105 /* NSp_InterruptSafeList.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = NSp_InterruptSafeList.cpp; path = ../../Source/NetSprocketLib/NSp_InterruptSafeList.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE64F02556F3701A80105 /* NSpGame.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = NSpGame.cpp; path = ../../Source/NetSprocketLib/NSpGame.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE65002556F3701A80105 /* NSpGameMaster.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = NSpGameMaster.cpp; path = ../../Source/NetSprocketLib/NSpGameMaster.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE65102556F3701A80105 /* NSpGamePrivate.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = NSpGamePrivate.cpp; path = ../../Source/NetSprocketLib/NSpGamePrivate.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE65202556F3701A80105 /* NSpGameSlave.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = NSpGameSlave.cpp; path = ../../Source/NetSprocketLib/NSpGameSlave.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE65302556F3701A80105 /* NSpLists_OP.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = NSpLists_OP.cpp; path = ../../Source/NetSprocketLib/NSpLists_OP.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE65402556F3701A80105 /* NSpProtocolRef.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = NSpProtocolRef.cpp; path = ../../Source/NetSprocketLib/NSpProtocolRef.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE66902556F5F01A80105 /* dll_utils_posix.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = dll_utils_posix.cpp; path = ../../Source/Utilities/posix/dll_utils_posix.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE66A02556F5F01A80105 /* find_files_posix.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = find_files_posix.cpp; path = ../../Source/Utilities/posix/find_files_posix.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE66D02556F8801A80105 /* ByteSwapping.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = ByteSwapping.cpp; path = ../../Source/Utilities/ByteSwapping.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE66E02556F8801A80105 /* DebugPrint.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = DebugPrint.cpp; path = ../../Source/Utilities/DebugPrint.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE66F02556F8801A80105 /* ERObject.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = ERObject.cpp; path = ../../Source/Utilities/ERObject.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE67002556F8801A80105 /* machine_lock.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = machine_lock.cpp; path = ../../Source/Utilities/machine_lock.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE67102556F8801A80105 /* OPUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = OPUtils.cpp; path = ../../Source/Utilities/OPUtils.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE67202556F8801A80105 /* String_Utils.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = String_Utils.cpp; path = ../../Source/Utilities/String_Utils.cpp; sourceTree = SOURCE_ROOT; };
+		F5ABE67302556F8801A80105 /* TPointerArray.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = TPointerArray.cpp; path = ../../Source/Utilities/TPointerArray.cpp; sourceTree = SOURCE_ROOT; };
+		F5CE6E01025AF68701A80105 /* NSpTestApp.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = NSpTestApp.cpp; path = ../../Source/Demos/NSpTestApp/NSpTestApp.cpp; sourceTree = SOURCE_ROOT; };
+		F5CE6E11025AF8AC01A80105 /* OPEnumTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = OPEnumTest.cpp; path = ../../Source/Demos/OPEnumTest/OPEnumTest.cpp; sourceTree = SOURCE_ROOT; };
+		F5CE6E21025AFB5301A80105 /* aevt.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = aevt.c; path = ../../../OpenPlay/Source/Demos/NSpTest2/aevt.c; sourceTree = SOURCE_ROOT; };
+		F5CE6E22025AFB5301A80105 /* events.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = events.c; path = ../../../OpenPlay/Source/Demos/NSpTest2/events.c; sourceTree = SOURCE_ROOT; };
+		F5CE6E23025AFB5301A80105 /* init.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = init.c; path = ../../../OpenPlay/Source/Demos/NSpTest2/init.c; sourceTree = SOURCE_ROOT; };
+		F5CE6E24025AFB5301A80105 /* main.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = main.c; path = ../../../OpenPlay/Source/Demos/NSpTest2/main.c; sourceTree = SOURCE_ROOT; };
+		F5CE6E25025AFB5301A80105 /* NetStuff.cp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = NetStuff.cp; path = ../../../OpenPlay/Source/Demos/NSpTest2/NetStuff.cp; sourceTree = SOURCE_ROOT; };
+		F5FE301B02558C6F01A80105 /* dialog_utils.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = dialog_utils.c; path = ../../Source/Demos/OpenPlayTest/Common/dialog_utils.c; sourceTree = SOURCE_ROOT; };
+		F5FE301C02558C6F01A80105 /* testbed.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = testbed.c; path = ../../Source/Demos/OpenPlayTest/Common/testbed.c; sourceTree = SOURCE_ROOT; };
+		F5FE302102558CD301A80105 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		F5FE302602558D7901A80105 /* dialog_lists.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = dialog_lists.c; path = ../../Source/Demos/OpenPlayTest/Macintosh/dialog_lists.c; sourceTree = SOURCE_ROOT; };
+		F5FE302702558D7901A80105 /* log.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = log.c; path = ../../Source/Demos/OpenPlayTest/Macintosh/log.c; sourceTree = SOURCE_ROOT; };
+		F5FE302802558D7901A80105 /* shell.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = shell.c; path = ../../Source/Demos/OpenPlayTest/Macintosh/shell.c; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9758F2450588DE88008F071A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9758F2460588DE88008F071A /* Carbon.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F25B0588DE88008F071A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9758F25C0588DE88008F071A /* Carbon.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F26E0588DE88008F071A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9758F2700588DE88008F071A /* Carbon.framework in Frameworks */,
+				9758F2F70588DE89008F071A /* OpenPlay.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F27F0588DE88008F071A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9758F2F80588DE89008F071A /* OpenPlay.framework in Frameworks */,
+				9758F2810588DE88008F071A /* Carbon.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2920588DE88008F071A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9758F2F90588DE89008F071A /* OpenPlay.framework in Frameworks */,
+				9758F2930588DE88008F071A /* Carbon.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2A20588DE88008F071A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9758F2FA0588DE89008F071A /* OpenPlay.framework in Frameworks */,
+				9758F2A40588DE88008F071A /* Carbon.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2B30588DE88008F071A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9758F2FB0588DE89008F071A /* OpenPlay.framework in Frameworks */,
+				9758F2B50588DE88008F071A /* Carbon.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2C30588DE89008F071A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9758F2FC0588DE89008F071A /* OpenPlay.framework in Frameworks */,
+				9758F2C40588DE89008F071A /* Carbon.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2D20588DE89008F071A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9758F2FD0588DE89008F071A /* OpenPlay.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		034768DDFF38A45A11DB9C8B /* Products,Libs,Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F5FE302102558CD301A80105 /* Carbon.framework */,
+				9758F24B0588DE88008F071A /* OpenPlay.framework */,
+				9758F2610588DE88008F071A /* tcpip.so.bundle */,
+				9758F2770588DE88008F071A /* OpenPlayTest.app */,
+				9758F2870588DE88008F071A /* NetSprocketTest.app */,
+				9758F29B0588DE88008F071A /* NetSprocketTest2.app */,
+				9758F2AA0588DE88008F071A /* OPEnumTest.app */,
+				9758F2BB0588DE89008F071A /* OPExample1.app */,
+				9758F2CB0588DE89008F071A /* NSpExample1.app */,
+				9758F2D90588DE89008F071A /* OpenPlayMiniDemo.app */,
+			);
+			name = "Products,Libs,Frameworks";
+			sourceTree = SOURCE_ROOT;
+		};
+		0867D691FE84028FC02AAC07 /* OpenPlay */ = {
+			isa = PBXGroup;
+			children = (
+				F5530D6F0256BF5501A80105 /* IP Module */,
+				F5ABE64002556D8F01A80105 /* OpenPlay Framework */,
+				F5FE301902558C6F01A80105 /* OpenPlayTest */,
+				F5CE6DF9025AF5E601A80105 /* NetSprocketTest */,
+				F5CE6E19025AFB1901A80105 /* NetSprocketTest2 */,
+				F5CE6E09025AF81F01A80105 /* OPEnumTest */,
+				F587B67B025C6D4501A80105 /* OP/NSpExample1 */,
+				F5A736FC02667C1101A80105 /* OpenPlayMiniDemo */,
+				F5FE302C02558DCB01A80105 /* Utility Source */,
+				034768DDFF38A45A11DB9C8B /* Products,Libs,Frameworks */,
+			);
+			name = OpenPlay;
+			sourceTree = "<group>";
+		};
+		089C1665FE841158C02AAC07 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F5679E12026A382401A80105 /* NetSprocketMachO.r */,
+				089C1666FE841158C02AAC07 /* InfoPlist.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		08FB77ACFE841707C02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				F5679E0E026A340201A80105 /* NSpDialogMacOS.cpp */,
+				F5ABE64102556F3701A80105 /* module_management.cpp */,
+				F5ABE64202556F3701A80105 /* op_endpoint.cpp */,
+				F5ABE64302556F3701A80105 /* op_hi.cpp */,
+				F5ABE64402556F3701A80105 /* op_module_mgmt.cpp */,
+				F5ABE64502556F3701A80105 /* op_packet.cpp */,
+				F5ABE64602556F3701A80105 /* openplay.cpp */,
+				F5ABE64702556F3701A80105 /* op_dlopen.c */,
+				F5ABE64802556F3701A80105 /* openplay_posix.cpp */,
+				F5ABE64902556F3701A80105 /* CATEndpoint_OP.cpp */,
+				F5ABE64A02556F3701A80105 /* CEndpoint_OP.cpp */,
+				F5ABE64B02556F3701A80105 /* CIPEndpoint_OP.cpp */,
+				F5ABE64C02556F3701A80105 /* EntryPoint.cpp */,
+				F5ABE64D02556F3701A80105 /* NetSprocketLib.cpp */,
+				F5ABE64E02556F3701A80105 /* NSp_InterruptSafeList.cpp */,
+				F5ABE64F02556F3701A80105 /* NSpGame.cpp */,
+				F5ABE65002556F3701A80105 /* NSpGameMaster.cpp */,
+				F5ABE65102556F3701A80105 /* NSpGamePrivate.cpp */,
+				F5ABE65202556F3701A80105 /* NSpGameSlave.cpp */,
+				F5ABE65302556F3701A80105 /* NSpLists_OP.cpp */,
+				F5ABE65402556F3701A80105 /* NSpProtocolRef.cpp */,
+				F5ABE66902556F5F01A80105 /* dll_utils_posix.cpp */,
+				F5ABE66A02556F5F01A80105 /* find_files_posix.cpp */,
+				F5ABE66D02556F8801A80105 /* ByteSwapping.cpp */,
+				F5ABE66F02556F8801A80105 /* ERObject.cpp */,
+				F5ABE67302556F8801A80105 /* TPointerArray.cpp */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		F5530D6F0256BF5501A80105 /* IP Module */ = {
+			isa = PBXGroup;
+			children = (
+				9758F2600588DE88008F071A /* Info-IP_Module.plist */,
+				F5530D700256BF5501A80105 /* Source */,
+				F5679E06026A1DF401A80105 /* Resources */,
+			);
+			name = "IP Module";
+			sourceTree = "<group>";
+		};
+		F5530D700256BF5501A80105 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				F5530D710256BFDF01A80105 /* tcp_module_communication.cpp */,
+				F5530D720256BFDF01A80105 /* tcp_module_config.cpp */,
+				F5530D730256BFDF01A80105 /* tcp_module_enumeration.cpp */,
+				F5679E07026A1E3701A80105 /* tcp_module_gui_mac.cpp */,
+				F5530D750256BFDF01A80105 /* tcp_module_main.cpp */,
+				F5530D760256BFDF01A80105 /* configuration.c */,
+				F5530D770256BFDF01A80105 /* ip_enumeration.c */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		F5679E06026A1DF401A80105 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F5679E09026A1F2001A80105 /* tcp_module_mac.r */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		F587B67B025C6D4501A80105 /* OP/NSpExample1 */ = {
+			isa = PBXGroup;
+			children = (
+				9758F2CA0588DE89008F071A /* Info-NSpExample1.plist */,
+				9758F2BA0588DE89008F071A /* Info-OPExample1.plist */,
+				F587B687025C6DD401A80105 /* main.c */,
+				F587B688025C6DD401A80105 /* op_network.cpp */,
+				F587B68C025C70BB01A80105 /* nsp_network.c */,
+			);
+			name = OP/NSpExample1;
+			sourceTree = "<group>";
+		};
+		F5A736FC02667C1101A80105 /* OpenPlayMiniDemo */ = {
+			isa = PBXGroup;
+			children = (
+				9758F2D80588DE89008F071A /* Info-OpenPlayMiniDemo.plist */,
+				F5A7370502667C4401A80105 /* miniplay.c */,
+			);
+			name = OpenPlayMiniDemo;
+			sourceTree = "<group>";
+		};
+		F5ABE64002556D8F01A80105 /* OpenPlay Framework */ = {
+			isa = PBXGroup;
+			children = (
+				9758F24A0588DE88008F071A /* Info-OpenPlay_Framework.plist */,
+				089C1665FE841158C02AAC07 /* Resources */,
+				08FB77ACFE841707C02AAC07 /* Source */,
+			);
+			name = "OpenPlay Framework";
+			sourceTree = "<group>";
+		};
+		F5CE6DF9025AF5E601A80105 /* NetSprocketTest */ = {
+			isa = PBXGroup;
+			children = (
+				9758F2860588DE88008F071A /* Info-NetSprocketTest.plist */,
+				F5CE6E01025AF68701A80105 /* NSpTestApp.cpp */,
+			);
+			name = NetSprocketTest;
+			sourceTree = "<group>";
+		};
+		F5CE6E09025AF81F01A80105 /* OPEnumTest */ = {
+			isa = PBXGroup;
+			children = (
+				9758F2A90588DE88008F071A /* Info-OPEnumTest.plist */,
+				F5CE6E11025AF8AC01A80105 /* OPEnumTest.cpp */,
+			);
+			name = OPEnumTest;
+			sourceTree = "<group>";
+		};
+		F5CE6E19025AFB1901A80105 /* NetSprocketTest2 */ = {
+			isa = PBXGroup;
+			children = (
+				9758F29A0588DE88008F071A /* Info-NetSprocketTest2.plist */,
+				F5CE6E2D025AFB7901A80105 /* Source */,
+				F5CE6E2E025AFB7901A80105 /* Resources */,
+			);
+			name = NetSprocketTest2;
+			sourceTree = "<group>";
+		};
+		F5CE6E2D025AFB7901A80105 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				F5CE6E21025AFB5301A80105 /* aevt.c */,
+				F5CE6E22025AFB5301A80105 /* events.c */,
+				F5CE6E23025AFB5301A80105 /* init.c */,
+				F5CE6E24025AFB5301A80105 /* main.c */,
+				F5CE6E25025AFB5301A80105 /* NetStuff.cp */,
+				F5ABE67102556F8801A80105 /* OPUtils.cpp */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		F5CE6E2E025AFB7901A80105 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F536EB9D03232CB401A8008C /* NSpTest2Mach.r */,
+			);
+			name = Resources;
+			path = ../../Source/Demos/NSpTest2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5FE301902558C6F01A80105 /* OpenPlayTest */ = {
+			isa = PBXGroup;
+			children = (
+				9758F2760588DE88008F071A /* Info-OpenPlayTest.plist */,
+				F5FE302302558CE701A80105 /* Resources */,
+				F5FE301A02558C6F01A80105 /* Source */,
+			);
+			name = OpenPlayTest;
+			sourceTree = "<group>";
+		};
+		F5FE301A02558C6F01A80105 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				F5FE301B02558C6F01A80105 /* dialog_utils.c */,
+				F5FE301C02558C6F01A80105 /* testbed.c */,
+				F5FE302602558D7901A80105 /* dialog_lists.c */,
+				F5FE302702558D7901A80105 /* log.c */,
+				F5FE302802558D7901A80105 /* shell.c */,
+			);
+			name = Source;
+			sourceTree = "<group>";
+		};
+		F5FE302302558CE701A80105 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F5530D5F0256B56901A80105 /* OpenPlayTestMachO.r */,
+				F5530D5B0256B46901A80105 /* OPTestInfoPlist.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		F5FE302C02558DCB01A80105 /* Utility Source */ = {
+			isa = PBXGroup;
+			children = (
+				F5ABE67002556F8801A80105 /* machine_lock.cpp */,
+				F5ABE66E02556F8801A80105 /* DebugPrint.cpp */,
+				F5ABE67202556F8801A80105 /* String_Utils.cpp */,
+			);
+			name = "Utility Source";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		9758F2230588DE88008F071A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F24D0588DE88008F071A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2630588DE88008F071A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F27A0588DE88008F071A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F28A0588DE88008F071A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F29E0588DE88008F071A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2AD0588DE88008F071A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2BE0588DE89008F071A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2CE0588DE89008F071A /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		9758F2220588DE88008F071A /* OpenPlay Framework */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CF360A726AE179A00D26910 /* Build configuration list for PBXNativeTarget "OpenPlay Framework" */;
+			buildPhases = (
+				9758F2230588DE88008F071A /* Headers */,
+				9758F2240588DE88008F071A /* Resources */,
+				9758F2260588DE88008F071A /* Sources */,
+				9758F2450588DE88008F071A /* Frameworks */,
+				9758F2470588DE88008F071A /* Rez */,
+				18EB655905D055B8006B1F7B /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				188F165B05D2FF7A00A6EDA9 /* PBXTargetDependency */,
+			);
+			name = "OpenPlay Framework";
+			productInstallPath = "@executable_path/../Frameworks";
+			productName = OpenPlay;
+			productReference = 9758F24B0588DE88008F071A /* OpenPlay.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		9758F24C0588DE88008F071A /* IP Module */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CF360A626AE179A00D26910 /* Build configuration list for PBXNativeTarget "IP Module" */;
+			buildPhases = (
+				9758F24D0588DE88008F071A /* Headers */,
+				9758F24E0588DE88008F071A /* Resources */,
+				9758F24F0588DE88008F071A /* Sources */,
+				9758F25B0588DE88008F071A /* Frameworks */,
+				9758F25D0588DE88008F071A /* Rez */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "IP Module";
+			productName = "IP Module";
+			productReference = 9758F2610588DE88008F071A /* tcpip.so.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+		9758F2620588DE88008F071A /* OpenPlayTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CF360A826AE179A00D26910 /* Build configuration list for PBXNativeTarget "OpenPlayTest" */;
+			buildPhases = (
+				9758F2630588DE88008F071A /* Headers */,
+				9758F2640588DE88008F071A /* Resources */,
+				9758F2660588DE88008F071A /* Sources */,
+				9758F26E0588DE88008F071A /* Frameworks */,
+				9758F2710588DE88008F071A /* Rez */,
+				9758F2730588DE88008F071A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OpenPlayTest;
+			productInstallPath = "$(USER_APPS_DIR)";
+			productName = OpenPlayTest;
+			productReference = 9758F2770588DE88008F071A /* OpenPlayTest.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9758F2790588DE88008F071A /* NetSprocketTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CF360A926AE179A00D26910 /* Build configuration list for PBXNativeTarget "NetSprocketTest" */;
+			buildPhases = (
+				9758F27A0588DE88008F071A /* Headers */,
+				9758F27B0588DE88008F071A /* Resources */,
+				9758F27C0588DE88008F071A /* Sources */,
+				9758F27F0588DE88008F071A /* Frameworks */,
+				9758F2820588DE88008F071A /* Rez */,
+				9758F2830588DE88008F071A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NetSprocketTest;
+			productInstallPath = "$(USER_APPS_DIR)";
+			productName = NetSprocketTest;
+			productReference = 9758F2870588DE88008F071A /* NetSprocketTest.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9758F2890588DE88008F071A /* NetSprocketTest2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CF360AB26AE179A00D26910 /* Build configuration list for PBXNativeTarget "NetSprocketTest2" */;
+			buildPhases = (
+				9758F28A0588DE88008F071A /* Headers */,
+				9758F28B0588DE88008F071A /* Resources */,
+				9758F28C0588DE88008F071A /* Sources */,
+				9758F2920588DE88008F071A /* Frameworks */,
+				9758F2950588DE88008F071A /* Rez */,
+				9758F2970588DE88008F071A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				188F165F05D2FF9000A6EDA9 /* PBXTargetDependency */,
+			);
+			name = NetSprocketTest2;
+			productInstallPath = "$(USER_APPS_DIR)";
+			productName = NetSprocketTest2;
+			productReference = 9758F29B0588DE88008F071A /* NetSprocketTest2.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9758F29D0588DE88008F071A /* OPEnumTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CF360AA26AE179A00D26910 /* Build configuration list for PBXNativeTarget "OPEnumTest" */;
+			buildPhases = (
+				9758F29E0588DE88008F071A /* Headers */,
+				9758F29F0588DE88008F071A /* Resources */,
+				9758F2A00588DE88008F071A /* Sources */,
+				9758F2A20588DE88008F071A /* Frameworks */,
+				9758F2A50588DE88008F071A /* Rez */,
+				9758F2A60588DE88008F071A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OPEnumTest;
+			productInstallPath = "$(USER_APPS_DIR)";
+			productName = OPEnumTest;
+			productReference = 9758F2AA0588DE88008F071A /* OPEnumTest.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9758F2AC0588DE88008F071A /* OPExample1 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CF360AC26AE179A00D26910 /* Build configuration list for PBXNativeTarget "OPExample1" */;
+			buildPhases = (
+				9758F2AD0588DE88008F071A /* Headers */,
+				9758F2AE0588DE88008F071A /* Resources */,
+				9758F2B00588DE88008F071A /* Sources */,
+				9758F2B30588DE88008F071A /* Frameworks */,
+				9758F2B60588DE88008F071A /* Rez */,
+				9758F2B70588DE88008F071A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OPExample1;
+			productInstallPath = "$(USER_APPS_DIR)";
+			productName = OPExample1;
+			productReference = 9758F2BB0588DE89008F071A /* OPExample1.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9758F2BD0588DE89008F071A /* NSpExample1 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CF360AD26AE179A00D26910 /* Build configuration list for PBXNativeTarget "NSpExample1" */;
+			buildPhases = (
+				9758F2BE0588DE89008F071A /* Headers */,
+				9758F2BF0588DE89008F071A /* Resources */,
+				9758F2C00588DE89008F071A /* Sources */,
+				9758F2C30588DE89008F071A /* Frameworks */,
+				9758F2C60588DE89008F071A /* Rez */,
+				9758F2C70588DE89008F071A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NSpExample1;
+			productInstallPath = "$(USER_APPS_DIR)";
+			productName = NSpExample1;
+			productReference = 9758F2CB0588DE89008F071A /* NSpExample1.app */;
+			productType = "com.apple.product-type.application";
+		};
+		9758F2CD0588DE89008F071A /* OpenPlayMiniDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2CF360AE26AE179A00D26910 /* Build configuration list for PBXNativeTarget "OpenPlayMiniDemo" */;
+			buildPhases = (
+				9758F2CE0588DE89008F071A /* Headers */,
+				9758F2CF0588DE89008F071A /* Resources */,
+				9758F2D00588DE89008F071A /* Sources */,
+				9758F2D20588DE89008F071A /* Frameworks */,
+				9758F2D40588DE89008F071A /* Rez */,
+				9758F2D50588DE89008F071A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OpenPlayMiniDemo;
+			productName = OpenPlayMiniDemo;
+			productReference = 9758F2D90588DE89008F071A /* OpenPlayMiniDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 2CF360A526AE179900D26910 /* Build configuration list for PBXProject "OpenPlay" */;
+			compatibilityVersion = "Xcode 2.4";
+			hasScannedForEncodings = 1;
+			mainGroup = 0867D691FE84028FC02AAC07 /* OpenPlay */;
+			productRefGroup = 034768DDFF38A45A11DB9C8B /* Products,Libs,Frameworks */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9758F2DB0588DE89008F071A /* Build All */,
+				9758F24C0588DE88008F071A /* IP Module */,
+				9758F2220588DE88008F071A /* OpenPlay Framework */,
+				9758F2620588DE88008F071A /* OpenPlayTest */,
+				9758F2790588DE88008F071A /* NetSprocketTest */,
+				9758F2890588DE88008F071A /* NetSprocketTest2 */,
+				9758F29D0588DE88008F071A /* OPEnumTest */,
+				9758F2AC0588DE88008F071A /* OPExample1 */,
+				9758F2BD0588DE89008F071A /* NSpExample1 */,
+				9758F2CD0588DE89008F071A /* OpenPlayMiniDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		9758F2240588DE88008F071A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9758F2250588DE88008F071A /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F24E0588DE88008F071A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2640588DE88008F071A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9758F2650588DE88008F071A /* OPTestInfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F27B0588DE88008F071A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F28B0588DE88008F071A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F29F0588DE88008F071A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2AE0588DE88008F071A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9758F2AF0588DE88008F071A /* tcp_module_mac.r in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2BF0588DE89008F071A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2CF0588DE89008F071A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		9758F2470588DE88008F071A /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9758F2480588DE88008F071A /* NetSprocketMachO.r in Rez */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F25D0588DE88008F071A /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9758F25E0588DE88008F071A /* tcp_module_mac.r in Rez */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2710588DE88008F071A /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9758F2720588DE88008F071A /* OpenPlayTestMachO.r in Rez */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2820588DE88008F071A /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2950588DE88008F071A /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9758F2960588DE88008F071A /* NSpTest2Mach.r in Rez */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2A50588DE88008F071A /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2B60588DE88008F071A /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2C60588DE89008F071A /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2D40588DE89008F071A /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9758F2260588DE88008F071A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9758F2270588DE88008F071A /* module_management.cpp in Sources */,
+				9758F2280588DE88008F071A /* op_endpoint.cpp in Sources */,
+				9758F2290588DE88008F071A /* op_hi.cpp in Sources */,
+				9758F22A0588DE88008F071A /* op_module_mgmt.cpp in Sources */,
+				9758F22B0588DE88008F071A /* op_packet.cpp in Sources */,
+				9758F22C0588DE88008F071A /* openplay.cpp in Sources */,
+				9758F22D0588DE88008F071A /* op_dlopen.c in Sources */,
+				9758F22E0588DE88008F071A /* openplay_posix.cpp in Sources */,
+				9758F22F0588DE88008F071A /* CATEndpoint_OP.cpp in Sources */,
+				9758F2300588DE88008F071A /* CEndpoint_OP.cpp in Sources */,
+				9758F2310588DE88008F071A /* CIPEndpoint_OP.cpp in Sources */,
+				9758F2320588DE88008F071A /* EntryPoint.cpp in Sources */,
+				9758F2330588DE88008F071A /* NetSprocketLib.cpp in Sources */,
+				9758F2340588DE88008F071A /* NSp_InterruptSafeList.cpp in Sources */,
+				9758F2350588DE88008F071A /* NSpGame.cpp in Sources */,
+				9758F2360588DE88008F071A /* NSpGameMaster.cpp in Sources */,
+				9758F2370588DE88008F071A /* NSpGamePrivate.cpp in Sources */,
+				9758F2380588DE88008F071A /* NSpGameSlave.cpp in Sources */,
+				9758F2390588DE88008F071A /* NSpLists_OP.cpp in Sources */,
+				9758F23A0588DE88008F071A /* NSpProtocolRef.cpp in Sources */,
+				9758F23B0588DE88008F071A /* dll_utils_posix.cpp in Sources */,
+				9758F23C0588DE88008F071A /* find_files_posix.cpp in Sources */,
+				9758F23D0588DE88008F071A /* ByteSwapping.cpp in Sources */,
+				9758F23E0588DE88008F071A /* DebugPrint.cpp in Sources */,
+				9758F23F0588DE88008F071A /* ERObject.cpp in Sources */,
+				9758F2400588DE88008F071A /* machine_lock.cpp in Sources */,
+				9758F2410588DE88008F071A /* OPUtils.cpp in Sources */,
+				9758F2420588DE88008F071A /* String_Utils.cpp in Sources */,
+				9758F2430588DE88008F071A /* TPointerArray.cpp in Sources */,
+				9758F2440588DE88008F071A /* NSpDialogMacOS.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F24F0588DE88008F071A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9758F2500588DE88008F071A /* tcp_module_communication.cpp in Sources */,
+				9758F2510588DE88008F071A /* tcp_module_config.cpp in Sources */,
+				9758F2520588DE88008F071A /* tcp_module_enumeration.cpp in Sources */,
+				9758F2530588DE88008F071A /* tcp_module_main.cpp in Sources */,
+				9758F2540588DE88008F071A /* OPUtils.cpp in Sources */,
+				9758F2550588DE88008F071A /* DebugPrint.cpp in Sources */,
+				9758F2560588DE88008F071A /* machine_lock.cpp in Sources */,
+				9758F2570588DE88008F071A /* configuration.c in Sources */,
+				9758F2580588DE88008F071A /* ip_enumeration.c in Sources */,
+				9758F2590588DE88008F071A /* String_Utils.cpp in Sources */,
+				9758F25A0588DE88008F071A /* tcp_module_gui_mac.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2660588DE88008F071A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9758F2670588DE88008F071A /* OPUtils.cpp in Sources */,
+				9758F2680588DE88008F071A /* String_Utils.cpp in Sources */,
+				9758F2690588DE88008F071A /* dialog_utils.c in Sources */,
+				9758F26A0588DE88008F071A /* testbed.c in Sources */,
+				9758F26B0588DE88008F071A /* dialog_lists.c in Sources */,
+				9758F26C0588DE88008F071A /* log.c in Sources */,
+				9758F26D0588DE88008F071A /* shell.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F27C0588DE88008F071A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9758F27D0588DE88008F071A /* NSpTestApp.cpp in Sources */,
+				9758F27E0588DE88008F071A /* OPUtils.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F28C0588DE88008F071A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9758F28D0588DE88008F071A /* aevt.c in Sources */,
+				9758F28E0588DE88008F071A /* events.c in Sources */,
+				9758F28F0588DE88008F071A /* init.c in Sources */,
+				9758F2900588DE88008F071A /* main.c in Sources */,
+				9758F2910588DE88008F071A /* NetStuff.cp in Sources */,
+				186CFACD05D43B8F00BE49C2 /* OPUtils.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2A00588DE88008F071A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9758F2A10588DE88008F071A /* OPEnumTest.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2B00588DE88008F071A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9758F2B10588DE88008F071A /* main.c in Sources */,
+				9758F2B20588DE88008F071A /* op_network.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2C00588DE89008F071A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9758F2C10588DE89008F071A /* main.c in Sources */,
+				9758F2C20588DE89008F071A /* nsp_network.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2D00588DE89008F071A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9758F2D10588DE89008F071A /* miniplay.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		188F165B05D2FF7A00A6EDA9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9758F24C0588DE88008F071A /* IP Module */;
+			targetProxy = 188F165A05D2FF7A00A6EDA9 /* PBXContainerItemProxy */;
+		};
+		188F165F05D2FF9000A6EDA9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9758F2220588DE88008F071A /* OpenPlay Framework */;
+			targetProxy = 188F165E05D2FF9000A6EDA9 /* PBXContainerItemProxy */;
+		};
+		9758F2E60588DE89008F071A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9758F2220588DE88008F071A /* OpenPlay Framework */;
+			targetProxy = 9758F2E50588DE89008F071A /* PBXContainerItemProxy */;
+		};
+		9758F2E80588DE89008F071A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9758F24C0588DE88008F071A /* IP Module */;
+			targetProxy = 9758F2E70588DE89008F071A /* PBXContainerItemProxy */;
+		};
+		9758F2EA0588DE89008F071A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9758F2620588DE88008F071A /* OpenPlayTest */;
+			targetProxy = 9758F2E90588DE89008F071A /* PBXContainerItemProxy */;
+		};
+		9758F2EC0588DE89008F071A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9758F2790588DE88008F071A /* NetSprocketTest */;
+			targetProxy = 9758F2EB0588DE89008F071A /* PBXContainerItemProxy */;
+		};
+		9758F2EE0588DE89008F071A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9758F29D0588DE88008F071A /* OPEnumTest */;
+			targetProxy = 9758F2ED0588DE89008F071A /* PBXContainerItemProxy */;
+		};
+		9758F2F00588DE89008F071A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9758F2890588DE88008F071A /* NetSprocketTest2 */;
+			targetProxy = 9758F2EF0588DE89008F071A /* PBXContainerItemProxy */;
+		};
+		9758F2F20588DE89008F071A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9758F2AC0588DE88008F071A /* OPExample1 */;
+			targetProxy = 9758F2F10588DE89008F071A /* PBXContainerItemProxy */;
+		};
+		9758F2F40588DE89008F071A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9758F2BD0588DE89008F071A /* NSpExample1 */;
+			targetProxy = 9758F2F30588DE89008F071A /* PBXContainerItemProxy */;
+		};
+		9758F2F60588DE89008F071A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9758F2CD0588DE89008F071A /* OpenPlayMiniDemo */;
+			targetProxy = 9758F2F50588DE89008F071A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		089C1666FE841158C02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C1667FE841158C02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5530D5B0256B46901A80105 /* OPTestInfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F5530D5C0256B46901A80105 /* English */,
+			);
+			name = OPTestInfoPlist.strings;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2CF3608426AE179700D26910 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				MACOSX_DEPLOYMENT_TARGET = 10.2;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Development;
+		};
+		2CF3608526AE179700D26910 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				MACOSX_DEPLOYMENT_TARGET = 10.2;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Deployment;
+		};
+		2CF3608626AE179700D26910 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				MACOSX_DEPLOYMENT_TARGET = 10.2;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Default;
+		};
+		2CF3608726AE179700D26910 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = (
+					"-DDEBUG",
+					"-DDEBUGCALLCHAIN",
+					"-Dproject_builder",
+					"-Dmacho_build",
+				);
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = "Build All";
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				ZERO_LINK = NO;
+			};
+			name = Development;
+		};
+		2CF3608826AE179700D26910 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUGGING_SYMBOLS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_CFLAGS = (
+					"-Dproject_builder",
+					"-Dmacho_build",
+				);
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = "Build All";
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		2CF3608926AE179700D26910 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = "Build All";
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wmost",
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+			};
+			name = Default;
+		};
+		2CF3608A26AE179700D26910 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				EXPORTED_SYMBOLS_FILE = ../../Source/OPNetModules/posix/NetModuleDarwin.exp;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities/posix,
+					../../Source/OPNetModules,
+					../../Source/OPNetModules/Common,
+					../../Source/OPNetModules/posix/TCP_IP,
+					../../Source/OPNetModules/,
+					../../Source/Utilities,
+					../../Source/OpenPlayLib/Common,
+					../../Source/OpenPlayLib/posix,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-IP_Module.plist";
+				INSTALL_PATH = "";
+				OTHER_CFLAGS = (
+					"-DDEBUG",
+					"-DDEBUGCALLCHAIN",
+					"-Dproject_builder",
+					"-Dmacho_build",
+				);
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = tcpip.so;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = bundle;
+				ZERO_LINK = NO;
+			};
+			name = Development;
+		};
+		2CF3608B26AE179700D26910 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUGGING_SYMBOLS = NO;
+				EXPORTED_SYMBOLS_FILE = ../../Source/OPNetModules/posix/NetModuleDarwin.exp;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities/posix,
+					../../Source/OPNetModules,
+					../../Source/OPNetModules/Common,
+					../../Source/OPNetModules/posix/TCP_IP,
+					../../Source/OPNetModules/,
+					../../Source/Utilities,
+					../../Source/OpenPlayLib/Common,
+					../../Source/OpenPlayLib/posix,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-IP_Module.plist";
+				INSTALL_PATH = "";
+				OTHER_CFLAGS = (
+					"-Dproject_builder",
+					"-Dmacho_build",
+				);
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = tcpip.so;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = bundle;
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		2CF3608C26AE179700D26910 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXPORTED_SYMBOLS_FILE = ../../Source/OPNetModules/posix/NetModuleDarwin.exp;
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities/posix,
+					../../Source/OPNetModules,
+					../../Source/OPNetModules/Common,
+					../../Source/OPNetModules/posix/TCP_IP,
+					../../Source/OPNetModules/,
+					../../Source/Utilities,
+					../../Source/OpenPlayLib/Common,
+					../../Source/OpenPlayLib/posix,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-IP_Module.plist";
+				INSTALL_PATH = "";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = tcpip.so;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Default;
+		};
+		2CF3608D26AE179700D26910 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXPORTED_SYMBOLS_FILE = ../../Source/OpenPlayLib/posix/openplay_darwin.exp;
+				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities/posix,
+					../../Source/OPNetModules,
+					../../Source/OPNetModules/Common,
+					../../Source/NetSprocketLib,
+					../../Source/Utilities,
+					../../Source/OpenPlayLib/Common,
+					../../Source/OpenPlayLib/posix,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-OpenPlay_Framework.plist";
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CFLAGS = (
+					"-DDEBUG",
+					"-DDEBUGCALLCHAIN",
+					"-Dproject_builder",
+					"-Dmacho_build",
+				);
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = OpenPlay;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = framework;
+				ZERO_LINK = NO;
+			};
+			name = Development;
+		};
+		2CF3608E26AE179700D26910 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUGGING_SYMBOLS = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXPORTED_SYMBOLS_FILE = ../../Source/OpenPlayLib/posix/openplay_darwin.exp;
+				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities/posix,
+					../../Source/OPNetModules,
+					../../Source/OPNetModules/Common,
+					../../Source/NetSprocketLib,
+					../../Source/Utilities,
+					../../Source/OpenPlayLib/Common,
+					../../Source/OpenPlayLib/posix,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-OpenPlay_Framework.plist";
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CFLAGS = (
+					"-Dproject_builder",
+					"-Dmacho_build",
+				);
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = OpenPlay;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = framework;
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		2CF3608F26AE179700D26910 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXPORTED_SYMBOLS_FILE = ../../Source/OpenPlayLib/posix/openplay_darwin.exp;
+				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_VERSION = A;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities/posix,
+					../../Source/OPNetModules,
+					../../Source/OPNetModules/Common,
+					../../Source/NetSprocketLib,
+					../../Source/Utilities,
+					../../Source/OpenPlayLib/Common,
+					../../Source/OpenPlayLib/posix,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-OpenPlay_Framework.plist";
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = OpenPlay;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Default;
+		};
+		2CF3609026AE179700D26910 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities,
+					../../Source/Demos/OpenPlayTest/Common,
+					../../Source/Demos/OpenPlayTest/Macintosh,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-OpenPlayTest.plist";
+				OTHER_CFLAGS = (
+					"-DDEBUG",
+					"-DDEBUGCALLCHAIN",
+					"-Dproject_builder",
+					"-Dmacho_build",
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = OpenPlayTest;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Development;
+		};
+		2CF3609126AE179700D26910 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUGGING_SYMBOLS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities,
+					../../Source/Demos/OpenPlayTest/Common,
+					../../Source/Demos/OpenPlayTest/Macintosh,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-OpenPlayTest.plist";
+				OTHER_CFLAGS = (
+					"-Dproject_builder",
+					"-Dmacho_build",
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = OpenPlayTest;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		2CF3609226AE179700D26910 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities,
+					../../Source/Demos/OpenPlayTest/Common,
+					../../Source/Demos/OpenPlayTest/Macintosh,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-OpenPlayTest.plist";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = OpenPlayTest;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = app;
+			};
+			name = Default;
+		};
+		2CF3609326AE179700D26910 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Macintosh/prefixMacCarbon.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities,
+					../../Source/Demos/NSpTestApp,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-NetSprocketTest.plist";
+				OTHER_CFLAGS = (
+					"-DDEBUG",
+					"-DDEBUGCALLCHAIN",
+					"-Dproject_builder",
+					"-Dmacho_build",
+				);
+				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = NetSprocketTest;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Development;
+		};
+		2CF3609426AE179700D26910 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUGGING_SYMBOLS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Macintosh/prefixMacCarbon.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities,
+					../../Source/Demos/NSpTestApp,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-NetSprocketTest.plist";
+				OTHER_CFLAGS = (
+					"-Dproject_builder",
+					"-Dmacho_build",
+				);
+				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = NetSprocketTest;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		2CF3609526AE179700D26910 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Macintosh/prefixMacCarbon.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities,
+					../../Source/Demos/NSpTestApp,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-NetSprocketTest.plist";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = NetSprocketTest;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = app;
+			};
+			name = Default;
+		};
+		2CF3609626AE179700D26910 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities,
+					../../Source/Demos/NSpTest2,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-NetSprocketTest2.plist";
+				OTHER_CFLAGS = (
+					"-DDEBUG",
+					"-DDEBUGCALLCHAIN",
+					"-Dproject_builder",
+					"-Dmacho_build",
+				);
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = NetSprocketTest2;
+				RESMERGER_SOURCES_FORK = auto;
+				REZ_SHOW_DEBUG_OUTPUT = YES;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Development;
+		};
+		2CF3609726AE179700D26910 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUGGING_SYMBOLS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities,
+					../../Source/Demos/NSpTest2,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-NetSprocketTest2.plist";
+				OTHER_CFLAGS = (
+					"-Dproject_builder",
+					"-Dmacho_build",
+				);
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = NetSprocketTest2;
+				RESMERGER_SOURCES_FORK = auto;
+				REZ_SHOW_DEBUG_OUTPUT = YES;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		2CF3609826AE179700D26910 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities,
+					../../Source/Demos/NSpTest2,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-NetSprocketTest2.plist";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = NetSprocketTest2;
+				RESMERGER_SOURCES_FORK = auto;
+				REZ_SHOW_DEBUG_OUTPUT = YES;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = app;
+			};
+			name = Default;
+		};
+		2CF3609926AE179700D26910 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-OPEnumTest.plist";
+				OTHER_CFLAGS = (
+					"-DDEBUG",
+					"-DDEBUGCALLCHAIN",
+					"-Dproject_builder",
+					"-Dmacho_build",
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = OPEnumTest;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Development;
+		};
+		2CF3609A26AE179700D26910 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUGGING_SYMBOLS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-OPEnumTest.plist";
+				OTHER_CFLAGS = (
+					"-Dproject_builder",
+					"-Dmacho_build",
+				);
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = OPEnumTest;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		2CF3609B26AE179700D26910 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-OPEnumTest.plist";
+				OTHER_CFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = OPEnumTest;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = app;
+			};
+			name = Default;
+		};
+		2CF3609C26AE179700D26910 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities,
+					../../Source/Demos/OPExample1,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-OPExample1.plist";
+				OTHER_CFLAGS = (
+					"-DDEBUG",
+					"-DDEBUGCALLCHAIN",
+					"-Dproject_builder",
+					"-Dmacho_build",
+				);
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = OPExample1;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Development;
+		};
+		2CF3609D26AE179700D26910 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUGGING_SYMBOLS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities,
+					../../Source/Demos/OPExample1,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-OPExample1.plist";
+				OTHER_CFLAGS = (
+					"-Dproject_builder",
+					"-Dmacho_build",
+				);
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = OPExample1;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		2CF3609E26AE179700D26910 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities,
+					../../Source/Demos/OPExample1,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-OPExample1.plist";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = OPExample1;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = app;
+			};
+			name = Default;
+		};
+		2CF3609F26AE179700D26910 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities,
+					../../Source/Demos/OPExample1,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-NSpExample1.plist";
+				OTHER_CFLAGS = (
+					"-DDEBUG",
+					"-DDEBUGCALLCHAIN",
+					"-Dproject_builder",
+					"-Dmacho_build",
+				);
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = NSpExample1;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Development;
+		};
+		2CF360A026AE179700D26910 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUGGING_SYMBOLS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities,
+					../../Source/Demos/OPExample1,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-NSpExample1.plist";
+				OTHER_CFLAGS = (
+					"-Dproject_builder",
+					"-Dmacho_build",
+				);
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = NSpExample1;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		2CF360A126AE179700D26910 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities,
+					../../Source/Demos/OPExample1,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-NSpExample1.plist";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = NSpExample1;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = app;
+			};
+			name = Default;
+		};
+		2CF360A226AE179700D26910 /* Development */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-OpenPlayMiniDemo.plist";
+				OTHER_CFLAGS = (
+					"-DDEBUG",
+					"-DDEBUGCALLCHAIN",
+					"-Dproject_builder",
+					"-Dmacho_build",
+				);
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = OpenPlayMiniDemo;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Development;
+		};
+		2CF360A326AE179700D26910 /* Deployment */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUGGING_SYMBOLS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-OpenPlayMiniDemo.plist";
+				OTHER_CFLAGS = (
+					"-Dproject_builder",
+					"-Dmacho_build",
+				);
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = OpenPlayMiniDemo;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = app;
+				ZERO_LINK = NO;
+			};
+			name = Deployment;
+		};
+		2CF360A426AE179700D26910 /* Default */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = (
+					../../Source/Utilities,
+					../../Interfaces,
+				);
+				INFOPLIST_FILE = "Info-OpenPlayMiniDemo.plist";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = OpenPlayMiniDemo;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = (
+					"-Wno-four-char-constants",
+					"-Wno-unknown-pragmas",
+				);
+				WRAPPER_EXTENSION = app;
+			};
+			name = Default;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2CF360A526AE179900D26910 /* Build configuration list for PBXProject "OpenPlay" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CF3608426AE179700D26910 /* Development */,
+				2CF3608526AE179700D26910 /* Deployment */,
+				2CF3608626AE179700D26910 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		2CF360A626AE179A00D26910 /* Build configuration list for PBXNativeTarget "IP Module" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CF3608A26AE179700D26910 /* Development */,
+				2CF3608B26AE179700D26910 /* Deployment */,
+				2CF3608C26AE179700D26910 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		2CF360A726AE179A00D26910 /* Build configuration list for PBXNativeTarget "OpenPlay Framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CF3608D26AE179700D26910 /* Development */,
+				2CF3608E26AE179700D26910 /* Deployment */,
+				2CF3608F26AE179700D26910 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		2CF360A826AE179A00D26910 /* Build configuration list for PBXNativeTarget "OpenPlayTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CF3609026AE179700D26910 /* Development */,
+				2CF3609126AE179700D26910 /* Deployment */,
+				2CF3609226AE179700D26910 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		2CF360A926AE179A00D26910 /* Build configuration list for PBXNativeTarget "NetSprocketTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CF3609326AE179700D26910 /* Development */,
+				2CF3609426AE179700D26910 /* Deployment */,
+				2CF3609526AE179700D26910 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		2CF360AA26AE179A00D26910 /* Build configuration list for PBXNativeTarget "OPEnumTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CF3609926AE179700D26910 /* Development */,
+				2CF3609A26AE179700D26910 /* Deployment */,
+				2CF3609B26AE179700D26910 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		2CF360AB26AE179A00D26910 /* Build configuration list for PBXNativeTarget "NetSprocketTest2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CF3609626AE179700D26910 /* Development */,
+				2CF3609726AE179700D26910 /* Deployment */,
+				2CF3609826AE179700D26910 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		2CF360AC26AE179A00D26910 /* Build configuration list for PBXNativeTarget "OPExample1" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CF3609C26AE179700D26910 /* Development */,
+				2CF3609D26AE179700D26910 /* Deployment */,
+				2CF3609E26AE179700D26910 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		2CF360AD26AE179A00D26910 /* Build configuration list for PBXNativeTarget "NSpExample1" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CF3609F26AE179700D26910 /* Development */,
+				2CF360A026AE179700D26910 /* Deployment */,
+				2CF360A126AE179700D26910 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		2CF360AE26AE179A00D26910 /* Build configuration list for PBXNativeTarget "OpenPlayMiniDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CF360A226AE179700D26910 /* Development */,
+				2CF360A326AE179700D26910 /* Deployment */,
+				2CF360A426AE179700D26910 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+		2CF360AF26AE179A00D26910 /* Build configuration list for PBXAggregateTarget "Build All" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2CF3608726AE179700D26910 /* Development */,
+				2CF3608826AE179700D26910 /* Deployment */,
+				2CF3608926AE179700D26910 /* Default */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Default;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}

@@ -72,7 +72,9 @@
 	#endif
 
 
-	#if defined(OP_PLATFORM_MAC_MACHO) || defined(OP_PLATFORM_WINDOWS)
+	#if defined(OP_PLATFORM_MAC_MACHO)
+		typedef socklen_t		posix_size_type;
+	#elif defined(OP_PLATFORM_WINDOWS)
 		typedef int 			posix_size_type;
 	#else
 		typedef unsigned int 	posix_size_type;

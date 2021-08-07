@@ -559,10 +559,12 @@ Send_Packet( void )
 	
 //perform byteswapping on little-endian systems(x86, etc) to put our data in network(big-endian) order 
 #if (little_endian)
-		DEBUG_PRINT("we have as 0x%x",packet.id);
+//		_op_dprintf symbol is not found at link time in Development configuration in Xcode
+//		DEBUG_PRINT("we have as 0x%x",packet.id);
 		packet.id = SWAP4(packet.id);
 		packet.data = SWAP4(packet.data);
-		DEBUG_PRINT("going out as 0x%x",packet.id);
+//		_op_dprintf symbol is not found at link time in Development configuration in Xcode
+//		DEBUG_PRINT("going out as 0x%x",packet.id);
 #endif		
 		// OpenPlay API
 		err = ProtocolSendPacket( gLocalEndpoint, 

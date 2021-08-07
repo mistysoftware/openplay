@@ -1443,7 +1443,7 @@ NMGetIdentifier(NMEndpointRef inEndpoint,  char * outIdStr, NMSInt16 inMaxLen)
 	
     the_socket = inEndpoint->sockets[_stream_socket];
     sockaddr_in   remote_address;
-    int			remote_length = sizeof(remote_address);
+    posix_size_type remote_length = sizeof(remote_address);
     char result[256];
     
     getpeername(the_socket, (sockaddr*)&remote_address, &remote_length);

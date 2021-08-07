@@ -15,11 +15,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.2r3</string>
+	<string>2.2r4</string>
 	<key>CFBundleSignature</key>
 	<string>OPap</string>
 	<key>CFBundleVersion</key>
-	<string>2.2r3</string>
+	<string>2.2r4</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 1999-2021 Apple Inc.</string>
 </dict>
