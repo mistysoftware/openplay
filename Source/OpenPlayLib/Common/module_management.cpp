@@ -308,6 +308,7 @@ static void remove_loaded_module(
 	loaded_modules_data *loaded_module)
 {
 	/* %% LR -- at times this routine fails calling free() on a non-malloc'd block! */
+	/* %% ERZ -- I believe the fix below resolves that */
 	op_assert(loaded_module != NULL);
 
 	/* remove it from the list.. */
@@ -315,8 +316,8 @@ static void remove_loaded_module(
 	{
 		gOp_globals.loaded_modules = loaded_module->next;
 	}
-	else	/* if more than one module, adjust the linked list */
-	{
+	else if (gOp_globals.loaded_modules)	/* if more than one module, adjust the linked list */
+	{                                       /* ERZ - this seems to have problems when there are no modules loaded */
 		loaded_modules_data *previous_module = gOp_globals.loaded_modules;
 		
 		while(previous_module && previous_module->next != loaded_module)

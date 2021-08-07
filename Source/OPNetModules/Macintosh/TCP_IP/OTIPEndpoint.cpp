@@ -283,10 +283,16 @@ OTIPEndpoint::GetIdentifier(char* outIdStr, NMSInt16 inMaxSize)
         return err;
     }
     
-	InetAddress *addr = (InetAddress *) peerAddr.addr.buf;
-	op_vassert_return((addr->fAddressType == AF_INET),"Bad Endpoint Address Type!",  kNMInternalErr);
+	if (peerAddr.addr.len == 0) {
+		return kNMAddressNotValidYet;
+	}
 
-   unsigned char *addrp = (unsigned char*)&addr->fHost;
+	InetAddress *addr = (InetAddress *) peerAddr.addr.buf;
+	if ((addr == 0) || (addr->fAddressType != AF_INET)) {
+		return kNMAddressNotValidYet;
+	}
+
+    unsigned char *addrp = (unsigned char*)&addr->fHost;
 
 	sprintf(result, "%u.%u.%u.%u", addrp[0], addrp[1], addrp[2], addrp[3]);
 	

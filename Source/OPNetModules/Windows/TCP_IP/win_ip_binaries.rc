@@ -31,17 +31,17 @@ BEGIN
         BLOCK "040904b0"
         BEGIN
             VALUE "Comments", "www.sf.net/projects/openplay\0"
-            VALUE "CompanyName", "Apple Computer\0"
+            VALUE "CompanyName", "Apple\0"
             VALUE "FileDescription", "OpenPlay\0"
             VALUE "FileVersion", "2, 2, 0, 0\0"
             VALUE "InternalName", "OpenPlay DLL\0"
-            VALUE "LegalCopyright", "Copyright © 1999-2004 Apple Computer, Inc.\0"
-            VALUE "LegalTrademarks", "Apple Computer Inc.\0"
+            VALUE "LegalCopyright", "Copyright © 1999-2021 Apple Inc.\0"
+            VALUE "LegalTrademarks", "Apple Inc.\0"
             VALUE "OriginalFilename", "OpenPlay.dll\0"
-            VALUE "PrivateBuild", "r2\0"
+            VALUE "PrivateBuild", "r3\0"
             VALUE "ProductName", "Apple OpenSource Networking\0"
             VALUE "ProductVersion", "2, 2, 0, 0\0"
-            VALUE "SpecialBuild", "040424\0"
+            VALUE "SpecialBuild", "210724\0"
         END
     END
     BLOCK "VarFileInfo"

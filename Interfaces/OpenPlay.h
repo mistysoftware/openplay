@@ -1,5 +1,5 @@
 /*
- * OpenPlay 2.2 release 1 (v2.2r1) build 040511
+ * OpenPlay 2.2 release 3 (v2.2r3) build 210724
  * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
@@ -105,6 +105,13 @@
 		#define has_unused_pragma 1
 		#define has_byte_type
 	
+	#elif defined(__MINGW32__)   /* Gcc doing MinGW32 windows compilation */
+		#define little_endian 1
+		#define OP_PLATFORM_WINDOWS 1
+		
+		#undef  has_unused_pragma
+		#undef  has_byte_type
+		
 	#else	/* lump everything else under Posix -- linux, unix, etc. */		
 
 		#ifdef linux
