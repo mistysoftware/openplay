@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -80,14 +80,14 @@ op_globals	gOp_globals;
 // initialize_openplay
 //----------------------------------------------------------------------------------------
 
-void initialize_openplay(	FileDesc *file)
+void initialize_openplay( FileDesc *file )
 {
 	machine_mem_zero(&gOp_globals, sizeof(op_globals));
 
-	if (file)
- 		machine_copy_data(file, &gOp_globals.file_spec, sizeof(FileDesc));
+	if( file )
+ 		machine_copy_data( file, &gOp_globals.file_spec, sizeof(FileDesc) );
 
-	gOp_globals.res_refnum =-1;
+	gOp_globals.res_refnum = -1;
 	
 	op_idle_synchronous();
 }

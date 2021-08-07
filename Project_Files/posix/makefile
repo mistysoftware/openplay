@@ -1,4 +1,4 @@
-# OpenPlay Make file for Unix targets
+# OpenPlay Make file for Linux & Unix targets
 
 #where the makefile is
 TOP = $(PWD)
@@ -26,7 +26,7 @@ OBJECT_DIR = $(TOP)/objs_$(OSTYPE_DIR)-$(OP_BUILD_TYPE)
 OUTPUT_OPTION = -o $(OBJECT_DIR)/$@
 
 ifeq ($(OSTYPE),darwin)
-	CC = cc	
+	CC = g++	
 	INOSTYPE = os_darwin
 	GLOBAL_FLAGS = -Dmacho_build -Wno-four-char-constants
 	OP_SHLIB_NAME = libopenplay.dylib
@@ -52,12 +52,12 @@ OP_DOWNLOADHTTP_PATH = $(TARGET_DIR)/opdownloadhttp
 #where to find sources/headers/libs  
 OUR_PATHS = $(TOP)/../../Interfaces\
 	$(TOP)/../../Source/OpenPlayLib/Common\
-	$(TOP)/../../Source/OpenPlayLib/posix\
+	$(TOP)/../../Source/OpenPlayLib/Posix\
 	$(TOP)/../../Source/Utilities\
-	$(TOP)/../../Source/Utilities/posix\
+	$(TOP)/../../Source/Utilities/Posix\
 	$(TOP)/../../Source/OPNetModules\
 	$(TOP)/../../Source/OPNetModules/Common\
-	$(TOP)/../../Source/OPNetModules/posix/TCP_IP\
+	$(TOP)/../../Source/OPNetModules/Posix/TCP_IP\
 	$(TOP)/../../Source/Demos/OPEnumTest\
 	$(TOP)/../../Source/NetSprocketLib\
 	$(TOP)/../../Source/Demos/NSpTestApp\

@@ -1,0 +1,11 @@
+* OpenPlay ChangeLog*
+* Yes, this change log starts well into the history of OpenPlay,
+* but better late than never they say. Let's hope they are right!
+
+040716 Lane Roathe
+- fixed missing functions in export files
+040511 Lane Roathe
+- Added Howard Shere's GetBacklog functionality
+- Added Build, website and other information in OpenPlay.h
+- Fixed version info in plists and rdvz module
+- Added this file to CVS

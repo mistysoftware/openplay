@@ -1,9 +1,10 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * OpenPlay 2.2 release 1 (v2.2r1) build 040511
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -21,8 +22,18 @@
  * 
  * @APPLE_LICENSE_HEADER_END@
  *
- * Modified: $Date: 2003/11/19 23:46:25 $
- * Revision: $Id: OpenPlay.h,v 1.6 2003/11/19 23:46:25 raving Exp $
+ * The Latest OpenPlay code is in CVS on SourceForge:
+ *
+ *						http://www.sourcefourge.net/projects/openplay
+ *
+ * The OpenPlay binary package is avaible on the Official Apple OpenPlay webpage:
+ *
+ *						http://developer.apple.com/darwin/projects/openplay/
+ *
+ * The OpenPlay Mailing list signup page is at:
+ *
+ *						http://lists.apple.com/mailman/listinfo/openplay-development
+ *
  */
 
 #ifndef __OPENPLAY__
@@ -408,7 +419,13 @@
 		/**Sent when an endpoint "dies"; generally when the connection is lost or the remote machine disconnects.  You should call \ref ProtocolCloseEndpoint() on the endpoint after receiving this message, and then wait for its \ref kNMCloseComplete message.*/
 		kNMEndpointDied		= 7,
 		/**The final message sent to an endpoint.  After closing an endpoint, you should wait for this message to be sure that no more straggling messages will arrive at the endpoint.  Calling \ref ProtocolIsAlive() can be used with the same purpose.*/
-		kNMCloseComplete	= 8
+		kNMCloseComplete	= 8,
+		/**allow servers to be called back to update the response data before an enumeration response is returned to a client.*/
+		kNMUpdateResponse	= 9,
+
+		/**Define the next free callback # available (also an easy way to avoid ending , on updates) */
+		kNMNextFreeCallbackCode
+
 	} NMCallbackCode;
 	
 	/**Special values for a \ref NMModuleInfoStruct 's maxEndpoints member.*/
@@ -532,7 +549,7 @@
 		kNMParameterErr				= -4998,
 		/**Operation timed out before completing.*/
 		kNMTimeoutErr				= -4997,
-		/**An invalid or corrupt \ref PConfigRef was passed.*/
+		/**An invalid or corrupt PConfigRef was passed.*/
 		kNMInvalidConfigErr			= -4996,
 		/**Version is too new*/
 		kNMNewerVersionErr			= -4995,
@@ -596,7 +613,14 @@
 		kNMModuleNotFoundErr			= -4784,
 		/**The function does not seem to exist in the NetModule.*/
 		kNMFunctionNotBoundErr			= -4783,
-
+/*LR -- should no longer be used!
+		//NULL pointer encountered.
+		err_NilPointer					= -4782,	// was 'nilP'
+		kNMNilPointer					= err_NilPointer,
+		//Assertion failed.
+		err_AssertFailed				= -4781,	// was 'asrt';
+		kNMAssertFailed				= err_AssertFailed,
+*/
 		/**No error! woohoo!*/
 		kNMNoError					= 0
 	} NMErrorCode;
@@ -893,7 +917,7 @@
 	/* Apple reserves all negative "what" values (anything with high bit set) */
 	enum {
 		kNSpSystemMessagePrefix		= (NMSInt32)0x80000000,
-		kNSpError					= kNSpSystemMessagePrefix | 0x7FFFFFFF,
+
 		kNSpJoinRequest				= kNSpSystemMessagePrefix | 0x00000001,
 		kNSpJoinApproved			= kNSpSystemMessagePrefix | 0x00000002,
 		kNSpJoinDenied				= kNSpSystemMessagePrefix | 0x00000003,
@@ -905,10 +929,21 @@
 		kNSpGroupDeleted			= kNSpSystemMessagePrefix | 0x00000009,
 		kNSpPlayerAddedToGroup		= kNSpSystemMessagePrefix | 0x0000000A,
 		kNSpPlayerRemovedFromGroup	= kNSpSystemMessagePrefix | 0x0000000B,
-		kNSpPlayerTypeChanged		= kNSpSystemMessagePrefix | 0x0000000C
+		kNSpPlayerTypeChanged		= kNSpSystemMessagePrefix | 0x0000000C,
+		kNSpJoinResponse			= kNSpSystemMessagePrefix | 0x0000000D,
+
+		kNSpError					= kNSpSystemMessagePrefix | 0x7FFFFFFF
 	};
-	
-	
+
+	// dair, Added join response message
+	#define kNSpMaxJoinResponseLen	1280	// Buffer is a set size due to creation at interrupt time
+
+	typedef struct {
+		NSpMessageHeader 				header;
+		NMUInt32 						responseDataLen;
+		NMUInt8 						responseData[kNSpMaxJoinResponseLen];
+	} NSpJoinResponseMessage;
+
 	/** Special TPlayerIDs  for sending messages */
 	typedef enum
 	{
@@ -1322,6 +1357,9 @@ extern "C" {
 	OP_DEFINE_API_C( NSpMessageHeader *)
 	NSpMessage_Get					(NSpGameReference 		inGame);
 	
+	OP_DEFINE_API_C( NMUInt32 )
+	NSpMessage_GetBacklog( NSpGameReference inGame );
+
 	OP_DEFINE_API_C( void )
 	NSpMessage_Release				(NSpGameReference 		inGame,
 									 NSpMessageHeader *		inMessage);
@@ -1432,8 +1470,8 @@ extern "C" {
 										char *theZone);
 	
 	OP_DEFINE_API_C( NSpAddressReference )
-	NSpCreateIPAddressReference		(	char *	inIPAddress, 
-										char *	inIPPort);
+	NSpCreateIPAddressReference		(	const char *	inIPAddress, 
+										const char *	inIPPort);
 	
 	OP_DEFINE_API_C( void )
 	NSpReleaseAddressReference		(	NSpAddressReference inAddress);
@@ -1478,10 +1516,12 @@ extern "C" {
 									 void *					inContext);
 	
 	
+	// dair, added NSpJoinResponseMessage support
 	typedef OP_CALLBACK_API( NMBoolean , NSpJoinRequestHandlerProcPtr )(	NSpGameReference 		inGame, 
 																		NSpJoinRequestMessage *	inMessage, 
 																		void *					inContext, 
-																		unsigned char *			outReason);
+																		unsigned char *			outReason,
+																		NSpJoinResponseMessage *outMessage);
 	
 	OP_DEFINE_API_C( NMErr )
 	NSpInstallJoinRequestHandler	(NSpJoinRequestHandlerProcPtr  inHandler,

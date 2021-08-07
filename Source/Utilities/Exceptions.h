@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -34,42 +34,5 @@
 
 //	------------------------------	Public Definitions
 
-// sjb 19990419 these must be longs so they match the
-// catch clauses and we don't throw them past the handlers
-	const long err_NilPointer = 'nilP';
-	const long err_AssertFailed = 'asrt';
-
-	//ecf exceptions arent working on linux... argh...
-	/*
-	#define Try_ try
-
-	#define Throw_(a) throw (a)
-
-	#define Catch_(a) catch (long a)
-
-	#define ThrowIfOSErr_(a)	\
-		if (kNMNoError != (a))		\
-		{						\
-			throw a;			\
-		}
-
-	#define ThrowIfNil_(a)			\
-		if (0 == (a))				\
-		{							\
-			throw err_NilPointer;	\
-		}
-
-	#define ThrowIfNULL_(a)			\
-		if (0 == (a))				\
-		{							\
-			throw err_NilPointer;	\
-		}
-
-	#define ThrowIfNot_(a)			\
-		if (0 == (a))				\
-		{							\
-			throw err_AssertFailed;	\
-		}
-	*/
 #endif // __OPENPLAYEXCEPTIONS__
 

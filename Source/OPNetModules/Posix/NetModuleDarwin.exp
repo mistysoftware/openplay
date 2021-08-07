@@ -29,5 +29,7 @@ _NMEndEnumeration
 _NMStopAdvertising
 _NMStartAdvertising
 _NMGetIdentifier
+_NMGetAddress
+_NMFreeAddress
 __init
 __fini

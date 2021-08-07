@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -78,19 +78,7 @@ OTUtils::HasOpenTransport(void)
 }
 
 //----------------------------------------------------------------------------------------
-// OTUtils::Version11OrLater
-//----------------------------------------------------------------------------------------
-
-NMBoolean
-OTUtils::Version11OrLater(void)
-{
-	::Gestalt(gestaltOpenTptVersions, &sOTVersion);
-
-	return (sOTVersion == kSys71Version11ID || sOTVersion >= k111VersionID);
-}
-
-//----------------------------------------------------------------------------------------
-// OTUtils::DoNegotiateIPReuseAddrOption
+// OTUtils::Version111OrLater
 //----------------------------------------------------------------------------------------
 
 NMBoolean
@@ -161,7 +149,7 @@ OTUtils::StartOpenTransport( OTProtocolTest inProtocolTest, long reserveMemory, 
 		if (HasOpenTransport() == false) 
 			return (kNSpOTNotPresentErr);
 
-		if (Version11OrLater() == false)
+		if (Version111OrLater() == false)
 			return (kNSpOTVersionTooOldErr);
 		
 		if (inProtocolTest == kOTCheckForAppleTalk) {
@@ -400,58 +388,45 @@ OTUtils::MakeInetAddressFromString(const char *addrString, InetAddress *outAddr)
 	NMErr			status = kNMNoError;	
 
 	len = strlen(addrString);
-	
-	//Try_
-	{
-		
+
 	//	Open a mapper to convert this into an InetAddress
-		mapper = NM_OTOpenMapper(OTCreateConfiguration(kDNRName), 0, &status);
-		//ThrowIfOSErr_(status);
-		if (status)
-			goto error;
-		//ThrowIfNULL_(mapper);
-		if (mapper == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
-		
-		
-	//	Prepare the request and reply structures
-		req.name.maxlen = len;
-		req.name.len = len;
-		req.name.buf = (NMUInt8 *) addrString;
-		req.addr.len = 0;
-		req.maxcnt = 1;
-		req.timeout = 0;
-		req.flags = 0;
-		
-		rep.names.buf = (NMUInt8 *)buf;
-		rep.names.maxlen = 400;
-		
-		status = ::OTLookupName(mapper, &req, &rep);
-		//ThrowIfOSErr_(err);
-		if (status)
-			goto error;
-		
-	//	OT gives us the reply is a bizarre format.  The InetAddress is +4 into the reply
-		machine_move_data(buf + 4, outAddr, sizeof(InetAddress));
-		
-		::OTCloseProvider(mapper);
+	mapper = NM_OTOpenMapper(OTCreateConfiguration(kDNRName), 0, &status);
+	if (status)
+		goto error;
+
+	if (mapper == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
 	}
-	//Catch_(code)
-	error:
+
+	//	Prepare the request and reply structures
+	req.name.maxlen = len;
+	req.name.len = len;
+	req.name.buf = (NMUInt8 *) addrString;
+	req.addr.len = 0;
+	req.maxcnt = 1;
+	req.timeout = 0;
+	req.flags = 0;
+	
+	rep.names.buf = (NMUInt8 *)buf;
+	rep.names.maxlen = 400;
+	
+	status = ::OTLookupName(mapper, &req, &rep);
+	if (status)
+		goto error;
+	
+	//	OT gives us the reply is a bizarre format.  The InetAddress is +4 into the reply
+	machine_move_data(buf + 4, outAddr, sizeof(InetAddress));
+	
+	::OTCloseProvider(mapper);
+
+error:
 	if (status)
 	{			
-		NMErr code = status;
-		if (code == err_NilPointer)
-			code = kNMOutOfMemoryErr;
-			
 		if (mapper)
 			::OTCloseProvider(mapper);
 	}
-	
 	return status;
-
 }
 
 //----------------------------------------------------------------------------------------
@@ -464,34 +439,24 @@ OTUtils::MakeDDPNBPAddressFromString(char *addrString)
 	DDPNBPAddress		*address = NULL;	
 	NMUInt32			addressLength;
 	NMErr				status = kNMNoError;
-	
-	//Try_
-	{
-		address = new DDPNBPAddress;
-		//ThrowIfNULL_(address);
-		if (address == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
-		
-		addressLength = OTInitDDPNBPAddress(address, addrString, 0, 0, 0, AF_ATALK_FAMILY);
-		
+
+	address = new DDPNBPAddress;
+	if (address == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
 	}
-	//Catch_(code)
-	error:
+	addressLength = OTInitDDPNBPAddress(address, addrString, 0, 0, 0, AF_ATALK_FAMILY);
+
+error:
 	if (status)
 	{
-		NMErr code = status;
 		if (address != NULL)
 		{			
 			delete address;
 			address = NULL;
 		}
-		
 	}
-	
 	return address;
-
 }
 
 //----------------------------------------------------------------------------------------
@@ -504,41 +469,32 @@ OTUtils::MakeInetNameFromAddress(const InetHost inHost, InetDomainName ioName)
 	InetSvcRef		service;
 	NMErr status = kNMNoError;
 
-	//Try_
-	{
-		//	Open a mapper to convert this into an InetAddress
+	//	Open a mapper to convert this into an InetAddress
 #ifndef OP_PLATFORM_MAC_CARBON_FLAG
-		service = OTOpenInternetServices(kDefaultInternetServicesPath, 0, &status);
+	service = OTOpenInternetServices(kDefaultInternetServicesPath, 0, &status);
 #else
-		service = OTOpenInternetServicesInContext(kDefaultInternetServicesPath, 0, &status, gOTClientContext);
+	service = OTOpenInternetServicesInContext(kDefaultInternetServicesPath, 0, &status, gOTClientContext);
 #endif
-		//ThrowIfOSErr_(status);
-		if (status)
-			goto error;
-		//ThrowIfNULL_(service);
-		if (service == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
+	if (status)
+		goto error;
 
-		status = OTInetAddressToName(service, inHost, ioName);
-		//ThrowIfOSErr_(status);
-		if (status)
-			goto error;
-		
-		::OTCloseProvider(service);
+	if (service == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
 	}
-	//Catch_(code)
-	error:
+
+	status = OTInetAddressToName(service, inHost, ioName);
+	if (status)
+		goto error;
+	
+	::OTCloseProvider(service);
+
+error:
 	if (status)
 	{
-		NMErr code = status;
 		if (service)
 			::OTCloseProvider(service);
-
-		return code;
 	}
-
 	return status;
 }
 

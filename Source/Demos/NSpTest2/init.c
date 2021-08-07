@@ -31,6 +31,7 @@
 #endif
 
 #include "NetStuff.h"
+#include "OPUtils.h"
 
 #include "App.h"
 #include "Proto.h"
@@ -115,13 +116,13 @@ OSErr InitApp(void)
 
 	// init AppleEvents
 	err = AEInit();
-	MenuSetup();
+	if( !err )
+		err = MenuSetup();
 
 	// init any globals
 	gWindCount = 1;
 
 	return err;
-	
 }
 
 
@@ -132,20 +133,24 @@ OSErr InitApp(void)
 //
 //----------------------------------------------------------------------
 
-void MenuSetup(void)
+OSErr MenuSetup(void)
 {
 	Handle			menu;
 		
 		
 	menu = GetNewMBar(rMBarID);		//	get our menus from resource
-	SetMenuBar(menu);
-	DisposeHandle(menu);
+	if( menu )
+	{
+		SetMenuBar(menu);
+		DisposeHandle(menu);
 	
-	#if (!OP_PLATFORM_MAC_CARBON_FLAG)
+#if (!OP_PLATFORM_MAC_CARBON_FLAG)
 		AppendResMenu(GetMenuHandle(mApple ), 'DRVR');		//	add apple menu items
-	#endif //!OP_PLATFORM_MAC_CARBON_FLAG
+#endif //!OP_PLATFORM_MAC_CARBON_FLAG
 
-	DrawMenuBar();
-
-		
+		DrawMenuBar();
+		return( noErr );
+	}
+	else
+		return( fnfErr );
 }

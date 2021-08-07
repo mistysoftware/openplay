@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -75,7 +75,7 @@ static const char *		kATNBPType = "ATType";
 static const char *		kATNBPZone = "ATZone";
 static const char *		kATModuleName = "AppleTalk";
 static const StringPtr	kDefaultZone = "\p*";
-static const char *		kATModuleCopyright = "1997-1999 Apple Computer, Inc.";
+static const char *		kATModuleCopyright = "1997-2004 Apple Computer, Inc.";
 static const Rect		kFrameSize = {0, 0, 210, 200};
 
 static OTNotifyUPP		gATNotifierUPP = NULL;
@@ -893,33 +893,24 @@ NMCreateConfig(
 	}
 
 	op_vassert_return((outConfig != NULL),"outConfig pointer is NIL!",kNMParameterErr);
-		
-	//Try_
-	{
-		config = new NMATConfigPriv;
-		//ThrowIfNil_(config);
-		if (config == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
 
-		status = ParseConfigString(inConfigStr, inGameID, inGameName, inEnumData, inDataLen, config);
-		//ThrowIfOSErr_(status);
-		if (status)
-			goto error;
-
-		if (status == kNMNoError)
-			*outConfig = (NMConfigRef) config;
-
-		return status;
+	config = new NMATConfigPriv;
+	if (config == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
 	}
-	//Catch_(code)
-	error:
+
+	status = ParseConfigString(inConfigStr, inGameID, inGameName, inEnumData, inDataLen, config);
+	if (status)
+		goto error;
+
+	if (status == kNMNoError)
+		*outConfig = (NMConfigRef) config;
+
+error:
 	if (status)
 	{
-		NMErr code = status;
 		delete config;
-		return code;
 	}
 	return status;
 }
@@ -1098,73 +1089,64 @@ NMSetupDialog(
 	op_vassert_return((inConfig != NULL),"Config ref is NULL!",kNMParameterErr);
 	op_vassert_return((dialog != NULL),"Dialog ptr is NULL!",kNMParameterErr);
 
-	//Try_
+	gBaseItem = inBaseItem;
+	
+	//	Try to load in our DITL.  If we fail, we should bail
+	
+	ourDITL = Get1Resource('DITL', kDITLID);
+	if (ourDITL == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
+	}
+	
+	if (ourDITL == NULL)
+		return kNMResourceErr;
+
+	// Append our DITL relative to the frame by passing the negative of the frame's id
+	AppendDITL(dialog, ourDITL, -frame);
+	ReleaseResource(ourDITL);
+
+	// Set up our user items for our list
 	{
-		gBaseItem = inBaseItem;
-		
-		//	Try to load in our DITL.  If we fail, we should bail
-		
-		ourDITL = Get1Resource('DITL', kDITLID);
-		//ThrowIfNil_(ourDITL);
-		if (ourDITL == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
-		
-		if (ourDITL == NULL)
-			return kNMResourceErr;
-
-		// Append our DITL relative to the frame by passing the negative of the frame's id
-		AppendDITL(dialog, ourDITL, -frame);
-		ReleaseResource(ourDITL);
-
-		// Set up our user items for our list
-		{
-		//DialogItemType		iType;
-		//Handle				iHandle;
-		//Rect				iRect;
+	//DialogItemType		iType;
+	//Handle				iHandle;
+	//Rect				iRect;
 
 
-			// install same user item function pointer for both items
-			//GetDialogItem(dialog,(DialogItemIndex) (kZoneList+gBaseItem),
-			//	&iType,&iHandle,&iRect);
+		// install same user item function pointer for both items
+		//GetDialogItem(dialog,(DialogItemIndex) (kZoneList+gBaseItem),
+		//	&iType,&iHandle,&iRect);
 
 #ifdef OP_PLATFORM_MAC_CARBON_FLAG
-		op_vpause("NMSetupDialog - put back the thing");
+	op_vpause("NMSetupDialog - put back the thing");
 #else
 
-			//SetDialogItem(dialog,(DialogItemIndex) (kZoneList+gBaseItem),
-			//	iType,(Handle) &NMHandleItemRD,&iRect);
+		//SetDialogItem(dialog,(DialogItemIndex) (kZoneList+gBaseItem),
+		//	iType,(Handle) &NMHandleItemRD,&iRect);
 #endif // OP_PLATFORM_MAC_CARBON_FLAG
 
-		}
-
-		// set our lookup method to be as configured
-		(void) InternalSetLookupMethod(kSearchSpecifiedZones);
-
-		// sjb 19990405 now set up the zone list if we have one
-		// Get zone list
-		(void) InternalGetZoneList(&gFullZoneList, kDefaultATTimeout);
-
-		// sjb 19990408 get our zone to default to
-		(void) InternalGetMyZone(gMyZoneName);
-
-		// set the default search list to only our zone
-		(void) InternalSetSearchZone(gMyZoneName);
-
-		// Insert it into the list manager list
-		CreateListItemFromZoneList(dialog,(DialogItemIndex) (kZoneList+gBaseItem),kLDEFOffsetFakeID,
-		                           &gZoneListRecord,gFullZoneList,gMyZoneName);
-
-		return kNMNoError;
 	}
-	//Catch_(code)
-	error:
-	if (status)
-	{
-		NMErr code = status;
-		return kNMResourceErr;
-	}
+
+	// set our lookup method to be as configured
+	(void) InternalSetLookupMethod(kSearchSpecifiedZones);
+
+	// sjb 19990405 now set up the zone list if we have one
+	// Get zone list
+	(void) InternalGetZoneList(&gFullZoneList, kDefaultATTimeout);
+
+	// sjb 19990408 get our zone to default to
+	(void) InternalGetMyZone(gMyZoneName);
+
+	// set the default search list to only our zone
+	(void) InternalSetSearchZone(gMyZoneName);
+
+	// Insert it into the list manager list
+	CreateListItemFromZoneList(dialog,(DialogItemIndex) (kZoneList+gBaseItem),kLDEFOffsetFakeID,
+	                           &gZoneListRecord,gFullZoneList,gMyZoneName);
+
+	return kNMNoError;
+
+error:
 	return status;
 }
 
@@ -1651,60 +1633,55 @@ NotifyProc(void* contextPtr, ATEventCode code, NMErr result, void* cookie)
 	switch (code)
 	{
 		case AT_NEW_ENTITIES:
-			//Try_
+			status = gEnumerator->GetCount(&allFound, &count);
+
+			if (status == kNMNoError && count > gLastCount)
 			{
-				status = gEnumerator->GetCount(&allFound, &count);
-
-				if (status == kNMNoError && count > gLastCount)
+				do
 				{
-					do
+					i = gLastCount + 1;
+					item = new ATEnumerationItemPriv;
+					if (item == NULL){
+						status = kNSpMemAllocationErr;
+						goto error;
+					}
+					
+					status = gEnumerator->GetIndexedEntity(i, zone, type, name, &addr);
+					if (status)
+						goto error;
+					
+					// fill in the enum structure
+					item->enumIndex = i;
+					doCopyPStr(name, item->name);
+
+					if (zone[1] != '*')
 					{
-						i = gLastCount + 1;
-						item = new ATEnumerationItemPriv;
-						//ThrowIfNil_(item);
-						if (item == NULL){
-							status = err_NilPointer;
-							goto error;
-						}
-						
-						status = gEnumerator->GetIndexedEntity(i, zone, type, name, &addr);
-						//ThrowIfOSErr_(status);
-						if (status)
-							goto error;
-						
-						// fill in the enum structure
-						item->enumIndex = i;
-						doCopyPStr(name, item->name);
+						doConcatPStr(item->name, "\p@");
+						doConcatPStr(item->name, zone);
+					}
 
-						if (zone[1] != '*')
-						{
-							doConcatPStr(item->name, "\p@");
-							doConcatPStr(item->name, zone);
-						}
-
-						item->userEnum.id = (NMType) item;
-						p2cstr(item->name);
-						item->userEnum.name = (char *) item->name;
-						item->userEnum.customEnumDataLen = 0;
-						item->userEnum.customEnumData = NULL;
-						 
-						//	Add it to the list
-						gEnumList.AddItem(item);
-		
-					} while (++gLastCount < count);
-				}
-				else
-				{
-					DEBUG_PRINT("GetCount returned an error in enum notifier: %d", status);
-				}
+					item->userEnum.id = (NMType) item;
+					p2cstr(item->name);
+					item->userEnum.name = (char *) item->name;
+					item->userEnum.customEnumDataLen = 0;
+					item->userEnum.customEnumData = NULL;
+					 
+					//	Add it to the list
+					gEnumList.AddItem(item);
+	
+				} while (++gLastCount < count);
 			}
-			//Catch_(code)
-			error:
+			else
+			{
+				DEBUG_PRINT("GetCount returned an error in enum notifier: %d", status);
+			}
+
+error:
 			if (status)
 			{
-				NMErr code = status;
-				DEBUG_PRINT("Caught exception: %d.  gLastCount: %d, count: %d, index:%d", code, gLastCount, count, i);
-				delete item;
+				DEBUG_PRINT("Caught exception: %d.  gLastCount: %d, count: %d, index:%d", status, gLastCount, count, i);
+				if( item )
+					delete item;
 
 				op_vassert((code != kNMOutOfMemoryErr),"Ran out of memory for enumeration responses!");
 			}
@@ -1788,72 +1765,59 @@ NMStartEnumeration(NMConfigRef inConfig, NMEnumerationCallbackPtr inCallback, vo
 
 	op_vassert_return((theConfig != NULL),"Config ref is NULL!",kNMParameterErr);
 	op_vassert_return((inCallback != NULL),"Callback function ptr is NULL!",kNMParameterErr);
+
+	if (gEnumerator != NULL)
+		return kNMAlreadyEnumeratingErr;
 	
+	gEnumerator = new COTEntitiesEnumerator();
 
-	//Try_
-	{
-		if (gEnumerator != NULL)
-			return kNMAlreadyEnumeratingErr;
-		
-		gEnumerator = new COTEntitiesEnumerator();
-
-		//ThrowIfNil_(gEnumerator);
-		if (gEnumerator == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
-
-		//	Clear out any cruft from a previous enum
-		gLastCount = 0;
-		gLastCallbackCount = 0;
-		
-		DeleteAllItems(&gEnumList, ATEnumerationItemPriv*);
-
-		//	Set the callback info
-		gEnumCallback = inCallback;
-		gEnumContext = inContext;
-		
-		status = gEnumerator->Initialize(kATAppleTalkDefaultPortRef, gATNotifierUPP, NULL);
-		//ThrowIfOSErr_(status);
-		if (status)
-			goto error;
-
-		//	The way we do a lookup depends on the config.  We might want to look in all
-		//	zones, or in a particular zone.  By default, the configurator specifies
-		//	the current zone.
-
-		if (gLookupSpecifer == kUseConfig)
-		{
-			zone = theConfig->nbpZone;
-		}
-		else
-		{
-			zone = gZoneSearchList;
-		}
-
-		name = kATSearchAllNames;
-		type = (theConfig->nbpType[0] == 0) ? kATSearchAllEntityTypes : theConfig->nbpType;
-
-		//	first clear out any current enums
-		(gEnumCallback)(gEnumContext, kNMEnumClear, NULL);
-
-		//	start the lookup going
-		
-		status = gEnumerator->StartLookup(zone, type, name, true);
-		//ThrowIfOSErr_(status);
-		if (status)
-			goto error;
-		
-		return status;
+	if (gEnumerator == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
 	}
-	//Catch_(code)
-	error:
+
+	//	Clear out any cruft from a previous enum
+	gLastCount = 0;
+	gLastCallbackCount = 0;
+	
+	DeleteAllItems(&gEnumList, ATEnumerationItemPriv*);
+
+	//	Set the callback info
+	gEnumCallback = inCallback;
+	gEnumContext = inContext;
+	
+	status = gEnumerator->Initialize(kATAppleTalkDefaultPortRef, gATNotifierUPP, NULL);
+	if (status)
+		goto error;
+
+	//	The way we do a lookup depends on the config.  We might want to look in all
+	//	zones, or in a particular zone.  By default, the configurator specifies
+	//	the current zone.
+
+	if (gLookupSpecifer == kUseConfig)
+	{
+		zone = theConfig->nbpZone;
+	}
+	else
+	{
+		zone = gZoneSearchList;
+	}
+
+	name = kATSearchAllNames;
+	type = (theConfig->nbpType[0] == 0) ? kATSearchAllEntityTypes : theConfig->nbpType;
+
+	//	first clear out any current enums
+	(gEnumCallback)(gEnumContext, kNMEnumClear, NULL);
+
+	//	start the lookup going
+	
+	status = gEnumerator->StartLookup(zone, type, name, true);
+
+error:
 	if (status)
 	{
-		NMErr code = status;
 		delete gEnumerator;
 		gEnumerator = NULL;
-		return code;
 	}
 	return status;
 }
@@ -2182,56 +2146,45 @@ MakeNewATEndpointPriv(
 	NMATConfigPriv		*config = (NMATConfigPriv *) inConfig;
 	NMUInt32			mode = (config == NULL) ? inMode : config->connectionMode;
 	NMErr 				status = kNMNoError;
-	
-	//Try_
-	{	
-				
-		*theEP = new NMATEndpointPriv;
-		//ThrowIfNil_(*theEP);
-		if (*theEP == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
 
-		ep = new OTATEndpoint((NMEndpointRef) *theEP, mode);
-		//ThrowIfNil_(ep);
-		if (ep == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
-		
-		
-		//  Set NetSprocket mode
-		ep->mNetSprocketMode = (config == NULL) ? inNetSprocketMode : config->netSprocketMode;
-
-		//	Install the user's callback function
-		status = ep->InstallCallback(inCallback, inContext);
-		//ThrowIfOSErr_(err);
-		if (status)
-			goto error;
-		
-		//	Allow the endpoint to do one-time init stuff
-		status = ep->Initialize(inConfig);
-		//ThrowIfOSErr_(status);
-		if (status)
-			goto error;
-
-		(*theEP)->ep = ep;
-		(*theEP)->id = kModuleID;
+	*theEP = new NMATEndpointPriv;
+	if (*theEP == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
 	}
-	//Catch_(code)
-	error:
+
+	ep = new OTATEndpoint((NMEndpointRef) *theEP, mode);
+	if (ep == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
+	}
+	
+	
+	//  Set NetSprocket mode
+	ep->mNetSprocketMode = (config == NULL) ? inNetSprocketMode : config->netSprocketMode;
+
+	//	Install the user's callback function
+	status = ep->InstallCallback(inCallback, inContext);
+	if (status)
+		goto error;
+	
+	//	Allow the endpoint to do one-time init stuff
+	status = ep->Initialize(inConfig);
+	if (status)
+		goto error;
+
+	(*theEP)->ep = ep;
+	(*theEP)->id = kModuleID;
+
+error:
 	if (status)
 	{
-		NMErr code = status;			
 		delete *theEP;
 		delete ep;
 		
 		*theEP = NULL;
-		return code;
 	}
-	
-	return kNMNoError;
+	return status;
 }
 
 //----------------------------------------------------------------------------------------

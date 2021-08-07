@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -40,12 +40,14 @@ void _init(void)
   initialize_openplay(NULL);
   refresh_protocols();
 }
+#pragma CALL_ON_LOAD _init
 
 /* _fini is called when the library is unloaded */
 void _fini(void)
 {
   release_openplay();
 }
+#pragma CALL_ON_UNLOAD _fini
 
 } //extern C
 

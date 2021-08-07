@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -976,33 +976,25 @@ NMCreateConfig(
 	}
 
 	op_vassert_return((outConfig != NULL),"outConfig pointer is NIL!",kNMParameterErr);
-		
-	//Try_
-	{
-		config = new NMIPConfigPriv;
-		//ThrowIfNil_(config);
-		if (config == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
 
-		status = ParseConfigString(inConfigStr, inGameID, inGameName, inEnumData, inDataLen, config);
-		//ThrowIfOSErr_(status);
-		if (status)
-			goto error;
-	
-		if (status == kNMNoError)
-			*outConfig = (NMConfigRef) config;
-
-		return (status);
+	config = new NMIPConfigPriv;
+	if (config == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
 	}
-	//Catch_(code)
-	error:
+
+	status = ParseConfigString(inConfigStr, inGameID, inGameName, inEnumData, inDataLen, config);
+	if (status)
+		goto error;
+
+	if (status == kNMNoError)
+		*outConfig = (NMConfigRef) config;
+
+error:
 	if (status)
 	{
-		NMErr code = status;
-		delete config;
-		return (code);
+		if( config )
+			delete config;
 	}
 	return status;
 }
@@ -1176,64 +1168,53 @@ NMSetupDialog(NMDialogPtr dialog, short frame,  short inBaseItem,NMConfigRef con
 	
 	op_vassert_return((theConfig != NULL),"Config ref is NULL!",kNMParameterErr);
 	op_vassert_return((dialog != NULL),"Dialog ptr is NULL!",kNMParameterErr);
-		
-	//Try_
-	{
-		gBaseItem = inBaseItem;
 
-		//	Try to load in our DITL.  If we fail, we should bail
-		ourDITL = Get1Resource('DITL', kDITLID);
-		//ThrowIfNil_(ourDITL);
-		if (ourDITL == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
-		
-		if (ourDITL == NULL)
-		{
-			NMSInt16 err = ResError();
-			return kNMResourceErr;
-		}	
+	gBaseItem = inBaseItem;
 
-		//	Append our DITL relative to the frame by passing the negative of the frame's id
-		AppendDITL(dialog, ourDITL, -frame);
-		ReleaseResource(ourDITL);
-
-		//	Setup our dialog info.
-		if (theConfig->address.fHost != 0)
-		{
-			//	Try to get the canonical name
-			status = OTUtils::MakeInetNameFromAddress(theConfig->address.fHost, (char *) hostName);
-			
-			//	if that fails, just use the string version of the dotted quad
-			if (status != kNMNoError)
-				OTInetHostToString(theConfig->address.fHost, (char *) hostName);
-
-			c2pstr((char *) hostName);				
-		}
-		else
-		{
-			doCopyPStr("\p0.0.0.0", hostName);
-		}
-
-		//	get the port
-		NumToString(theConfig->address.fPort, portText);
-		
-		GetDialogItem(dialog, gBaseItem + kHostText, &kind, &h, &r);
-		SetDialogItemText(h, hostName);
-
-		GetDialogItem(dialog, gBaseItem + kPortText, &kind, &h, &r);
-		SetDialogItemText(h, portText);
-
-		return kNMNoError;
+	//	Try to load in our DITL.  If we fail, we should bail
+	ourDITL = Get1Resource('DITL', kDITLID);
+	if (ourDITL == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
 	}
-	//Catch_(code)
-	error:
-	if (status)
+	
+	if (ourDITL == NULL)
 	{
-		NMErr code = status;
+		NMSInt16 err = ResError();
 		return kNMResourceErr;
+	}	
+
+	//	Append our DITL relative to the frame by passing the negative of the frame's id
+	AppendDITL(dialog, ourDITL, -frame);
+	ReleaseResource(ourDITL);
+
+	//	Setup our dialog info.
+	if (theConfig->address.fHost != 0)
+	{
+		//	Try to get the canonical name
+		status = OTUtils::MakeInetNameFromAddress(theConfig->address.fHost, (char *) hostName);
+		
+		//	if that fails, just use the string version of the dotted quad
+		if (status != kNMNoError)
+			OTInetHostToString(theConfig->address.fHost, (char *) hostName);
+
+		c2pstr((char *) hostName);				
 	}
+	else
+	{
+		doCopyPStr("\p0.0.0.0", hostName);
+	}
+
+	//	get the port
+	NumToString(theConfig->address.fPort, portText);
+	
+	GetDialogItem(dialog, gBaseItem + kHostText, &kind, &h, &r);
+	SetDialogItemText(h, hostName);
+
+	GetDialogItem(dialog, gBaseItem + kPortText, &kind, &h, &r);
+	SetDialogItemText(h, portText);
+
+error:
 	return status;
 }
 
@@ -1824,56 +1805,46 @@ MakeNewIPEndpointPriv(
 	Endpoint			*ep = NULL;
 	NMIPConfigPriv		*config = (NMIPConfigPriv *) inConfig;
 	NMUInt32				mode = (config == NULL) ? inMode : config->connectionMode;
-	
-	//Try_
-	{	
-				
-		*theEP = new NMIPEndpointPriv;
-		//ThrowIfNULL_(*theEP);
-		if (*theEP == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
 
-		ep = new OTIPEndpoint((NMEndpointRef) *theEP, mode);
-		//ThrowIfNULL_(ep);
-		if (ep == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
-		
-		//  Set NetSprocket mode
-		ep->mNetSprocketMode = (config == NULL) ? inNetSprocketMode : config->netSprocketMode;
-		
-		//	Install the user's callback function
-		status = ep->InstallCallback(inCallback, inContext);
-		//ThrowIfOSErr_(status);
-		if (status)
-			goto error;
-		
-		//	Allow the endpoint to do one-time init stuff
-		status = ep->Initialize(inConfig);
-		//ThrowIfOSErr_(status);
-		if (status)
-			goto error;
-
-		(*theEP)->ep = ep;
-		(*theEP)->id = kModuleID;
-		
+	*theEP = new NMIPEndpointPriv;
+	if (*theEP == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
 	}
-	//Catch_(code)
-	error:
+
+	ep = new OTIPEndpoint((NMEndpointRef) *theEP, mode);
+	if (ep == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
+	}
+	
+	//  Set NetSprocket mode
+	ep->mNetSprocketMode = (config == NULL) ? inNetSprocketMode : config->netSprocketMode;
+	
+	//	Install the user's callback function
+	status = ep->InstallCallback(inCallback, inContext);
 	if (status)
-	{			
-		NMErr code = status;
-		delete *theEP;
-		delete ep;
+		goto error;
+	
+	//	Allow the endpoint to do one-time init stuff
+	status = ep->Initialize(inConfig);
+	if (status)
+		goto error;
+
+	(*theEP)->ep = ep;
+	(*theEP)->id = kModuleID;
+
+error:
+	if (status)
+	{
+		if( *theEP )
+			delete *theEP;
+		if( ep )
+			delete ep;
 		
 		*theEP = NULL;
-		return code;
 	}
-	
-	return kNMNoError;
+	return status;
 }
 
 //----------------------------------------------------------------------------------------

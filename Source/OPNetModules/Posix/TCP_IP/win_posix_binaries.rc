@@ -20,6 +20,6 @@
 STRINGTABLE
 BEGIN
 	0,	"TCP/IP"
-	1,	"Copyright 1999, Apple Computer, Inc."
+	1,	"Copyright 1999-2004, Apple Computer, Inc."
 	2,  "localhost"
 END

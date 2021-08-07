@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -162,6 +162,7 @@ CEndpoint::CEndpoint(NSpGame *inGame, EPCookie *inUnreliableCookie, EPCookie *in
 	bClone = true;
 	bInitiatedDisconnect = false;
 	mLastSentMessageTimeStamp = 0;
+	bHosting = false;
 	
 	mRTT = 0;
 	mMaxRTT = 0;
@@ -217,6 +218,8 @@ NMSInt32					messageLength;
 	if (result < kNMNoErr)
 		DEBUG_PRINT("Send Disconnect message returned %ld in CEndpoint::Veto", result);
 #endif
+
+	DEBUG_PRINT("Calling ProtocolCloseEndpt in CEndpoint::Veto");
 
 	result = ::ProtocolCloseEndpoint(theCookie->endpointRefOP, true);
 	theCookie->endpointRefOP = NULL;
@@ -286,6 +289,7 @@ CEndpoint::~CEndpoint()
 	
 	if (kOPInvalidEndpointRef != mOpenPlayEndpoint)
 	{
+		DEBUG_PRINT("Calling ProtocolCloseEndpt in CEndpoint::~CEndpoint");
 		::ProtocolCloseEndpoint(mOpenPlayEndpoint, true);
 		mOpenPlayEndpoint = NULL;
 
@@ -312,6 +316,7 @@ CEndpoint::Close()
 
 	if (kOPInvalidEndpointRef != mOpenPlayEndpoint)
 	{
+		DEBUG_PRINT("Calling ProtocolCloseEndpt in CEndpoint::Close");
 		status = ::ProtocolCloseEndpoint(mOpenPlayEndpoint, true);
 
 		if (status != kNMNoError)
@@ -400,10 +405,6 @@ CEndpoint::Init(NMUInt32		inConnectionReqCount,
 
 	if (status)
 	{
-		NMErr code = status;
-		if (err_NilPointer == code)
-			code = kNSpMemAllocationErr;
-			
 		if (mPendingJoinConnections)
 		{
 			delete mPendingJoinConnections;
@@ -418,13 +419,11 @@ CEndpoint::Init(NMUInt32		inConnectionReqCount,
 
 		if (mOpenPlayEndpoint != kOPInvalidEndpointRef)
 		{
+			DEBUG_PRINT("Calling ProtocolCloseEndpt in CEndpoint::Init");
 			::ProtocolCloseEndpoint(mOpenPlayEndpoint, false);
 			mOpenPlayEndpoint = kOPInvalidEndpointRef;
 		}
-
-		return (code);
 	}
-
 
 	return (status);
 }
@@ -509,7 +508,7 @@ CEndpoint::Clone(void *inCookie)
 		theEndpoint =  MakeCopy(cookie);
 		if (theEndpoint == NULL)
 		{
-			status = err_NilPointer;
+			status = kNSpMemAllocationErr;
 			break;
 		}
 		break;
@@ -517,13 +516,11 @@ CEndpoint::Clone(void *inCookie)
 
 	if (status)
 	{
-		if (err_NilPointer == status)
-			status = kNSpMemAllocationErr;
-
 #if INTERNALDEBUG
-		DEBUG_PRINT("Exception thrown in Clone: %ld", status);
+		DEBUG_PRINT("ERROR in Clone: %ld", status);
 #endif
 
+		DEBUG_PRINT("Calling ProtocolCloseEndpt in CEndpoint::Clone");
 		::ProtocolCloseEndpoint(cookie->endpointRefOP, false);
 		cookie->endpointRefOP = NULL;
 		
@@ -570,6 +567,16 @@ CEndpoint::FindPendingJoin(void *inCookie)
 }
 
 //----------------------------------------------------------------------------------------
+// CEndpoint::GetBacklog
+//----------------------------------------------------------------------------------------
+
+NMUInt32
+CEndpoint::GetBacklog( void )
+{
+	return( mStreamSendInfo.backlog );
+}
+
+//----------------------------------------------------------------------------------------
 // CEndpoint::Disconnect
 //----------------------------------------------------------------------------------------
 
@@ -595,11 +602,15 @@ EPCookie						*theCookie = NULL;
 			{
 				theCookie = (EPCookie *)(((UInt32ListMember *)theItem)->GetValue());
 
-				status = ::ProtocolCloseEndpoint(theCookie->endpointRefOP, false);
-				theCookie->endpointRefOP = NULL;
+				if (kOPInvalidEndpointRef != theCookie->endpointRefOP)
+				{
+					DEBUG_PRINT("Calling ProtocolCloseEndpt in CEndpoint::Disconnect (1)");
+					status = ::ProtocolCloseEndpoint(theCookie->endpointRefOP, false);
+					theCookie->endpointRefOP = NULL;
+				}
 #if OTDEBUG
-				if (status != kNMNoError)
-					DEBUG_PRINT("DoDisconnect returned %ld", status);
+					if (status != kNMNoError)
+						DEBUG_PRINT("DoDisconnect returned %ld", status);
 #endif
 			}
 		}
@@ -612,25 +623,36 @@ EPCookie						*theCookie = NULL;
 	}
 	
 	
-	if (orderly)
+	if (kOPInvalidEndpointRef != mOpenPlayEndpoint)
 	{
-		status = ::ProtocolCloseEndpoint(mOpenPlayEndpoint, true);
-		mOpenPlayEndpoint = NULL;
+		if (orderly)
+		{
+			DEBUG_PRINT("Calling ProtocolCloseEndpt in CEndpoint::Disconnect (2)");
+			status = ::ProtocolCloseEndpoint(mOpenPlayEndpoint, true);
+			mOpenPlayEndpoint = NULL;
 
 #if OTDEBUG
-		if (kNMNoError != status)
-			DEBUG_PRINT("ProtocolCloseEndpoint returned %ld", status);
+			if (kNMNoError != status)
+				DEBUG_PRINT("ProtocolCloseEndpoint returned %ld", status);
 #endif
+		}
+		else
+		{
+			DEBUG_PRINT("Calling ProtocolCloseEndpt in CEndpoint::Disconnect (3)");
+			status = ::ProtocolCloseEndpoint(mOpenPlayEndpoint, false);
+			mOpenPlayEndpoint = NULL;
+
+#if OTDEBUG
+			if (kNMNoError != status)
+				DEBUG_PRINT("ProtocolCloseEndpoint returned %ld", status);
+
+#endif
+		}
 	}
 	else
 	{
-		status = ::ProtocolCloseEndpoint(mOpenPlayEndpoint, false);
-		mOpenPlayEndpoint = NULL;
-
 #if OTDEBUG
-		if (kNMNoError != status)
-			DEBUG_PRINT("ProtocolCloseEndpoint returned %ld", status);
-
+		DEBUG_PRINT("mOpenPlayEndpoint is an invalid endpoint.");
 #endif
 	}
 
@@ -732,6 +754,8 @@ CEndpoint::SendMessage(NSpMessageHeader *inHeader, NMUInt8 *inBody, NSpFlags inF
 		//	We HAVE to postpone it if there is already a backlog, else things will be out of order!
 		if (mStreamSendInfo.backlog > 0)
 		{
+			op_vpause("CEndpoint::SendMessage - There is a backlog... postponing send.");
+			
 			if (inFlags & kNSpSendFlag_FailIfPipeFull)
 			{
 				result = kNSpPipeFullErr;
@@ -756,12 +780,12 @@ CEndpoint::SendMessage(NSpMessageHeader *inHeader, NMUInt8 *inBody, NSpFlags inF
 			if ((kNMFlowErr == result) || ((result > 0) && (result < messageLength)))
 			{
 				NMUInt32 bytesSent = (kNMFlowErr == result) ? 0 : result;
-#if OTDEBUG
+				
 				op_vpause("CEndpoint::SendMessage - Flow Error");
-#endif
 
 				if (bytesSent)	//	if we sent any, we have to send it all
 				{
+					op_vpause("CEndpoint::SendMessage - Bytes sent.  Calling PostponeSend...");
 					result = PostponeSend(&mStreamSendInfo, inHeader, bytesSent); 		
 				}
 				else
@@ -769,7 +793,10 @@ CEndpoint::SendMessage(NSpMessageHeader *inHeader, NMUInt8 *inBody, NSpFlags inF
 					if (inFlags & kNSpSendFlag_FailIfPipeFull)
 						result = kNSpPipeFullErr;
 					else
+					{
+						op_vpause("CEndpoint::SendMessage - No bytes were sent.  Calling PostponeSend...");
 						result = PostponeSend(&mStreamSendInfo, inHeader); 		
+					}
 				}
 			}
 			
@@ -825,7 +852,7 @@ CEndpoint::SendMessage(NSpMessageHeader *inHeader, NMUInt8 *inBody, NSpFlags inF
 	if (result)
 	{
 error:
-		DEBUG_PRINT("Caught a Throw with result %ld", result);
+		DEBUG_PRINT("ERROR in CEndpoint::SendMessage, result = %ld", result);
 	}
 	
 	return (result);
@@ -854,19 +881,23 @@ CEndpoint::PostponeSend(SendInfo *inInfo, NSpMessageHeader *inData, NMUInt32 inB
 	notifierErr = ProtocolEnterNotifier(mOpenPlayEndpoint, endpointMode);
 	if (notifierErr)
 	{
+		op_vpause("CEndpoint::PostponeSend - Got error from ProtocolEnterNotifier.");
 		status = notifierErr;
 		goto error;
 	}
 
 	if (inInfo->backlog > kMaxSendBacklog)
 	{
+		op_vpause("CEndpoint::PostponeSend - Pipe is full.");
 		status = kNSpPipeFullErr;
 		goto error;
 	}
+
+	op_vpause("CEndpoint::PostponeSend - About to create new SendQItem...");
 	
 	qItem = new SendQItem( (void *) inData, inBytesSent);
 	if (qItem == NULL){
-		status = err_NilPointer;
+		status = kNSpMemAllocationErr;
 		goto error;
 	}
 
@@ -880,20 +911,15 @@ CEndpoint::PostponeSend(SendInfo *inInfo, NSpMessageHeader *inData, NMUInt32 inB
 	if (status)
 	{
 error:
-#if OTDEBUG
-		DEBUG_PRINT("Exception thrown in PostponeSend: %ld", status);
-#endif
+		DEBUG_PRINT("ERROR in CEndpoint::PostponeSend, result = %ld", status);
 
 		if (notifierErr == kNMNoError)
 			ProtocolLeaveNotifier(mOpenPlayEndpoint, endpointMode);
 
-		DEBUG_PRINT("Exception thrown in PostponeSend: %ld", status);
-		
-		return (kNSpPipeFullErr);
+		return( status );
 	}
 	
-	if( !status )
-		ProtocolLeaveNotifier(mOpenPlayEndpoint, endpointMode);
+	ProtocolLeaveNotifier(mOpenPlayEndpoint, endpointMode);
 
 	return (kNMNoError);
 }
@@ -1137,7 +1163,7 @@ CEndpoint::HandOffConnection(PEndpointRef inEndpoint, void *inCookie)
 	//	Create a new cookie for our endpoint
 	newCookie = (EPCookie *) InterruptSafe_alloc(sizeof (EPCookie));
 	if (newCookie == NULL){
-		status = err_NilPointer;
+		status = kNSpMemAllocationErr;
 		goto error;
 	}
 
@@ -1150,14 +1176,8 @@ CEndpoint::HandOffConnection(PEndpointRef inEndpoint, void *inCookie)
 	if (status)
 	{
 error:
-		
-#if OTDEBUG
-		DEBUG_PRINT("Exception thrown in HandOffConnection: %ld", status);
-#endif
-		if (err_NilPointer == status)
-			status = kNSpMemAllocationErr;
-			
 		//	We need to send a disconnect to the active peer
+		DEBUG_PRINT("ERROR in HandOffConnection: %ld", status);
 		status = ::ProtocolCloseEndpoint(mOpenPlayEndpoint, false);
 		mOpenPlayEndpoint = NULL;
 
@@ -1202,7 +1222,7 @@ CEndpoint::DoReceiveStream(PEndpointRef inEndpoint, EPCookie *inCookie)
 			{
 				DEBUG_PRINT("Couldn't receive the message because we ran out of free q elements.");
 
-				status = kNSpFreeQExhaustedErr;
+				status = kNSpFreeQExhaustedErr;	// not best solution, see comments below
 				goto error;
 			}
 
@@ -1316,7 +1336,42 @@ CEndpoint::DoReceiveStream(PEndpointRef inEndpoint, EPCookie *inCookie)
 	if (status)
 	{
 	error:
-		Close();
+		// The connection with the remote endpoint is not good.  If this is not
+		// a listening endpoint, then just close it.  If it is a listening endpoint,
+		// then disconnect the remote peer... not best solution, but better than previous.
+		
+		if (bHosting)
+		{
+			// Remove pending join request if there is one...
+
+			NSp_InterruptSafeListIterator	iter(*mPendingJoinConnections);
+			NSp_InterruptSafeListMember		*theItem;
+			
+			while (iter.Next(&theItem))
+			{
+				if ( ( (EPCookie *) (((UInt32ListMember *) theItem)->GetValue())) -> endpointRefOP == inEndpoint)
+				{
+					DEBUG_PRINT("Removing pending join connection in CEndpoint::DoReceiveStream");
+					mPendingJoinConnections->Remove(theItem);
+					break;
+				}
+			} 
+			
+			// Close endpoint that received the bogus data...
+			if (kOPInvalidEndpointRef != inEndpoint)
+			{
+				DEBUG_PRINT("Calling ProtocolCloseEndpt in CEndpoint::DoReceiveStream");
+				status = ::ProtocolCloseEndpoint(inEndpoint, true);
+
+				if (status != kNMNoError)
+				status = ::ProtocolCloseEndpoint(inEndpoint, false);
+			}
+		}
+		else
+		{
+			DEBUG_PRINT("Calling Close() in CEndpoint::DoReceiveStream");
+			Close();
+		}
 		return (status);
 	}
 
@@ -1474,25 +1529,20 @@ CEndpoint::HandleAcceptComplete(PEndpointRef inEP, EPCookie *inCookie)
 	NMErr			status = kNMNoError;
 	
 	theMember = new UInt32ListMember((NMUInt32) inCookie);
-	//ThrowIfNULL_(theMember);
 	if (theMember == NULL)
 	{
 		status = kNSpMemAllocationErr;
-		goto error;
 	}
-
-	inCookie->endpointRefOP = inEP;
-	mPendingJoinConnections->Append(theMember);	
-
-	if (status)
+	else
 	{
-error:
-#if OTDEBUG
-		DEBUG_PRINT("Exception thrown in HandleHandoffComplete: %ld", status);
-#endif
-		if (err_NilPointer == status)
-			status = kNSpMemAllocationErr;			
+		inCookie->endpointRefOP = inEP;
+		mPendingJoinConnections->Append(theMember);	
 	}
+
+#if OTDEBUG
+	if (status)
+		DEBUG_PRINT("ERROR in HandleHandoffComplete: %ld", status);
+#endif
 
 	return (status);
 }

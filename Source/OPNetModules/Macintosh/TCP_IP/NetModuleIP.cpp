@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -72,7 +72,7 @@ static const char *kIPConfigAddress = "IPaddr";
 static const char *kIPConfigPort = "IPport";
 
 static const char *kModuleName = "TCP/IP";
-static const char *kModuleCopyright = "1996-1999 Apple Computer, Inc.";
+static const char *kModuleCopyright = "1996-2004 Apple Computer, Inc.";
 static const char *kModuleIDString = "Inet";
 static const Rect	kFrameSize = {0, 0, 100, 430};
 
@@ -1023,64 +1023,53 @@ NMSetupDialog(NMDialogPtr dialog, short frame,  short inBaseItem,NMConfigRef con
 	
 	op_vassert_return((theConfig != NULL),"Config ref is NULL!",kNMParameterErr);
 	op_vassert_return((dialog != NULL),"Dialog ptr is NULL!",kNMParameterErr);
-		
-	//Try_
-	{
-		gBaseItem = inBaseItem;
 
-		//	Try to load in our DITL.  If we fail, we should bail
-		ourDITL = Get1Resource('DITL', kDITLID);
-		//ThrowIfNil_(ourDITL);
-		if (ourDITL == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
-		
-		if (ourDITL == NULL)
-		{
-			NMSInt16 err = ResError();
-			return kNMResourceErr;
-		}	
+	gBaseItem = inBaseItem;
 
-		//	Append our DITL relative to the frame by passing the negative of the frame's id
-		AppendDITL(dialog, ourDITL, -frame);
-		ReleaseResource(ourDITL);
-
-		//	Setup our dialog info.
-		if (theConfig->address.fHost != 0)
-		{
-			//	Try to get the canonical name
-			status = OTUtils::MakeInetNameFromAddress(theConfig->address.fHost, (char *) hostName);
-			
-			//	if that fails, just use the string version of the dotted quad
-			if (status != kNMNoError)
-				OTInetHostToString(theConfig->address.fHost, (char *) hostName);
-
-			c2pstr((char *) hostName);				
-		}
-		else
-		{
-			doCopyPStr("\p0.0.0.0", hostName);
-		}
-
-		//	get the port
-		NumToString(theConfig->address.fPort, portText);
-		
-		GetDialogItem(dialog, gBaseItem + kHostText, &kind, &h, &r);
-		SetDialogItemText(h, hostName);
-
-		GetDialogItem(dialog, gBaseItem + kPortText, &kind, &h, &r);
-		SetDialogItemText(h, portText);
-
-		return kNMNoError;
+	//	Try to load in our DITL.  If we fail, we should bail
+	ourDITL = Get1Resource('DITL', kDITLID);
+	if (ourDITL == NULL){
+		status = kNMBadStateErr;
+		goto error;
 	}
-	//Catch_(code)
-	error:
-	if (status)
+	
+	if (ourDITL == NULL)
 	{
-		NMErr code = status;
+		NMSInt16 err = ResError();
 		return kNMResourceErr;
+	}	
+
+	//	Append our DITL relative to the frame by passing the negative of the frame's id
+	AppendDITL(dialog, ourDITL, -frame);
+	ReleaseResource(ourDITL);
+
+	//	Setup our dialog info.
+	if (theConfig->address.fHost != 0)
+	{
+		//	Try to get the canonical name
+		status = OTUtils::MakeInetNameFromAddress(theConfig->address.fHost, (char *) hostName);
+		
+		//	if that fails, just use the string version of the dotted quad
+		if (status != kNMNoError)
+			OTInetHostToString(theConfig->address.fHost, (char *) hostName);
+
+		c2pstr((char *) hostName);				
 	}
+	else
+	{
+		doCopyPStr("\p0.0.0.0", hostName);
+	}
+
+	//	get the port
+	NumToString(theConfig->address.fPort, portText);
+	
+	GetDialogItem(dialog, gBaseItem + kHostText, &kind, &h, &r);
+	SetDialogItemText(h, hostName);
+
+	GetDialogItem(dialog, gBaseItem + kPortText, &kind, &h, &r);
+	SetDialogItemText(h, portText);
+
+error:
 	return status;
 }
 
@@ -1219,40 +1208,30 @@ NMStartEnumeration(NMConfigRef inConfig, NMEnumerationCallbackPtr inCallback, vo
 	op_vassert_return((theConfig != NULL),"Config ref is NULL!",kNMParameterErr);
 	op_vassert_return((inCallback != NULL),"Callback function ptr is NULL!",kNMParameterErr);
 
-	//Try_
+	if (gEnumerator != NULL)
+		return kNMAlreadyEnumeratingErr;
+	
+	if (OTUtils::OTInitialized())
+		gEnumerator = new OTIPEnumerator(theConfig, inCallback, inContext, inActive);
+	else
 	{
-		if (gEnumerator != NULL)
-			return kNMAlreadyEnumeratingErr;
-		
-		if (OTUtils::OTInitialized())
-			gEnumerator = new OTIPEnumerator(theConfig, inCallback, inContext, inActive);
-		else
-		{
-			gEnumerator = NULL;		// Fill in when we have classic support
-			DEBUG_PRINT("We don't have classic IP support yet");
-		}			
-		//ThrowIfNil_(gEnumerator);
-		if (gEnumerator == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
-		
+		gEnumerator = NULL;		// Fill in when we have classic support
+		DEBUG_PRINT("We don't have classic IP support yet");
+	}			
 
-		status = gEnumerator->StartEnumeration();
-		//ThrowIfOSErr_(status);
-		if (status)
-			goto error;
-		
-		return status;
+	if (gEnumerator == NULL){
+		status = kNMBadStateErr;
+		goto error;
 	}
-	//Catch_(code)
-	error:
+
+	status = gEnumerator->StartEnumeration();
+
+error:
 	if (status)
 	{
-		NMErr code = status;
-		delete gEnumerator;
+		if( gEnumerator )
+			delete gEnumerator;
 		gEnumerator = NULL;
-		return code;
 	}
 	return status;
 }
@@ -1537,56 +1516,46 @@ MakeNewIPEndpointPriv(
 	Endpoint			*ep = NULL;
 	NMIPConfigPriv		*config = (NMIPConfigPriv *) inConfig;
 	NMUInt32				mode = (config == NULL) ? inMode : config->connectionMode;
-	
-	//Try_
-	{	
-				
-		*theEP = new NMIPEndpointPriv;
-		//ThrowIfNULL_(*theEP);
-		if (*theEP == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
 
-		ep = new OTIPEndpoint((NMEndpointRef) *theEP, mode);
-		//ThrowIfNULL_(ep);
-		if (ep == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
-		
-		//  Set NetSprocket mode
-		ep->mNetSprocketMode = (config == NULL) ? inNetSprocketMode : config->netSprocketMode;
-		
-		//	Install the user's callback function
-		status = ep->InstallCallback(inCallback, inContext);
-		//ThrowIfOSErr_(status);
-		if (status)
-			goto error;
-		
-		//	Allow the endpoint to do one-time init stuff
-		status = ep->Initialize(inConfig);
-		//ThrowIfOSErr_(status);
-		if (status)
-			goto error;
-
-		(*theEP)->ep = ep;
-		(*theEP)->id = kModuleID;
-		
+	*theEP = new NMIPEndpointPriv;
+	if (*theEP == NULL){
+		status = kNMBadStateErr;
+		goto error;
 	}
-	//Catch_(code)
-	error:
+
+	ep = new OTIPEndpoint((NMEndpointRef) *theEP, mode);
+	if (ep == NULL){
+		status = kNMBadStateErr;
+		goto error;
+	}
+	
+	//  Set NetSprocket mode
+	ep->mNetSprocketMode = (config == NULL) ? inNetSprocketMode : config->netSprocketMode;
+	
+	//	Install the user's callback function
+	status = ep->InstallCallback(inCallback, inContext);
 	if (status)
-	{			
-		NMErr code = status;
-		delete *theEP;
-		delete ep;
+		goto error;
+	
+	//	Allow the endpoint to do one-time init stuff
+	status = ep->Initialize(inConfig);
+	if (status)
+		goto error;
+
+	(*theEP)->ep = ep;
+	(*theEP)->id = kModuleID;
+
+error:
+	if (status)
+	{
+		if( *theEP )
+			delete *theEP;
+		if( ep )
+			delete ep;
 		
 		*theEP = NULL;
-		return code;
 	}
-	
-	return kNMNoError;
+	return status;
 }
 
 //----------------------------------------------------------------------------------------

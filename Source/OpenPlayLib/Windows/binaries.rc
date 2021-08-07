@@ -131,10 +131,10 @@ BEGIN
             VALUE "FileDescription", "OpenPlay\0"
             VALUE "FileVersion", "2, 2, 0, 0\0"
             VALUE "InternalName", "OpenPlay DLL\0"
-            VALUE "LegalCopyright", "Copyright © 1999-2003 Apple Computer, Inc.\0"
+            VALUE "LegalCopyright", "Copyright © 1999-2004 Apple Computer, Inc.\0"
             VALUE "LegalTrademarks", "Apple Computer Inc.\0"
             VALUE "OriginalFilename", "OpenPlay.dll\0"
-            VALUE "PrivateBuild", "d11\0"
+            VALUE "PrivateBuild", "r2\0"
             VALUE "ProductName", "Apple OpenSource Networking\0"
             VALUE "ProductVersion", "2, 2, 0, 0\0"
             VALUE "SpecialBuild", "031020\0"
@@ -156,7 +156,7 @@ END
 
 STRINGTABLE DISCARDABLE 
 BEGIN
-    0                       "OpenPlay Modules"
+    0     "OpenPlay Modules"
 END
 
 #endif    // English (U.S.) resources

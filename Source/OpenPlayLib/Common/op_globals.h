@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -66,6 +66,9 @@ void initialize_openplay(FileDesc *file);
 		loaded_modules_data *	loaded_modules;
 
 		NMSInt16				res_refnum;
+	#if OP_PLATFORM_MAC_MACHO
+		CFBundleRef				selfBundleRef;
+	#endif
 
 	#ifdef OP_API_NETWORK_OT
 

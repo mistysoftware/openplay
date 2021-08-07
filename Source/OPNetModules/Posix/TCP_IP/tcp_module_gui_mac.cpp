@@ -7,11 +7,11 @@
  *   Author: Kevin Holbrook
  *  Created: June 23, 1999
  *
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -35,6 +35,7 @@
 #define OP_POSIX_USE_CARBON_TYPES 1 
 
 #include <Carbon/Carbon.h>
+#include "OpenPlay.h"
 #include "OPUtils.h"
 #include "DebugPrint.h"
 #include "NetModule.h"
@@ -112,75 +113,57 @@ NMErr NMSetupDialog(	NMDialogPtr 		dialog,
 	op_vassert_return((theConfig != NULL),"Config ref is NULL!",kNMParameterErr);
 	op_vassert_return((dialog != NULL),"Dialog ptr is NULL!",kNMParameterErr);
 		
-	//Try_
-	{
-		gBaseItem = inBaseItem;
+	gBaseItem = inBaseItem;
 
-		//	Try to load in our DITL.  If we fail, we should bail
-		ourDITL = Get1Resource('DITL', kDITLID);
-		//ThrowIfNil_(ourDITL);
-		if (ourDITL == NULL){
-			DEBUG_PRINT("couldnt get our dialog. argh");
-			status = err_NilPointer;
-			goto error;
-		}
-		else
-			DEBUG_PRINT("got our dialog");
-		
-		if (ourDITL == NULL)
-		{
-			NMSInt16 err = ResError();
-			return kNMResourceErr;
-		}	
-
-		//	Append our DITL relative to the frame by passing the negative of the frame's id
-		AppendDITL(dialog, ourDITL, -frame);
-		ReleaseResource(ourDITL);
-
-		//FIXME
-		//	Setup our dialog info.
-		/*if (theConfig->address.fHost != 0)
-		{
-			//	Try to get the canonical name
-			status = OTUtils::MakeInetNameFromAddress(theConfig->address.fHost, (char *) hostName);
-			
-			//	if that fails, just use the string version of the dotted quad
-			if (status != kNMNoError)
-				OTInetHostToString(theConfig->address.fHost, (char *) hostName);
-
-			c2pstr((char *) hostName);				
-		}
-		else*/
-		{
-			unsigned char defaultString[] = "\p0.0.0.0";
-			memcpy(hostName,defaultString,defaultString[0] + 1);
-		}
-
-		//FIXME
-		//	get the port
-		//NumToString(theConfig->address.fPort, portText);
-		{
-			unsigned char defaultString[] = "\p1234";
-			memcpy(portText,defaultString,defaultString[0] + 1);
-		}
-		
-		
-		GetDialogItem(dialog, gBaseItem + kHostText, &kind, &h, &r);
-		SetDialogItemText(h, hostName);
-
-		GetDialogItem(dialog, gBaseItem + kPortText, &kind, &h, &r);
-		SetDialogItemText(h, portText);
-
-		return kNMNoError;
-	}
-	//Catch_(code)
-	error:
-	if (status)
-	{
-		NMErr code = status;
+	//	Try to load in our DITL.  If we fail, we should bail
+	ourDITL = Get1Resource('DITL', kDITLID);
+	//ThrowIfNil_(ourDITL);
+	if (ourDITL == NULL){
+		DEBUG_PRINT("couldnt get our dialog. argh");
 		return kNMResourceErr;
 	}
-	return status;
+	else
+		DEBUG_PRINT("got our dialog");
+
+	//	Append our DITL relative to the frame by passing the negative of the frame's id
+	AppendDITL(dialog, ourDITL, -frame);
+	ReleaseResource(ourDITL);
+
+	//FIXME
+	//	Setup our dialog info.
+	/*if (theConfig->address.fHost != 0)
+	{
+		//	Try to get the canonical name
+		status = OTUtils::MakeInetNameFromAddress(theConfig->address.fHost, (char *) hostName);
+		
+		//	if that fails, just use the string version of the dotted quad
+		if (status != kNMNoError)
+			OTInetHostToString(theConfig->address.fHost, (char *) hostName);
+
+		c2pstr((char *) hostName);				
+	}
+	else*/
+	{
+		unsigned char defaultString[] = "\p0.0.0.0";
+		memcpy(hostName,defaultString,defaultString[0] + 1);
+	}
+
+	//FIXME
+	//	get the port
+	//NumToString(theConfig->address.fPort, portText);
+	{
+		unsigned char defaultString[] = "\p1234";
+		memcpy(portText,defaultString,defaultString[0] + 1);
+	}
+	
+	
+	GetDialogItem(dialog, gBaseItem + kHostText, &kind, &h, &r);
+	SetDialogItemText(h, hostName);
+
+	GetDialogItem(dialog, gBaseItem + kPortText, &kind, &h, &r);
+	SetDialogItemText(h, portText);
+
+	return kNMNoError;
 } /* NMSetupDialog */
 
 

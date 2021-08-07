@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -185,32 +185,23 @@ OTEndpoint::Close(void)
 		DEBUG_PRINT("Tried to close an ep that was already closing: %x", this);
 		return;
 	}	
-	
-	//Try_
-	{
-		if (mState != kAborting)
-			mState = kClosing;
+
+	if (mState != kAborting)
+		mState = kClosing;
 
 	//	create a new destructo-object and set it going
-		EndpointDisposer *foo = new EndpointDisposer(this, mState != kAborting);
-		//ThrowIfNil_(foo);
-		if (foo == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
-		
-		
-		status = foo->DoIt();
-		//ThrowIfOSErr_(status);
-		if (status)
-			goto error;
+	EndpointDisposer *foo = new EndpointDisposer(this, mState != kAborting);
+	if (foo == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
 	}
-	//Catch_(code)
-	error:
+
+	status = foo->DoIt();
+
+error:
 	if (status)
 	{
-		NMErr code = status;
-		DEBUG_PRINT("Uh oh.  Got an error %d when creating the disposer", code);
+		DEBUG_PRINT("Uh oh.  Got an error %d when creating the disposer", status);
 	}	
 }
 
@@ -223,93 +214,81 @@ OTEndpoint::BindDatagramEndpoint(NMBoolean inUseConfigAddr)
 {
 	DEBUG_ENTRY_EXIT("OTEndpoint::BindDatagramEndpoint");
 
-	//NMErr			err = kNMNoError;
 	TBind			request, returned;			// Used to bind the endpoint to the protocol
 	TEndpointInfo	info;
 	NMBoolean		success = false;
 	NMErr			status = kNMNoError;
+
+	op_assert(mDatagramEndpoint);
+	op_assert(mDatagramEndpoint->mEP == kOTInvalidEndpointRef);
+
+	status = OTAsyncOpenEndpoint(OTCreateConfiguration(GetDatagramProtocolName()), 
+				0, &info, mNotifier.fUPP, mDatagramEndpoint);
+	DEBUG_NETWORK_API(0, "OTAsyncOpenEndpoint", status);					
+	if (status)
+		goto error;
+
+	//	We have to block here, since we need to create the entire new endpoint
+	//	before we return.  This doesn't happen very often, so I don't feel that bad.
+	//	**sigh** the travails of trying to shield others from asynchronicity
+	UnsignedWide	startTime;
+	NMUInt32			elapsedMilliseconds;
 	
-	//Try_
+	OTGetTimeStamp(&startTime); 
+	while (mDatagramEndpoint->mEP == kOTInvalidEndpointRef) 
 	{
-		op_assert(mDatagramEndpoint);
-		op_assert(mDatagramEndpoint->mEP == kOTInvalidEndpointRef);
-
-		status = OTAsyncOpenEndpoint(OTCreateConfiguration(GetDatagramProtocolName()), 
-					0, &info, mNotifier.fUPP, mDatagramEndpoint);
-		DEBUG_NETWORK_API(0, "OTAsyncOpenEndpoint", status);					
-		//ThrowIfOSErr_(status);
-		if (status)
+		elapsedMilliseconds = OTElapsedMilliseconds(&startTime);
+		if (elapsedMilliseconds > mTimeout)
+		{
+			status = kNMTimeoutErr;
 			goto error;
-
-		//	We have to block here, since we need to create the entire new endpoint
-		//	before we return.  This doesn't happen very often, so I don't feel that bad.
-		//	**sigh** the travails of trying to shield others from asynchronicity
-		UnsignedWide	startTime;
-		NMUInt32			elapsedMilliseconds;
+		}
+	}
+			
+	if ( mNetSprocketMode )	// In NetSprocket mode, let's always use the requested port.
+	{
+		success = AllocAddressBuffer(&request.addr);
+		op_assert(success);
 		
-		OTGetTimeStamp(&startTime); 
-		while (mDatagramEndpoint->mEP == kOTInvalidEndpointRef) 
+		OTUtils::CopyNetbuf(&mStreamEndpoint->mLocalAddress, &request.addr);
+		
+		ResetAddressForUnreliableTransport((OTAddress *) request.addr.buf);
+	}
+	else
+	{
+		//	Use the config address if requested
+		if (inUseConfigAddr)	
 		{
-			elapsedMilliseconds = OTElapsedMilliseconds(&startTime);
-			if (elapsedMilliseconds > mTimeout)
-			{
-				status = kNMTimeoutErr;
-				goto error;
-			}
-		};
-				
-		if ( mNetSprocketMode )	// In NetSprocket mode, let's always use the requested port.
-		{
-			success = AllocAddressBuffer(&request.addr);
-			op_assert(success);
-			
-			OTUtils::CopyNetbuf(&mStreamEndpoint->mLocalAddress, &request.addr);
-			
-			ResetAddressForUnreliableTransport((OTAddress *) request.addr.buf);
+			GetConfigAddress(&request.addr, false);
 		}
 		else
 		{
-			//	Use the config address if requested
-			if (inUseConfigAddr)	
-			{
-				GetConfigAddress(&request.addr, false);
-			}
-			else
-			{
-				request.addr.len = 0;
-				request.addr.buf = NULL;
-			}
+			request.addr.len = 0;
+			request.addr.buf = NULL;
 		}
-
-		request.qlen = 0;
-
-
-		//	Make sure we store the address into our local address buffer
-		returned.addr = mDatagramEndpoint->mLocalAddress;
-
-		status = OTSetSynchronous(mDatagramEndpoint->mEP);
-		DEBUG_NETWORK_API(mDatagramEndpoint->mEP, "OTSetSynchronous", status);					
-		if (status)
-			goto error;
-
-		OTSetBlocking(mDatagramEndpoint->mEP);
-
-		status = DoBind(mDatagramEndpoint, &request, &returned);
-		if (status)
-			goto error;
-
-		status = OTSetAsynchronous(mDatagramEndpoint->mEP);
-		DEBUG_NETWORK_API(mDatagramEndpoint->mEP, "OTSetAsynchronous", status);					
-		if (status)
-			goto error;
 	}
-	error:
+
+	request.qlen = 0;
+
+
+	//	Make sure we store the address into our local address buffer
+	returned.addr = mDatagramEndpoint->mLocalAddress;
+
+	status = OTSetSynchronous(mDatagramEndpoint->mEP);
+	DEBUG_NETWORK_API(mDatagramEndpoint->mEP, "OTSetSynchronous", status);					
 	if (status)
-	{
-		NMErr code = status;
-		return (code == kNMTimeoutErr) ? kNMTimeoutErr : kNMOpenFailedErr;
-	}
+		goto error;
 
+	OTSetBlocking(mDatagramEndpoint->mEP);
+
+	status = DoBind(mDatagramEndpoint, &request, &returned);
+	if (status)
+		goto error;
+
+	status = OTSetAsynchronous(mDatagramEndpoint->mEP);
+	DEBUG_NETWORK_API(mDatagramEndpoint->mEP, "OTSetAsynchronous", status);					
+
+error:
 	return status;
 }
 
@@ -328,75 +307,72 @@ OTEndpoint::BindStreamEndpoint(OTQLen inQLen)
 	const char		*OTConfigString;
 	NMErr			status = kNMNoError;
 		
-	//Try_
+	op_assert(mStreamEndpoint);
+	op_assert(mStreamEndpoint->mEP == kOTInvalidEndpointRef);
+
+	if (mStreamEndpoint->mEP == kOTInvalidEndpointRef)
 	{
-		op_assert(mStreamEndpoint);
-		op_assert(mStreamEndpoint->mEP == kOTInvalidEndpointRef);
+		//	get the correct config string for a listener or a connector
+		OTConfigString = (inQLen > 0) ? GetStreamListenerProtocolName() : GetStreamProtocolName();
 
-		if (mStreamEndpoint->mEP == kOTInvalidEndpointRef)
-		{
-			//	get the correct config string for a listener or a connector
-			OTConfigString = (inQLen > 0) ? GetStreamListenerProtocolName() : GetStreamProtocolName();
-
-			//	Open the endpoint
-			status = OTAsyncOpenEndpoint(OTCreateConfiguration(OTConfigString), 
-						0, &info, mNotifier.fUPP, mStreamEndpoint);
-			DEBUG_NETWORK_API(0, "OTAsyncOpenEndpoint", status);					
-			if (status)
-				goto error;
+		//	Open the endpoint
+		status = OTAsyncOpenEndpoint(OTCreateConfiguration(OTConfigString), 
+					0, &info, mNotifier.fUPP, mStreamEndpoint);
+		DEBUG_NETWORK_API(0, "OTAsyncOpenEndpoint", status);					
+		if (status)
+			goto error;
 
 
-			UnsignedWide	startTime;
-			NMUInt32			elapsedMilliseconds;
-			
-			OTGetTimeStamp(&startTime); 
-
-			while (mStreamEndpoint->mEP == kOTInvalidEndpointRef) 
-			{
-				elapsedMilliseconds = OTElapsedMilliseconds(&startTime);
-
-				if (elapsedMilliseconds > mTimeout)
-				{
-					status = kNMTimeoutErr;
-					goto error;
-				}
-			}
-			
-	
-			if (inQLen > 0)	//	We're listening, so we need the config address
-			{
-				GetConfigAddress(&request.addr, false);
-			}
-			else			// We're connecting.  We don't care what port we get
-			{
-				request.addr.buf = NULL;
-				request.addr.len = 0;
-			}
-			
-			request.qlen = inQLen;
+		UnsignedWide	startTime;
+		NMUInt32			elapsedMilliseconds;
 		
-			//	Fill in our local address with the address returned
-			returned.addr = mStreamEndpoint->mLocalAddress;
-			
-			status = OTSetSynchronous(mStreamEndpoint->mEP);
-			DEBUG_NETWORK_API(mStreamEndpoint->mEP, "OTSetSynchronous", status);					
-			if (status)
-				goto error;
+		OTGetTimeStamp(&startTime); 
 
-			OTSetBlocking(mStreamEndpoint->mEP);
+		while (mStreamEndpoint->mEP == kOTInvalidEndpointRef) 
+		{
+			elapsedMilliseconds = OTElapsedMilliseconds(&startTime);
 
-			//	Bind it
-			status = DoBind(mStreamEndpoint, &request, &returned);
-			if (status)
+			if (elapsedMilliseconds > mTimeout)
+			{
+				status = kNMTimeoutErr;
 				goto error;
-
-			status = OTSetAsynchronous(mStreamEndpoint->mEP);
-			DEBUG_NETWORK_API(mStreamEndpoint->mEP, "OTSetAsynchronous", status);					
-			if (status)
-				goto error;
-			
+			}
 		}
+		
+
+		if (inQLen > 0)	//	We're listening, so we need the config address
+		{
+			GetConfigAddress(&request.addr, false);
+		}
+		else			// We're connecting.  We don't care what port we get
+		{
+			request.addr.buf = NULL;
+			request.addr.len = 0;
+		}
+		
+		request.qlen = inQLen;
+	
+		//	Fill in our local address with the address returned
+		returned.addr = mStreamEndpoint->mLocalAddress;
+		
+		status = OTSetSynchronous(mStreamEndpoint->mEP);
+		DEBUG_NETWORK_API(mStreamEndpoint->mEP, "OTSetSynchronous", status);					
+		if (status)
+			goto error;
+
+		OTSetBlocking(mStreamEndpoint->mEP);
+
+		//	Bind it
+		status = DoBind(mStreamEndpoint, &request, &returned);
+		if (status)
+			goto error;
+
+		status = OTSetAsynchronous(mStreamEndpoint->mEP);
+		DEBUG_NETWORK_API(mStreamEndpoint->mEP, "OTSetAsynchronous", status);					
+		if (status)
+			goto error;
 	}
+
 	error:
 	if (status)
 	{
@@ -471,38 +447,21 @@ OTEndpoint::AcceptConnection(Endpoint *inNewEP, void *inCookie)
 
 	NMErr 		status = kNMNoError;	
 	OTEndpoint		*theNewEP = (OTEndpoint *)inNewEP;
-	
-	//Try_
-	{
-		mHandoffInfo.otherEP = theNewEP; 
-		theNewEP->mHandoffInfo.otherEP = this;
-		mHandoffInfo.gotData = false;
-		theNewEP->mHandoffInfo.gotData = false;
-						
-		EndpointHander *foo = new EndpointHander(this, theNewEP, (TCall *) inCookie);
-		//ThrowIfNil_(foo);
-		if (foo == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
-		
-		status = foo->DoIt();
-				
-	}
-	//Catch_(code)
-	error:
-	if (status)
-	{
-		NMErr code = status;
-		if (code == err_NilPointer)
-		{
-			DEBUG_PRINT("Memory Allocation failure caused exception");
-			code = kNMOutOfMemoryErr;
-		}
 
-		return code;
+	mHandoffInfo.otherEP = theNewEP; 
+	theNewEP->mHandoffInfo.otherEP = this;
+	mHandoffInfo.gotData = false;
+	theNewEP->mHandoffInfo.gotData = false;
+					
+	EndpointHander *foo = new EndpointHander(this, theNewEP, (TCall *) inCookie);
+	if (foo == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
 	}
 	
+	status = foo->DoIt();
+
+error:
 	return status;
 }
 
@@ -559,32 +518,29 @@ OTEndpoint::Listen(void)
 	//fill our cache for the first time
 	ServiceEPCaches();
 	
-	//Try_
+	mState = kOpening;
+
+	if (mMode & kNMStreamMode)
 	{
-		mState = kOpening;
+		status = BindStreamEndpoint(1);		// binds an endpoint that listens for connections
+		if (status)
+			goto error;
+	}	
 
-		if (mMode & kNMStreamMode)
-		{
-			status = BindStreamEndpoint(1);		// binds an endpoint that listens for connections
-			if (status)
-				goto error;
-		}	
-
-		if (mMode & kNMDatagramMode)
-		{
-			status = BindDatagramEndpoint(true);
-			if (status)
-				goto error;
-		}
-
-		if (mMode == kNMNormalMode)
-		{
-			//	We can only do this after we've opened an endpoint, since the interface info
-			//	isn't set until then.
-			
-			MakeEnumerationResponse();	// Fill in the response packet
-		}
+	if (mMode & kNMDatagramMode)
+	{
+		status = BindDatagramEndpoint(true);
+		if (status)
+			goto error;
 	}
+
+	if (mMode == kNMNormalMode)
+	{
+		//	We can only do this after we've opened an endpoint, since the interface info
+		//	isn't set until then.
+		MakeEnumerationResponse();	// Fill in the response packet
+	}
+
 	error:
 	if (status)
 	{
@@ -722,12 +678,12 @@ OTEndpoint::Connect(void)
 
 		state = OTGetEndpointState(mStreamEndpoint->mEP);
 		if (state != T_DATAXFER){
-			status = err_AssertFailed;
+			status = kNMBadStateErr;
 			goto error;
 		}
 		
 		if (mState != kOpening){
-			status = err_AssertFailed;
+			status = kNMBadStateErr;
 			goto error;
 		}
 		
@@ -744,8 +700,8 @@ OTEndpoint::Connect(void)
 			if (!mNetSprocketMode) 
 			{				
 				
-			//	Send the confirmation down the stream endpoint.  This differs from protocol to protocol
-			//	This is the very first thing expected for normal mode, non NetSprocketMode connections
+				//	Send the confirmation down the stream endpoint.  This differs from protocol to protocol
+				//	This is the very first thing expected for normal mode, non NetSprocketMode connections
 				status = SendOpenConfirmation();
 				op_warn(status == kNMNoError);
 				if (status)
@@ -1174,6 +1130,13 @@ NMErr	status;
 	udata.udata.buf = mEnumerationResponseData;
 	udata.udata.len = mEnumerationResponseLen;
 	udata.opt.len = 0;
+
+	// dair, send kNMUpdateResponse to allow the response to be updated
+	NMUInt32	dataSize = mEnumerationResponseLen                - sizeof(IPEnumerationResponsePacket);
+	NMUInt8		*dataPtr = ((NMUInt8 *) mEnumerationResponseData) + sizeof(IPEnumerationResponsePacket);
+
+	if (mCallback != NULL && dataSize != 0)
+		mCallback(mRef, mContext, kNMUpdateResponse, dataSize, dataPtr);
 
 	do
 	{

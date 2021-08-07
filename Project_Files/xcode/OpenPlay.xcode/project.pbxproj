@@ -1,0 +1,2557 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 39;
+	objects = {
+		034768DDFF38A45A11DB9C8B = {
+			children = (
+				F5FE302102558CD301A80105,
+				9758F24B0588DE88008F071A,
+				9758F2610588DE88008F071A,
+				9758F2770588DE88008F071A,
+				9758F2870588DE88008F071A,
+				9758F29B0588DE88008F071A,
+				9758F2AA0588DE88008F071A,
+				9758F2BB0588DE89008F071A,
+				9758F2CB0588DE89008F071A,
+				9758F2D90588DE89008F071A,
+			);
+			isa = PBXGroup;
+			name = "Products,Libs,Frameworks";
+			path = "";
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+//030
+//031
+//032
+//033
+//034
+//080
+//081
+//082
+//083
+//084
+		0867D690FE84028FC02AAC07 = {
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.2;
+				SDKROOT = /Developer/SDKs/MacOSX10.2.7.sdk;
+			};
+			buildStyles = (
+				4F0BB7EC011F40E904CA0E50,
+				4F0BB7ED011F40E904CA0E50,
+			);
+			hasScannedForEncodings = 1;
+			isa = PBXProject;
+			mainGroup = 0867D691FE84028FC02AAC07;
+			productRefGroup = 034768DDFF38A45A11DB9C8B;
+			projectDirPath = "";
+			targets = (
+				9758F2DB0588DE89008F071A,
+				9758F24C0588DE88008F071A,
+				9758F2220588DE88008F071A,
+				9758F2620588DE88008F071A,
+				9758F2790588DE88008F071A,
+				9758F2890588DE88008F071A,
+				9758F29D0588DE88008F071A,
+				9758F2AC0588DE88008F071A,
+				9758F2BD0588DE89008F071A,
+				9758F2CD0588DE89008F071A,
+			);
+		};
+		0867D691FE84028FC02AAC07 = {
+			children = (
+				F5530D6F0256BF5501A80105,
+				F5ABE64002556D8F01A80105,
+				F5FE301902558C6F01A80105,
+				F5CE6DF9025AF5E601A80105,
+				F5CE6E19025AFB1901A80105,
+				F5CE6E09025AF81F01A80105,
+				F587B67B025C6D4501A80105,
+				F5A736FC02667C1101A80105,
+				F5FE302C02558DCB01A80105,
+				034768DDFF38A45A11DB9C8B,
+			);
+			isa = PBXGroup;
+			name = OpenPlay;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		089C1665FE841158C02AAC07 = {
+			children = (
+				F5679E12026A382401A80105,
+				089C1666FE841158C02AAC07,
+			);
+			isa = PBXGroup;
+			name = Resources;
+			path = "";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		089C1666FE841158C02AAC07 = {
+			children = (
+				089C1667FE841158C02AAC07,
+			);
+			isa = PBXVariantGroup;
+			name = InfoPlist.strings;
+			path = "";
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		089C1667FE841158C02AAC07 = {
+			fileEncoding = 10;
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.strings;
+			name = English;
+			path = English.lproj/InfoPlist.strings;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		08FB77ACFE841707C02AAC07 = {
+			children = (
+				F5679E0E026A340201A80105,
+				F5ABE64102556F3701A80105,
+				F5ABE64202556F3701A80105,
+				F5ABE64302556F3701A80105,
+				F5ABE64402556F3701A80105,
+				F5ABE64502556F3701A80105,
+				F5ABE64602556F3701A80105,
+				F5ABE64702556F3701A80105,
+				F5ABE64802556F3701A80105,
+				F5ABE64902556F3701A80105,
+				F5ABE64A02556F3701A80105,
+				F5ABE64B02556F3701A80105,
+				F5ABE64C02556F3701A80105,
+				F5ABE64D02556F3701A80105,
+				F5ABE64E02556F3701A80105,
+				F5ABE64F02556F3701A80105,
+				F5ABE65002556F3701A80105,
+				F5ABE65102556F3701A80105,
+				F5ABE65202556F3701A80105,
+				F5ABE65302556F3701A80105,
+				F5ABE65402556F3701A80105,
+				F5ABE66902556F5F01A80105,
+				F5ABE66A02556F5F01A80105,
+				F5ABE66D02556F8801A80105,
+				F5ABE66F02556F8801A80105,
+				F5ABE67302556F8801A80105,
+			);
+			isa = PBXGroup;
+			name = Source;
+			path = "";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+//080
+//081
+//082
+//083
+//084
+//180
+//181
+//182
+//183
+//184
+		186CFACD05D43B8F00BE49C2 = {
+			fileRef = F5ABE67102556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		188F165A05D2FF7A00A6EDA9 = {
+			containerPortal = 0867D690FE84028FC02AAC07;
+			isa = PBXContainerItemProxy;
+			proxyType = 1;
+			remoteGlobalIDString = 9758F24C0588DE88008F071A;
+			remoteInfo = "IP Module";
+		};
+		188F165B05D2FF7A00A6EDA9 = {
+			isa = PBXTargetDependency;
+			target = 9758F24C0588DE88008F071A;
+			targetProxy = 188F165A05D2FF7A00A6EDA9;
+		};
+		188F165E05D2FF9000A6EDA9 = {
+			containerPortal = 0867D690FE84028FC02AAC07;
+			isa = PBXContainerItemProxy;
+			proxyType = 1;
+			remoteGlobalIDString = 9758F2220588DE88008F071A;
+			remoteInfo = "OpenPlay Framework";
+		};
+		188F165F05D2FF9000A6EDA9 = {
+			isa = PBXTargetDependency;
+			target = 9758F2220588DE88008F071A;
+			targetProxy = 188F165E05D2FF9000A6EDA9;
+		};
+		18AD33E105D0708E006D9A32 = {
+			fileRef = 9758F24B0588DE88008F071A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		18AD33EC05D070A8006D9A32 = {
+			fileRef = 9758F24B0588DE88008F071A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		18AD33F005D070AF006D9A32 = {
+			fileRef = 9758F24B0588DE88008F071A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		18AD33F705D070B8006D9A32 = {
+			fileRef = 9758F24B0588DE88008F071A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		18AD33FB05D070C0006D9A32 = {
+			fileRef = 9758F24B0588DE88008F071A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		18AD33FF05D070C8006D9A32 = {
+			fileRef = 9758F24B0588DE88008F071A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		18EB655905D055B8006B1F7B = {
+			buildActionMask = 2147483647;
+			dstPath = modules;
+			dstSubfolderSpec = 7;
+			files = (
+				18EB655A05D055CF006B1F7B,
+			);
+			isa = PBXCopyFilesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		18EB655A05D055CF006B1F7B = {
+			fileRef = 9758F2610588DE88008F071A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		18EB657F05D05794006B1F7B = {
+			fileRef = 9758F24B0588DE88008F071A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+//180
+//181
+//182
+//183
+//184
+//4F0
+//4F1
+//4F2
+//4F3
+//4F4
+		4F0BB7EC011F40E904CA0E50 = {
+			buildRules = (
+			);
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OPTIMIZATION_CFLAGS = "-O0";
+				OTHER_CFLAGS = "-DDEBUG -DDEBUGCALLCHAIN -Dproject_builder -Dmacho_build";
+				ZERO_LINK = NO;
+			};
+			isa = PBXBuildStyle;
+			name = Development;
+		};
+		4F0BB7ED011F40E904CA0E50 = {
+			buildRules = (
+			);
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUGGING_SYMBOLS = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				OTHER_CFLAGS = "-Dproject_builder -Dmacho_build";
+				ZERO_LINK = NO;
+			};
+			isa = PBXBuildStyle;
+			name = Deployment;
+		};
+//4F0
+//4F1
+//4F2
+//4F3
+//4F4
+//970
+//971
+//972
+//973
+//974
+		9758F2220588DE88008F071A = {
+			buildPhases = (
+				9758F2230588DE88008F071A,
+				9758F2240588DE88008F071A,
+				9758F2260588DE88008F071A,
+				9758F2450588DE88008F071A,
+				9758F2470588DE88008F071A,
+				18EB655905D055B8006B1F7B,
+			);
+			buildRules = (
+			);
+			buildSettings = {
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXPORTED_SYMBOLS_FILE = ../../Source/OpenPlayLib/posix/openplay_darwin.exp;
+				FRAMEWORK_SEARCH_PATHS = "";
+				FRAMEWORK_VERSION = A;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = "../../Source/Utilities/posix ../../Source/OPNetModules ../../Source/OPNetModules/Common ../../Source/NetSprocketLib ../../Source/Utilities ../../Source/OpenPlayLib/Common ../../Source/OpenPlayLib/posix ../../Interfaces";
+				INFOPLIST_FILE = "Info-OpenPlay_Framework.plist";
+				INSTALL_PATH = "@executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = OpenPlay;
+				SECTORDER_FLAGS = "";
+				SKIP_INSTALL = YES;
+				WARNING_CFLAGS = "-Wno-four-char-constants -Wno-unknown-pragmas";
+				WRAPPER_EXTENSION = framework;
+			};
+			dependencies = (
+				188F165B05D2FF7A00A6EDA9,
+			);
+			isa = PBXNativeTarget;
+			name = "OpenPlay Framework";
+			productInstallPath = "@executable_path/../Frameworks";
+			productName = OpenPlay;
+			productReference = 9758F24B0588DE88008F071A;
+			productType = "com.apple.product-type.framework";
+		};
+		9758F2230588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXHeadersBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2240588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+				9758F2250588DE88008F071A,
+			);
+			isa = PBXResourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2250588DE88008F071A = {
+			fileRef = 089C1666FE841158C02AAC07;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2260588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+				9758F2270588DE88008F071A,
+				9758F2280588DE88008F071A,
+				9758F2290588DE88008F071A,
+				9758F22A0588DE88008F071A,
+				9758F22B0588DE88008F071A,
+				9758F22C0588DE88008F071A,
+				9758F22D0588DE88008F071A,
+				9758F22E0588DE88008F071A,
+				9758F22F0588DE88008F071A,
+				9758F2300588DE88008F071A,
+				9758F2310588DE88008F071A,
+				9758F2320588DE88008F071A,
+				9758F2330588DE88008F071A,
+				9758F2340588DE88008F071A,
+				9758F2350588DE88008F071A,
+				9758F2360588DE88008F071A,
+				9758F2370588DE88008F071A,
+				9758F2380588DE88008F071A,
+				9758F2390588DE88008F071A,
+				9758F23A0588DE88008F071A,
+				9758F23B0588DE88008F071A,
+				9758F23C0588DE88008F071A,
+				9758F23D0588DE88008F071A,
+				9758F23E0588DE88008F071A,
+				9758F23F0588DE88008F071A,
+				9758F2400588DE88008F071A,
+				9758F2410588DE88008F071A,
+				9758F2420588DE88008F071A,
+				9758F2430588DE88008F071A,
+				9758F2440588DE88008F071A,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2270588DE88008F071A = {
+			fileRef = F5ABE64102556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2280588DE88008F071A = {
+			fileRef = F5ABE64202556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2290588DE88008F071A = {
+			fileRef = F5ABE64302556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F22A0588DE88008F071A = {
+			fileRef = F5ABE64402556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F22B0588DE88008F071A = {
+			fileRef = F5ABE64502556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F22C0588DE88008F071A = {
+			fileRef = F5ABE64602556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F22D0588DE88008F071A = {
+			fileRef = F5ABE64702556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F22E0588DE88008F071A = {
+			fileRef = F5ABE64802556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F22F0588DE88008F071A = {
+			fileRef = F5ABE64902556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2300588DE88008F071A = {
+			fileRef = F5ABE64A02556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2310588DE88008F071A = {
+			fileRef = F5ABE64B02556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2320588DE88008F071A = {
+			fileRef = F5ABE64C02556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2330588DE88008F071A = {
+			fileRef = F5ABE64D02556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2340588DE88008F071A = {
+			fileRef = F5ABE64E02556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2350588DE88008F071A = {
+			fileRef = F5ABE64F02556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2360588DE88008F071A = {
+			fileRef = F5ABE65002556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2370588DE88008F071A = {
+			fileRef = F5ABE65102556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2380588DE88008F071A = {
+			fileRef = F5ABE65202556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2390588DE88008F071A = {
+			fileRef = F5ABE65302556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F23A0588DE88008F071A = {
+			fileRef = F5ABE65402556F3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F23B0588DE88008F071A = {
+			fileRef = F5ABE66902556F5F01A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F23C0588DE88008F071A = {
+			fileRef = F5ABE66A02556F5F01A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F23D0588DE88008F071A = {
+			fileRef = F5ABE66D02556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F23E0588DE88008F071A = {
+			fileRef = F5ABE66E02556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F23F0588DE88008F071A = {
+			fileRef = F5ABE66F02556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2400588DE88008F071A = {
+			fileRef = F5ABE67002556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2410588DE88008F071A = {
+			fileRef = F5ABE67102556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2420588DE88008F071A = {
+			fileRef = F5ABE67202556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2430588DE88008F071A = {
+			fileRef = F5ABE67302556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2440588DE88008F071A = {
+			fileRef = F5679E0E026A340201A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2450588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+				9758F2460588DE88008F071A,
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2460588DE88008F071A = {
+			fileRef = F5FE302102558CD301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2470588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+				9758F2480588DE88008F071A,
+			);
+			isa = PBXRezBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2480588DE88008F071A = {
+			fileRef = F5679E12026A382401A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F24A0588DE88008F071A = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist;
+			path = "Info-OpenPlay_Framework.plist";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		9758F24B0588DE88008F071A = {
+			explicitFileType = wrapper.framework;
+			includeInIndex = 0;
+			isa = PBXFileReference;
+			path = OpenPlay.framework;
+			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9758F24C0588DE88008F071A = {
+			buildPhases = (
+				9758F24D0588DE88008F071A,
+				9758F24E0588DE88008F071A,
+				9758F24F0588DE88008F071A,
+				9758F25B0588DE88008F071A,
+				9758F25D0588DE88008F071A,
+			);
+			buildRules = (
+			);
+			buildSettings = {
+				EXPORTED_SYMBOLS_FILE = ../../Source/OPNetModules/posix/NetModuleDarwin.exp;
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = "../../Source/Utilities/posix ../../Source/OPNetModules ../../Source/OPNetModules/Common ../../Source/OPNetModules/posix/TCP_IP ../../Source/OPNetModules/ ../../Source/Utilities ../../Source/OpenPlayLib/Common ../../Source/OpenPlayLib/posix ../../Interfaces";
+				INFOPLIST_FILE = "Info-IP_Module.plist";
+				INSTALL_PATH = "";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = tcpip.so;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wno-four-char-constants -Wno-unknown-pragmas";
+				WRAPPER_EXTENSION = bundle;
+			};
+			dependencies = (
+			);
+			isa = PBXNativeTarget;
+			name = "IP Module";
+			productName = "IP Module";
+			productReference = 9758F2610588DE88008F071A;
+			productType = "com.apple.product-type.bundle";
+		};
+		9758F24D0588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXHeadersBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F24E0588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXResourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F24F0588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+				9758F2500588DE88008F071A,
+				9758F2510588DE88008F071A,
+				9758F2520588DE88008F071A,
+				9758F2530588DE88008F071A,
+				9758F2540588DE88008F071A,
+				9758F2550588DE88008F071A,
+				9758F2560588DE88008F071A,
+				9758F2570588DE88008F071A,
+				9758F2580588DE88008F071A,
+				9758F2590588DE88008F071A,
+				9758F25A0588DE88008F071A,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2500588DE88008F071A = {
+			fileRef = F5530D710256BFDF01A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2510588DE88008F071A = {
+			fileRef = F5530D720256BFDF01A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2520588DE88008F071A = {
+			fileRef = F5530D730256BFDF01A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2530588DE88008F071A = {
+			fileRef = F5530D750256BFDF01A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2540588DE88008F071A = {
+			fileRef = F5ABE67102556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2550588DE88008F071A = {
+			fileRef = F5ABE66E02556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2560588DE88008F071A = {
+			fileRef = F5ABE67002556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2570588DE88008F071A = {
+			fileRef = F5530D760256BFDF01A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2580588DE88008F071A = {
+			fileRef = F5530D770256BFDF01A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2590588DE88008F071A = {
+			fileRef = F5ABE67202556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F25A0588DE88008F071A = {
+			fileRef = F5679E07026A1E3701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F25B0588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+				9758F25C0588DE88008F071A,
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F25C0588DE88008F071A = {
+			fileRef = F5FE302102558CD301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F25D0588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+				9758F25E0588DE88008F071A,
+			);
+			isa = PBXRezBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F25E0588DE88008F071A = {
+			fileRef = F5679E09026A1F2001A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2600588DE88008F071A = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist;
+			path = "Info-IP_Module.plist";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		9758F2610588DE88008F071A = {
+			explicitFileType = wrapper.cfbundle;
+			includeInIndex = 0;
+			isa = PBXFileReference;
+			path = tcpip.so.bundle;
+			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9758F2620588DE88008F071A = {
+			buildPhases = (
+				9758F2630588DE88008F071A,
+				9758F2640588DE88008F071A,
+				9758F2660588DE88008F071A,
+				9758F26E0588DE88008F071A,
+				9758F2710588DE88008F071A,
+				9758F2730588DE88008F071A,
+			);
+			buildRules = (
+			);
+			buildSettings = {
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = "../../Source/Utilities ../../Source/Demos/OpenPlayTest/Common ../../Source/Demos/OpenPlayTest/Macintosh ../../Interfaces";
+				INFOPLIST_FILE = "Info-OpenPlayTest.plist";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = OpenPlayTest;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wno-four-char-constants -Wno-unknown-pragmas";
+				WRAPPER_EXTENSION = app;
+			};
+			dependencies = (
+			);
+			isa = PBXNativeTarget;
+			name = OpenPlayTest;
+			productInstallPath = "$(USER_APPS_DIR)";
+			productName = OpenPlayTest;
+			productReference = 9758F2770588DE88008F071A;
+			productType = "com.apple.product-type.application";
+		};
+		9758F2630588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXHeadersBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2640588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+				9758F2650588DE88008F071A,
+			);
+			isa = PBXResourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2650588DE88008F071A = {
+			fileRef = F5530D5B0256B46901A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2660588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+				9758F2670588DE88008F071A,
+				9758F2680588DE88008F071A,
+				9758F2690588DE88008F071A,
+				9758F26A0588DE88008F071A,
+				9758F26B0588DE88008F071A,
+				9758F26C0588DE88008F071A,
+				9758F26D0588DE88008F071A,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2670588DE88008F071A = {
+			fileRef = F5ABE67102556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2680588DE88008F071A = {
+			fileRef = F5ABE67202556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2690588DE88008F071A = {
+			fileRef = F5FE301B02558C6F01A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F26A0588DE88008F071A = {
+			fileRef = F5FE301C02558C6F01A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F26B0588DE88008F071A = {
+			fileRef = F5FE302602558D7901A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F26C0588DE88008F071A = {
+			fileRef = F5FE302702558D7901A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F26D0588DE88008F071A = {
+			fileRef = F5FE302802558D7901A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F26E0588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+				9758F2700588DE88008F071A,
+				9758F2F70588DE89008F071A,
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2700588DE88008F071A = {
+			fileRef = F5FE302102558CD301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2710588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+				9758F2720588DE88008F071A,
+			);
+			isa = PBXRezBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2720588DE88008F071A = {
+			fileRef = F5530D5F0256B56901A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2730588DE88008F071A = {
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				18AD33FF05D070C8006D9A32,
+			);
+			isa = PBXCopyFilesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2760588DE88008F071A = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist;
+			path = "Info-OpenPlayTest.plist";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		9758F2770588DE88008F071A = {
+			explicitFileType = wrapper.application;
+			includeInIndex = 0;
+			isa = PBXFileReference;
+			path = OpenPlayTest.app;
+			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9758F2790588DE88008F071A = {
+			buildPhases = (
+				9758F27A0588DE88008F071A,
+				9758F27B0588DE88008F071A,
+				9758F27C0588DE88008F071A,
+				9758F27F0588DE88008F071A,
+				9758F2820588DE88008F071A,
+				9758F2830588DE88008F071A,
+			);
+			buildRules = (
+			);
+			buildSettings = {
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Macintosh/prefixMacCarbon.h;
+				HEADER_SEARCH_PATHS = "../../Source/Utilities ../../Source/Demos/NSpTestApp ../../Interfaces";
+				INFOPLIST_FILE = "Info-NetSprocketTest.plist";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "-lstdc++";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = NetSprocketTest;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wno-four-char-constants -Wno-unknown-pragmas";
+				WRAPPER_EXTENSION = app;
+			};
+			dependencies = (
+			);
+			isa = PBXNativeTarget;
+			name = NetSprocketTest;
+			productInstallPath = "$(USER_APPS_DIR)";
+			productName = NetSprocketTest;
+			productReference = 9758F2870588DE88008F071A;
+			productType = "com.apple.product-type.application";
+		};
+		9758F27A0588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXHeadersBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F27B0588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXResourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F27C0588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+				9758F27D0588DE88008F071A,
+				9758F27E0588DE88008F071A,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F27D0588DE88008F071A = {
+			fileRef = F5CE6E01025AF68701A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F27E0588DE88008F071A = {
+			fileRef = F5ABE67102556F8801A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F27F0588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+				9758F2F80588DE89008F071A,
+				9758F2810588DE88008F071A,
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2810588DE88008F071A = {
+			fileRef = F5FE302102558CD301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2820588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXRezBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2830588DE88008F071A = {
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				18AD33FB05D070C0006D9A32,
+			);
+			isa = PBXCopyFilesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2860588DE88008F071A = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist;
+			path = "Info-NetSprocketTest.plist";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		9758F2870588DE88008F071A = {
+			explicitFileType = wrapper.application;
+			includeInIndex = 0;
+			isa = PBXFileReference;
+			path = NetSprocketTest.app;
+			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9758F2890588DE88008F071A = {
+			buildPhases = (
+				9758F28A0588DE88008F071A,
+				9758F28B0588DE88008F071A,
+				9758F28C0588DE88008F071A,
+				9758F2920588DE88008F071A,
+				9758F2950588DE88008F071A,
+				9758F2970588DE88008F071A,
+			);
+			buildRules = (
+			);
+			buildSettings = {
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = "../../Source/Utilities ../../Source/Demos/NSpTest2 ../../Interfaces";
+				INFOPLIST_FILE = "Info-NetSprocketTest2.plist";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = NetSprocketTest2;
+				RESMERGER_SOURCES_FORK = auto;
+				REZ_SHOW_DEBUG_OUTPUT = YES;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wno-four-char-constants -Wno-unknown-pragmas";
+				WRAPPER_EXTENSION = app;
+			};
+			dependencies = (
+				188F165F05D2FF9000A6EDA9,
+			);
+			isa = PBXNativeTarget;
+			name = NetSprocketTest2;
+			productInstallPath = "$(USER_APPS_DIR)";
+			productName = NetSprocketTest2;
+			productReference = 9758F29B0588DE88008F071A;
+			productType = "com.apple.product-type.application";
+		};
+		9758F28A0588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXHeadersBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F28B0588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXResourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F28C0588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+				9758F28D0588DE88008F071A,
+				9758F28E0588DE88008F071A,
+				9758F28F0588DE88008F071A,
+				9758F2900588DE88008F071A,
+				9758F2910588DE88008F071A,
+				186CFACD05D43B8F00BE49C2,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F28D0588DE88008F071A = {
+			fileRef = F5CE6E21025AFB5301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F28E0588DE88008F071A = {
+			fileRef = F5CE6E22025AFB5301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F28F0588DE88008F071A = {
+			fileRef = F5CE6E23025AFB5301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2900588DE88008F071A = {
+			fileRef = F5CE6E24025AFB5301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2910588DE88008F071A = {
+			fileRef = F5CE6E25025AFB5301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2920588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+				9758F2F90588DE89008F071A,
+				9758F2930588DE88008F071A,
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2930588DE88008F071A = {
+			fileRef = F5FE302102558CD301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2950588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+				9758F2960588DE88008F071A,
+			);
+			isa = PBXRezBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2960588DE88008F071A = {
+			fileRef = F536EB9D03232CB401A8008C;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2970588DE88008F071A = {
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				18AD33F705D070B8006D9A32,
+			);
+			isa = PBXCopyFilesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F29A0588DE88008F071A = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist;
+			path = "Info-NetSprocketTest2.plist";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		9758F29B0588DE88008F071A = {
+			explicitFileType = wrapper.application;
+			includeInIndex = 0;
+			isa = PBXFileReference;
+			path = NetSprocketTest2.app;
+			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9758F29D0588DE88008F071A = {
+			buildPhases = (
+				9758F29E0588DE88008F071A,
+				9758F29F0588DE88008F071A,
+				9758F2A00588DE88008F071A,
+				9758F2A20588DE88008F071A,
+				9758F2A50588DE88008F071A,
+				9758F2A60588DE88008F071A,
+			);
+			buildRules = (
+			);
+			buildSettings = {
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = "../../Source/Utilities ../../Interfaces";
+				INFOPLIST_FILE = "Info-OPEnumTest.plist";
+				OTHER_CFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = OPEnumTest;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wno-four-char-constants -Wno-unknown-pragmas";
+				WRAPPER_EXTENSION = app;
+			};
+			dependencies = (
+			);
+			isa = PBXNativeTarget;
+			name = OPEnumTest;
+			productInstallPath = "$(USER_APPS_DIR)";
+			productName = OPEnumTest;
+			productReference = 9758F2AA0588DE88008F071A;
+			productType = "com.apple.product-type.application";
+		};
+		9758F29E0588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXHeadersBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F29F0588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXResourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2A00588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+				9758F2A10588DE88008F071A,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2A10588DE88008F071A = {
+			fileRef = F5CE6E11025AF8AC01A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2A20588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+				9758F2FA0588DE89008F071A,
+				9758F2A40588DE88008F071A,
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2A40588DE88008F071A = {
+			fileRef = F5FE302102558CD301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2A50588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXRezBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2A60588DE88008F071A = {
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				18AD33F005D070AF006D9A32,
+			);
+			isa = PBXCopyFilesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2A90588DE88008F071A = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist;
+			path = "Info-OPEnumTest.plist";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		9758F2AA0588DE88008F071A = {
+			explicitFileType = wrapper.application;
+			includeInIndex = 0;
+			isa = PBXFileReference;
+			path = OPEnumTest.app;
+			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9758F2AC0588DE88008F071A = {
+			buildPhases = (
+				9758F2AD0588DE88008F071A,
+				9758F2AE0588DE88008F071A,
+				9758F2B00588DE88008F071A,
+				9758F2B30588DE88008F071A,
+				9758F2B60588DE88008F071A,
+				9758F2B70588DE88008F071A,
+			);
+			buildRules = (
+			);
+			buildSettings = {
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = "../../Source/Utilities ../../Source/Demos/OPExample1 ../../Interfaces";
+				INFOPLIST_FILE = "Info-OPExample1.plist";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = OPExample1;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wno-four-char-constants -Wno-unknown-pragmas";
+				WRAPPER_EXTENSION = app;
+			};
+			dependencies = (
+			);
+			isa = PBXNativeTarget;
+			name = OPExample1;
+			productInstallPath = "$(USER_APPS_DIR)";
+			productName = OPExample1;
+			productReference = 9758F2BB0588DE89008F071A;
+			productType = "com.apple.product-type.application";
+		};
+		9758F2AD0588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXHeadersBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2AE0588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+				9758F2AF0588DE88008F071A,
+			);
+			isa = PBXResourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2AF0588DE88008F071A = {
+			fileRef = F5679E09026A1F2001A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2B00588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+				9758F2B10588DE88008F071A,
+				9758F2B20588DE88008F071A,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2B10588DE88008F071A = {
+			fileRef = F587B687025C6DD401A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2B20588DE88008F071A = {
+			fileRef = F587B688025C6DD401A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2B30588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+				9758F2FB0588DE89008F071A,
+				9758F2B50588DE88008F071A,
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2B50588DE88008F071A = {
+			fileRef = F5FE302102558CD301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2B60588DE88008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXRezBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2B70588DE88008F071A = {
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				18AD33EC05D070A8006D9A32,
+			);
+			isa = PBXCopyFilesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2BA0588DE89008F071A = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist;
+			path = "Info-OPExample1.plist";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		9758F2BB0588DE89008F071A = {
+			explicitFileType = wrapper.application;
+			includeInIndex = 0;
+			isa = PBXFileReference;
+			path = OPExample1.app;
+			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9758F2BD0588DE89008F071A = {
+			buildPhases = (
+				9758F2BE0588DE89008F071A,
+				9758F2BF0588DE89008F071A,
+				9758F2C00588DE89008F071A,
+				9758F2C30588DE89008F071A,
+				9758F2C60588DE89008F071A,
+				9758F2C70588DE89008F071A,
+			);
+			buildRules = (
+			);
+			buildSettings = {
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = "../../Source/Utilities ../../Source/Demos/OPExample1 ../../Interfaces";
+				INFOPLIST_FILE = "Info-NSpExample1.plist";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = NSpExample1;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wno-four-char-constants -Wno-unknown-pragmas";
+				WRAPPER_EXTENSION = app;
+			};
+			dependencies = (
+			);
+			isa = PBXNativeTarget;
+			name = NSpExample1;
+			productInstallPath = "$(USER_APPS_DIR)";
+			productName = NSpExample1;
+			productReference = 9758F2CB0588DE89008F071A;
+			productType = "com.apple.product-type.application";
+		};
+		9758F2BE0588DE89008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXHeadersBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2BF0588DE89008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXResourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2C00588DE89008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+				9758F2C10588DE89008F071A,
+				9758F2C20588DE89008F071A,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2C10588DE89008F071A = {
+			fileRef = F587B687025C6DD401A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2C20588DE89008F071A = {
+			fileRef = F587B68C025C70BB01A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2C30588DE89008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+				9758F2FC0588DE89008F071A,
+				9758F2C40588DE89008F071A,
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2C40588DE89008F071A = {
+			fileRef = F5FE302102558CD301A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2C60588DE89008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXRezBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2C70588DE89008F071A = {
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				18EB657F05D05794006B1F7B,
+			);
+			isa = PBXCopyFilesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2CA0588DE89008F071A = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist;
+			path = "Info-NSpExample1.plist";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		9758F2CB0588DE89008F071A = {
+			explicitFileType = wrapper.application;
+			includeInIndex = 0;
+			isa = PBXFileReference;
+			path = NSpExample1.app;
+			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9758F2CD0588DE89008F071A = {
+			buildPhases = (
+				9758F2CE0588DE89008F071A,
+				9758F2CF0588DE89008F071A,
+				9758F2D00588DE89008F071A,
+				9758F2D20588DE89008F071A,
+				9758F2D40588DE89008F071A,
+				9758F2D50588DE89008F071A,
+			);
+			buildRules = (
+			);
+			buildSettings = {
+				GCC_PREFIX_HEADER = ../../Source/Utilities/Posix/prefixMach.h;
+				HEADER_SEARCH_PATHS = "../../Source/Utilities ../../Interfaces";
+				INFOPLIST_FILE = "Info-OpenPlayMiniDemo.plist";
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PREBINDING = NO;
+				PRODUCT_NAME = OpenPlayMiniDemo;
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wno-four-char-constants -Wno-unknown-pragmas";
+				WRAPPER_EXTENSION = app;
+			};
+			dependencies = (
+			);
+			isa = PBXNativeTarget;
+			name = OpenPlayMiniDemo;
+			productName = OpenPlayMiniDemo;
+			productReference = 9758F2D90588DE89008F071A;
+			productType = "com.apple.product-type.application";
+		};
+		9758F2CE0588DE89008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXHeadersBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2CF0588DE89008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXResourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2D00588DE89008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+				9758F2D10588DE89008F071A,
+			);
+			isa = PBXSourcesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2D10588DE89008F071A = {
+			fileRef = F5A7370502667C4401A80105;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2D20588DE89008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+				9758F2FD0588DE89008F071A,
+			);
+			isa = PBXFrameworksBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2D40588DE89008F071A = {
+			buildActionMask = 2147483647;
+			files = (
+			);
+			isa = PBXRezBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2D50588DE89008F071A = {
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				18AD33E105D0708E006D9A32,
+			);
+			isa = PBXCopyFilesBuildPhase;
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9758F2D80588DE89008F071A = {
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist;
+			path = "Info-OpenPlayMiniDemo.plist";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		9758F2D90588DE89008F071A = {
+			explicitFileType = wrapper.application;
+			includeInIndex = 0;
+			isa = PBXFileReference;
+			path = OpenPlayMiniDemo.app;
+			refType = 3;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9758F2DB0588DE89008F071A = {
+			buildPhases = (
+			);
+			buildSettings = {
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = "Build All";
+				SECTORDER_FLAGS = "";
+				WARNING_CFLAGS = "-Wmost -Wno-four-char-constants -Wno-unknown-pragmas";
+			};
+			dependencies = (
+				9758F2E80588DE89008F071A,
+				9758F2E60588DE89008F071A,
+				9758F2EA0588DE89008F071A,
+				9758F2EC0588DE89008F071A,
+				9758F2EE0588DE89008F071A,
+				9758F2F00588DE89008F071A,
+				9758F2F20588DE89008F071A,
+				9758F2F40588DE89008F071A,
+				9758F2F60588DE89008F071A,
+			);
+			isa = PBXAggregateTarget;
+			name = "Build All";
+			productName = "Build All";
+		};
+		9758F2E50588DE89008F071A = {
+			containerPortal = 0867D690FE84028FC02AAC07;
+			isa = PBXContainerItemProxy;
+			proxyType = 1;
+			remoteGlobalIDString = 9758F2220588DE88008F071A;
+			remoteInfo = "OpenPlay Framework (Upgraded)";
+		};
+		9758F2E60588DE89008F071A = {
+			isa = PBXTargetDependency;
+			target = 9758F2220588DE88008F071A;
+			targetProxy = 9758F2E50588DE89008F071A;
+		};
+		9758F2E70588DE89008F071A = {
+			containerPortal = 0867D690FE84028FC02AAC07;
+			isa = PBXContainerItemProxy;
+			proxyType = 1;
+			remoteGlobalIDString = 9758F24C0588DE88008F071A;
+			remoteInfo = "IP Module (Upgraded)";
+		};
+		9758F2E80588DE89008F071A = {
+			isa = PBXTargetDependency;
+			target = 9758F24C0588DE88008F071A;
+			targetProxy = 9758F2E70588DE89008F071A;
+		};
+		9758F2E90588DE89008F071A = {
+			containerPortal = 0867D690FE84028FC02AAC07;
+			isa = PBXContainerItemProxy;
+			proxyType = 1;
+			remoteGlobalIDString = 9758F2620588DE88008F071A;
+			remoteInfo = "OpenPlayTest (Upgraded)";
+		};
+		9758F2EA0588DE89008F071A = {
+			isa = PBXTargetDependency;
+			target = 9758F2620588DE88008F071A;
+			targetProxy = 9758F2E90588DE89008F071A;
+		};
+		9758F2EB0588DE89008F071A = {
+			containerPortal = 0867D690FE84028FC02AAC07;
+			isa = PBXContainerItemProxy;
+			proxyType = 1;
+			remoteGlobalIDString = 9758F2790588DE88008F071A;
+			remoteInfo = "NetSprocketTest (Upgraded)";
+		};
+		9758F2EC0588DE89008F071A = {
+			isa = PBXTargetDependency;
+			target = 9758F2790588DE88008F071A;
+			targetProxy = 9758F2EB0588DE89008F071A;
+		};
+		9758F2ED0588DE89008F071A = {
+			containerPortal = 0867D690FE84028FC02AAC07;
+			isa = PBXContainerItemProxy;
+			proxyType = 1;
+			remoteGlobalIDString = 9758F29D0588DE88008F071A;
+			remoteInfo = "OPEnumTest (Upgraded)";
+		};
+		9758F2EE0588DE89008F071A = {
+			isa = PBXTargetDependency;
+			target = 9758F29D0588DE88008F071A;
+			targetProxy = 9758F2ED0588DE89008F071A;
+		};
+		9758F2EF0588DE89008F071A = {
+			containerPortal = 0867D690FE84028FC02AAC07;
+			isa = PBXContainerItemProxy;
+			proxyType = 1;
+			remoteGlobalIDString = 9758F2890588DE88008F071A;
+			remoteInfo = "NetSprocketTest2 (Upgraded)";
+		};
+		9758F2F00588DE89008F071A = {
+			isa = PBXTargetDependency;
+			target = 9758F2890588DE88008F071A;
+			targetProxy = 9758F2EF0588DE89008F071A;
+		};
+		9758F2F10588DE89008F071A = {
+			containerPortal = 0867D690FE84028FC02AAC07;
+			isa = PBXContainerItemProxy;
+			proxyType = 1;
+			remoteGlobalIDString = 9758F2AC0588DE88008F071A;
+			remoteInfo = "OPExample1 (Upgraded)";
+		};
+		9758F2F20588DE89008F071A = {
+			isa = PBXTargetDependency;
+			target = 9758F2AC0588DE88008F071A;
+			targetProxy = 9758F2F10588DE89008F071A;
+		};
+		9758F2F30588DE89008F071A = {
+			containerPortal = 0867D690FE84028FC02AAC07;
+			isa = PBXContainerItemProxy;
+			proxyType = 1;
+			remoteGlobalIDString = 9758F2BD0588DE89008F071A;
+			remoteInfo = "NSpExample1 (Upgraded)";
+		};
+		9758F2F40588DE89008F071A = {
+			isa = PBXTargetDependency;
+			target = 9758F2BD0588DE89008F071A;
+			targetProxy = 9758F2F30588DE89008F071A;
+		};
+		9758F2F50588DE89008F071A = {
+			containerPortal = 0867D690FE84028FC02AAC07;
+			isa = PBXContainerItemProxy;
+			proxyType = 1;
+			remoteGlobalIDString = 9758F2CD0588DE89008F071A;
+			remoteInfo = "OpenPlayMiniDemo (Upgraded)";
+		};
+		9758F2F60588DE89008F071A = {
+			isa = PBXTargetDependency;
+			target = 9758F2CD0588DE89008F071A;
+			targetProxy = 9758F2F50588DE89008F071A;
+		};
+		9758F2F70588DE89008F071A = {
+			fileRef = 9758F24B0588DE88008F071A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2F80588DE89008F071A = {
+			fileRef = 9758F24B0588DE88008F071A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2F90588DE89008F071A = {
+			fileRef = 9758F24B0588DE88008F071A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2FA0588DE89008F071A = {
+			fileRef = 9758F24B0588DE88008F071A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2FB0588DE89008F071A = {
+			fileRef = 9758F24B0588DE88008F071A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2FC0588DE89008F071A = {
+			fileRef = 9758F24B0588DE88008F071A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		9758F2FD0588DE89008F071A = {
+			fileRef = 9758F24B0588DE88008F071A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+//970
+//971
+//972
+//973
+//974
+//F50
+//F51
+//F52
+//F53
+//F54
+		F536EB9D03232CB401A8008C = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.rez;
+			path = NSpTest2Mach.r;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5530D5B0256B46901A80105 = {
+			children = (
+				F5530D5C0256B46901A80105,
+			);
+			isa = PBXVariantGroup;
+			name = OPTestInfoPlist.strings;
+			path = "";
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5530D5C0256B46901A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = text.plist.strings;
+			name = English;
+			path = English.lproj/OPTestInfoPlist.strings;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5530D5F0256B56901A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.rez;
+			name = OpenPlayTestMachO.r;
+			path = ../../Source/Demos/OpenPlayTest/Macintosh/Binaries/OpenPlayTestMachO.r;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5530D6F0256BF5501A80105 = {
+			children = (
+				9758F2600588DE88008F071A,
+				F5530D700256BF5501A80105,
+				F5679E06026A1DF401A80105,
+			);
+			isa = PBXGroup;
+			name = "IP Module";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5530D700256BF5501A80105 = {
+			children = (
+				F5530D710256BFDF01A80105,
+				F5530D720256BFDF01A80105,
+				F5530D730256BFDF01A80105,
+				F5679E07026A1E3701A80105,
+				F5530D750256BFDF01A80105,
+				F5530D760256BFDF01A80105,
+				F5530D770256BFDF01A80105,
+			);
+			isa = PBXGroup;
+			name = Source;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5530D710256BFDF01A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = tcp_module_communication.cpp;
+			path = ../../Source/OPNetModules/posix/TCP_IP/tcp_module_communication.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5530D720256BFDF01A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = tcp_module_config.cpp;
+			path = ../../Source/OPNetModules/posix/TCP_IP/tcp_module_config.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5530D730256BFDF01A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = tcp_module_enumeration.cpp;
+			path = ../../Source/OPNetModules/posix/TCP_IP/tcp_module_enumeration.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5530D750256BFDF01A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = tcp_module_main.cpp;
+			path = ../../Source/OPNetModules/posix/TCP_IP/tcp_module_main.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5530D760256BFDF01A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = configuration.c;
+			path = ../../Source/OPNetModules/Common/configuration.c;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5530D770256BFDF01A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = ip_enumeration.c;
+			path = ../../Source/OPNetModules/Common/ip_enumeration.c;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5679E06026A1DF401A80105 = {
+			children = (
+				F5679E09026A1F2001A80105,
+			);
+			isa = PBXGroup;
+			name = Resources;
+			path = "";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5679E07026A1E3701A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = tcp_module_gui_mac.cpp;
+			path = ../../Source/OPNetModules/posix/TCP_IP/tcp_module_gui_mac.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5679E09026A1F2001A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.rez;
+			name = tcp_module_mac.r;
+			path = ../../Source/OPNetModules/posix/TCP_IP/tcp_module_mac.r;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5679E0E026A340201A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = NSpDialogMacOS.cpp;
+			path = ../../Source/NetSprocketLib/Macintosh/NSpDialogMacOS.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5679E12026A382401A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.rez;
+			name = NetSprocketMachO.r;
+			path = ../../Source/NetSprocketLib/Macintosh/NetSprocketMachO.r;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F587B67B025C6D4501A80105 = {
+			children = (
+				9758F2CA0588DE89008F071A,
+				9758F2BA0588DE89008F071A,
+				F587B687025C6DD401A80105,
+				F587B688025C6DD401A80105,
+				F587B68C025C70BB01A80105,
+			);
+			isa = PBXGroup;
+			name = OP/NSpExample1;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F587B687025C6DD401A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = main.c;
+			path = ../../Source/Demos/OPExample1/main.c;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F587B688025C6DD401A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = op_network.cpp;
+			path = ../../Source/Demos/OPExample1/op_network.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F587B68C025C70BB01A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = nsp_network.c;
+			path = ../../Source/Demos/OPExample1/nsp_network.c;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5A736FC02667C1101A80105 = {
+			children = (
+				9758F2D80588DE89008F071A,
+				F5A7370502667C4401A80105,
+			);
+			isa = PBXGroup;
+			name = OpenPlayMiniDemo;
+			path = "";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5A7370502667C4401A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = miniplay.c;
+			path = ../../Source/Demos/OPMiniDemo/miniplay.c;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE64002556D8F01A80105 = {
+			children = (
+				9758F24A0588DE88008F071A,
+				089C1665FE841158C02AAC07,
+				08FB77ACFE841707C02AAC07,
+			);
+			isa = PBXGroup;
+			name = "OpenPlay Framework";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5ABE64102556F3701A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = module_management.cpp;
+			path = ../../Source/OpenPlayLib/Common/module_management.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE64202556F3701A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = op_endpoint.cpp;
+			path = ../../Source/OpenPlayLib/Common/op_endpoint.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE64302556F3701A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = op_hi.cpp;
+			path = ../../Source/OpenPlayLib/Common/op_hi.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE64402556F3701A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = op_module_mgmt.cpp;
+			path = ../../Source/OpenPlayLib/Common/op_module_mgmt.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE64502556F3701A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = op_packet.cpp;
+			path = ../../Source/OpenPlayLib/Common/op_packet.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE64602556F3701A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = openplay.cpp;
+			path = ../../Source/OpenPlayLib/Common/openplay.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE64702556F3701A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = op_dlopen.c;
+			path = ../../Source/OpenPlayLib/posix/op_dlopen.c;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE64802556F3701A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = openplay_posix.cpp;
+			path = ../../Source/OpenPlayLib/posix/openplay_posix.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE64902556F3701A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = CATEndpoint_OP.cpp;
+			path = ../../Source/NetSprocketLib/CATEndpoint_OP.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE64A02556F3701A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = CEndpoint_OP.cpp;
+			path = ../../Source/NetSprocketLib/CEndpoint_OP.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE64B02556F3701A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = CIPEndpoint_OP.cpp;
+			path = ../../Source/NetSprocketLib/CIPEndpoint_OP.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE64C02556F3701A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = EntryPoint.cpp;
+			path = ../../Source/NetSprocketLib/EntryPoint.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE64D02556F3701A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = NetSprocketLib.cpp;
+			path = ../../Source/NetSprocketLib/NetSprocketLib.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE64E02556F3701A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = NSp_InterruptSafeList.cpp;
+			path = ../../Source/NetSprocketLib/NSp_InterruptSafeList.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE64F02556F3701A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = NSpGame.cpp;
+			path = ../../Source/NetSprocketLib/NSpGame.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE65002556F3701A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = NSpGameMaster.cpp;
+			path = ../../Source/NetSprocketLib/NSpGameMaster.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE65102556F3701A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = NSpGamePrivate.cpp;
+			path = ../../Source/NetSprocketLib/NSpGamePrivate.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE65202556F3701A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = NSpGameSlave.cpp;
+			path = ../../Source/NetSprocketLib/NSpGameSlave.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE65302556F3701A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = NSpLists_OP.cpp;
+			path = ../../Source/NetSprocketLib/NSpLists_OP.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE65402556F3701A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = NSpProtocolRef.cpp;
+			path = ../../Source/NetSprocketLib/NSpProtocolRef.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE66902556F5F01A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = dll_utils_posix.cpp;
+			path = ../../Source/Utilities/posix/dll_utils_posix.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE66A02556F5F01A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = find_files_posix.cpp;
+			path = ../../Source/Utilities/posix/find_files_posix.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE66D02556F8801A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = ByteSwapping.cpp;
+			path = ../../Source/Utilities/ByteSwapping.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE66E02556F8801A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = DebugPrint.cpp;
+			path = ../../Source/Utilities/DebugPrint.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE66F02556F8801A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = ERObject.cpp;
+			path = ../../Source/Utilities/ERObject.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE67002556F8801A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = machine_lock.cpp;
+			path = ../../Source/Utilities/machine_lock.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE67102556F8801A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = OPUtils.cpp;
+			path = ../../Source/Utilities/OPUtils.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE67202556F8801A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = String_Utils.cpp;
+			path = ../../Source/Utilities/String_Utils.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5ABE67302556F8801A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = TPointerArray.cpp;
+			path = ../../Source/Utilities/TPointerArray.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5CE6DF9025AF5E601A80105 = {
+			children = (
+				9758F2860588DE88008F071A,
+				F5CE6E01025AF68701A80105,
+			);
+			isa = PBXGroup;
+			name = NetSprocketTest;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5CE6E01025AF68701A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = NSpTestApp.cpp;
+			path = ../../Source/Demos/NSpTestApp/NSpTestApp.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5CE6E09025AF81F01A80105 = {
+			children = (
+				9758F2A90588DE88008F071A,
+				F5CE6E11025AF8AC01A80105,
+			);
+			isa = PBXGroup;
+			name = OPEnumTest;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5CE6E11025AF8AC01A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = OPEnumTest.cpp;
+			path = ../../Source/Demos/OPEnumTest/OPEnumTest.cpp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5CE6E19025AFB1901A80105 = {
+			children = (
+				9758F29A0588DE88008F071A,
+				F5CE6E2D025AFB7901A80105,
+				F5CE6E2E025AFB7901A80105,
+			);
+			isa = PBXGroup;
+			name = NetSprocketTest2;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5CE6E21025AFB5301A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = aevt.c;
+			path = ../../../OpenPlay/Source/Demos/NSpTest2/aevt.c;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5CE6E22025AFB5301A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = events.c;
+			path = ../../../OpenPlay/Source/Demos/NSpTest2/events.c;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5CE6E23025AFB5301A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = init.c;
+			path = ../../../OpenPlay/Source/Demos/NSpTest2/init.c;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5CE6E24025AFB5301A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = main.c;
+			path = ../../../OpenPlay/Source/Demos/NSpTest2/main.c;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5CE6E25025AFB5301A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.cpp.cpp;
+			name = NetStuff.cp;
+			path = ../../../OpenPlay/Source/Demos/NSpTest2/NetStuff.cp;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5CE6E2D025AFB7901A80105 = {
+			children = (
+				F5CE6E21025AFB5301A80105,
+				F5CE6E22025AFB5301A80105,
+				F5CE6E23025AFB5301A80105,
+				F5CE6E24025AFB5301A80105,
+				F5CE6E25025AFB5301A80105,
+				F5ABE67102556F8801A80105,
+			);
+			isa = PBXGroup;
+			name = Source;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5CE6E2E025AFB7901A80105 = {
+			children = (
+				F536EB9D03232CB401A8008C,
+			);
+			isa = PBXGroup;
+			name = Resources;
+			path = ../../Source/Demos/NSpTest2;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5FE301902558C6F01A80105 = {
+			children = (
+				9758F2760588DE88008F071A,
+				F5FE302302558CE701A80105,
+				F5FE301A02558C6F01A80105,
+			);
+			isa = PBXGroup;
+			name = OpenPlayTest;
+			path = "";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5FE301A02558C6F01A80105 = {
+			children = (
+				F5FE301B02558C6F01A80105,
+				F5FE301C02558C6F01A80105,
+				F5FE302602558D7901A80105,
+				F5FE302702558D7901A80105,
+				F5FE302802558D7901A80105,
+			);
+			isa = PBXGroup;
+			name = Source;
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5FE301B02558C6F01A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = dialog_utils.c;
+			path = ../../Source/Demos/OpenPlayTest/Common/dialog_utils.c;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5FE301C02558C6F01A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = testbed.c;
+			path = ../../Source/Demos/OpenPlayTest/Common/testbed.c;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5FE302102558CD301A80105 = {
+			fallbackIsa = PBXFileReference;
+			isa = PBXFrameworkReference;
+			lastKnownFileType = wrapper.framework;
+			name = Carbon.framework;
+			path = /System/Library/Frameworks/Carbon.framework;
+			refType = 0;
+			sourceTree = "<absolute>";
+		};
+		F5FE302302558CE701A80105 = {
+			children = (
+				F5530D5F0256B56901A80105,
+				F5530D5B0256B46901A80105,
+			);
+			isa = PBXGroup;
+			name = Resources;
+			path = "";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+		F5FE302602558D7901A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = dialog_lists.c;
+			path = ../../Source/Demos/OpenPlayTest/Macintosh/dialog_lists.c;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5FE302702558D7901A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = log.c;
+			path = ../../Source/Demos/OpenPlayTest/Macintosh/log.c;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5FE302802558D7901A80105 = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			lastKnownFileType = sourcecode.c.c;
+			name = shell.c;
+			path = ../../Source/Demos/OpenPlayTest/Macintosh/shell.c;
+			refType = 2;
+			sourceTree = SOURCE_ROOT;
+		};
+		F5FE302C02558DCB01A80105 = {
+			children = (
+				F5ABE67002556F8801A80105,
+				F5ABE66E02556F8801A80105,
+				F5ABE67202556F8801A80105,
+			);
+			isa = PBXGroup;
+			name = "Utility Source";
+			refType = 4;
+			sourceTree = "<group>";
+		};
+	};
+	rootObject = 0867D690FE84028FC02AAC07;
+}

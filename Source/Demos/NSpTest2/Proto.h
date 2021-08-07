@@ -93,8 +93,8 @@ OSErr 			GotAEParams(AppleEvent *appleEvent);
 OSErr			Initialize(void);
 void			ToolBoxInit(void);
 void 			CheckEnvironment(void);
-OSErr 			InitApp(void);
-void 			MenuSetup(void);
+OSErr			InitApp(void);
+OSErr			MenuSetup(void);
 
 
 //----------------------------------------------------------------------

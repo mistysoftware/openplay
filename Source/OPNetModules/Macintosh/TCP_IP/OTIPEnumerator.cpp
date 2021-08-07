@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -95,111 +95,98 @@ OTIPEnumerator::StartEnumeration(void)
 	
 	//	first clear out any current items
 	(mCallback)(mContext, kNMEnumClear, NULL);	// [Edmark/PBE] 11/16/99 added
+
+	bFirstIdle = true;
 	
-	//Try_
-	{
-		bFirstIdle = true;
-		
-		//	Create an OT endpoint
-		mEP = OTOpenEndpoint(OTCreateConfiguration(kUDPName), 0, &info, &status);
-		//ThrowIfOSErr_(status);
-		if (status)
-			goto error;
+	//	Create an OT endpoint
+	mEP = OTOpenEndpoint(OTCreateConfiguration(kUDPName), 0, &info, &status);
+	if (status)
+		goto error;
 
-		// fill in the option request
-		cmd.flags = T_NEGOTIATE;
-		cmd.opt.len = kOTFourByteOptionSize;
-		cmd.opt.maxlen = kOTFourByteOptionSize;
-		cmd.opt.buf = (NMUInt8*)&optBuf;
+	// fill in the option request
+	cmd.flags = T_NEGOTIATE;
+	cmd.opt.len = kOTFourByteOptionSize;
+	cmd.opt.maxlen = kOTFourByteOptionSize;
+	cmd.opt.buf = (NMUInt8*)&optBuf;
 
-		// fill in the toption struct
-		optBuf.len = sizeof(TOption);
-		optBuf.level = INET_IP;
-		optBuf.name = kIP_BROADCAST;
-		optBuf.status = 0;
-		optBuf.value[0] = 1;
+	// fill in the toption struct
+	optBuf.len = sizeof(TOption);
+	optBuf.level = INET_IP;
+	optBuf.name = kIP_BROADCAST;
+	optBuf.status = 0;
+	optBuf.value[0] = 1;
 
 /*
-		cmd.opt.len = 0;
-		cmd.opt.maxlen = 64;
-		cmd.opt.buf = (NMUInt8*)optBuf;
-		cmd.flags = T_NEGOTIATE;
+	cmd.opt.len = 0;
+	cmd.opt.maxlen = 64;
+	cmd.opt.buf = (NMUInt8*)optBuf;
+	cmd.flags = T_NEGOTIATE;
 
-		//	Option management kinda sucks
-		strcpy((char *) fooBuf, "Broadcast = 1");
-		status = OTCreateOptions(kRawIPName, (char **)&foo, &cmd.opt);
-		ThrowIfOSErr_(status);
+	//	Option management kinda sucks
+	strcpy((char *) fooBuf, "Broadcast = 1");
+	status = OTCreateOptions(kRawIPName, (char **)&foo, &cmd.opt);
 */
 
-		status = OTOptionManagement(mEP, &cmd, &cmd);
-		//ThrowIfOSErr_(status);
-		if (status)
-			goto error;
-		
-		//	Allocate the buffer for receiving the endpoint
-		mIncomingData.udata.buf = (NMUInt8 *) InterruptSafe_alloc(info.tsdu);
-		//ThrowIfNULL_(mIncomingData.udata.buf);
-		if (mIncomingData.udata.buf == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
-		
-		mIncomingData.udata.maxlen = info.tsdu;
-		
-		//	Bind it
-		request.addr.buf = NULL;
-		request.addr.len = 0;
-		request.addr.maxlen = 0;
-		request.qlen = 0;
-		
-		status = OTBind(mEP, &request, NULL);
-		//ThrowIfOSErr_(status);
-		if (status)
-			goto error;
-
-		OTSetNonBlocking(mEP);
-		
-		//	Get our interface info (for the broadcast address)
-		//	Do this after we bind so that we know the interface is live
-		if (! bGotInterfaceInfo)
-		{
-			status = OTInetGetInterfaceInfo(&mInterfaceInfo, kDefaultInetInterface);
-			//ThrowIfOSErr_(status);
-			if (status)
-				goto error;
-			
-			bGotInterfaceInfo = true;
-		}
-		
-		//	Install notifier
-		status = OTInstallNotifier(mEP, mNotifier.fUPP, this);
-		//ThrowIfOSErr_(status);
-		if (status)
-			goto error;
-		
-		//	Make is asynchronous
-		status = OTSetAsynchronous(mEP);
-		//ThrowIfOSErr_(status);
-		if (status)
-			goto error;
-		
-		//	Send out the query
-		mEnumPeriod = 250;
-		status = SendQuery();
+	status = OTOptionManagement(mEP, &cmd, &cmd);
+	if (status)
+		goto error;
+	
+	//	Allocate the buffer for receiving the endpoint
+	mIncomingData.udata.buf = (NMUInt8 *) InterruptSafe_alloc(info.tsdu);
+	if (mIncomingData.udata.buf == NULL){
+		status = kNMBadStateErr;
+		goto error;
 	}
-	//Catch_(code)
-	error:
+	
+	mIncomingData.udata.maxlen = info.tsdu;
+	
+	//	Bind it
+	request.addr.buf = NULL;
+	request.addr.len = 0;
+	request.addr.maxlen = 0;
+	request.qlen = 0;
+	
+	status = OTBind(mEP, &request, NULL);
+	if (status)
+		goto error;
+
+	OTSetNonBlocking(mEP);
+	
+	//	Get our interface info (for the broadcast address)
+	//	Do this after we bind so that we know the interface is live
+	if (! bGotInterfaceInfo)
+	{
+		status = OTInetGetInterfaceInfo(&mInterfaceInfo, kDefaultInetInterface);
+		if (status)
+			goto error;
+		
+		bGotInterfaceInfo = true;
+	}
+	
+	//	Install notifier
+	status = OTInstallNotifier(mEP, mNotifier.fUPP, this);
+	if (status)
+		goto error;
+	
+	//	Make is asynchronous
+	status = OTSetAsynchronous(mEP);
+	if (status)
+		goto error;
+	
+	//	Send out the query
+	mEnumPeriod = 250;
+	status = SendQuery();
+
+error:
 	if (status)
 	{
-		NMErr code = status;
 		if (mEP)
 		{
-			status = OTCloseProvider(mEP);
+			OTCloseProvider(mEP);			// ignore error
 			mEP = kOTInvalidEndpointRef;
 		}
 	}
-	
-	return kNMNoError;
+	return status;
 }
 
 //----------------------------------------------------------------------------------------
@@ -228,8 +215,14 @@ NMUInt32		timeSinceLastIdle;
 		timeSinceLastIdle = OTElapsedMilliseconds(&mLastIdleTimeStamp);
 	}
 
-	OTGetTimeStamp(&mLastIdleTimeStamp);
-	IdleList(timeSinceLastIdle);
+	// dair, only update time stamp if at least 1ms has passed
+	// Otherwise idling in a tight loop will invoke IdleList with a delta of 0,
+	// which prevents servers from ever being aged and being unregistered.
+	if (timeSinceLastIdle > 0)
+	{
+		OTGetTimeStamp(&mLastIdleTimeStamp);
+		IdleList(timeSinceLastIdle);
+	}
 	
 	if (OTElapsedMilliseconds(&mLastQueryTimeStamp) > mEnumPeriod)
 	{

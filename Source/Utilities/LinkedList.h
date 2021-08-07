@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -215,21 +215,21 @@ class OSCriticalSection
 
 		void		AddLast(NMLink* link)
 							{
-								if (fHead == NULL)
-									fHead = link->fNext;
+								link->fNext = NULL;
+
+								if( !fHead )
+								{
+									fHead = link;
+								}
 								else
 								{
 									NMLink *current = fHead;
 									
-									while (current->fNext != NULL)
+									while( current->fNext )
 										current = current->fNext;
 										
 									current->fNext = link;
 								}
-								
-								
-								link->fNext = fHead;
-								fHead = link;			
 							}
 
 		
@@ -268,52 +268,28 @@ class OSCriticalSection
 	
 //ecf 020619 changed to a non-recursive method so large lists won't cause problems.
 
-static void NewReverseNMLink(NMLink **object)
-{
-	NMLink *oldNext;
-	NMLink *newNext = NULL;
-
-	if (object == NULL)
-		return;
-	if (*object == NULL)
-		return;
-	oldNext = (NMLink*)(*object)->fNext;
-	
-	while (oldNext)
-	{
-		(*object)->fNext = newNext;
-		newNext = *object;
-		*object = oldNext;
-		oldNext = (NMLink*)(*object)->fNext;
-	}
-	(*object)->fNext = newNext;
-}
 static NMLink* NMReverseList(NMLink *headRef)
 {
 
-	NewReverseNMLink(&headRef);
-	return headRef;
-	
-	/*
-	NMLink	*first;
-	NMLink	*rest;
+	NMLink *oldNext;
+	NMLink *newNext = NULL;
 
-	if (headRef == NULL) return NULL;
+	if( !headRef )
+		return( NULL );
+
+	oldNext = headRef->fNext;
 	
-	first = headRef;
-	rest = (NMLink *) first->fNext;
-	
-	if (rest == NULL) return headRef;
-	
-	rest = NMReverseList(rest);
-	
-	first->fNext->fNext = first;
-	first->fNext = NULL;
-	
-	return rest;
-	*/
+	while (oldNext)
+	{
+		headRef->fNext = newNext;
+		newNext = headRef;
+		headRef = oldNext;
+		oldNext = headRef->fNext;
+	}
+	headRef->fNext = newNext;
+
+	return headRef;
 }
-	
 
 	#define NMGetLinkObject(link, struc, field)	\
 		((struc*)((char*)(link) - offsetof(struc, field)))

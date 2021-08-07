@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -62,17 +62,20 @@
 		NSpMessageHeader 	*RemoveNetMessage(void);
 		
 		void	SetEndpoint(CEndpoint *inEndpoint);
+		void	SetCookie(void *inCookie);
 		
 		inline	NSpMessageHeader 	*PeekNetMessage() {return mMessage;}
 		inline 	CEndpoint 			*GetEndpoint() { return mEndpoint;}
 		inline	NMUInt32			GetMaxMessageLen() {return mMaxMessageLen;}
 		inline	NMUInt32			GetTimeReceived() {return mTimeReceived;}
+		inline	void				*GetCookie() {return mCookie;}
 		
 	protected:
 		NSpMessageHeader	*mMessage;
 		NMUInt32			mMaxMessageLen;
 		NMUInt32			mTimeReceived;
 		CEndpoint			*mEndpoint;
+		void				*mCookie;
 	};
 
 //	------------------------------	Public Functions

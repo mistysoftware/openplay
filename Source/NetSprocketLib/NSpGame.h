@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -122,11 +122,13 @@
 		//ecf - allows idling op endpoints
 		virtual void		IdleEndpoints(void) = 0;
 		virtual NMErr	SendTo(NSpPlayerID inTo, NMSInt32 inWhat, void *inData, NMUInt32 inLen, NSpFlags inFlags) = 0;
+		virtual	void		HandleEvent(ERObject *inERObject, CEndpoint *inEndpoint, void *inCookie) = 0;
 		virtual	void		HandleNewEvent(ERObject *inERObject, CEndpoint *inEndpoint, void *inCookie) = 0;
+		virtual NMBoolean		IsSystemEvent(ERObject *inERObject);
 		virtual NMErr	PrepareForDeletion(NSpFlags inFlags) = 0;
 				NMBoolean	NSpMessage_Get(NSpMessageHeader **outMessage);
 		virtual	NMErr	HandleEndpointDisconnected(CEndpoint *inEndpoint) = 0;
-		
+				void	ServiceSystemQueue(void);
 	//	Accessors
 		inline 	NSpPlayerID	NSpPlayer_GetMyID(void) { return mPlayerID;}
 		inline 	NMSInt32	GetTimeStampDifferential(void) {return mTimeStampDifferential;}
@@ -171,6 +173,7 @@
 		NSpPlayerID						mPlayerID;
 		
 		NMLIFO							*mEventQ;
+		NMLIFO							*mSystemEventQ;
 		NMLIFO							*mFreeQ;
 		NMLIFO							*mCookieQ;
 		ERObject						*mPendingMessages;

@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -43,11 +43,10 @@
 #include "NSpGameMaster.h"
 #include "NetSprocketLib.h"
 #include "ByteSwapping.h"
+
 #ifndef __NETMODULE__
-#include 			"NetModule.h"
+	#include "NetModule.h"
 #endif
-
-
 
 #ifdef OP_API_NETWORK_OT
 	#include <OpenTptAppleTalk.h>
@@ -103,18 +102,21 @@ NSpGameMaster::~NSpGameMaster()
 {
 	if (mAdvertisingATEndpoint)
 	{
+		DEBUG_PRINT("Calling Close in NSpGameMaster::~NSpGameMaster (1)");
 		mAdvertisingATEndpoint->Close();
 		mAdvertisingATEndpoint = NULL;
 	}
 
 	if (mAdvertisingIPEndpoint)
 	{
+		DEBUG_PRINT("Calling Close in NSpGameMaster::~NSpGameMaster (2)");
 		mAdvertisingIPEndpoint->Close();
 		mAdvertisingIPEndpoint = NULL;
 	}
 
 	if (mPlayersEndpoint)
 	{
+		DEBUG_PRINT("Calling Close in NSpGameMaster::~NSpGameMaster (3)");
 		mPlayersEndpoint->Close();
 		mPlayersEndpoint = NULL;
 	}
@@ -137,43 +139,39 @@ NSpGameMaster::HostAT(NSpProtocolPriv *inProt)
 {
 	NMErr	status = kNMNoError;
 
-	//Try_
+	if (bAdvertisingAT)
 	{
-		if (bAdvertisingAT)
+		status = kNSpAlreadyAdvertisingErr;
+	}
+	else
+	{
+		if (mAdvertisingATEndpoint == NULL)
 		{
-			status = kNSpAlreadyAdvertisingErr;
+			mAdvertisingATEndpoint = new COTATEndpoint(this);
+			if (mAdvertisingATEndpoint == NULL){
+				status = kNSpMemAllocationErr;
+				goto error;
+			}
+
+			status = mAdvertisingATEndpoint->InitAdvertiser(inProt);
+			if (status)
+				goto error;
+
+			bAdvertisingAT = true;
 		}
 		else
 		{
-			if (mAdvertisingATEndpoint == NULL)
-			{
-				mAdvertisingATEndpoint = new COTATEndpoint(this);
-				//ThrowIfNULL_(mAdvertisingATEndpoint);
-				if (mAdvertisingATEndpoint == NULL){
-					status = err_NilPointer;
-					goto error;
-				}
-
-				status = mAdvertisingATEndpoint->InitAdvertiser(inProt);
-				//ThrowIfOSErr_(status);
-				if (status)
-					goto error;
-
-				bAdvertisingAT = true;
-			}
-			else
-			{
-				bAdvertisingAT = mAdvertisingATEndpoint->Host(true);
-			}
+			bAdvertisingAT = mAdvertisingATEndpoint->Host(true);
 		}
 	}
-	//Catch_(code)
-	error:
+
+error:
 	if (status)
 	{
 		NMErr code = status;
 		if (mAdvertisingATEndpoint != NULL)
 		{
+			DEBUG_PRINT("Calling Close in NSpGameMaster::HostAT");
 			mAdvertisingATEndpoint->Close();
 		}
 
@@ -194,51 +192,41 @@ NSpGameMaster::HostIP(NSpProtocolPriv *inProt)
 {
 	NMErr	status = kNMNoError;
 
-	//Try_
+	if (bAdvertisingIP)
 	{
-		if (bAdvertisingIP)
+		status = kNSpAlreadyAdvertisingErr;
+	}
+	else
+	{
+		if (mAdvertisingIPEndpoint == NULL)
 		{
-			status = kNSpAlreadyAdvertisingErr;
+			mAdvertisingIPEndpoint = new COTIPEndpoint(this);
+			if (mAdvertisingIPEndpoint == NULL){
+				status = kNSpMemAllocationErr;
+				goto error;
+			}
+			
+
+			status = mAdvertisingIPEndpoint->InitAdvertiser(inProt);
+			if (status)
+				goto error;
+			
+			bAdvertisingIP = true;
 		}
 		else
 		{
-			if (mAdvertisingIPEndpoint == NULL)
-			{
-				mAdvertisingIPEndpoint = new COTIPEndpoint(this);
-				//ThrowIfNULL_(mAdvertisingIPEndpoint);
-				if (mAdvertisingIPEndpoint == NULL){
-					status = err_NilPointer;
-					goto error;
-				}
-				
-
-				status = mAdvertisingIPEndpoint->InitAdvertiser(inProt);
-				//ThrowIfOSErr_(status);
-				if (status)
-					goto error;
-				
-				bAdvertisingIP = true;
-			}
-			else
-			{
-				bAdvertisingIP = mAdvertisingIPEndpoint->Host(true);
-			}
+			bAdvertisingIP = mAdvertisingIPEndpoint->Host(true);
 		}
 	}
-	//Catch_(code)
-	error:
+
+error:
 	if (status)
 	{
-		NMErr code = status;
-		if (code == err_NilPointer)
-			code = kNSpMemAllocationErr;
-			
 		if (mAdvertisingIPEndpoint != NULL)
 		{
+			DEBUG_PRINT("Calling Close in NSpGameMaster::HostIP");
 			mAdvertisingIPEndpoint->Close();
 		}
-
-		return (code);
 	}
 	
 	return (status);
@@ -299,52 +287,46 @@ NSpGameMaster::AddLocalPlayer(NMConstStr31Param inPlayerName, NSpPlayerType inPl
 	else
 	{
 		bHeadlessServer = false;
-		//Try_
-		{			
-			//Ä	Create our endpoint
-			if (bAdvertisingAT)
-			{
+
+		//Ä	Create our endpoint
+		if (bAdvertisingAT)
+		{
 #ifdef OP_API_NETWORK_OT
-				ep = mAdvertisingATEndpoint;
-				mPlayersEndpoint = new COTATEndpoint(this);
-				//ThrowIfNULL_(mPlayersEndpoint);
-				if (mPlayersEndpoint == NULL){
-					status = err_NilPointer;
-					goto error;
-				}
+			ep = mAdvertisingATEndpoint;
+			mPlayersEndpoint = new COTATEndpoint(this);
+			if (mPlayersEndpoint == NULL){
+				status = kNSpMemAllocationErr;
+				goto error;
+			}
 #else
-				return (kNSpFeatureNotImplementedErr);
+			return (kNSpFeatureNotImplementedErr);
 
 #endif
-			}
-			else if (bAdvertisingIP)
-			{
-				ep = mAdvertisingIPEndpoint;
-				mPlayersEndpoint = new COTIPEndpoint(this);
-				//ThrowIfNULL_(mPlayersEndpoint);
-				if (mPlayersEndpoint == NULL){
-					status = err_NilPointer;
-					goto error;
-				}
-			}
-			else
-			{
-				return (kNSpNotAdvertisingErr);
-			}
-				
-			//Ä	Initialize it
-			status = mPlayersEndpoint->InitNonAdvertiser(theProt);
-			//ThrowIfOSErr_(status);			
-			if (status)
-				goto error;
-		
-			status = SendJoinRequest(inPlayerName, inPlayerType);
-			//ThrowIfOSErr_(status);
-			if (status)
-				goto error;
 		}
-		//Catch_(code)
-		error:
+		else if (bAdvertisingIP)
+		{
+			ep = mAdvertisingIPEndpoint;
+			mPlayersEndpoint = new COTIPEndpoint(this);
+			if (mPlayersEndpoint == NULL){
+				status = kNSpMemAllocationErr;
+				goto error;
+			}
+		}
+		else
+		{
+			return (kNSpNotAdvertisingErr);
+		}
+			
+		//Ä	Initialize it
+		status = mPlayersEndpoint->InitNonAdvertiser(theProt);
+		if (status)
+			goto error;
+	
+		status = SendJoinRequest(inPlayerName, inPlayerType);
+		if (status)
+			goto error;
+
+error:
 		if (status)
 		{
 			NMErr code = status;
@@ -399,87 +381,106 @@ NSpGameMaster::HandleJoinRequest(
 	NMUInt8		 	message[256];
 	NMErr			status = kNMNoError;
 	CEndpoint 		*commEndpoint = NULL;
+
+	// dair, added NSpJoinResponseMessage support
+	NSpJoinResponseMessage	msgJoinResponse;
+
+	memset(&msgJoinResponse, 0x00, sizeof(msgJoinResponse));
+
+	msgJoinResponse.header.what       = kNSpJoinResponse;
+	msgJoinResponse.header.from       = kNSpMasterEndpointID;
+	msgJoinResponse.header.version    = kVersion10Message;
+	msgJoinResponse.header.id         = mNextMessageID++;
+	msgJoinResponse.header.messageLen = sizeof(NSpJoinResponseMessage);
 	
-	//Ä	Initialize our message string to be empty
+	//	Initialize our message string to be empty
 	message[0] = 0;
 		
-	//Try_
+	if (inMessage->customDataLen == kCustomLocalJoinRequest)		//Ä	It's a local request
 	{
-		if (inMessage->customDataLen == kCustomLocalJoinRequest)		//Ä	It's a local request
-		{
-			approved = true;					//Ä	Always approve the local request
-			localRequest = true;
+		approved = true;					//Ä	Always approve the local request
+		localRequest = true;
+	}
+	else if (approved && mGameInfo.currentPlayers >= mGameInfo.maxPlayers)
+	{
+		doCopyC2PStr("Maximum allowed players already in game", message);
+		approved = false;	
+	}	
+	else if (approved && mJoinRequestHandler != NULL)		//Ä	Call the custom join handler, if one is installed
+	{
+		// dair, added NSpJoinResponseMessage support
+		approved = ((NSpJoinRequestHandlerProcPtr) mJoinRequestHandler)((NSpGameReference) this->GetGameOwner(), inMessage, mJoinRequestContext, message, &msgJoinResponse);
+	}
+
+	//Ä	Reject them if they gave an incorrect password
+	else if (approved && bPasswordRequired && !IsCorrectPassword(inMessage->password))
+	{
+		doCopyC2PStr("Incorrect password", message);
+		approved = false;
+	}
+	
+	if (approved)
+	{
+	
+		commEndpoint = inEndpoint->Clone(inCookie);
+		if (commEndpoint == NULL){
+			status = kNSpMemAllocationErr;
+			goto error;
 		}
-		else if (approved && mGameInfo.currentPlayers >= mGameInfo.maxPlayers)
-		{
-			doCopyC2PStr("Maximum allowed players already in game", message);
-			approved = false;	
-		}	
-		else if (approved && mJoinRequestHandler != NULL)		//Ä	Call the custom join handler, if one is installed
-		{
-			approved = ((NSpJoinRequestHandlerProcPtr) mJoinRequestHandler)((NSpGameReference) this->GetGameOwner(), inMessage, mJoinRequestContext, message);
-		}
+	
+		player = mNextAvailablePlayerNumber++;
 
-		//Ä	Reject them if they gave an incorrect password
-		else if (approved && bPasswordRequired && !IsCorrectPassword(inMessage->password))
-		{
-			doCopyC2PStr("Incorrect password", message);
-			approved = false;
-		}
+		//Ä	Add an entry to the playermap list
+		NSpPlayerInfo	info;
+
+		info.id = player;
+		info.type = inMessage->theType;
+		info.groupCount = 0;
+		info.groups[0] = 0;
+		doCopyPStrMax(inMessage->name, info.name, 31);
 		
-		if (approved)
+		AddPlayer(&info, commEndpoint);
+
+		if (localRequest)
 		{
-		
-			commEndpoint = inEndpoint->Clone(inCookie);
-			//ThrowIfNULL_(commEndpoint);
-			if (commEndpoint == NULL){
-				status = err_NilPointer;
-				goto error;
-			}
-		
-			player = mNextAvailablePlayerNumber++;
-
-			//Ä	Add an entry to the playermap list
-			NSpPlayerInfo	info;
-
-			info.id = player;
-			info.type = inMessage->theType;
-			info.groupCount = 0;
-			info.groups[0] = 0;
-			doCopyPStrMax(inMessage->name, info.name, 31);
-			
-			AddPlayer(&info, commEndpoint);
-
-			if (localRequest)
-			{
-				mPlayerID = player;
-				status = kNMNoError;		//Ä	Don't send the join approved to a local joiner
-			}
-			else
-			{
-				//Ä	Include the old player map for the new player	
-				status = SendJoinApproved(commEndpoint, player, inReceivedTime);
-			}
-			
-			if (status == kNMNoError)
-			{
-				//Ä	Now notify everyone else that there is a new player
-				//Ä	If this fails, we could get out of sync
-				status = NotifyPlayerJoined(&info);
-			}
-			else 
-			{
-				RemovePlayer(player, true);		//Ä	We couldn't send the approval for some reason.  Undo the add.
-				DEBUG_PRINT("Failed to send Join Approved.");
-			}
+			mPlayerID = player;
+			status = kNMNoError;		//Ä	Don't send the join approved to a local joiner
 		}
 		else
 		{
-			status = SendJoinDenied(inEndpoint, inCookie, message);
+				// dair, added NSpJoinResponseMessage support
+			if (msgJoinResponse.responseDataLen != 0)
+			{
+				msgJoinResponse.header.to = player;
+				status                    = commEndpoint->SendMessage(&msgJoinResponse.header, ((NMUInt8 *) &msgJoinResponse) + sizeof(NSpMessageHeader), kNSpSendFlag_Registered);
+			}
+
+			//Ä	Include the old player map for the new player	
+			status = SendJoinApproved(commEndpoint, player, inReceivedTime);
+		}
+		
+		if (status == kNMNoError)
+		{
+			//Ä	Now notify everyone else that there is a new player
+			//Ä	If this fails, we could get out of sync
+			status = NotifyPlayerJoined(&info);
+		}
+		else 
+		{
+			RemovePlayer(player, true);		//Ä	We couldn't send the approval for some reason.  Undo the add.
+			DEBUG_PRINT("Failed to send Join Approved.");
 		}
 	}
-	//Catch_(code)
-	error:
+	else
+	{
+			// dair, added NSpJoinResponseMessage support
+		if (msgJoinResponse.responseDataLen != 0)
+			status = inEndpoint->SendMessage(&msgJoinResponse.header, ((NMUInt8 *) &msgJoinResponse) + sizeof(NSpMessageHeader), kNSpSendFlag_Registered);
+
+		status = SendJoinDenied(inEndpoint, inCookie, message);
+	}
+
+error:
 	if (status)
 	{
 		NMErr code = status;
@@ -560,162 +561,147 @@ NSpGameMaster::RouteMessage(NSpMessageHeader *inHeader, NMUInt8 *inBody, NSpFlag
 	NSpPlayerID						fromPlayer;
 	NSpPlayerID						toPlayer;
 
-
-	//Try_
+	fromPlayer = inHeader->from;
+	toPlayer = inHeader->to;
+	
+	if (toPlayer == kNSpAllPlayers)			//Ä	To all
 	{
-		fromPlayer = inHeader->from;
-		toPlayer = inHeader->to;
-		
-		if (toPlayer == kNSpAllPlayers)			//Ä	To all
-		{
-			//Ä	Send to the local player first, provided he wasn't the sender.
-			//	We do this before the loop, because we must not byte-swap a
-			//	message to the local player...
-			if (fromPlayer != mPlayerID)
-				status = DoSelfSend(inHeader, inBody, inFlags);
-
-#if !big_endian
-			//Ä	Byte-swap the message for sending now, and don't do it on each call
-			//	to SendMessage(), or else we will have the wrong Byte-Order every
-			//	other send...
-			//  We also must perform the OR function with the inFlags prior to the byte-swap,
-			//  rather than after.  These two lines should only be used preceding a call to
-			//	SendMessage() with a final argument of "false".
-			inHeader->version |= inFlags;
-			SwapBytesForSend(inHeader);	// This will byte-swap the header and known system message content.
-#endif
-			
-			//Ä	Now loop through all players...
-			iter->Reset();
-			while (iter->Next(&theItem))
-			{
-				thePlayer = (PlayerListItem *)theItem;
-				
-				if (fromPlayer != thePlayer->id)	//Ä	Don't send it to the sender
-				{
-					if (thePlayer->id != mPlayerID)		//Ä	Don't byte-swap (already done).
-						status = thePlayer->endpoint->SendMessage(inHeader, inBody, inFlags, false);
-				}			
-			}
-		}
-		else if (toPlayer == kNSpMasterEndpointID)		//Ä	To the host only
-		{
+		//Ä	Send to the local player first, provided he wasn't the sender.
+		//	We do this before the loop, because we must not byte-swap a
+		//	message to the local player...
+		if (fromPlayer != mPlayerID)
 			status = DoSelfSend(inHeader, inBody, inFlags);
-		}
-		else if (toPlayer == mPlayerID)			//Ä	To us
-		{
-			status = DoSelfSend(inHeader, inBody, inFlags);
-		}
-		else if (toPlayer > kNSpAllPlayers)		//Ä	To a specific player that is not us
-		{
-			//Ä	Find that person
-			//Ä	How can we make this faster?
-			iter->Reset();
 
-			while (iter->Next(&theItem))
-			{
-				thePlayer = (PlayerListItem *)theItem;
-				if (thePlayer->id == toPlayer)
-				{
-					if (thePlayer->id == mPlayerID)
-						status = DoSelfSend(inHeader, inBody, inFlags);
-					else
-						status = thePlayer->endpoint->SendMessage(inHeader, inBody, inFlags);
-					break;
-				}
-			}
-		}
-		else if (toPlayer < kNSpMasterEndpointID)		//Ä	To a group
-		{	
-			NSp_InterruptSafeListIterator 	*playerIterator = NULL;
-			GroupListItem				*theGroup = NULL;
-				
-			groupIter->Reset();
-			
-			found = false;	
-
-			//Ä	First find the group in the list
-			while (!found && groupIter->Next(&theItem))
-			{
-				theGroup = (GroupListItem *)theItem;
-				if (theGroup->id == inHeader->to)
-				{
-					found = true;
-				}
-			}
-			
-			//Ä	If we didn't find it, bail
-			if (!found)
-				return 	(kNSpInvalidGroupIDErr);
-
-			//Ä	Now we have the group, lets iterate over the players, sending to them
-			//Ä	Iterate through our player list
-			playerIterator = new NSp_InterruptSafeListIterator(*theGroup->players);
-			//ThrowIfNULL_(playerIterator);
-			if (playerIterator == NULL){
-				status = err_NilPointer;
-				goto error;
-			}
-			
 #if !big_endian
-			//Ä	Byte-swap the message for sending now, and don't do it on each call
-			//	to SendMessage(), or else we will have the wrong Byte-Order every
-			//	other send...
-			//  We also must perform the OR function with the inFlags prior to the byte-swap,
-			//  rather than after.  These two lines should only be used preceding a call to
-			//	SendMessage() with a final argument of "false".  (Perhaps we should change it so that
-			//	this Oring *always* occurs outside of SendMessage() !?!?)
-			inHeader->version |= inFlags;
-			SwapBytesForSend(inHeader);	// This will byte-swap the header and known system message content.
+		//Ä	Byte-swap the message for sending now, and don't do it on each call
+		//	to SendMessage(), or else we will have the wrong Byte-Order every
+		//	other send...
+		//  We also must perform the OR function with the inFlags prior to the byte-swap,
+		//  rather than after.  These two lines should only be used preceding a call to
+		//	SendMessage() with a final argument of "false".
+		inHeader->version |= inFlags;
+		SwapBytesForSend(inHeader);	// This will byte-swap the header and known system message content.
 #endif
-			
-			//Ä	Now loop through all players in the group...
-			while (playerIterator->Next(&theItem))
-			{
-				thePlayer = (PlayerListItem *)((UInt32ListMember *)theItem)->GetValue();
-
-				if (thePlayer->id != fromPlayer)
-				{
-					if (thePlayer->id == mPlayerID)		//Ä	Will need to byte-swap below.
-						performSelfSend = true;
-					else								//Ä	Don't byte-swap (already done above).
-						status = thePlayer->endpoint->SendMessage(inHeader, inBody, inFlags, false);
-					
-					if (status != kNMNoError)
-					{
-#if INTERNALDEBUG
-						DEBUG_PRINT("SendMessage to %d returned %ld", thePlayer->id, status);
-#endif
-					}
-				}
-			}
-			
-			//Ä	If the local player was in the group, then you have to send the message
-			//	to him as well.  But since the message is currently byte-swapped, we
-			//	first need to swap it back...
-			if (performSelfSend)
-			{
-#if !big_endian
-				SwapBytesForSend(inHeader);	// This will byte-swap the header and known system message content.
-#endif
-				status = DoSelfSend(inHeader, inBody, inFlags);
-			}
-			
-			delete playerIterator;
 		
+		//Ä	Now loop through all players...
+		iter->Reset();
+		while (iter->Next(&theItem))
+		{
+			thePlayer = (PlayerListItem *)theItem;
+			
+			if (fromPlayer != thePlayer->id)	//Ä	Don't send it to the sender
+			{
+				if (thePlayer->id != mPlayerID)		//Ä	Don't byte-swap (already done).
+					status = thePlayer->endpoint->SendMessage(inHeader, inBody, inFlags, false);
+			}			
 		}
 	}
-	//Catch_(code)
-	error:
-	if (status)
+	else if (toPlayer == kNSpMasterEndpointID)		//Ä	To the host only
 	{
-		NMErr code = status;
-		if (code == err_NilPointer)
-			code = kNSpMemAllocationErr;
+		status = DoSelfSend(inHeader, inBody, inFlags);
+	}
+	else if (toPlayer == mPlayerID)			//Ä	To us
+	{
+		status = DoSelfSend(inHeader, inBody, inFlags);
+	}
+	else if (toPlayer > kNSpAllPlayers)		//Ä	To a specific player that is not us
+	{
+		//Ä	Find that person
+		//Ä	How can we make this faster?
+		iter->Reset();
 
-		return (code);
+		while (iter->Next(&theItem))
+		{
+			thePlayer = (PlayerListItem *)theItem;
+			if (thePlayer->id == toPlayer)
+			{
+				if (thePlayer->id == mPlayerID)
+					status = DoSelfSend(inHeader, inBody, inFlags);
+				else
+					status = thePlayer->endpoint->SendMessage(inHeader, inBody, inFlags);
+				break;
+			}
+		}
+	}
+	else if (toPlayer < kNSpMasterEndpointID)		//Ä	To a group
+	{	
+		NSp_InterruptSafeListIterator 	*playerIterator = NULL;
+		GroupListItem				*theGroup = NULL;
+			
+		groupIter->Reset();
+		
+		found = false;	
+
+		//Ä	First find the group in the list
+		while (!found && groupIter->Next(&theItem))
+		{
+			theGroup = (GroupListItem *)theItem;
+			if (theGroup->id == inHeader->to)
+			{
+				found = true;
+			}
+		}
+		
+		//Ä	If we didn't find it, bail
+		if (!found)
+			return 	(kNSpInvalidGroupIDErr);
+
+		//Ä	Now we have the group, lets iterate over the players, sending to them
+		//Ä	Iterate through our player list
+		playerIterator = new NSp_InterruptSafeListIterator(*theGroup->players);
+		if (playerIterator == NULL){
+			op_vpause("NSpGameMaster::RouteMessage - playerIterator == NULL");
+			status = kNSpMemAllocationErr;
+			goto error;
+		}
+		
+#if !big_endian
+		//Ä	Byte-swap the message for sending now, and don't do it on each call
+		//	to SendMessage(), or else we will have the wrong Byte-Order every
+		//	other send...
+		//  We also must perform the OR function with the inFlags prior to the byte-swap,
+		//  rather than after.  These two lines should only be used preceding a call to
+		//	SendMessage() with a final argument of "false".  (Perhaps we should change it so that
+		//	this Oring *always* occurs outside of SendMessage() !?!?)
+		inHeader->version |= inFlags;
+		SwapBytesForSend(inHeader);	// This will byte-swap the header and known system message content.
+#endif
+		
+		//Ä	Now loop through all players in the group...
+		while (playerIterator->Next(&theItem))
+		{
+			thePlayer = (PlayerListItem *)((UInt32ListMember *)theItem)->GetValue();
+
+			if (thePlayer->id != fromPlayer)
+			{
+				if (thePlayer->id == mPlayerID)		//Ä	Will need to byte-swap below.
+					performSelfSend = true;
+				else								//Ä	Don't byte-swap (already done above).
+					status = thePlayer->endpoint->SendMessage(inHeader, inBody, inFlags, false);
+				
+				if (status != kNMNoError)
+				{
+#if INTERNALDEBUG
+					DEBUG_PRINT("SendMessage to %d returned %ld", thePlayer->id, status);
+#endif
+				}
+			}
+		}
+		
+		//Ä	If the local player was in the group, then you have to send the message
+		//	to him as well.  But since the message is currently byte-swapped, we
+		//	first need to swap it back...
+		if (performSelfSend)
+		{
+#if !big_endian
+			SwapBytesForSend(inHeader);	// This will byte-swap the header and known system message content.
+#endif
+			status = DoSelfSend(inHeader, inBody, inFlags);
+		}
+		delete playerIterator;
 	}
 	
+error:
 	return (status);
 }
 
@@ -753,77 +739,63 @@ NSpGameMaster::SendUserMessage(NSpMessageHeader *inMessage, NSpFlags inFlags)
 	inWhat = inMessage->what;
 	inData = (NMUInt8 *)inMessage + sizeof(NSpMessageHeader);
 	
-	
-	//Try_
+	if (inTo == kNSpAllPlayers)			//Ä	To all
 	{
-		if (inTo == kNSpAllPlayers)			//Ä	To all
-		{
-			//Ä	First give it to ourselves
-			if (inFlags & kNSpSendFlag_SelfSend)
-				status = DoSelfSend(inMessage, (NMUInt8 *) inData, inFlags);
+		//Ä	First give it to ourselves
+		if (inFlags & kNSpSendFlag_SelfSend)
+			status = DoSelfSend(inMessage, (NMUInt8 *) inData, inFlags);
 
-			//Ä	Now hand it off to the host to send to everyone
-			status = mPlayersEndpoint->SendMessage(inMessage, (NMUInt8 *) inData, inFlags);
-		}
-		else if (inTo == kNSpMasterEndpointID)		//Ä	To the host only
-		{
-			status = mPlayersEndpoint->SendMessage(inMessage, (NMUInt8 *) inData, inFlags);
-		}
-		else if (inTo == mPlayerID)			//Ä	To us
-		{
-			status = DoSelfSend(inMessage, inData, inFlags);
-#if !big_endian
-			swapBack = false;				//Ä	Message never got sent & swapped, so don't swap back.
-#endif
-		}
-		else if (inTo > kNSpAllPlayers)		//Ä	To a specific player
-		{
-			status = mPlayersEndpoint->SendMessage(inMessage, (NMUInt8 *) inData, inFlags);
-		}
-		else if (inTo < kNSpMasterEndpointID)		//Ä	To a group
-		{
-			//Ä	If we're a member, send it to ourselves before sending to the host
-			groupIter->Reset();
-
-			while (groupIter->Next(&theItem))
-			{
-				theGroup = (GroupListItem *) theItem;
-
-				if (theGroup->id == inMessage->to)
-				{
-					playerIter = new NSp_InterruptSafeListIterator(*theGroup->players);
-
-					if (playerIter == NULL)
-						break;
-					
-					while (playerIter->Next(&theItem))
-					{
-						thePlayer = (PlayerListItem *)(((UInt32ListMember *)theItem)->GetValue());
-
-						if (thePlayer->id == mPlayerID)
-						{
-							status = DoSelfSend(inMessage, inData, inFlags);
-							break;
-						}
-					}
-					delete playerIter;
-					break;
-				}
-			}
-
-			//Ä	Now send it to the host
-			status = mPlayersEndpoint->SendMessage(inMessage, (NMUInt8 *) inData, inFlags);
-		}
+		//Ä	Now hand it off to the host to send to everyone
+		status = mPlayersEndpoint->SendMessage(inMessage, (NMUInt8 *) inData, inFlags);
 	}
-	//Catch_(code)
-	error:
-	if (status)
+	else if (inTo == kNSpMasterEndpointID)		//Ä	To the host only
 	{
-		NMErr code = status;
-		if (code == err_NilPointer)
-			code = kNSpMemAllocationErr;
+		status = mPlayersEndpoint->SendMessage(inMessage, (NMUInt8 *) inData, inFlags);
+	}
+	else if (inTo == mPlayerID)			//Ä	To us
+	{
+		status = DoSelfSend(inMessage, inData, inFlags);
+#if !big_endian
+		swapBack = false;				//Ä	Message never got sent & swapped, so don't swap back.
+#endif
+	}
+	else if (inTo > kNSpAllPlayers)		//Ä	To a specific player
+	{
+		status = mPlayersEndpoint->SendMessage(inMessage, (NMUInt8 *) inData, inFlags);
+	}
+	else if (inTo < kNSpMasterEndpointID)		//Ä	To a group
+	{
+		//Ä	If we're a member, send it to ourselves before sending to the host
+		groupIter->Reset();
 
-		return (code);
+		while (groupIter->Next(&theItem))
+		{
+			theGroup = (GroupListItem *) theItem;
+
+			if (theGroup->id == inMessage->to)
+			{
+				playerIter = new NSp_InterruptSafeListIterator(*theGroup->players);
+
+				if (playerIter == NULL)
+					break;
+				
+				while (playerIter->Next(&theItem))
+				{
+					thePlayer = (PlayerListItem *)(((UInt32ListMember *)theItem)->GetValue());
+
+					if (thePlayer->id == mPlayerID)
+					{
+						status = DoSelfSend(inMessage, inData, inFlags);
+						break;
+					}
+				}
+				delete playerIter;
+				break;
+			}
+		}
+
+		//Ä	Now send it to the host
+		status = mPlayersEndpoint->SendMessage(inMessage, (NMUInt8 *) inData, inFlags);
 	}
 
 	// The user may end up resending their message or (unwisely) using the fields in the header
@@ -831,12 +803,11 @@ NSpGameMaster::SendUserMessage(NSpMessageHeader *inMessage, NSpFlags inFlags)
 	// them!  So if it has been swapped, then swap it back before returning...
 	
 #if !big_endian
-	
 	if (swapBack)
 		SwapHeaderByteOrder(inMessage);	
-
 #endif
 
+error:
 	return (status);
 }
 
@@ -897,79 +868,63 @@ NSpGameMaster::SendTo(NSpPlayerID inTo, NMSInt32 inWhat, void *inData, NMUInt32 
 	
 	machine_move_data(inData, ((NMUInt8 *) headerPtr) + sizeof(NSpMessageHeader), inLen);
 
-
-	//Try_
+	if (inTo == kNSpAllPlayers)			//Ä	To all
 	{
-		if (inTo == kNSpAllPlayers)			//Ä	To all
-		{
-			//Ä	First give it to ourselves
-			if (inFlags & kNSpSendFlag_SelfSend)
-				status = DoSelfSend(headerPtr, (NMUInt8 *) inData, inFlags);
+		//Ä	First give it to ourselves
+		if (inFlags & kNSpSendFlag_SelfSend)
+			status = DoSelfSend(headerPtr, (NMUInt8 *) inData, inFlags);
 
-			//Ä	Now hand it off to the host to send to everyone
-			status = mPlayersEndpoint->SendMessage(headerPtr, (NMUInt8 *) inData, inFlags);
-		}
-		else if (inTo == kNSpMasterEndpointID)		//Ä	To the host only
-		{
-			status = mPlayersEndpoint->SendMessage(headerPtr, (NMUInt8 *) inData, inFlags);
-		}
-		else if (inTo > kNSpAllPlayers)		//Ä	To a specific player
-		{
-			status = mPlayersEndpoint->SendMessage(headerPtr, (NMUInt8 *) inData, inFlags);
-		}
-		else if (inTo == mPlayerID)			//Ä	To us
-		{
-			status = DoSelfSend(headerPtr, inData, inFlags);
-		}
-		else if (inTo < kNSpMasterEndpointID)		//Ä	To a group
-		{
-			//Ä	If we're a member, send it to ourselves before sending to the host
-			groupIter->Reset();
+		//Ä	Now hand it off to the host to send to everyone
+		status = mPlayersEndpoint->SendMessage(headerPtr, (NMUInt8 *) inData, inFlags);
+	}
+	else if (inTo == kNSpMasterEndpointID)		//Ä	To the host only
+	{
+		status = mPlayersEndpoint->SendMessage(headerPtr, (NMUInt8 *) inData, inFlags);
+	}
+	else if (inTo > kNSpAllPlayers)		//Ä	To a specific player
+	{
+		status = mPlayersEndpoint->SendMessage(headerPtr, (NMUInt8 *) inData, inFlags);
+	}
+	else if (inTo == mPlayerID)			//Ä	To us
+	{
+		status = DoSelfSend(headerPtr, inData, inFlags);
+	}
+	else if (inTo < kNSpMasterEndpointID)		//Ä	To a group
+	{
+		//Ä	If we're a member, send it to ourselves before sending to the host
+		groupIter->Reset();
 
-			while (groupIter->Next(&theItem))
+		while (groupIter->Next(&theItem))
+		{
+			theGroup = (GroupListItem *) theItem;
+
+			if (theGroup->id == inTo)
 			{
-				theGroup = (GroupListItem *) theItem;
+				playerIter = new NSp_InterruptSafeListIterator(*theGroup->players);
 
-				if (theGroup->id == inTo)
-				{
-					playerIter = new NSp_InterruptSafeListIterator(*theGroup->players);
-
-					if (playerIter == NULL)
-						break;
-					
-					while (playerIter->Next(&theItem))
-					{
-						thePlayer = (PlayerListItem *)(((UInt32ListMember *)theItem)->GetValue());
-
-						if (thePlayer->id == mPlayerID)
-						{
-							status = DoSelfSend(headerPtr, inData, inFlags);
-							break;
-						}
-					}
-					delete playerIter;
+				if (playerIter == NULL)
 					break;
-				}
-			}
-
-			//Ä	Now send it to the host
-			status = mPlayersEndpoint->SendMessage(headerPtr, (NMUInt8 *) inData, inFlags);
-		}
-	}
-	//Catch_(code)
-	error:
-	if (status)
-	{
-		NMErr code = status;
-		if (code == err_NilPointer)
-			code = kNSpMemAllocationErr;
-
-		if (dataPtr != NULL)
-			delete[] dataPtr;	//### $Brian delete [] vs. delete
 				
-		return (code);
+				while (playerIter->Next(&theItem))
+				{
+					thePlayer = (PlayerListItem *)(((UInt32ListMember *)theItem)->GetValue());
+
+					if (thePlayer->id == mPlayerID)
+					{
+						status = DoSelfSend(headerPtr, inData, inFlags);
+						break;
+					}
+				}
+				delete playerIter;
+				break;
+			}
+		}
+
+		//Ä	Now send it to the host
+		status = mPlayersEndpoint->SendMessage(headerPtr, (NMUInt8 *) inData, inFlags);
 	}
 
+error:
 	if (dataPtr != NULL)
 		delete[] dataPtr;	//### $Brian delete [] vs. delete
 
@@ -1186,11 +1141,11 @@ NMErr				err = kNMNoError;
 }
 
 //----------------------------------------------------------------------------------------
-// NSpGameMaster::HandleNewEvent
+// NSpGameMaster::HandleEvent
 //----------------------------------------------------------------------------------------
 
 void
-NSpGameMaster::HandleNewEvent(ERObject *inERObject, CEndpoint *inEndpoint, void *inCookie)
+NSpGameMaster::HandleEvent(ERObject *inERObject, CEndpoint *inEndpoint, void *inCookie)
 {
 	//Ä	We need to forward this on to whoever is supposed to get it, possibly including us
 	NSpMessageHeader	*theMessage = inERObject->PeekNetMessage();
@@ -1249,6 +1204,41 @@ NSpGameMaster::HandleNewEvent(ERObject *inERObject, CEndpoint *inEndpoint, void 
 }
 
 //----------------------------------------------------------------------------------------
+// NSpGameMaster::HandleNewEvent
+//----------------------------------------------------------------------------------------
+
+void
+NSpGameMaster::HandleNewEvent(ERObject *inERObject, CEndpoint *inEndpoint, void *inCookie)
+{
+//	DEBUG_PRINT("Handling a private event in NSpGameMaster::HandleNewEvent...");
+
+	// Capture the endpoint and cookie information in the ERObject...
+	
+	if (inEndpoint)
+		inERObject->SetEndpoint(inEndpoint);
+	
+	if (inCookie)
+		inERObject->SetCookie(inCookie);
+	
+	// Determine whether the event is a system event, and if so, then put
+	// it on the private message queue...
+	
+	if (this->IsSystemEvent(inERObject))
+		mSystemEventQ->Enqueue(inERObject);
+	else	// otherwise, handle it immediately...
+		this->HandleEvent(inERObject, inEndpoint, inCookie);
+}
+
+//----------------------------------------------------------------------------------------
+// NSpGameMaster::GetBacklog
+//----------------------------------------------------------------------------------------
+
+NMUInt32 NSpGameMaster::GetBacklog( void )
+{
+	return mPlayersEndpoint->GetBacklog();
+}
+
+//----------------------------------------------------------------------------------------
 // NSpGameMaster::PrepareForDeletion
 //----------------------------------------------------------------------------------------
 
@@ -1294,12 +1284,14 @@ NMBoolean	newHost = false;
 		//Ä	Delete our advertising endpoint
 		if (mAdvertisingATEndpoint)
 		{
+			DEBUG_PRINT("Calling Close in NSpGameMaster::PrepareForDeletion (1)");
 			mAdvertisingATEndpoint->Close();
 			mAdvertisingATEndpoint = NULL;
 		}
 
 		if (mAdvertisingIPEndpoint)
 		{
+			DEBUG_PRINT("Calling Close in NSpGameMaster::PrepareForDeletion (2)");
 			mAdvertisingIPEndpoint->Close();
 			mAdvertisingIPEndpoint = NULL;
 		}	
@@ -1365,8 +1357,7 @@ NSpGameMaster::ProcessSystemMessage(NSpMessageHeader *inMessage, NMBoolean *doFo
 				SendSystemMessage(inMessage, kNSpSendFlag_Registered);
 			}
 				
-			//ThrowIfNot_(handled);
-			op_assert(handled);
+			op_warn(handled);
 			
 			passToUser = false;	
 			*doForward = false;	// Already sent message everywhere (above).  No need to forward again.
@@ -1386,8 +1377,7 @@ NSpGameMaster::ProcessSystemMessage(NSpMessageHeader *inMessage, NMBoolean *doFo
 				SendSystemMessage(inMessage, kNSpSendFlag_Registered);
 			}
 				
-			//ThrowIfNot_(handled);
-			op_assert(handled);
+			op_warn(handled);
 			
 			passToUser = false;
 			*doForward = false;	// Already sent message everywhere (above).  No need to forward again.
@@ -1407,8 +1397,7 @@ NSpGameMaster::ProcessSystemMessage(NSpMessageHeader *inMessage, NMBoolean *doFo
 				SendSystemMessage(inMessage, kNSpSendFlag_Registered);
 			}
 
-			//ThrowIfNot_(handled);
-			op_assert(handled);
+			op_warn(handled);
 			
 			passToUser = false;
 			*doForward = false;	// Already sent message everywhere (above).  No need to forward again.
@@ -1427,8 +1416,7 @@ NSpGameMaster::ProcessSystemMessage(NSpMessageHeader *inMessage, NMBoolean *doFo
 				SendSystemMessage(inMessage, kNSpSendFlag_Registered);
 			}
 
-			//ThrowIfNot_(handled);
-			op_assert(handled);
+			op_warn(handled);
 			
 			passToUser = false;
 			*doForward = false;	// Already sent message everywhere (above).  No need to forward again.
@@ -1448,8 +1436,7 @@ NSpGameMaster::ProcessSystemMessage(NSpMessageHeader *inMessage, NMBoolean *doFo
 				SendSystemMessage(inMessage, kNSpSendFlag_Registered);
 			}
 
-			//ThrowIfNot_(handled);
-			op_assert(handled);
+			op_warn(handled);
 			
 			passToUser = false;
 			*doForward = false;	// Already sent message everywhere (above).  No need to forward again.
@@ -1568,6 +1555,7 @@ NMBoolean					found = false;
 					thePlayer->endpoint->Disconnect(true);
 				}
 
+				DEBUG_PRINT("Calling Close in NSpGameMaster::RemovePlayer");
 				thePlayer->endpoint->Close();
 			
 				if (thePlayer->endpoint == mPlayersEndpoint)

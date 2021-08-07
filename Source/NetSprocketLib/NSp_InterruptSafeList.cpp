@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -44,7 +44,7 @@
 NSp_InterruptSafeList::NSp_InterruptSafeList()
 {
 	mQueue = new list<NSp_InterruptSafeListMember*>;
-	mIteratorQueue = new list<NSp_InterruptSafeListIterator*>;
+//	mIteratorQueue = new list<NSp_InterruptSafeListIterator*>;
 }
 
 
@@ -57,20 +57,20 @@ NSp_InterruptSafeList::~NSp_InterruptSafeList()
 {
 	// Memory leak in here?
 	
-	list< NSp_InterruptSafeListIterator* >::iterator  itr;
-	
-	if ( mIteratorQueue != NULL ) {
-	
-	 	itr = mIteratorQueue->begin();
-
-		for ( ; itr != mIteratorQueue->end(); itr++ ) {
-		
-			( *itr )->ListDied();
-		}
-	}
+//	list< NSp_InterruptSafeListIterator* >::iterator  itr;
+//	
+//	if ( mIteratorQueue != NULL ) {
+//	
+//	 	itr = mIteratorQueue->begin();
+//
+//		for ( ; itr != mIteratorQueue->end(); itr++ ) {
+//		
+//			( *itr )->ListDied();
+//		}
+//	}
 
 	delete mQueue;
-	delete mIteratorQueue;
+//	delete mIteratorQueue;
 }
 
 //----------------------------------------------------------------------------------------
@@ -150,7 +150,7 @@ NSp_InterruptSafeListIterator::NSp_InterruptSafeListIterator(
 	
 	Reset();
 		
-	mList.mIteratorQueue->push_back( this );
+//	mList.mIteratorQueue->push_back( this );
 }
 
 
@@ -161,9 +161,9 @@ NSp_InterruptSafeListIterator::NSp_InterruptSafeListIterator(
 
 NSp_InterruptSafeListIterator::~NSp_InterruptSafeListIterator()
 {
-	if ( !mListDied )
-	
-		mList.mIteratorQueue->remove( this );
+//	if ( !mListDied )
+//	
+//		mList.mIteratorQueue->remove( this );
 }
 
 

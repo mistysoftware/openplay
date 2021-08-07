@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -23,11 +23,13 @@
  */
 
 #ifndef __OPENPLAY__
-#include 			"OpenPlay.h"
+#include "OpenPlay.h"
 #endif
-#include 			"NSpPrefix.h"
+
+#include "NSpPrefix.h"
+
 #ifndef __NETMODULE__
-#include 			"NetModule.h"
+#include	"NetModule.h"
 #endif
 
 #ifdef OP_API_NETWORK_OT
@@ -299,32 +301,20 @@ NSpProtocolList_New(NSpProtocolReference inProtocolRef, NSpProtocolListReference
 NSpProtocolListPriv	*theList = NULL;
 NMErr			status = kNMNoError;
 
-	//Try_
+	theList = new NSpProtocolListPriv();
+	if (theList == NULL){
+	status = kNSpMemAllocationErr;
+		goto error;
+	}
+	
+	if (inProtocolRef)
 	{
-		theList = new NSpProtocolListPriv();
-		//ThrowIfNULL_(theList);
-		if (theList == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
+		NSpProtocolPriv	*theProtocol = (NSpProtocolPriv *) inProtocolRef;
 		
-		if (inProtocolRef)
-		{
-			NSpProtocolPriv	*theProtocol = (NSpProtocolPriv *) inProtocolRef;
-			
-			status = theList->Append(theProtocol);
-		}
+		status = theList->Append(theProtocol);
 	}
 	
-	//Catch_(code)
 	error:
-	if (status)
-	{
-		NMErr code = status;
-		if (code == err_NilPointer)
-			return (kNSpMemAllocationErr);
-	}
-	
 	*outList = (NSpProtocolListReference) theList;
 
 	return (status);
@@ -637,6 +627,7 @@ NSpGame_Host(
 {
 	NSpGameMaster		*master = NULL;
 	NSpGamePrivate		*theGame = NULL;
+	NSpGameInfo			*info;
 	NSpProtocolListPriv	*theList = (NSpProtocolListPriv *) inProtocolList;
 	UInt32ListMember	*theMember = NULL;
 	NSpProtocolPriv		*theProt;
@@ -649,172 +640,160 @@ NSpGame_Host(
 	op_vassert_return(kNSpClientServer == inTopology, "NSpGame_Host: inTopology is not valid", kNSpTopologyNotSupportedErr);
 	op_vassert_return(NULL != theList, "NSpGame_Host: inProtocolList == NULL", kNSpInvalidProtocolListErr);
 
-	//Try_
-	{	
-		//Ä	Create the game object
-		theGame = new NSpGamePrivate();
+	//Ä	Create the game object
+	theGame = new NSpGamePrivate();
 
-		op_vassert(NULL != theGame, "NSpGame_Host: NSpGamePrivate is NULL");
+	op_vassert(NULL != theGame, "NSpGame_Host: NSpGamePrivate is NULL");
+	if (theGame == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
+	}
 			
-		//ThrowIfNULL_(theGame);
-		if (theGame == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
-				
 
-		//Ä	Create the host
-		master = new NSpGameMaster(inMaxPlayers, inGameName, inPassword, inTopology, inFlags);
-							
-		//ThrowIfNULL_(master);
-		if (master == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
-				
-		//Ä	Attach the master
-		theGame->SetMaster(master);
-		
-		*outGame = (NSpGameReference) theGame;
-		
-		
-		//Ä	We need to keep track of these game objects.  Create a new q element.  Do this now since it might fail
-		theMember = new UInt32ListMember( (NMUInt32) theGame);
-		//ThrowIfNULL_(theMember);
-		if (!theMember){
-			status = err_NilPointer;
-			goto error;
-		}
+	//Ä	Create the host
+	master = new NSpGameMaster(inMaxPlayers, inGameName, inPassword, inTopology, inFlags);
+	if (master == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
+	}
 			
-		//Ä	If the user has installed a join request handler, add it now
-		if (gJoinRequestHandler)
-			status = master->InstallJoinRequestHandler(gJoinRequestHandler, gJoinRequestContext);
-		if (status)
-			goto error;
+	//Ä	Attach the master
+	theGame->SetMaster(master);
 	
-		//Ä	If the user has installed an async message handler, add it now
-		if (gAsyncMessageHandler)
-			master->InstallAsyncMessageHandler(gAsyncMessageHandler, gAsyncMessageContext);
+	*outGame = (NSpGameReference) theGame;
+	
+	
+	//Ä	We need to keep track of these game objects.  Create a new q element.  Do this now since it might fail
+	theMember = new UInt32ListMember( (NMUInt32) theGame);
+	if (!theMember){
+		status = kNSpMemAllocationErr;
+		goto error;
+	}
 		
-		//Ä	If the user has installed a callback handler, add it now
-		if (gCallbackHandler)
-			master->InstallCallbackHandler(gCallbackHandler, gCallbackContext);
-		
-		//Ä	Find out how many protocols we're going to be advertising on
-		count = theList->GetCount();
+	//Ä	If the user has installed a join request handler, add it now
+	if (gJoinRequestHandler)
+		status = master->InstallJoinRequestHandler(gJoinRequestHandler, gJoinRequestContext);
+	if (status)
+		goto error;
 
-		//Ä	Confirm that we want to advertise on SOMETHING
-		if (count == 0)
-		{
-			status = kNSpInvalidProtocolListErr;
-			goto error;
-			//Throw_(kNSpInvalidProtocolListErr);
-		}
+	//Ä	If the user has installed an async message handler, add it now
+	if (gAsyncMessageHandler)
+		master->InstallAsyncMessageHandler(gAsyncMessageHandler, gAsyncMessageContext);
+	
+	//Ä	If the user has installed a callback handler, add it now
+	if (gCallbackHandler)
+		master->InstallCallbackHandler(gCallbackHandler, gCallbackContext);
+	
+	//Ä	Find out how many protocols we're going to be advertising on
+	count = theList->GetCount();
+
+	//Ä	Confirm that we want to advertise on SOMETHING
+	if (count == 0)
+	{
+		status = kNSpInvalidProtocolListErr;
+		goto error;
+		//Throw_(kNSpInvalidProtocolListErr);
+	}
+	
+	//Ä	For each protocol, advertise		
+	for (NMSInt32 i = 0; i < count; i++)
+	{
+		theProt = theList->GetIndexedItem(i);
 		
-		//Ä	For each protocol, advertise		
-		for (NMSInt32 i = 0; i < count; i++)
-		{
-			theProt = theList->GetIndexedItem(i);
-			
-			//ThrowIfNULL_(theProt);
-			if (theProt == NULL){
-				status = err_NilPointer;
-				goto error;
-			}
+		if (theProt == NULL){
+			status = kNSpMemAllocationErr;
+			goto error;
+		}
 
 /* LR -- added function to return type so we don't have to parse config string!
 
-			err = ProtocolGetConfigStringLen((PConfigRef) theProt, &configStrLen);
-			ThrowIfOSErr_(err);
+		err = ProtocolGetConfigStringLen((PConfigRef) theProt, &configStrLen);
+		ThrowIfOSErr_(err);
 
-			err = ProtocolGetConfigString((PConfigRef) theProt, configString, configStrLen);
-			ThrowIfOSErr_(err);
-			
-			typeStartPtr = strstr(configString,"type=") + 5;
-			
-			tokenPtr = strtok(typeStartPtr, "\t");
-			
-			strcpy(netModuleTypeString, tokenPtr);
-			
-			netModuleType = (NMType) atol(netModuleTypeString);
+		err = ProtocolGetConfigString((PConfigRef) theProt, configString, configStrLen);
+		ThrowIfOSErr_(err);
+		
+		typeStartPtr = strstr(configString,"type=") + 5;
+		
+		tokenPtr = strtok(typeStartPtr, "\t");
+		
+		strcpy(netModuleTypeString, tokenPtr);
+		
+		netModuleType = (NMType) atol(netModuleTypeString);
 */
-			netModuleType = ProtocolGetConfigType( (PConfigRef)theProt );
-			switch (netModuleType)
+		netModuleType = ProtocolGetConfigType( (PConfigRef)theProt );
+		switch (netModuleType)
+		{
+			case kATModuleType:
 			{
-				case kATModuleType:
-				{
 #ifdef OP_API_NETWORK_OT
-					status = master->HostAT(theProt);
-					//ThrowIfOSErr_(err);
-					if (status)
-						goto error;
-					NMUInt32 prots = master->GetProtocols();
-					prots |= kUsingAppleTalk;
-					master->SetProtocols(prots);
-					atRef = theProt;
+				status = master->HostAT(theProt);
+				//ThrowIfOSErr_(err);
+				if (status)
+					goto error;
+				NMUInt32 prots = master->GetProtocols();
+				prots |= kUsingAppleTalk;
+				master->SetProtocols(prots);
+				atRef = theProt;
 #else
-				status = kNSpFeatureNotImplementedErr;
-				goto error;
-				//Throw_(kNSpFeatureNotImplementedErr);
+			status = kNSpFeatureNotImplementedErr;
+			goto error;
+			//Throw_(kNSpFeatureNotImplementedErr);
 
 #endif
-				}
-				break;
-				 
-				case kIPModuleType:
-				{
-					status = master->HostIP(theProt);						
-					//ThrowIfOSErr_(err);
-					if (status)
-						goto error;
-					NMUInt32 prots = master->GetProtocols();
-					prots |= kUsingIP;
-					master->SetProtocols(prots);
-					ipRef = theProt;	
-				}
-				break;
-				
-				default:
-					//Throw_(kNSpHostFailedErr);
-					status = kNSpHostFailedErr;
-					goto error;
-					break;
 			}
+			break;
+			 
+			case kIPModuleType:
+			{
+				status = master->HostIP(theProt);						
+				//ThrowIfOSErr_(err);
+				if (status)
+					goto error;
+				NMUInt32 prots = master->GetProtocols();
+				prots |= kUsingIP;
+				master->SetProtocols(prots);
+				ipRef = theProt;	
+			}
+			break;
+			
+			default:
+				//Throw_(kNSpHostFailedErr);
+				status = kNSpHostFailedErr;
+				goto error;
+				break;
 		}
-		
-		//Ä	We've successfully created the game object.  Store it in our list
-		gGameList->Append(theMember);
-
-
-		//Ä	Now tell them to add the local player (if any)
-
-		if (atRef)
-			status = master->AddLocalPlayer(inPlayerName, inPlayerType, atRef);		
-		else
-			status = master->AddLocalPlayer(inPlayerName, inPlayerType, ipRef);
-			
-		//ThrowIfOSErr_(err);
-		if (status)
-			goto error;
-	
-		//Ä	Set up our info structure
-		NSpGameInfo *info = master->GetGameInfo();		
-		info->maxPlayers = inMaxPlayers;
-		info->topology = inTopology;
-
-		if (inPlayerName)
-			doCopyPStrMax(inGameName, info->name, 31);
-
-		if (inPassword)
-			doCopyPStrMax(inPassword, info->password, 31);
-			
 	}
 	
-	//Catch_(code)
+	//Ä	We've successfully created the game object.  Store it in our list
+	gGameList->Append(theMember);
+
+
+	//Ä	Now tell them to add the local player (if any)
+
+	if (atRef)
+		status = master->AddLocalPlayer(inPlayerName, inPlayerType, atRef);		
+	else
+		status = master->AddLocalPlayer(inPlayerName, inPlayerType, ipRef);
+		
+	//ThrowIfOSErr_(err);
+	if (status)
+		goto error;
+
+	//Ä	Set up our info structure
+	info = master->GetGameInfo();		
+	info->maxPlayers = inMaxPlayers;
+	info->topology = inTopology;
+
+	if (inPlayerName)
+		doCopyPStrMax(inGameName, info->name, 31);
+
+	if (inPassword)
+		doCopyPStrMax(inPassword, info->password, 31);
+		
 	error:
 	if (status)
 	{
-		NMErr code = status;
 		if (theGame)
 			delete (theGame);
 
@@ -826,15 +805,8 @@ NSpGame_Host(
 
 		*outGame = NULL;
 		
-		if (code == err_NilPointer)
-		{
-			code = kNSpMemAllocationErr;
-		}
-		
-		if (code > -30360 || code < -30420)
-			code = kNSpHostFailedErr;
-			
-		return (code);
+		if (status > -30360 || status < -30420) //%% why are we doing this???
+			status = kNSpHostFailedErr;
 	}
 	
 	return (status);
@@ -929,87 +901,67 @@ NSpGame_Join(
 	UInt32ListMember	*theMember;
 	NSpGamePrivate		*theGame = NULL;
 	NSpGameSlave		*slave = NULL;
+	NSpGameInfo			*info;
 	NMErr				status = kNMNoError;
 
-	//Try_
-	{
-
-		//Ä	Create the private game object
-		theGame = new NSpGamePrivate();
-		//ThrowIfNULL_(theGame);
-		if (theGame == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
-		
-		//Ä	Create a new game object with only null initialization
-		slave = new NSpGameSlave(inFlags);
-		//ThrowIfNULL_(slave);
-		if (slave == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
-		
-		theGame->SetSlave(slave);
-		
-		*outGame = (NSpGameReference) theGame;
-		
-		if (gAsyncMessageHandler)
-			slave->InstallAsyncMessageHandler(gAsyncMessageHandler, gAsyncMessageContext);
-
-		if (gCallbackHandler)
-			slave->InstallCallbackHandler(gCallbackHandler, gCallbackContext);
-
-		//Ä	Insert the pointer to the game into our list
-		theMember = new UInt32ListMember( (NMUInt32) theGame);
-		//ThrowIfNULL_(theMember);
-		if (theMember == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
-
-		
-		//Ä	Tell the game object to join the specified game
-		status = slave->Join(inName, inPassword, inType, inCustomData, inCustomDataLen, inAddress);
-		//ThrowIfOSErr_(err);
-		if (status)
-			goto error;
-			
-		gGameList->Append(theMember);
-
-		NSpGameInfo *info = slave->GetGameInfo();
-		
-		//*	Set up our info structure
-		info->maxPlayers = 0;
-		info->topology = kNSpClientServer;		//Ä HACK!!!!
-
-		//*	Get password, game name sent in JoinAccepted message (2.2 or later only!)
-		if (inPassword)
-			doCopyPStrMax(inPassword, info->password, 31);
+	//Ä	Create the private game object
+	theGame = new NSpGamePrivate();
+	if (theGame == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
 	}
 	
-	//Catch_(code)
+	//Ä	Create a new game object with only null initialization
+	slave = new NSpGameSlave(inFlags);
+	if (slave == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
+	}
+	
+	theGame->SetSlave(slave);
+	
+	*outGame = (NSpGameReference) theGame;
+	
+	if (gAsyncMessageHandler)
+		slave->InstallAsyncMessageHandler(gAsyncMessageHandler, gAsyncMessageContext);
+
+	if (gCallbackHandler)
+		slave->InstallCallbackHandler(gCallbackHandler, gCallbackContext);
+
+	//Ä	Insert the pointer to the game into our list
+	theMember = new UInt32ListMember( (NMUInt32) theGame);
+	if (theMember == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
+	}
+
+	
+	//Ä	Tell the game object to join the specified game
+	status = slave->Join(inName, inPassword, inType, inCustomData, inCustomDataLen, inAddress);
+	//ThrowIfOSErr_(err);
+	if (status)
+		goto error;
+		
+	gGameList->Append(theMember);
+
+	info = slave->GetGameInfo();
+	
+	//*	Set up our info structure
+	info->maxPlayers = 0;
+	info->topology = kNSpClientServer;		//Ä HACK!!!!
+
+	//*	Get password, game name sent in JoinAccepted message (2.2 or later only!)
+	if (inPassword)
+		doCopyPStrMax(inPassword, info->password, 31);
+	
 	error:
 	if (status)
 	{
-		if (status == err_NilPointer)
-		{
-			status = kNSpMemAllocationErr;
-		}	
-//		if (code == kOTBadAddressErr)
-//			code = kNSpInvalidAddressErr;
-			
-//		if (code > -30360 || code < -30420)
-//			code = kNSpJoinFailedErr;
-
 		if (theGame)
 			delete (theGame);
 			
 		*outGame = NULL;
-
-		return (status);
 	}
-	
 	return (status);
 }
 
@@ -1097,8 +1049,11 @@ NSpGame			*game;
 	if (game == NULL)
 		return (kNSpInvalidGameRefErr);
 		
+// dair, allow arbitrary sized messages as per NSp
+#if 0
 	if (inMessage->messageLen > 102400)
 		return (kNSpMessageTooBigErr);
+#endif
 
 	err = game->SendUserMessage(inMessage, inFlags);
 
@@ -1135,8 +1090,11 @@ NSpGame			*game;
 	if (NULL == game)
 		return (kNSpInvalidGameRefErr);
 
+// dair, allow arbitrary sized messages as per NSp
+#if 0
 	if (inDataLen > 102400)
 		return (kNSpMessageTooBigErr);
+#endif
 
 	err = game->SendTo(inTo, inWhat, inData, inDataLen, inFlags);
 
@@ -1179,6 +1137,19 @@ NSpMessage_Get(NSpGameReference inGame)
 #endif
 	
 	return (theMessage);
+}
+
+//----------------------------------------------------------------------------------------
+// NSpMessage_GetBacklog
+//----------------------------------------------------------------------------------------
+
+NMUInt32
+NSpMessage_GetBacklog( NSpGameReference inGame )
+{
+	NSpGamePrivate	*theGame = (NSpGamePrivate *)inGame;
+	NSpGameMaster *game = theGame->GetMaster();
+
+	return game->GetBacklog();
 }
 
 //----------------------------------------------------------------------------------------
@@ -1760,110 +1731,105 @@ NSpConvertAddressReferenceToOTAddr(NSpAddressReference inAddress)
 	NMErr		 	err = kNMNoError;
 	NMErr			status = kNMNoError;
 
-	//Try_
-	{
-		// Get the config string for the protocol...
+	// Get the config string for the protocol...
 
 /*	LR -- added function to return type w/o having to do all this string parsing!
 
-		status = ProtocolGetConfigStringLen((PConfigRef) inAddress, &configStrLen);
-		ThrowIfOSErr_(status);
+	status = ProtocolGetConfigStringLen((PConfigRef) inAddress, &configStrLen);
+	ThrowIfOSErr_(status);
+
+	status = ProtocolGetConfigString((PConfigRef) inAddress, configString, configStrLen);
+	ThrowIfOSErr_(status);
 	
-		status = ProtocolGetConfigString((PConfigRef) inAddress, configString, configStrLen);
-		ThrowIfOSErr_(status);
-		
-		// Parse the config string for type of protocol...
-		
-		strcpy(tempString, configString);
-		
-		parsePtr = strstr(tempString,"type=") + 5;
-				
-		tokenPtr = strtok(parsePtr, "\t");
-				
-		strcpy(netModuleTypeString, tokenPtr);
-				
-		netModuleType = (NMType) atol(netModuleTypeString);
+	// Parse the config string for type of protocol...
+	
+	strcpy(tempString, configString);
+	
+	parsePtr = strstr(tempString,"type=") + 5;
+			
+	tokenPtr = strtok(parsePtr, "\t");
+			
+	strcpy(netModuleTypeString, tokenPtr);
+			
+	netModuleType = (NMType) atol(netModuleTypeString);
 */
-		netModuleType = ProtocolGetConfigType( (PConfigRef)inAddress );
-		switch (netModuleType)
+	netModuleType = ProtocolGetConfigType( (PConfigRef)inAddress );
+	switch (netModuleType)
+	{
+		case kATModuleType:
 		{
-			case kATModuleType:
-			{
-				// Parse the config string for name, type, and zone of AppleTalk configuration...
-				
-				strcpy(tempString, configString);
-				
-				parsePtr = strstr(tempString,"ATName=") + 7;
-				
-				tokenPtr = strtok(parsePtr, "\t");
-				
-				strcpy(name, tokenPtr);
+			// Parse the config string for name, type, and zone of AppleTalk configuration...
+			
+			strcpy(tempString, configString);
+			
+			parsePtr = strstr(tempString,"ATName=") + 7;
+			
+			tokenPtr = strtok(parsePtr, "\t");
+			
+			strcpy(name, tokenPtr);
 
-				strcpy(tempString, configString);
+			strcpy(tempString, configString);
 
-				parsePtr = strstr(tempString,"ATType=") + 7;
-				
-				tokenPtr = strtok(parsePtr, "\t");
-				
-				strcpy(type, tokenPtr);
+			parsePtr = strstr(tempString,"ATType=") + 7;
+			
+			tokenPtr = strtok(parsePtr, "\t");
+			
+			strcpy(type, tokenPtr);
 
-				strcpy(tempString, configString);
+			strcpy(tempString, configString);
 
-				parsePtr = strstr(tempString,"ATZone=") + 7;
-				
-				tokenPtr = strtok(parsePtr, "\t");
-				
-				strcpy(zone, tokenPtr);
+			parsePtr = strstr(tempString,"ATZone=") + 7;
+			
+			tokenPtr = strtok(parsePtr, "\t");
+			
+			strcpy(zone, tokenPtr);
 
-				sprintf(addrString, "%s:%s@%s", name, type, zone);
-				outOTAddress = (OTAddress *)OTUtils::MakeDDPNBPAddressFromString(addrString);
-			}
-			break;
-					 
-			case kIPModuleType:
-			{
-				// Parse the config string for IP address and port of TCP/IP configuration...
-
-				strcpy(tempString, configString);
-
-				parsePtr = strstr(tempString,"IPaddr=") + 7;
-				
-				tokenPtr = strtok(parsePtr, "\t");
-				
-				strcpy(ipAddr, tokenPtr);
-
-				strcpy(tempString, configString);
-
-				parsePtr = strstr(tempString,"IPport=") + 7;
-				
-				tokenPtr = strtok(parsePtr, "\t");
-				
-				strcpy(portString, tokenPtr);
-
-				sprintf(addrString, "%s:%s", ipAddr, portString);
-				anInetAddress = new InetAddress;	//weird that one new's it for us and the other doesn't, but that's the case...
-				//ThrowIfNULL_(anInetAddress);
-				if (anInetAddress == NULL){
-					status = err_NilPointer;
-					goto error;
-				}
-				err = OTUtils::MakeInetAddressFromString(addrString,anInetAddress);
-				outOTAddress = (OTAddress *)anInetAddress;
-			}
-			break;
-					
-			default:
-				//Throw_(NULL);
-				status = -1;
-				goto error;
-			break;
+			sprintf(addrString, "%s:%s@%s", name, type, zone);
+			outOTAddress = (OTAddress *)OTUtils::MakeDDPNBPAddressFromString(addrString);
 		}
+		break;
+				 
+		case kIPModuleType:
+		{
+			// Parse the config string for IP address and port of TCP/IP configuration...
+
+			strcpy(tempString, configString);
+
+			parsePtr = strstr(tempString,"IPaddr=") + 7;
+			
+			tokenPtr = strtok(parsePtr, "\t");
+			
+			strcpy(ipAddr, tokenPtr);
+
+			strcpy(tempString, configString);
+
+			parsePtr = strstr(tempString,"IPport=") + 7;
+			
+			tokenPtr = strtok(parsePtr, "\t");
+			
+			strcpy(portString, tokenPtr);
+
+			sprintf(addrString, "%s:%s", ipAddr, portString);
+			anInetAddress = new InetAddress;	//weird that one new's it for us and the other doesn't, but that's the case...
+			if (anInetAddress == NULL){
+				status = kNSpMemAllocationErr;
+				goto error;
+			}
+			err = OTUtils::MakeInetAddressFromString(addrString,anInetAddress);
+			outOTAddress = (OTAddress *)anInetAddress;
+		}
+		break;
+				
+		default:
+			//Throw_(NULL);
+			status = -1;
+			goto error;
+		break;
 	}
-	//Catch_(code)
+
 	error:
 	if (status)
 	{
-		NMErr code =status;
 		outOTAddress = NULL;
 	}
 	
@@ -1949,7 +1915,8 @@ NSpAddressReference NSpCreateATlkAddressReference(char *inName, char *inType, ch
 // NSpCreateIPAddressReference
 //----------------------------------------------------------------------------------------
 
-NSpAddressReference NSpCreateIPAddressReference(char *inIPAddress, char *inIPPort)
+// dair, made input parameters const
+NSpAddressReference NSpCreateIPAddressReference(const char *inIPAddress, const char *inIPPort)
 {	
 	NMErr		status;
 	NMType		netModuleType;

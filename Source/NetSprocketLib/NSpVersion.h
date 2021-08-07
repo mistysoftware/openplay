@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -25,14 +25,23 @@
 #ifndef __NSPVERSION__
 #define __NSPVERSION__
 
+// Stolen from MacTypes.r
+typedef enum
+{
+        development = 0x20,
+        alpha       = 0x40,
+        beta        = 0x60,
+        final       = 0x80,
+        release     = 0x80
+} op_release_defs;
 
-	// The following corresponds to 2.1.0d7...
+	// The following corresponds to 2.2r1
 
-	#define __NSpVersionMajor__			2
-	#define __NSpVersionMinor__			2
+	#define __NSpVersionMajor__		2
+	#define __NSpVersionMinor__		2
 	#define __NSpVersionBugFix__		0
-	#define __NSpReleaseStage__			48			// (development)
-	#define __NSpNonRelRev__			8
+	#define __NSpReleaseStage__		release
+	#define __NSpNonRelRev__			1
 
 #endif // __NSPVERSION__
 

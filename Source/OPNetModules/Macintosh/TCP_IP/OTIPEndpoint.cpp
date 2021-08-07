@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -49,9 +49,12 @@ OTIPEndpoint::OTIPEndpoint(
 		: OTEndpoint(inRef, inMode)
 {	
 NMBoolean	success;
-	
+
+//%% TO DO: What happens if the config doesn't cause one or both of these to be setup?
+//				Is this OK, or should the process have stopped before we reach this routine?
+
 	//    Each endpoint stores its local and its remote address
-    if ( mMode & kNMStreamMode )
+    if( mMode & kNMStreamMode && mStreamEndpoint)		//LR make sure we don't crash
     {
 		success = AllocAddressBuffer(&mStreamEndpoint->mLocalAddress);
 		op_assert(success);
@@ -62,7 +65,7 @@ NMBoolean	success;
         OTInitInetAddress((InetAddress*)mStreamEndpoint->mRemoteAddress.buf,0,0);
     }
 
-    if ( mMode & kNMDatagramMode )
+    if( mMode & kNMDatagramMode && mDatagramEndpoint)		//LR make sure we don't crash
     {
 		success = AllocAddressBuffer(&mDatagramEndpoint->mLocalAddress);
 		op_assert(success);

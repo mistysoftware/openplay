@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -26,8 +26,9 @@
 #include "NSpGameSlave.h"
 #include "NetSprocketLib.h"
 #include "ByteSwapping.h"
+
 #ifndef __NETMODULE__
-#include 		"NetModule.h"
+	#include "NetModule.h"
 #endif
 
 #include "String_Utils.h"
@@ -96,78 +97,71 @@ NSpGameSlave::Join(
 	if (inPlayerName == NULL)
 		return (kNSpNameRequiredErr);
 
-	//Try_
-	{
-		// Need to determine which type of endpoint to create...
+	// Need to determine which type of endpoint to create...
 
 /* LR -- added function to return type w/o having to do all the string manipulation
 
-		err = ProtocolGetConfigStringLen((PConfigRef) inAddress, &configStrLen);
-		ThrowIfOSErr_(err);
+	err = ProtocolGetConfigStringLen((PConfigRef) inAddress, &configStrLen);
+	ThrowIfOSErr_(err);
 
-		op_assert(configStrLen < sizeof(configString));
+	op_assert(configStrLen < sizeof(configString));
+	
+	err = ProtocolGetConfigString((PConfigRef) inAddress, configString, configStrLen);
+	ThrowIfOSErr_(err);
+
+	typeStartPtr = strstr(configString,"type=") + 5;
 		
-		err = ProtocolGetConfigString((PConfigRef) inAddress, configString, configStrLen);
-		ThrowIfOSErr_(err);
-
-		typeStartPtr = strstr(configString,"type=") + 5;
-			
-		tokenPtr = strtok(typeStartPtr, "\t");
-			
-		strcpy(netModuleTypeString, tokenPtr);
-			
-		netModuleType = (NMType) atol(netModuleTypeString);
+	tokenPtr = strtok(typeStartPtr, "\t");
+		
+	strcpy(netModuleTypeString, tokenPtr);
+		
+	netModuleType = (NMType) atol(netModuleTypeString);
 */
-		netModuleType = ProtocolGetConfigType( (PConfigRef)inAddress );
-		switch (netModuleType)
+	netModuleType = ProtocolGetConfigType( (PConfigRef)inAddress );
+	switch (netModuleType)
+	{
+		case kATModuleType:
 		{
-			case kATModuleType:
-			{
 #ifdef OP_API_NETWORK_OT
-				mEndpoint = (CEndpoint *) new COTATEndpoint(this);			
+			mEndpoint = (CEndpoint *) new COTATEndpoint(this);			
 #else
-				status = kNSpFeatureNotImplementedErr;
-				goto error;
-				//Throw_(kNSpFeatureNotImplementedErr);
+			status = kNSpFeatureNotImplementedErr;
+			goto error;
+			//Throw_(kNSpFeatureNotImplementedErr);
 
 #endif
-			}
-			break;
-			 
-			case kIPModuleType:
-			{
-				mEndpoint = (CEndpoint *) new COTIPEndpoint(this);			
-			}
-			break;
-			
-			default:
-				//Throw_(kNSpInvalidProtocolRefErr);
-				status = kNSpInvalidProtocolRefErr;
-				goto error;
-			break;
-
 		}
-	
-		if (kNMNoError == err)
+		break;
+		 
+		case kIPModuleType:
 		{
-			//Ä	Initialize our endpoint for send/receive only
-			status = mEndpoint->InitNonAdvertiser( (NSpProtocolPriv *) inAddress);
-			//ThrowIfOSErr_(err);
-			if (status)
-				goto error;
-
-			
-			//Ä	Send our join request
-			status = SendJoinRequest(inPlayerName, inPassword, inType, inCustomData, inCustomDataLen);
-			//ThrowIfOSErr_(err);
-			if (status)
-				goto error;
-
+			mEndpoint = (CEndpoint *) new COTIPEndpoint(this);			
 		}
+		break;
+		
+		default:
+			//Throw_(kNSpInvalidProtocolRefErr);
+			status = kNSpInvalidProtocolRefErr;
+			goto error;
+		break;
 
 	}
-	//Catch_(code)
-	error:
+
+	if (kNMNoError == err)
+	{
+		//Ä	Initialize our endpoint for send/receive only
+		status = mEndpoint->InitNonAdvertiser( (NSpProtocolPriv *) inAddress);
+		//ThrowIfOSErr_(err);
+		if (status)
+			goto error;
+		
+		//Ä	Send our join request
+		status = SendJoinRequest(inPlayerName, inPassword, inType, inCustomData, inCustomDataLen);
+		//ThrowIfOSErr_(err);
+		if (status)
+			goto error;
+	}
+error:
 	if (status)
 	{
 		NMErr code = status;
@@ -592,11 +586,11 @@ UNUSED_PARAMETER(inMessage);
 }
 
 //----------------------------------------------------------------------------------------
-// NSpGameSlave::HandleNewEvent
+// NSpGameSlave::HandleEvent
 //----------------------------------------------------------------------------------------
 
 void
-NSpGameSlave::HandleNewEvent(ERObject *inERObject, CEndpoint *inEndpoint, void *inCookie)
+NSpGameSlave::HandleEvent(ERObject *inERObject, CEndpoint *inEndpoint, void *inCookie)
 {
 UNUSED_PARAMETER(inCookie);
 
@@ -646,6 +640,42 @@ UNUSED_PARAMETER(inCookie);
 
 	mEventQ->Enqueue(inERObject);
 	mMessageQLen++;
+}
+
+//----------------------------------------------------------------------------------------
+// NSpGameSlave::HandleNewEvent
+//----------------------------------------------------------------------------------------
+
+void
+NSpGameSlave::HandleNewEvent(ERObject *inERObject, CEndpoint *inEndpoint, void *inCookie)
+{
+	DEBUG_PRINT("Handling a private event in NSpGameSlave::HandleNewEvent...");
+
+	// Capture the endpoint and cookie information in the ERObject...
+	
+	if (inEndpoint)
+		inERObject->SetEndpoint(inEndpoint);
+	
+	if (inCookie)
+		inERObject->SetCookie(inCookie);
+		
+	// Determine whether the event is a system event, and if so, then put
+	// it on the private message queue...
+	
+	if (this->IsSystemEvent(inERObject))
+		mSystemEventQ->Enqueue(inERObject);
+	else	// otherwise, handle it immediately...
+		this->HandleEvent(inERObject, inEndpoint, inCookie);
+}
+
+//----------------------------------------------------------------------------------------
+// NSpGameSlave::GetBacklog
+//----------------------------------------------------------------------------------------
+
+NMUInt32
+NSpGameSlave::GetBacklog( void )
+{
+ return mEndpoint->GetBacklog();
 }
 
 //----------------------------------------------------------------------------------------
@@ -777,8 +807,12 @@ NSpGameSlave::ProcessSystemMessage(NSpMessageHeader *inMessage)
 		case kNSpPlayerTypeChanged:
 			SwapPlayerTypeChanged(inMessage);
 			handled = HandlePlayerTypeChangedMessage((NSpPlayerTypeChangedMessage *) inMessage);
-			//ThrowIfNot_(handled);
 			op_assert(handled);
+			passToUser = true;
+			break;
+
+		// dair, additional messages
+		case kNSpJoinResponse:
 			passToUser = true;
 			break;
 	}

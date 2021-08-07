@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -262,9 +262,6 @@ NSpDoModalDialog( eDialogMode mode,
 	eNSpDialogItem  theATInfoLabel;
 	eNSpDialogItem  theIPInfoLabel;
 	unsigned char   portPStr[ kNSpStr32Len ];
-//	unsigned char   gameNamePStr[ kNSpStr32Len ];
-//	unsigned char   namePStr[ kNSpStr32Len ];
-//	unsigned char   passwdPStr[ kNSpStr32Len ];
 	NMBoolean       status = true;
 	NMBoolean		aCloseResourceFile = false;
 	
@@ -273,8 +270,17 @@ NSpDoModalDialog( eDialogMode mode,
 	machine_mem_zero( gIPAddressStr, kNSpIPAddrStrSize );
 	machine_mem_zero( gIPPortStr, kNSpStr32Len );
 	
-	if (gOp_globals.res_refnum == -1) {
+	if (gOp_globals.res_refnum == -1)
+	{
+#if OP_PLATFORM_MAC_CFM
 		gOp_globals.res_refnum = FSpOpenResFile((FSSpec *)&gOp_globals.file_spec,fsRdPerm);
+#else
+		gOp_globals.selfBundleRef = CFBundleGetBundleWithIdentifier ( CFSTR ( "com.apple.openplay" ) );
+		if( gOp_globals.selfBundleRef )
+			gOp_globals.res_refnum = CFBundleOpenBundleResourceMap ( gOp_globals.selfBundleRef );
+		else
+			DEBUG_PRINT( "ERROR in NSpDoModalDialog selfBundleRef is NULL" );
+#endif
 		aCloseResourceFile = true;
 	}
 	
@@ -356,8 +362,13 @@ NSpDoModalDialog( eDialogMode mode,
 
 	DisposeDialog( dialog );
 
-	if (aCloseResourceFile) {
+	if (aCloseResourceFile)
+	{
+#if OP_PLATFORM_MAC_CFM
 		CloseResFile(gOp_globals.res_refnum);
+#else
+		CFBundleCloseBundleResourceMap( gOp_globals.selfBundleRef, gOp_globals.res_refnum  );
+#endif
 		gOp_globals.res_refnum = -1;
 	}
 

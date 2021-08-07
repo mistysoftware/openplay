@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -88,12 +88,20 @@ NMBoolean NSpGamePrivate::NSpMessage_Get(NSpMessageHeader **outMessage)
 	{
 		//provide idle processing time if needed
 		mMaster->IdleEndpoints();
+		// Get messages from the internal (aka "Private") message queue,
+		// process them, and put them in the user's queue when appropriate...
+		mMaster->ServiceSystemQueue();
+		// Now get the user's message...
 		gotEvent = mMaster->NSpMessage_Get(outMessage);
 	}
 	else if (mSlave)
 	{
 		//provide idle processing time if needed
 		mSlave->IdleEndpoints();
+		// Get messages from the internal (aka "Private") message queue,
+		// process them, and put them in the user's queue when appropriate...
+		mSlave->ServiceSystemQueue();
+		// Now get the user's message...
 		gotEvent = mSlave->NSpMessage_Get(outMessage);
 	}
 	

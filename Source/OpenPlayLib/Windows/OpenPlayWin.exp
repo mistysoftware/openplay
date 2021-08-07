@@ -85,3 +85,9 @@
 /EXPORT:NSpInstallJoinRequestHandler
 /EXPORT:NSpInstallAsyncMessageHandler
 /EXPORT:NSpInitialize
+/EXPORT:ProtocolGetConfigType
+/EXPORT:ProtocolEnterNotifier
+/EXPORT:ProtocolLeaveNotifier
+/EXPORT:NSpMessage_GetBacklog
+/EXPORT:NSpDoModalHostDialog
+/EXPORT:NSpDoModalJoinDialog

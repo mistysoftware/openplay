@@ -92,3 +92,7 @@ NSpInstallAsyncMessageHandler
 NSpInitialize
 NSpDoModalHostDialog
 NSpDoModalJoinDialog
+ProtocolGetConfigType
+ProtocolEnterNotifier
+ProtocolLeaveNotifier
+NSpMessage_GetBacklog

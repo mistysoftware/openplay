@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -51,7 +51,7 @@
 //to use printf under macos9 in place of DebugStr, set this to 1
 #define MACOS9_USEPRINTF 0
 //same only under macosX
-#define MACOSX_USEPRINTF 0
+#define MACOSX_USEPRINTF 1
 
 #define PRINT_CASE(x) case (x): name= #x; break;
 
@@ -300,7 +300,6 @@ NMSInt16	length;
 	  char		buffer[257];   /* [length byte] + [255 string bytes] + [null] */
 	  va_list	arglist;
 	  NMSInt32	return_value;
-
 
 	  va_start(arglist, format);
 	  return_value = vsprintf(buffer, format, arglist);

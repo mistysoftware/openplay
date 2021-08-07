@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -90,18 +90,19 @@ NSpGame::NSpGame(
 
 	//Ä	Allocate our queues
 	mEventQ = new NMLIFO();
-	//ThrowIfNULL_(mEventQ);
 	op_assert(mEventQ);
 	mEventQ->Init();
 
+	mSystemEventQ = new NMLIFO();
+	op_assert(mSystemEventQ);
+	mSystemEventQ->Init();
+
 	mCookieQ = new NMLIFO();
-	//ThrowIfNULL_(mCookieQ);
 	op_assert(mCookieQ);
 	mCookieQ->Init();
 
 	//Ä	Lets make a bunch of event records, and add them to the free q
 	mFreeQ = new NMLIFO();
-	//ThrowIfNULL_(mFreeQ);
 	op_assert(mFreeQ);
 	mFreeQ->Init();
 	
@@ -113,11 +114,9 @@ NSpGame::NSpGame(
 		message = (NSpMessageHeader *)InterruptSafe_alloc(gStandardMessageSize);
 		
 		op_assert(message);
-		//ThrowIfNULL_(message);
 
 		item = new ERObject(message, gStandardMessageSize);
 		op_assert(item);
-		//ThrowIfNULL_(item);
 		
 		mFreeQ->Enqueue(item);
 		mFreeQLen++;
@@ -133,20 +132,16 @@ NSpGame::NSpGame(
 
 	//Ä	Initialize our player list
 	mPlayerList = new NSp_InterruptSafeList();
-	//ThrowIfNULL_(mPlayerList);
 	op_assert(mPlayerList);
 
 	mPlayerListIter = new NSp_InterruptSafeListIterator(*mPlayerList);
-	//ThrowIfNULL_(mPlayerListIter);
 	op_assert(mPlayerListIter);
 
 	//Ä	Create our group list
 	mGroupList = new NSp_InterruptSafeList();
-	//ThrowIfNULL_(mGroupList);
 	op_assert(mGroupList);
 	
 	mGroupListIter = new NSp_InterruptSafeListIterator(*mGroupList);
-	//ThrowIfNULL_(mGroupListIter);
 	op_assert(mGroupListIter);
 
 	mGameState = kRunning;
@@ -168,6 +163,9 @@ NSpGame::~NSpGame()
 {
 	if (mEventQ)
 		delete mEventQ;
+
+	if (mSystemEventQ)
+		delete mSystemEventQ;
 
 	if (mFreeQ)
 		delete mFreeQ;
@@ -201,62 +199,52 @@ NSpGame::GetFreeERObject(NMUInt32 inSize)
 	NMSInt32			i = 0;
 	NMErr 				status = kNMNoError;
 
-	//Try_
+	if (inSize <= gStandardMessageSize)
 	{
-		if (inSize <= gStandardMessageSize)
+		if (mFreeQ->IsEmpty())
 		{
-			if (mFreeQ->IsEmpty())
+			for (i = 0; i < kQGrowthSize; i++)
 			{
-				for (i = 0; i < kQGrowthSize; i++)
-				{
-						//Ä	Do an interrupt-safe alloc
-						message = (NSpMessageHeader *) InterruptSafe_alloc(gStandardMessageSize);
-						//ThrowIfNULL_(message);
-						if (!message){
-							status = err_NilPointer;
-							goto error;
-						}
+					//Ä	Do an interrupt-safe alloc
+					message = (NSpMessageHeader *) InterruptSafe_alloc(gStandardMessageSize);
+					if (!message){
+						status = kNSpMemAllocationErr;
+						goto error;
+					}
 
-						item = new ERObject(message, inSize);
-						//ThrowIfNULL_(item);
-						if (item == NULL){
-							status = err_NilPointer;
-							goto error;
-						}
+					item = new ERObject(message, inSize);
+					if (item == NULL){
+						status = kNSpMemAllocationErr;
+						goto error;
+					}
 
-						mFreeQ->Enqueue(item);
-						mFreeQLen++;
-				}
+					mFreeQ->Enqueue(item);
+					mFreeQLen++;
 			}
-
-			item = (ERObject *)mFreeQ->Dequeue();
 		}
-		else
-		{
-			item = GetCookieERObject();
-			//ThrowIfNULL_(item);
-			if (item == NULL){
-				status = err_NilPointer;
-				goto error;
-			}
 
-			message = (NSpMessageHeader *) InterruptSafe_alloc(inSize);
-			//ThrowIfNULL_(message);
-			if (message == NULL){
-				status = err_NilPointer;
-				goto error;
-			}
-
-			item->SetNetMessage(message, inSize);
-		}
+		item = (ERObject *)mFreeQ->Dequeue();
 	}
-	//Catch_(code)
+	else
+	{
+		item = GetCookieERObject();
+		if (item == NULL){
+			status = kNSpMemAllocationErr;
+			goto error;
+		}
+
+		message = (NSpMessageHeader *) InterruptSafe_alloc(inSize);
+		if (message == NULL){
+			status = kNSpMemAllocationErr;
+			goto error;
+		}
+
+		item->SetNetMessage(message, inSize);
+	}
+
 	error:
 	if (status)
 	{
-		NMErr code = status;
-		(void) code;
-
 		return (NULL);
 	}
 
@@ -277,27 +265,23 @@ ERObject
 	NMSInt32	i = 0;
 	NMErr		status = kNMNoError;
 
-	//Try_
+	if (mCookieQ->IsEmpty())
 	{
-		if (mCookieQ->IsEmpty())
+		for (i = 0; i < kQGrowthSize; i++)
 		{
-			for (i = 0; i < kQGrowthSize; i++)
-			{
-				item = new ERObject();
-				//ThrowIfNULL_(item);
-				if (item == NULL){
-					status = err_NilPointer;
-					goto error;
-				}
-
-				mCookieQ->Enqueue(item);
-				mCookieQLen++;
+			item = new ERObject();
+			if (item == NULL){
+				status = kNSpMemAllocationErr;
+				goto error;
 			}
-		}
 
-		item = (ERObject *)mCookieQ->Dequeue();
+			mCookieQ->Enqueue(item);
+			mCookieQLen++;
+		}
 	}
-	//Catch_(code)
+
+	item = (ERObject *)mCookieQ->Dequeue();
+
 	error:
 	if (status)
 	{
@@ -415,64 +399,54 @@ NSpGame::NSpPlayer_GetInfo(NSpPlayerID inID, NSpPlayerInfoPtr *outInfo)
 	if (inID < 1)
 		return (kNSpInvalidPlayerIDErr);
 
-	//Try_
+	//Ä	First find the player in the list
+	while (!found && iter.Next(&theItem))
 	{
-		//Ä	First find the player in the list
-		while (!found && iter.Next(&theItem))
-		{
-			thePlayer = (PlayerListItem *)theItem;
+		thePlayer = (PlayerListItem *)theItem;
 
-			if (thePlayer->id == inID)
-				found = true;
-		}
-
-		//Ä	If we didn't find it, bail
-		if (!found)
-			return 	(kNSpInvalidPlayerIDErr);
-
-		//Ä	Our player list doesn't really contain the groups.  We need to look through
-		//Ä	the group list and determine which groups we belong to.
-		//Ä	This could be improved.
-		FillInGroups(inID, &groups, &groupCount);
-
-		//Ä	Otherwise, copy the info
-		infoSize = sizeof (NSpPlayerInfo) + (((groupCount == 0) ? 0 : groupCount -1) * sizeof (NSpGroupID));
-		theInfo = (NSpPlayerInfoPtr) InterruptSafe_alloc(infoSize);
-		//ThrowIfNULL_(theInfo);
-		if (theInfo == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
-
-		machine_move_data(thePlayer->info, theInfo, sizeof (NSpPlayerInfo) - 8);
-		if (groupCount)
-		{
-			theInfo->groupCount = groupCount;
-			machine_move_data(groups, &theInfo->groups, (groupCount * sizeof (NSpGroupID)));
-			ReleaseGroups(groups);
-		}
-		else
-		{
-			theInfo->groupCount = 0;
-			theInfo->groups[0] = 0;
-		}
-
-		*outInfo = theInfo;
+		if (thePlayer->id == inID)
+			found = true;
 	}
-	//Catch_(code)
-	error:
+
+	//Ä	If we didn't find it, bail
+	if (!found)
+		return 	(kNSpInvalidPlayerIDErr);
+
+	//Ä	Our player list doesn't really contain the groups.  We need to look through
+	//Ä	the group list and determine which groups we belong to.
+	//Ä	This could be improved.
+	FillInGroups(inID, &groups, &groupCount);
+
+	//Ä	Otherwise, copy the info
+	infoSize = sizeof (NSpPlayerInfo) + (((groupCount == 0) ? 0 : groupCount -1) * sizeof (NSpGroupID));
+	theInfo = (NSpPlayerInfoPtr) InterruptSafe_alloc(infoSize);
+	if (theInfo == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
+	}
+
+	machine_move_data(thePlayer->info, theInfo, sizeof (NSpPlayerInfo) - 8);
+	if (groupCount)
+	{
+		theInfo->groupCount = groupCount;
+		machine_move_data(groups, &theInfo->groups, (groupCount * sizeof (NSpGroupID)));
+		ReleaseGroups(groups);
+	}
+	else
+	{
+		theInfo->groupCount = 0;
+		theInfo->groups[0] = 0;
+	}
+
+	*outInfo = theInfo;
+
+error:
 	if (status)
 	{
-		NMErr code = status;
-		if (code == err_NilPointer)
-			code = kNSpMemAllocationErr;
-
 		if (theInfo)
 			InterruptSafe_free(theInfo);
 
 		*outInfo = NULL;
-
-		return (code);
 	}
 
 	return (status);
@@ -513,53 +487,42 @@ NSpGame::NSpPlayer_GetEnumeration(NSpPlayerEnumerationPtr *outPlayers)
 		return (kNSpNoPlayersErr);
 	}
 
-	//Try_
-	{
-
-		//Ä	Allocate enough for the enumeration
-		thePlayers = (NSpPlayerEnumerationPtr) InterruptSafe_alloc(sizeof (NSpPlayerEnumeration) +
-						(sizeof (NSpPlayerInfoPtr) * (mGameInfo.currentPlayers - kVariableLengthArray)));
-		//ThrowIfNULL_(thePlayers);
-		if (thePlayers == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
-
-		//Ä	We're going to increment this as we add, in case we have an allocation problem
-		thePlayers->count = 0;
-
-		while (iter.Next(&theItem))
-		{
-			thePlayer = (PlayerListItem *)theItem;
-
-			//Ä	This will allocate and fill in the info
-			status = NSpPlayer_GetInfo(thePlayer->id, &theInfo);
-			//ThrowIfOSErr_(status);
-			if (status)
-				goto error;
-
-			thePlayers->playerInfo[thePlayers->count] = theInfo;
-			thePlayers->count++;
-		}
-
-		*outPlayers = thePlayers;
+	//Ä	Allocate enough for the enumeration
+	thePlayers = (NSpPlayerEnumerationPtr) InterruptSafe_alloc(sizeof (NSpPlayerEnumeration) +
+					(sizeof (NSpPlayerInfoPtr) * (mGameInfo.currentPlayers - kVariableLengthArray)));
+	if (thePlayers == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
 	}
-	//Catch_(code)
-	error:
+
+	//Ä	We're going to increment this as we add, in case we have an allocation problem
+	thePlayers->count = 0;
+
+	while (iter.Next(&theItem))
+	{
+		thePlayer = (PlayerListItem *)theItem;
+
+		//Ä	This will allocate and fill in the info
+		status = NSpPlayer_GetInfo(thePlayer->id, &theInfo);
+		//ThrowIfOSErr_(status);
+		if (status)
+			goto error;
+
+		thePlayers->playerInfo[thePlayers->count] = theInfo;
+		thePlayers->count++;
+	}
+
+	*outPlayers = thePlayers;
+
+error:
 	if (status)
 	{
-		NMErr code = status;
-		if (code == err_NilPointer)
-			code = kNSpMemAllocationErr;
-
 		if (thePlayers)
 		{
 			NSpPlayer_ReleaseEnumeration(thePlayers);
 		}
 
 		*outPlayers = NULL;
-
-		return (code);
 	}
 
 	return (status);
@@ -597,38 +560,34 @@ NMBoolean
 NSpGame::AddPlayer(NSpPlayerInfo *inInfo, CEndpoint *inEndpoint)
 {
 	PlayerListItem	*theListItem = NULL;
+	NMUInt32 infoSize;
 	NMErr status = kNMNoError;
 
 	op_vassert_return((inInfo != NULL),"NULL info record passed to AddPlayer.",false);
 
-	//Try_
-	{
-		theListItem = new PlayerListItem;
-		//ThrowIfNULL_(theListItem);
-		if (theListItem == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
-
-		theListItem->endpoint = inEndpoint;
-
-		NMUInt32	infoSize = sizeof (NSpPlayerInfo) + (((inInfo->groupCount == 0) ? 0 : inInfo->groupCount -1) * sizeof (NSpGroupID));
-		theListItem->info = (NSpPlayerInfoPtr) InterruptSafe_alloc(infoSize);
-		//ThrowIfNULL_(theListItem->info);
-		if (theListItem->info == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
-
-		machine_move_data(inInfo, theListItem->info, infoSize);
-		theListItem->id = inInfo->id;
-
-		mPlayerList->Append(theListItem);
-
-		mGameInfo.currentPlayers++;
+	theListItem = new PlayerListItem;
+	if (theListItem == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
 	}
-	//Catch_(code)
-	error:
+
+	theListItem->endpoint = inEndpoint;
+
+	infoSize = sizeof (NSpPlayerInfo) + (((inInfo->groupCount == 0) ? 0 : inInfo->groupCount -1) * sizeof (NSpGroupID));
+	theListItem->info = (NSpPlayerInfoPtr) InterruptSafe_alloc(infoSize);
+	if (theListItem->info == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
+	}
+
+	machine_move_data(inInfo, theListItem->info, infoSize);
+	theListItem->id = inInfo->id;
+
+	mPlayerList->Append(theListItem);
+
+	mGameInfo.currentPlayers++;
+
+error:
 	if (status)
 	{
 		NMErr code = status;
@@ -763,67 +722,58 @@ NSpGame::NSpGroup_GetInfo(NSpGroupID inGroupID, NSpGroupInfoPtr *outInfo)
 	if (inGroupID > -1)
 		return (kNSpInvalidGroupIDErr);
 
-	//Try_
+	//Ä	First find the group in the list
+	while (!found && iter.Next(&theItem))
 	{
-		//Ä	First find the group in the list
-		while (!found && iter.Next(&theItem))
+		theGroup = (GroupListItem *)theItem;
+		if (theGroup->id == inGroupID)
 		{
-			theGroup = (GroupListItem *)theItem;
-			if (theGroup->id == inGroupID)
-			{
-				found = true;
-			}
+			found = true;
 		}
-
-		//Ä	If we didn't find it, bail
-		if (!found)
-			return (kNSpInvalidGroupIDErr);
-
-		//Ä	Otherwise, allocate enough for all the player IDs
-		infoSize = sizeof (NSpGroupInfo) +
-			(((theGroup->playerCount == 0) ? 0 : theGroup->playerCount - 1) * sizeof (NSpPlayerID));
-
-		theInfo = (NSpGroupInfoPtr) InterruptSafe_alloc(infoSize);
-		//ThrowIfNULL_(theInfo);
-		if (theInfo == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
-
-		theInfo->id = inGroupID;
-		theInfo->playerCount = theGroup->playerCount;
-
-		//Ä	Iterate through our player list
-		playerIterator = new NSp_InterruptSafeListIterator(*theGroup->players);
-		//ThrowIfNULL_(playerIterator);
-		if (playerIterator == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
-
-		//Ä	Fill in the info with the play IDs
-		while (playerIterator->Next(&theItem))
-		{
-			thePlayer = (PlayerListItem *)((UInt32ListMember *)theItem)->GetValue();
-			theInfo->players[count] = thePlayer->id;
-			count++;
-		}
-
-		//Ä	Release the iterator
-		delete playerIterator;
-
-		playerIterator = NULL;
-
-		*outInfo = theInfo;
 	}
-	//Catch_(code)
-	error:
+
+	//Ä	If we didn't find it, bail
+	if (!found)
+		return (kNSpInvalidGroupIDErr);
+
+	//Ä	Otherwise, allocate enough for all the player IDs
+	infoSize = sizeof (NSpGroupInfo) +
+		(((theGroup->playerCount == 0) ? 0 : theGroup->playerCount - 1) * sizeof (NSpPlayerID));
+
+	theInfo = (NSpGroupInfoPtr) InterruptSafe_alloc(infoSize);
+	if (theInfo == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
+	}
+
+	theInfo->id = inGroupID;
+	theInfo->playerCount = theGroup->playerCount;
+
+	//Ä	Iterate through our player list
+	playerIterator = new NSp_InterruptSafeListIterator(*theGroup->players);
+	if (playerIterator == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
+	}
+
+	//Ä	Fill in the info with the play IDs
+	while (playerIterator->Next(&theItem))
+	{
+		thePlayer = (PlayerListItem *)((UInt32ListMember *)theItem)->GetValue();
+		theInfo->players[count] = thePlayer->id;
+		count++;
+	}
+
+	//Ä	Release the iterator
+	delete playerIterator;
+
+	playerIterator = NULL;
+
+	*outInfo = theInfo;
+
+error:
 	if (status)
 	{
-		NMErr code = status;
-		if (code == err_NilPointer)
-			code = kNSpMemAllocationErr;
-
 		if (theInfo)
 			NSpGroup_ReleaseInfo(theInfo);
 
@@ -831,8 +781,6 @@ NSpGame::NSpGroup_GetInfo(NSpGroupID inGroupID, NSpGroupInfoPtr *outInfo)
 		{
 			delete playerIterator;
 		}
-
-		return (code);
 	}
 
 	return (status);
@@ -1108,63 +1056,54 @@ NSpGame::FillInGroups(NSpPlayerID inPlayer, NSpGroupID **outGroups, NMUInt32 *ou
 		*outGroupCount = 0;
 		return;
 	}
-	
-	//Try_
+
+	//Ä	We don't know how many groups this player is a member of until we iterate
+	//Ä	Through the list.  Therefore, alloc enough for all the groups
+	groups = (NSpGroupID *)InterruptSafe_alloc(mGameInfo.currentGroups * sizeof (NSpGroupID));
+	if (groups == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
+	}
+
+	while (iter.Next(&theItem))
 	{
-		//Ä	We don't know how many groups this player is a member of until we iterate
-		//Ä	Through the list.  Therefore, alloc enough for all the groups
-		groups = (NSpGroupID *)InterruptSafe_alloc(mGameInfo.currentGroups * sizeof (NSpGroupID));
-		//ThrowIfNULL_(groups);
-		if (groups == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
+		theGroup = (GroupListItem *)theItem;
 
-		while (iter.Next(&theItem))
+		if (theGroup->playerCount > 0)
 		{
-			theGroup = (GroupListItem *)theItem;
-
-			if (theGroup->playerCount > 0)
-			{
-				playerIterator = new NSp_InterruptSafeListIterator(*theGroup->players);
-				//ThrowIfNULL_(playerIterator);
-				if (playerIterator == NULL){
-					status = err_NilPointer;
-					goto error;
-				}
-
-				found = false;
-
-				while (playerIterator->Next(&theItem) && !found)
-				{
-					thePlayer = (PlayerListItem *)((UInt32ListMember *)theItem)->GetValue();
-
-					if (thePlayer->id == inPlayer)
-						found = true;
-				}
-
-				groups[groupCount++] = theGroup->id;
-
-				delete playerIterator;
-			}
-
-			if (groupCount > mGameInfo.currentGroups)
-			{
-				DEBUG_PRINT("We've iterated over more groups than there are in the game!  Email NetSprocket team.");
-				//Throw_(kNSpInvalidGroupIDErr);
-				status = kNSpInvalidGroupIDErr;
+			playerIterator = new NSp_InterruptSafeListIterator(*theGroup->players);
+			if (playerIterator == NULL){
+				status = kNSpMemAllocationErr;
 				goto error;
 			}
+
+			found = false;
+
+			while (playerIterator->Next(&theItem) && !found)
+			{
+				thePlayer = (PlayerListItem *)((UInt32ListMember *)theItem)->GetValue();
+
+				if (thePlayer->id == inPlayer)
+					found = true;
+			}
+
+			groups[groupCount++] = theGroup->id;
+
+			delete playerIterator;
 		}
 
+		if (groupCount > mGameInfo.currentGroups)
+		{
+			DEBUG_PRINT("We've iterated over more groups than there are in the game!  Email NetSprocket team.");
+			//Throw_(kNSpInvalidGroupIDErr);
+			status = kNSpInvalidGroupIDErr;
+			goto error;
+		}
 	}
-	//Catch_(code)
-	error:
+
+error:
 	if (status)
 	{
-		NMErr code = status;
-		(void) code;
-
 		if (groups)
 			InterruptSafe_free(groups);
 
@@ -1537,6 +1476,57 @@ NMBoolean	enQ = true;
 }
 
 //----------------------------------------------------------------------------------------
+// NSpGame::ServiceSystemQueue
+// Note:  Do NOT call this function at interrupt time!  The whole reason for
+// this function's existence was to move non-interrupt-safe handling out of
+// interrupt time!
+//----------------------------------------------------------------------------------------
+
+void
+NSpGame::ServiceSystemQueue(void)
+{
+	ERObject *theERObject = NULL;
+
+	if (mSystemEventQ->IsEmpty())
+		return;
+	
+	// Grab the private message list from the private event queue...
+	
+	theERObject = (ERObject *) mSystemEventQ->StealList();
+	
+	DEBUG_PRINT("Servicing the private message queue...");
+	
+	// Note:  The previous call clears the system event queue automically,
+	// so it is immediately ready to accept new system events at interrupt time.
+	// Now that we have a handle to a linked list of messages that have
+	// built up since the last time this function was called, and it is
+	// currently NOT interrupt time, we can walk through the messages and
+	// handle them...
+	
+	if (theERObject == NULL) // <-- Shouldn't be possible, but just in case...
+		return;
+	else
+		::NewReverse(&theERObject);
+		
+	while(theERObject != NULL)
+	{
+		// Before messing with the current ERObject, capture the pointer
+		// to the next ERObject...
+		
+		ERObject *nextERObject = (ERObject *) theERObject->fNext;
+		
+		// Handle the current ERObject the way that they used to be handled at
+		// interrupt time...
+		
+		this->HandleEvent(theERObject, theERObject->GetEndpoint() , theERObject->GetCookie());
+	
+		theERObject = nextERObject;
+	}
+	
+	
+}
+
+//----------------------------------------------------------------------------------------
 // NSpGame::NSpMessage_Get
 //----------------------------------------------------------------------------------------
 
@@ -1547,51 +1537,41 @@ NSpGame::NSpMessage_Get(NSpMessageHeader **outMessage)
 	NSpMessageHeader	*theMessage = NULL;
 	NMErr				status = kNMNoError;
 
-	//Try_
+	//Ä	If there aren't already messages in our list, dump the q
+	if (!mPendingMessages)
 	{
-		//Ä	If there aren't already messages in our list, dump the q
-		if (!mPendingMessages)
-		{
-			if (mEventQ->IsEmpty())
-				return false;
+		if (mEventQ->IsEmpty())
+			return false;
 
-			mPendingMessages = (ERObject *) mEventQ->StealList();
-//			mPendingMessages = (ERObject *) ::machine_reverse_list(mPendingMessages);
-			//::RecursiveReverse(&mPendingMessages);
-			::NewReverse(&mPendingMessages);
-			
-		}
-
-		theERObject = mPendingMessages;
-		mPendingMessages = (ERObject *) mPendingMessages->fNext;
-
-		mMessageQLen--;
-
-		theMessage = theERObject->PeekNetMessage();
-		//ThrowIfNULL_(theMessage);
-		if (theMessage == NULL){
-			status = err_NilPointer;
-			goto error;
-		}
-
-		//Ä	This eats out the nice creme filling and leaves only the cookie
-		theMessage = theERObject->RemoveNetMessage();
-		*outMessage = theMessage;
-
-		//Ä	Put the ERObject in the cookie q, waiting for a new NSpMessageHeader before going back to the free q
-		mCookieQ->Enqueue(theERObject);
-		mCookieQLen++;
-
-		return (true);
+		mPendingMessages = (ERObject *) mEventQ->StealList();
+		::NewReverse(&mPendingMessages);
+		
 	}
-	//Catch_(code)
-	error:
+
+	theERObject = mPendingMessages;
+	mPendingMessages = (ERObject *) mPendingMessages->fNext;
+
+	mMessageQLen--;
+
+	theMessage = theERObject->PeekNetMessage();
+	if (theMessage == NULL){
+		status = kNSpMemAllocationErr;
+		goto error;
+	}
+
+	//Ä	This eats out the nice creme filling and leaves only the cookie
+	theMessage = theERObject->RemoveNetMessage();
+	*outMessage = theMessage;
+
+	//Ä	Put the ERObject in the cookie q, waiting for a new NSpMessageHeader before going back to the free q
+	mCookieQ->Enqueue(theERObject);
+	mCookieQLen++;
+
+	return (true);
+
+error:
 	if (status)
 	{
-		NMErr code = status;
-		if (code == err_NilPointer)
-			code = kNSpMemAllocationErr;
-
 		return (false);
 	}
 	return true;
@@ -1681,4 +1661,20 @@ NSpGame::GetQState(NMUInt32 *outFreeQ, NMUInt32 *outCookieQ, NMUInt32 *outMessag
 	*outFreeQ = mFreeQLen;
 	*outCookieQ = mCookieQLen;
 	*outMessageQ = mMessageQLen;
+}
+
+
+//----------------------------------------------------------------------------------------
+// NSpGame::IsSystemEvent
+//----------------------------------------------------------------------------------------
+
+NMBoolean
+NSpGame::IsSystemEvent(ERObject *inERObject)
+{
+	NSpMessageHeader	*theMessage = inERObject->PeekNetMessage();
+
+	if (theMessage->what & kNSpSystemMessagePrefix)
+		return true;
+	else
+		return false;
 }

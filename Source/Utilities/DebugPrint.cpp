@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -76,17 +76,19 @@ DebugPrintEntryExit::~DebugPrintEntryExit()
 {	
 char	tabs[56];
 	
-	--gDepth;
-
-	for (NMSInt32 i = 0; i < gDepth; i++)
+	if( gDepth )
 	{
-		tabs[i*5] = '*';
-		tabs[(i*5) + 1] = ' ';
-		tabs[(i*5) + 2] = ' ';
-		tabs[(i*5) + 3] = ' ';
-		tabs[(i*5) + 4] = ' ';
+		--gDepth;
+
+		for (NMSInt32 i = 0; i < gDepth; i++)
+		{
+			tabs[i*5] = '*';
+			tabs[(i*5) + 1] = ' ';
+			tabs[(i*5) + 2] = ' ';
+			tabs[(i*5) + 3] = ' ';
+			tabs[(i*5) + 4] = ' ';
+		}
 	}
-		
 	tabs[gDepth*5] = '\0';
 	DEBUG_PRINT("%sLEAVE: %s", tabs, mFunctionName);
 }

@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -54,11 +54,6 @@
 #endif
 
 /* -------- local prototypes */
-	static void find_protocols(void);
-	static void build_find_protocol_search_start(FileDesc *search_start);
-	static NMBoolean find_protocol_callback(FileDesc *file, void *data);
-	static NMBoolean get_module_name_and_type(FileDesc *file, NMType *type, char *name);
-	static NMBoolean valid_protocol_file(FileDesc *file, void *data);
 
 #ifdef OP_API_PLUGIN_MACHO
 	extern "C"{
@@ -67,12 +62,6 @@
 #endif
 
 /*--------- local data */
-
-//we currently check at the beginning of api calls to see if openplay is inited yet
-//for the darwin build.  If mach-o dylibs have something like an _init func, we should use that...
-#ifdef OP_API_PLUGIN_MACHO
-	NMBoolean gOPInited = false;
-#endif
 
 #ifdef OP_API_PLUGIN_MAC_CFM
 	static NMBoolean haveRefreshedProtocols = false;
@@ -104,14 +93,6 @@ NMErr GetIndexedProtocol(
 	NMProtocolStruct *protocol)
 {
 	NMErr err;
-
-//do mach-o dylibs have init funcs ala linux "_init"?
-#ifdef OP_API_PLUGIN_MACHO
-	if (!gOPInited){
-		_init();
-		gOPInited = true;
-	}
-#endif
 
 #ifdef OP_API_PLUGIN_MAC_CFM
 	if (haveRefreshedProtocols == false){
@@ -186,14 +167,6 @@ NMErr ProtocolCreateConfig(
 {
 	PConfigRef config= (PConfigRef) NULL;
 	NMErr err= kNMNoError;
-
-//do mach-o dylibs have init funcs ala linux "_init"?
-#ifdef OP_API_PLUGIN_MACHO
-	if (!gOPInited){
-		_init();
-		gOPInited = true;
-	}
-#endif
 
 #ifdef OP_API_PLUGIN_MAC_CFM
 	if (haveRefreshedProtocols == false) {
@@ -451,44 +424,6 @@ NMErr ProtocolConfigPassThrough(
 /* --------- local code */
 
 //----------------------------------------------------------------------------------------
-// find_protocols
-//----------------------------------------------------------------------------------------
-
-static void find_protocols(
-	void)
-{
-	find_file_pb pb;
-	NMErr err;
-
-	/* Clear out whatever was there before */
-	if(gOp_globals.module_count)
-	{
-		op_assert(gOp_globals.modules);
-		dispose_pointer(gOp_globals.modules);
-		gOp_globals.modules= NULL;
-		gOp_globals.module_count= 0;
-	}
-	
-	/* Setup for searching and finding */
-	machine_mem_zero(&pb, sizeof(pb));
-
-	pb.version = FIND_FILE_VERSION;
-	pb.flags = _ff_callback_with_catinfo;
-	pb.search_type = _callback_only;
-
-	build_find_protocol_search_start(&pb.start_search_from);
-
-    pb.type_to_find = d_LIBRARY_TYPE;
-	pb.buffer = NULL;
-	pb.max = MAXIMUM_NETMODULES;
-	pb.count = 0;
-	pb.callback = find_protocol_callback;
-	pb.user_data = NULL;
-	
-	err = find_files(&pb);
-}
-
-//----------------------------------------------------------------------------------------
 // build_find_protocol_search_start
 //----------------------------------------------------------------------------------------
 
@@ -503,18 +438,24 @@ static void build_find_protocol_search_start(
 	NMErr err;
 	char *source_dir= "OpenPlay Modules";
 	NMBoolean theTargetIsFolder, theWasAliased;
+	short diskNum;
+	long folderNum;
 
 	*search_start= gOp_globals.file_spec;
 	strcpy(name, source_dir);
 	c2pstr(name);
-	err = FSMakeFSSpec(0, 0, (StringPtr) name, (FSSpec *) search_start);
+
+	//gmp 4/25/04: Use the same disk and dir as the shared library itself, not 0, 0
+	//					(whatever the app happens to consider the current folder)
+
+	diskNum = search_start->vRefNum;
+	folderNum = search_start->parID;
+
+	err = FSMakeFSSpec(diskNum, folderNum, /*0, 0,*/ (StringPtr) name, (FSSpec *) search_start);
 	DEBUG_PRINTonERR("Err %d on FSMakeFSSpec", err);
 
 	err = ResolveAliasFile((FSSpec *) search_start, true, &theTargetIsFolder, &theWasAliased);
 	DEBUG_PRINTonERR("Err %d on ResolveAliasFile", err);
-
-
-
 
 #elif defined(OP_API_PLUGIN_WINDOWS)
 /*--------------------------------Windows Section-----------------------------*/
@@ -545,7 +486,7 @@ static void build_find_protocol_search_start(
 	// we load plugins from disk based on an absolute location specified
 	// by an environment variable (or a default location if not set)
 	
-		search_start->bundle = CFBundleGetBundleWithIdentifier(CFSTR("com.apple.OpenPlay"));
+		search_start->bundle = CFBundleGetBundleWithIdentifier(CFSTR("com.apple.openplay"));
 		op_assert(search_start->bundle);
 		
 #elif defined(OP_API_PLUGIN_POSIX) || defined(OP_API_PLUGIN_POSIX_DARWIN)
@@ -575,50 +516,6 @@ static void build_find_protocol_search_start(
 #endif
 
 } /* build_find_protocol_search_start */
-
-//----------------------------------------------------------------------------------------
-// find_protocol_callback
-//----------------------------------------------------------------------------------------
-
-static NMBoolean find_protocol_callback(
-	FileDesc *file,
-	void *data)
-{
-  if(valid_protocol_file(file, data))
-  {
-      module_data new_module;
-
-      /* Fill in what we got.. */
-      new_module.module_spec= *file;
-      
-      //keep the temporary bundle from being disposed 
-
-#ifdef OP_API_PLUGIN_MACHO
-		CFRetain(new_module.module_spec.bundle);
-      #endif
-      
-      new_module.module.version= CURRENT_OPENPLAY_VERSION;
-
-      /* Get the type and the name from the fragment. */
-      if(get_module_name_and_type(file, &new_module.module.type, new_module.module.name))
-      {
-		  module_data *old_module_list= gOp_globals.modules;
-
-		  gOp_globals.modules= (module_data *) new_pointer((gOp_globals.module_count+1)*sizeof(module_data));
-		  if(gOp_globals.modules)
-		  {
-		      if(old_module_list)
-		      {
-				  machine_copy_data(old_module_list, gOp_globals.modules, gOp_globals.module_count*sizeof(module_data));
-				  dispose_pointer(old_module_list);
-		      }
-		      machine_copy_data(&new_module, &gOp_globals.modules[gOp_globals.module_count], sizeof(module_data));
-		      gOp_globals.module_count++;
-		  }
-      }
-  }
-  return true;
-}
 
 //----------------------------------------------------------------------------------------
 // valid_protocol_file
@@ -759,6 +656,88 @@ static NMBoolean get_module_name_and_type(
   }
 	
   return valid;
+}
+
+//----------------------------------------------------------------------------------------
+// find_protocol_callback
+//----------------------------------------------------------------------------------------
+
+static NMBoolean find_protocol_callback(
+	FileDesc *file,
+	void *data)
+{
+  if(valid_protocol_file(file, data))
+  {
+      module_data new_module;
+
+      /* Fill in what we got.. */
+      new_module.module_spec= *file;
+      
+      //keep the temporary bundle from being disposed 
+
+#ifdef OP_API_PLUGIN_MACHO
+		CFRetain(new_module.module_spec.bundle);
+      #endif
+      
+      new_module.module.version= CURRENT_OPENPLAY_VERSION;
+
+      /* Get the type and the name from the fragment. */
+      if(get_module_name_and_type(file, &new_module.module.type, new_module.module.name))
+      {
+		  module_data *old_module_list= gOp_globals.modules;
+
+		  gOp_globals.modules= (module_data *) new_pointer((gOp_globals.module_count+1)*sizeof(module_data));
+		  if(gOp_globals.modules)
+		  {
+		      if(old_module_list)
+		      {
+				  machine_copy_data(old_module_list, gOp_globals.modules, gOp_globals.module_count*sizeof(module_data));
+				  dispose_pointer(old_module_list);
+		      }
+		      machine_copy_data(&new_module, &gOp_globals.modules[gOp_globals.module_count], sizeof(module_data));
+		      gOp_globals.module_count++;
+		  }
+      }
+  }
+  return true;
+}
+
+//----------------------------------------------------------------------------------------
+// find_protocols
+//----------------------------------------------------------------------------------------
+
+static void find_protocols(
+	void)
+{
+	find_file_pb pb;
+	NMErr err;
+
+	/* Clear out whatever was there before */
+	if(gOp_globals.module_count)
+	{
+		op_assert(gOp_globals.modules);
+		dispose_pointer(gOp_globals.modules);
+		gOp_globals.modules= NULL;
+		gOp_globals.module_count= 0;
+	}
+	
+	/* Setup for searching and finding */
+	machine_mem_zero(&pb, sizeof(pb));
+
+	pb.version = FIND_FILE_VERSION;
+	pb.flags = _ff_callback_with_catinfo;
+	pb.search_type = _callback_only;
+
+	build_find_protocol_search_start(&pb.start_search_from);
+
+   pb.type_to_find = d_LIBRARY_TYPE;
+	pb.buffer = NULL;
+	pb.max = MAXIMUM_NETMODULES;
+	pb.count = 0;
+	pb.callback = find_protocol_callback;
+	pb.user_data = NULL;
+	
+	err = find_files(&pb);
 }
 
 //----------------------------------------------------------------------------------------

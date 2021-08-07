@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -44,31 +44,34 @@
 	//	Method for joining
 				NMErr	Join(NMConstStr31Param inPlayerName, NMConstStr31Param inPassword, NSpPlayerType inType,
 									void *inCustomData, NMUInt32 inCustomDataLen,  NSpAddressReference inAddress);
-		
+
 	//	Methods for handling events
 
+		virtual void		HandleEvent(ERObject *inERObject, CEndpoint *inEndpoint, void *inCookie);
 		virtual void		HandleNewEvent(ERObject *inERObject, CEndpoint *inEndpoint, void *inCookie);
-						
-				NMErr 	SendJoinRequest(NMConstStr31Param inPlayerName, NMConstStr31Param inPassword, 
+
+		NMUInt32 GetBacklog( void );
+
+		NMErr 	SendJoinRequest(NMConstStr31Param inPlayerName, NMConstStr31Param inPassword, 
 											NSpPlayerType inType, void *inCustomData, NMUInt32 inCustomDataLen);
 		virtual NMErr	SendUserMessage(NSpMessageHeader *inMessage, NSpFlags inFlags);
 		virtual NMErr	SendTo(NSpPlayerID inTo, NMSInt32 inWhat, void *inData, NMUInt32 inLen, NSpFlags inFlags);
 		virtual NMErr	PrepareForDeletion(NSpFlags inFlags);
 		
 		virtual	NMErr	HandleEndpointDisconnected(CEndpoint *inEndpoint);
-		virtual void		IdleEndpoints(void);
+		virtual void	IdleEndpoints(void);
 
 	protected:
 		virtual	NMBoolean	RemovePlayer(NSpPlayerID inPlayer, NMBoolean inDisconnect);
-				NMErr		MakeGroupListFromJoinApprovedMessage(NSpGroupInfoPtr *inGroups, NMUInt32 inCount);	
-				NMBoolean	HandleJoinApproved(TJoinApprovedMessagePrivate *inMessage, NMUInt32 inTimeReceived);		
-				NMBoolean	HandleJoinDenied(NSpJoinDeniedMessage *inMessage);	
-				NMBoolean	HandlePlayerJoined(NSpPlayerJoinedMessage *inMessage);
-				NMBoolean	HandleGameTerminated(NSpMessageHeader *inMessage);
-				NMBoolean	ProcessSystemMessage(NSpMessageHeader *inMessage);
-				
+
+		NMErr		MakeGroupListFromJoinApprovedMessage(NSpGroupInfoPtr *inGroups, NMUInt32 inCount);	
+		NMBoolean	HandleJoinApproved(TJoinApprovedMessagePrivate *inMessage, NMUInt32 inTimeReceived);		
+		NMBoolean	HandleJoinDenied(NSpJoinDeniedMessage *inMessage);	
+		NMBoolean	HandlePlayerJoined(NSpPlayerJoinedMessage *inMessage);
+		NMBoolean	HandleGameTerminated(NSpMessageHeader *inMessage);
+		NMBoolean	ProcessSystemMessage(NSpMessageHeader *inMessage);
+
 		CEndpoint		*mEndpoint;
-		
 	};
 
 

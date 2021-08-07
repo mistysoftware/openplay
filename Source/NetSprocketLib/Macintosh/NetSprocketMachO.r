@@ -182,19 +182,19 @@ resource 'vers' (1) {
 		0x02, 
 		0x02, 
 		release, 
-		0x0,
+		0x1,
 		verUS,
-		"2.2",
-		"2.2, © Copyright 1999-2003 Apple Computer"
+		"2.2r2",
+		"2.2r2, © Copyright 1999-2004 Apple Computer"
 	};
 
 
 resource 'vers' (2) {
-		0x02, 
-		0x02, 
-		release, 
-		0x0,
+		0x02,
+		0x02,
+		release,
+		0x1,
 		verUS,
-		"2.2",
+		"2.2r2",
 		"OpenPlay, Apple Open Source"
 	};

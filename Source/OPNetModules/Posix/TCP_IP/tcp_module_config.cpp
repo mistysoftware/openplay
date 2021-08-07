@@ -7,11 +7,11 @@
  *   Author: Kevin Holbrook
  *  Created: June 23, 1999
  *
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -186,15 +186,18 @@ static void _build_config_string_into_config_buffer(NMConfigRef config)
  * Static Function: _get_standard_config_strings
  *--------------------------------------------------------------------
  * Parameters:
- *  [IN]  string = 
- *  [IN]  config =
+ *  [IN]  string = the config string to be parsed
+ *  [IN]  config = the config, filled in with default values, to be filled in
  *
  * Returns:
- *   
- *   
+ *   kNMNoError on success
+ *   kNMInvalidConfigErr if the config was bad
  *
  * Description:
- *   Function 
+ *   Function parses a config string, changing the config passed in
+ *   to match the setting given. If a particular token is not specified
+ *   in the config, no change will be made to that setting, so default
+ *   values must be provided in the config passed in
  *
  *--------------------------------------------------------------------
  */
@@ -203,54 +206,63 @@ static NMErr _get_standard_config_strings(char *string, NMConfigRef config)
 {
 	DEBUG_ENTRY_EXIT("_get_standard_config_strings");
 
-  long       length;
-  NMBoolean  status;
-  NMType     type;
-  NMErr      error = kNMInvalidConfigErr;
-	
+	long       length;
+	NMBoolean  status;
+	NMType     type;
+	NMErr      error = kNMNoError;
 
-  length = sizeof(type);
-  status = get_token(string, kConfigModuleType, LONG_DATA, &type, &length);
+	/* get the module config type */
+	length = sizeof(type);
+	status = get_token(string, kConfigModuleType, LONG_DATA, &type, &length);
+	/* type must match if present */
+	if (!status || (type != config->type) ) //!! was if(status && (type == config->type)) but isn't that what we want?!?
+	{
+	 DEBUG_PRINT("Invalid type token. Remove type from the config string (preferred), or use type=%d\n", kConfigModuleType);
+	 error = kNMInvalidConfigErr;
+	}
 
-  if (status)
-  {
-    if (type == config->type)
-    {
-      long version;
-			
-      /* newer versions should handle older configs */
-      length = sizeof(version);
-      status = get_token(string, kConfigModuleVersion, LONG_DATA, &version, &length);
+	/* get the module config version */
+	long version;
+	length = sizeof(version);
+	status = get_token(string, kConfigModuleVersion, LONG_DATA, &version, &length);
+	if (status && (version != kVersion))
+	{
+	 if (version < kVersion)
+	 {
+	   /* newer versions should handle older configs, by looking for any obsolete config elements and converting them */
+	   /* at present this doesn't seem to be a problem */
+	   DEBUG_PRINT("Warning: older config version specified. Version [%p] is current supported, version [%p] specified\n", kVersion, version);
+	 }
+	 else
+	 {
+	   /* nothing we can do about newer versions of config except hope they provide what we need and don't have critical new config tokens */
+	   DEBUG_PRINT("Warning: newer config version specified. Version [%p] is current supported, version [%p] specified\n", kVersion, version);
+	 }
+	}
 
-      if (status)
-      {
-        if (version == kVersion)
-        {
-          /* get the gameID */
-          length = sizeof(config->gameID);
-          status = get_token(string, kConfigGameID, LONG_DATA, &config->gameID, &length);
+	/* get the gameID */
+	NMType gameID;
+	length = sizeof(gameID);
+	status = get_token(string, kConfigGameID, LONG_DATA, &gameID, &length);
+	if (status)
+	{
+		DEBUG_PRINT("Warning: ignoring game id [%d] passed to NMCreateConfig, using gameID [%d] in config string\n", config->gameID, gameID);
+		config->gameID = gameID;
+	}
+  
+	/* get the game name */
+	length = kMaxGameNameLen;
+	status = get_token(string, kConfigGameName, STRING_DATA, config->name, &length);
+	if (status)
+	{
+		DEBUG_PRINT("Warning: ignoring inGameName parameter of NMCreateConfig, using gameName [%s] specified in config string", config->name);
+	}
 
-          if (status)
-          {
-            /* get the game name */
-            length = kMaxGameNameLen;
-            status = get_token(string, kConfigGameName, STRING_DATA, config->name, &length);
+	/* get the mode */
+	length = sizeof(config->connectionMode);
+	status = get_token(string, kConfigEndpointMode, LONG_DATA, &config->connectionMode, &length);
 
-            if(status)
-            {
-              /* get the mode */
-              length = sizeof(config->connectionMode);
-              status = get_token(string, kConfigEndpointMode, LONG_DATA, &config->connectionMode, &length);
-              if (status)
-	        error = 0;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  return error;
+	return error;
 } /*  _get_standard_config_strings */
 
 
@@ -407,7 +419,7 @@ NMErr NMCreateConfig(char *ConfigStr,
 
 		_config->enumeration_socket = INVALID_SOCKET;
 		_config->enumerating = false;
-		_config->connectionMode = 3; /* stream and datagram. */
+		_config->connectionMode = kNMNormalMode; /* stream and datagram. */
 		_config->netSprocketMode = kDefaultNetSprocketMode;
 		_config->callback = NULL;
 		_config->games = NULL;

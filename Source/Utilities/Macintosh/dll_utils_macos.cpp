@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -64,9 +64,13 @@ NMErr bind_to_library(
 
 	//ECF 011117 if we're running under MacOSX we unload the library and fail if it has a "ClassicOnly" export
 	//this will keep lotsa people from wondering why appletalk isn't working under X...
+	if(kNMNoError == err) //gmp 4/26/2004 added error code check
 	{
 		Boolean runningOSX = false;
 		UInt32 response;
+
+		//NOTE: Gestalt will return nonsense if OP is in an MP task! OP is not generally MP safe anyway...at this time!
+
 		if(Gestalt(gestaltSystemVersion, (SInt32 *) &response) == noErr){
 			if (response >= 0x1000)
 				runningOSX = true;

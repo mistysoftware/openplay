@@ -1,9 +1,9 @@
 /*
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -816,13 +816,17 @@ NMErr ProtocolEnterNotifier(
 
 	if(endpoint)
 	{
+		op_vpause("ProtocolEnterNotifier - Checking for endpoint->NMEnterNotifier.");
 		if(endpoint->NMEnterNotifier)
 		{
+			op_vpause("ProtocolEnterNotifier - Calling endpoint->NMEnterNotifier...");
 			err= endpoint->NMEnterNotifier(endpoint->module, endpointMode);
 		} else {
+			op_vpause("ProtocolEnterNotifier - endpoint->NMEnterNotifier not bound.");
 			err= kNMFunctionNotBoundErr;
 		}
 	} else {
+		op_vpause("ProtocolEnterNotifier - Called with NULL endpoint.");
 		err= kNMParameterErr;
 	}
 
@@ -917,8 +921,12 @@ NMErr ProtocolFreeEndpointAddress(
 	/* call as often as possible (anything that is synchronous) */
 	op_idle_synchronous(); 
 	
-	op_assert(valid_endpoint(endpoint));
-	if(endpoint)
+	// CRT 4/15/04 Don't die here just because you couldn't get an IP address!
+	// Log a warning, fill in default values, and return an error!
+	
+	op_warn(valid_endpoint(endpoint));
+	
+	if(valid_endpoint(endpoint))
 	{
 		op_assert(endpoint->cookie==PENDPOINT_COOKIE);
 
@@ -953,8 +961,12 @@ NMErr ProtocolGetEndpointAddress(
 	/* call as often as possible (anything that is synchronous) */
 	op_idle_synchronous(); 
 	
-	op_assert(valid_endpoint(endpoint));
-	if(endpoint)
+	// CRT 4/15/04 Don't die here just because you couldn't get an IP address!
+	// Log a warning, fill in default values, and return an error!
+	
+	op_warn(valid_endpoint(endpoint));
+	
+	if(valid_endpoint(endpoint))
 	{
 		op_assert(endpoint->cookie==PENDPOINT_COOKIE);
 

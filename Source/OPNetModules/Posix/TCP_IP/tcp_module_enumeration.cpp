@@ -7,11 +7,11 @@
  *   Author: Kevin Holbrook
  *  Created: June 23, 1999
  *
- * Copyright (c) 1999-2002 Apple Computer, Inc. All rights reserved.
+ * Copyright (c) 1999-2004 Apple Computer, Inc. All rights reserved.
  *
  * @APPLE_LICENSE_HEADER_START@
  * 
- * Portions Copyright (c) 1999-2002 Apple Computer, Inc.  All Rights
+ * Portions Copyright (c) 1999-2004 Apple Computer, Inc.  All Rights
  * Reserved.  This file contains Original Code and/or Modifications of
  * Original Code as defined in and that are subject to the Apple Public
  * Source License Version 1.1 (the "License").  You may not use this file
@@ -208,7 +208,7 @@ static void _send_game_request_packet(NMConfigRef Config)
 			DEBUG_PRINT("bytes sent: %d",bytes_sent);
 		#ifdef DEBUG
 			if (bytes_sent != packet_length)
-				op_dprintf("Error in  _send_game_request_packet: sendto only delivered %d bytes of %d", bytes_sent, packet_length);
+				DEBUG_PRINT("Error in  _send_game_request_packet: sendto only delivered %d bytes of %d", bytes_sent, packet_length);
 			#endif
 		}
 	}
@@ -592,9 +592,7 @@ NMErr NMEndEnumeration(NMConfigRef Config)
 
 		if (status)
 		{
-			#ifdef _DEBUG
-				op_dprintf("Error in NMEndEnumeration: closesocket returned %d", op_errno);
-			#endif
+			DEBUG_PRINT("Error in NMEndEnumeration: closesocket returned %d", op_errno);
 		}
 
 		Config->enumeration_socket = INVALID_SOCKET;
