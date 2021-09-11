@@ -247,7 +247,8 @@ void remove_endpoint_from_loaded_list(
 					previous_endpoint= previous_endpoint->next;
 				}
 				op_assert(previous_endpoint);
-				previous_endpoint->next= endpoint->next;
+                if( previous_endpoint )
+					previous_endpoint->next= endpoint->next;
 			}
 		
 			op_assert(loaded_module->endpoints_instantiated>=1);
@@ -324,7 +325,8 @@ static void remove_loaded_module(
 			previous_module = previous_module->next;
 
 		op_assert(previous_module);
-		previous_module->next = loaded_module->next;
+        if( previous_module )
+			previous_module->next = loaded_module->next;
 	}
 
 	/* free the library. */

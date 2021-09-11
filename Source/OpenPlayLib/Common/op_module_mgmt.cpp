@@ -241,6 +241,7 @@ NMErr ProtocolCreateConfig(
 			DEBUG_PRINT("Didn't find module type: 0x%x (%c%c%c%c) Count: %d", type, (type >> 24) & 0xFF, (type >> 16) & 0xFF,
 			(type >> 8) & 0xFF, type & 0xFF, gOp_globals.module_count);
 
+            dispose_pointer(config);
 			err= kNMModuleNotFoundErr;	
 		}
 	} else {
@@ -738,6 +739,8 @@ static void find_protocols(
 	pb.user_data = NULL;
 	
 	err = find_files(&pb);
+    if (err)
+        DEBUG_PRINT("Warning: unable to find files in find_protocols");
 }
 
 //----------------------------------------------------------------------------------------

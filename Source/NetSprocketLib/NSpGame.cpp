@@ -415,32 +415,37 @@ NSpGame::NSpPlayer_GetInfo(NSpPlayerID inID, NSpPlayerInfoPtr *outInfo)
 	//Ä	Our player list doesn't really contain the groups.  We need to look through
 	//Ä	the group list and determine which groups we belong to.
 	//Ä	This could be improved.
-	FillInGroups(inID, &groups, &groupCount);
+	status = FillInGroups(inID, &groups, &groupCount);
+	if( !status )
+    {
+        //Ä    Otherwise, copy the info
+        infoSize = sizeof (NSpPlayerInfo) + (((groupCount == 0) ? 0 : groupCount -1) * sizeof (NSpGroupID));
+        theInfo = (NSpPlayerInfoPtr) InterruptSafe_alloc(infoSize);
+        if (theInfo == NULL)
+        {
+            status = kNSpMemAllocationErr;
+            if( groups )
+                ReleaseGroups(groups);
+        }
+        else
+        {
+            machine_move_data(thePlayer->info, theInfo, sizeof (NSpPlayerInfo) - 8);
+            if (groupCount && theInfo)
+            {
+                theInfo->groupCount = groupCount;
+                machine_move_data(groups, &theInfo->groups, (groupCount * sizeof (NSpGroupID)));
+                ReleaseGroups(groups);
+            }
+            else
+            {
+                theInfo->groupCount = 0;
+                theInfo->groups[0] = 0;
+            }
 
-	//Ä	Otherwise, copy the info
-	infoSize = sizeof (NSpPlayerInfo) + (((groupCount == 0) ? 0 : groupCount -1) * sizeof (NSpGroupID));
-	theInfo = (NSpPlayerInfoPtr) InterruptSafe_alloc(infoSize);
-	if (theInfo == NULL){
-		status = kNSpMemAllocationErr;
-		goto error;
-	}
+            *outInfo = theInfo;
+        }
+    }
 
-	machine_move_data(thePlayer->info, theInfo, sizeof (NSpPlayerInfo) - 8);
-	if (groupCount)
-	{
-		theInfo->groupCount = groupCount;
-		machine_move_data(groups, &theInfo->groups, (groupCount * sizeof (NSpGroupID)));
-		ReleaseGroups(groups);
-	}
-	else
-	{
-		theInfo->groupCount = 0;
-		theInfo->groups[0] = 0;
-	}
-
-	*outInfo = theInfo;
-
-error:
 	if (status)
 	{
 		if (theInfo)
@@ -1037,7 +1042,7 @@ NMErr						status = kNMNoError;
 //----------------------------------------------------------------------------------------
 
 //Ä	This is an O(n^2) routine.  Blegh!
-void
+NMErr
 NSpGame::FillInGroups(NSpPlayerID inPlayer, NSpGroupID **outGroups, NMUInt32 *outGroupCount)
 {
 	NSpGroupID					*groups = NULL;
@@ -1054,7 +1059,7 @@ NSpGame::FillInGroups(NSpPlayerID inPlayer, NSpGroupID **outGroups, NMUInt32 *ou
 	{
 		*outGroups = NULL;
 		*outGroupCount = 0;
-		return;
+		return status;
 	}
 
 	//Ä	We don't know how many groups this player is a member of until we iterate
@@ -1122,6 +1127,7 @@ error:
 		*outGroups = groups;
 		*outGroupCount = groupCount;
 	}
+    return status;
 }
 
 //----------------------------------------------------------------------------------------
@@ -1161,7 +1167,10 @@ GroupListItem				*groupEntry;
 
 		//Ä	The group already exists, just ignore the message and move on
 		if (theGroup->id == inMessage->id)
+        {
+            delete groupEntry;
 			return (true);
+        }
 	}
 
 	groupEntry->id = inMessage->id;

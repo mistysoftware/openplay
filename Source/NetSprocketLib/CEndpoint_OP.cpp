@@ -213,23 +213,16 @@ NMSInt32					messageLength;
 #endif
 
 	result = ::ProtocolSend(theCookie->endpointRefOP, (void *) inMessage, messageLength, 0);
-
-#if OTDEBUG
-	if (result < kNMNoErr)
+    if (result < 0)
 		DEBUG_PRINT("Send Disconnect message returned %ld in CEndpoint::Veto", result);
-#endif
 
 	DEBUG_PRINT("Calling ProtocolCloseEndpt in CEndpoint::Veto");
 
 	result = ::ProtocolCloseEndpoint(theCookie->endpointRefOP, true);
 	theCookie->endpointRefOP = NULL;
-
-#if OTDEBUG
-	if (kNMNoErr != result)
+    if (kNMNoError != result)
 		DEBUG_PRINT("ProtocolSendOrderlyDisconnect returned %ld in CEndpoint::Veto", result);
-#endif
 
-		
 	InterruptSafe_free(inCookie);
 }
 
@@ -321,6 +314,8 @@ CEndpoint::Close()
 
 		if (status != kNMNoError)
 			status = ::ProtocolCloseEndpoint(mOpenPlayEndpoint, false);
+        if (status != kNMNoError)
+            DEBUG_PRINT("CloseEndpoint returned %ld in CEndpoint::Close", status);
 		mOpenPlayEndpoint = NULL;
 
 	}
@@ -1004,7 +999,7 @@ CEndpoint::RunQ(SendInfo *inInfo)
 	if (result > 0)
 		result = kNMNoError;
 
-	return (kNMNoError);
+	return (result);
 }
 
 //----------------------------------------------------------------------------------------
@@ -1055,7 +1050,7 @@ CEndpoint::Notifier(PEndpointRef		inEndpoint,
 					NMErr 				inError,
 					void				*inCookie)
 {
-	NMErr	status;
+	NMErr	status = kNMNoError;
 	
 	if (inError < kNMNoError)
 		return;
@@ -1114,6 +1109,8 @@ CEndpoint::Notifier(PEndpointRef		inEndpoint,
 		break;
 
 	}
+    if (status != kNMNoError)
+        DEBUG_PRINT("Endpoint handler returned %ld in CEndpoint::Notifier", status);
 }
 
 #if defined(__MWERKS__)
@@ -1467,7 +1464,7 @@ CEndpoint::DoReceiveDatagram(PEndpointRef inEndpoint, EPCookie *inCookie)
 					receiveBuffer = (NMUInt8 *) theERObject->PeekNetMessage();
 
 					//	Find out what's the max size for this buffer
-					bufSize = theERObject->GetMaxMessageLen();		
+//					bufSize = theERObject->GetMaxMessageLen();		
 
 					//	Reset our pointer to the header
 					theHeader = (NSpMessageHeader *) receiveBuffer;	

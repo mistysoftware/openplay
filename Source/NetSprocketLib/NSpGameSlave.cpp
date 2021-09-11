@@ -233,7 +233,6 @@ NSp_InterruptSafeListIterator 	*playerIter;
 NSp_InterruptSafeListMember 	*theItem;
 PlayerListItem				*thePlayer;
 GroupListItem				*theGroup;
-NMBoolean					bNoCopy = false;
 NMBoolean					bSelfSent = false;
 NMBoolean					swapBack = false;	//?? why here and not below?
 
@@ -246,16 +245,20 @@ NMBoolean					swapBack = false;	//?? why here and not below?
 
 	if (inFlags & kNSpSendFlag_SelfSend)
 	{
-		bNoCopy = true;
 		status = DoSelfSend(inMessage, (NMUInt8 *)inMessage + sizeof (NSpMessageHeader), inFlags);
-		bSelfSent = true;
+        if( status )
+            DEBUG_PRINT("Unable to do self send in SendUserMessage");
+        else
+			bSelfSent = true;
 	}
 
 	//Ä	If it's just to ourselves, handle that special case
 	if (inMessage->to == mPlayerID && !bSelfSent)
 	{
 		status = DoSelfSend(inMessage, (NMUInt8 *)inMessage + sizeof (NSpMessageHeader), inFlags);
-		bSelfSent = true;
+        if( status )
+            DEBUG_PRINT("Unable to do self send to self in SendUserMessage");
+//		bSelfSent = true;
 	}
 	else if (inMessage->to < kNSpMasterEndpointID)	//Ä	We need to handle if its a group. In case we're a member
 	{
@@ -276,7 +279,9 @@ NMBoolean					swapBack = false;	//?? why here and not below?
 						if (thePlayer->id == mPlayerID)
 						{
 							status = DoSelfSend(inMessage, (NMUInt8 *)inMessage + sizeof (NSpMessageHeader), inFlags);
-							bSelfSent = true;
+                            if( status )
+                                DEBUG_PRINT("Unable to do self send to other player in SendUserMessage");
+//							bSelfSent = true;
 							break;
 						}
 					}
@@ -338,7 +343,6 @@ NSp_InterruptSafeListIterator 	*playerIter;
 NSp_InterruptSafeListMember 	*theItem;
 PlayerListItem					*thePlayer;
 GroupListItem					*theGroup;
-NMBoolean						bNoCopy = false;
 NMBoolean						bSelfSent = false;
 
 	if (mGameState == kStopped)
@@ -365,8 +369,9 @@ NMBoolean						bSelfSent = false;
 
 	if (inFlags & kNSpSendFlag_SelfSend)
 	{
-		bNoCopy = true;
 		status = DoSelfSend(headerPtr, inData, inFlags);
+        if( status )
+            DEBUG_PRINT("Unable to do self send in SendTo");
 		bSelfSent = true;
 	}
 
@@ -374,7 +379,9 @@ NMBoolean						bSelfSent = false;
 	if (inTo == mPlayerID && !bSelfSent)
 	{
 		status = DoSelfSend(headerPtr, inData, inFlags);
-		bSelfSent = true;
+        if( status )
+            DEBUG_PRINT("Unable to do self send #2 in SendTo");
+//		bSelfSent = true;
 	}
 	else if (inTo < kNSpMasterEndpointID)	// We need to handle if its a group. In case we're a member
 	{
@@ -395,7 +402,9 @@ NMBoolean						bSelfSent = false;
 						if (thePlayer->id == mPlayerID)
 						{
 							status = DoSelfSend(headerPtr, inData, inFlags);
-							bSelfSent = true;
+                            if( status )
+                                DEBUG_PRINT("Unable to do self send #3 in SendTo");
+//							bSelfSent = true;
 							break;
 						}
 					}
@@ -415,7 +424,7 @@ NMBoolean						bSelfSent = false;
 	}
 
 	if (dataPtr != NULL)
-		delete dataPtr;
+		delete[] dataPtr;
 
 	return status;
 }
@@ -478,6 +487,8 @@ NMUInt32		hostProcessingTime;
 		if (inMessage->groupCount > 0)
 		{
 			status = MakeGroupListFromJoinApprovedMessage(&groupInfoPtr, inMessage->groupCount);
+            if( status )
+                DEBUG_PRINT("Unable to MakeGroupListFromJoinApprovedMessage in NSpProtocol_Dispose");
 		}
 
 		//Ä	The to field contains our player id
@@ -517,17 +528,20 @@ NSpGameSlave::MakeGroupListFromJoinApprovedMessage(NSpGroupInfoPtr *inGroups, NM
 	{
 		message.id = groupsPtr->id;
 		handled = HandleCreateGroupMessage(&message);
-#if INTERNALDEBUG
 		if (!handled)
 		{
 			DEBUG_PRINT("HandleCreateGroupMessage failed in MakeGroupListFromJoinApprovedMessage for group #%d", message.id);
 		}
-#endif
-		for (j = 0; j < groupsPtr->playerCount; j++)
+
+        for (j = 0; j < groupsPtr->playerCount; j++)
 		{
 			playerAddMessage.player = groupsPtr->players[j];
 			playerAddMessage.group = groupsPtr->id;
 			handled = HandleAddPlayerToGroupMessage(&playerAddMessage);
+            if (!handled)
+            {
+                DEBUG_PRINT("HandleAddPlayerToGroupMessage failed in MakeGroupListFromJoinApprovedMessage for group #%d", message.id);
+            }
 		}
 
 		groupsPtr = (NSpGroupInfoPtr)((NMUInt8 *)groupsPtr + sizeof (NSpGroupInfo) + (((groupsPtr->playerCount == 0) ? 0 : groupsPtr->playerCount - 1)
@@ -609,7 +623,7 @@ UNUSED_PARAMETER(inCookie);
 		{
 			SwapJoinApproved(theMessage);			
 			handled = HandleJoinApproved((TJoinApprovedMessagePrivate *) theMessage, inERObject->GetTimeReceived());
-			handled = true;
+//@TODO: why was this force to true?			handled = true;
 			//ThrowIfNot_(handled);
 			op_assert(handled);
 			passToUser = true;

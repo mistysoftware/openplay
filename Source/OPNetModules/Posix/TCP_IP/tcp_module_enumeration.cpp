@@ -342,6 +342,10 @@ NMErr NMStartEnumeration(NMConfigRef Config, NMEnumerationCallbackPtr Callback, 
 
 				/* enable broadcast on socket */
 				status = setsockopt(Config->enumeration_socket, SOL_SOCKET, SO_BROADCAST, (char*)&option_val, sizeof(int));
+                if( status )
+                {
+                    DEBUG_PRINT("Warning: unable to set socket");
+                }
 
 				/* set socket non-blocking */
 				SetNonBlockingMode(Config->enumeration_socket);
@@ -395,20 +399,18 @@ NMErr NMStartEnumeration(NMConfigRef Config, NMEnumerationCallbackPtr Callback, 
 
 NMErr NMIdleEnumeration(NMConfigRef Config)
 {
-
 	//DEBUG_ENTRY_EXIT("NMIdleEnumeration");
 
 	if (module_inited < 1)
 		return kNMInternalErr;
 
-	NMErr  err;
-
+	NMErr err = kNMNoError;
 
 	if (!Config)
-	return(kNMParameterErr);
+		return(kNMParameterErr);
 
 	if (Config->cookie != config_cookie)
-	return(kNMInvalidConfigErr);
+		return(kNMInvalidConfigErr);
 
 	//we do nothing for inactive enumeration
 	if (Config->activeEnumeration == false)
@@ -416,9 +418,7 @@ NMErr NMIdleEnumeration(NMConfigRef Config)
 
 	if (Config->enumerating)
 	{
-
 		err = _handle_packets(Config);
-
 		if ((err == kNMNoError) && (Config->new_game_count))  /* add game to list */
 		{
 			int index;
@@ -522,8 +522,10 @@ NMErr NMIdleEnumeration(NMConfigRef Config)
 		}
 	}
 	else
+    {
 		err = kNMNotEnumeratingErr;
-		
+    }
+
 	// ..and request more games...... 
 	_send_game_request_packet(Config);
 
@@ -531,7 +533,7 @@ NMErr NMIdleEnumeration(NMConfigRef Config)
 	//network processing
 	NMIdle(NULL);
 	
-	return(kNMNoError);
+	return( err );
 
 } /* NMIdleEnumeration */
 

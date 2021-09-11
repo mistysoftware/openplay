@@ -261,6 +261,10 @@ static NMErr _get_standard_config_strings(char *string, NMConfigRef config)
 	/* get the mode */
 	length = sizeof(config->connectionMode);
 	status = get_token(string, kConfigEndpointMode, LONG_DATA, &config->connectionMode, &length);
+    if (status)
+    {
+        DEBUG_PRINT("Warning: ignoring endpoint connection mode parameter of NMCreateConfig [%ld]", config->connectionMode);
+    }
 
 	return error;
 } /*  _get_standard_config_strings */
@@ -425,25 +429,28 @@ NMErr NMCreateConfig(char *ConfigStr,
 		_config->games = NULL;
 		_config->game_count = 0;
 		_config->new_game_count = 0;
+
+        status = gethostname(_config->host_name, 256);
+        if (status)
+        {
+            DEBUG_PRINT("Warning: unable to get host name");
+        }
+
+        if (GameName)
+        {
+            strncpy(_config->name, GameName, kMaxGameNameLen);
+            _config->name[kMaxGameNameLen] = '\0';
+        }
+        else
+            _config->name[0] = '\0';
+
+        if (ConfigStr)
+            err = _parse_config_string(ConfigStr, GameID, _config);
 	}
 	else
 	{
-		*Config = NULL;
-		return(kNMOutOfMemoryErr);
+        err = kNMOutOfMemoryErr;
 	}
-
-	status = gethostname(_config->host_name, 256);
-
-	if (GameName)
-	{
-		strncpy(_config->name, GameName, kMaxGameNameLen);
-		_config->name[kMaxGameNameLen] = '\0';
-	}
-	else
-		_config->name[0] = '\0';
-
-	if (ConfigStr)
-		err = _parse_config_string(ConfigStr, GameID, _config);
 
 	if (err)
 	{
