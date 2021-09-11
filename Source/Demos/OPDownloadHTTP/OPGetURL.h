@@ -35,20 +35,14 @@ typedef enum
 	kDLStatusFailed
 }OPHTTPDownloadStatus;
 
-/* Get ready to rumble.  On mac carbon Open-Transport based builds, you can optionally pass
-an OTContext to be used - otherwise a new context will be inited using kInitOTForApplicationMask. */
-
-#if (OP_PLATFORM_MAC_CARBON_FLAG)
-	void OPHTTPInit(OTClientContextPtr theOTContext);
-#else
-	void OPHTTPInit(void *unused);
-#endif
+/* Get ready to rumble. */
+void OPHTTPInit(void);
 
 /* Cleans up. */
 void OPHTTPTerm(void);
 
 /* Start a new download.  This never fails - any errors are returned with the first call to ProcessOPHTTPDownload. */
-OPHTTPDownload* NewOPHTTPDownload(char *url, NMBoolean skipHeader);
+OPHTTPDownload* NewOPHTTPDownload(const char *url, NMBoolean skipHeader);
 
 /* Disposes a download - cancels if not finished. */
 void	DisposeOPHTTPDownload(OPHTTPDownload *theDownload);

@@ -45,7 +45,7 @@ NMUInt32 DebugPrintEntryExit::gDepth = 0;
 // DebugPrintEntryExit::DebugPrintEntryExit
 //----------------------------------------------------------------------------------------
 
-DebugPrintEntryExit::DebugPrintEntryExit(char *inFunctionName)
+DebugPrintEntryExit::DebugPrintEntryExit(const char *inFunctionName)
 {
 char	tabs[56];
 	

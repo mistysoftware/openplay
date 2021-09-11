@@ -76,7 +76,7 @@ int main(int argc, char **argv)
 #endif
 	
 	
-	OPHTTPInit(NULL);
+	OPHTTPInit();
 	
 	//open an outfile
 	remove("outfile");
@@ -98,7 +98,7 @@ int main(int argc, char **argv)
 		
 		for (i = 0; i < 10; i++) {
 			if ( *defaultURLs[i] != 0 ) {
-				printf("%ld> %s\n", i, defaultURLs[i]);
+				printf("%d> %s\n", i, defaultURLs[i]);
                                 fflush(stdout);
 			}
 		}

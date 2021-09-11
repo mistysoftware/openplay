@@ -51,10 +51,10 @@ extern "C" {
 	#endif // OP_PLATFORM_MAC_CARBON_FLAG
 
 	//utils for manipulating config string items
-	NMBoolean 	doGetConfigSubString(char *configStr, char *itemName, char *buffer, long bufferLen);
+	NMBoolean 	doGetConfigSubString(const char *configStr, const char *itemName, char *buffer, long bufferLen);
 	
 	// appends a name/value pair to a config string or, if already there, modifies it
-	void		doSetConfigSubString(char *configStr, char *itemName, char *itemValue);
+	void		doSetConfigSubString(char *configStr, const char *itemName, const char *itemValue);
 #ifdef __cplusplus
 }
 #endif // __cplusplus

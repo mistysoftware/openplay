@@ -486,7 +486,7 @@ static void build_find_protocol_search_start(
 	// we load plugins from disk based on an absolute location specified
 	// by an environment variable (or a default location if not set)
 	
-		search_start->bundle = CFBundleGetBundleWithIdentifier(CFSTR("com.apple.openplay"));
+		search_start->bundle = CFBundleGetBundleWithIdentifier(CFSTR("com.apple.OpenPlay"));
 		op_assert(search_start->bundle);
 		
 #elif defined(OP_API_PLUGIN_POSIX) || defined(OP_API_PLUGIN_POSIX_DARWIN)

@@ -73,8 +73,8 @@ NMErr NetworkStartServer
 
 NMErr NetworkStartClient
 (
-	char *ipAddr,					/* IP address (or domain name) to look for server (host) on */
-	char *port,						/* Port to talk to server via */
+	const char *ipAddr,				/* IP address (or domain name) to look for server (host) on */
+	const char *port,				/* Port to talk to server via */
 	const unsigned char *playerName	/* name of player wanting to join */
 );
 

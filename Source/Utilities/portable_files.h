@@ -40,6 +40,7 @@
     char name[MAX_PATHNAME_LENGTH];
   } FileDesc;
 
+  typedef NMUInt32	FileType;   /* same as an OSType. For DOS, this is the extension... */
 
   #define d_LIBRARY_TYPE   'DLL '
 
@@ -126,7 +127,6 @@
 
 #ifndef OP_PLATFORM_MAC_CFM
 
-		typedef NMUInt32	FileType;   /* same as an OSType. For DOS, this is the extension... */
 		typedef NMErr 		FileError;          /* same as NMErr */
 
 #endif /* OP_PLATFORM_MAC_CFM */

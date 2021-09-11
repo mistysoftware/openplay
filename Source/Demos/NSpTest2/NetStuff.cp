@@ -334,7 +334,7 @@ StringHandle	userName;
 			char timeString[64];
 			long theTime;
 			time(&theTime);
-			sprintf(timeString,"%d",theTime);
+			sprintf(timeString,"%ld",theTime);
 			PLstrcpy(name,"\pClient-Player00");
 			name[name[0] - 1] = timeString[strlen(timeString) - 2];
 			name[name[0] - 0] = timeString[strlen(timeString) - 1];
@@ -388,16 +388,16 @@ RefreshWindow(WindowPtr inWindow)
 	
 	if (stuff->id == gMyPlayerID) //its the local player
 	{
-		sprintf(stuff->TextLine1,"%d gamestates received;(%d/sec); %d bytes; (%.1fk/sec); w/header: %d (%.1fk/sec)",
+		sprintf(stuff->TextLine1,"%lu gamestates received;(%lu/sec); %lu bytes; (%.1fk/sec); w/header: %lu (%.1fk/sec)",
 			stuff->gameStateCount,stuff->gameStateRate,stuff->gameStateBytes,stuff->gameStateThroughput,stuff->totalGameStateBytes,stuff->totalGameStateThroughput);
-		sprintf(stuff->TextLine2,"%d player-inputs sent;(%d/sec); %d bytes; (%.1fk/sec); w/header: %d (%.1fk/sec)",
+		sprintf(stuff->TextLine2,"%lu player-inputs sent;(%lu/sec); %lu bytes; (%.1fk/sec); w/header: %lu (%.1fk/sec)",
 			stuff->playerInputCount,stuff->playerInputRate,stuff->playerInputBytes,stuff->playerInputThroughput,stuff->totalPlayerInputBytes,stuff->totalPlayerInputThroughput);
 	}
 	else //its a remote player - swap sent/received
 	{
-		sprintf(stuff->TextLine1,"%d gamestates sent;(%d/sec); %d bytes; (%.1fk/sec); w/header: %d (%.1fk/sec)",
+		sprintf(stuff->TextLine1,"%lu gamestates sent;(%lu/sec); %lu bytes; (%.1fk/sec); w/header: %lu (%.1fk/sec)",
 			stuff->gameStateCount,stuff->gameStateRate,stuff->gameStateBytes,stuff->gameStateThroughput,stuff->totalGameStateBytes,stuff->totalGameStateThroughput);
-		sprintf(stuff->TextLine2,"%d player-inputs received;(%d/sec); %d bytes; (%.1fk/sec); w/header: %d (%.1fk/sec)",
+		sprintf(stuff->TextLine2,"%lu player-inputs received;(%lu/sec); %lu bytes; (%.1fk/sec); w/header: %lu (%.1fk/sec)",
 			stuff->playerInputCount,stuff->playerInputRate,stuff->playerInputBytes,stuff->playerInputThroughput,stuff->totalPlayerInputBytes,stuff->totalPlayerInputThroughput);
 	}
 	
@@ -408,19 +408,19 @@ RefreshWindow(WindowPtr inWindow)
 		//otherwise its a remote - we can only check player inputs
 		if (stuff->id == gMyPlayerID)
 		{
-			sprintf(stuff->TextLine3,"%d corrupt gamestates received by player;  %d corrupt player-inputs received from player",stuff->erroneousGameStates,stuff->erroneousPlayerInputs);
-			sprintf(stuff->TextLine4,"%d out-of-order gamestates received by player;  %d out-of-order player-inputs received from player",stuff->outOfOrderGameStates,stuff->outOfOrderPlayerInputs);
+			sprintf(stuff->TextLine3,"%lu corrupt gamestates received by player;  %lu corrupt player-inputs received from player",stuff->erroneousGameStates,stuff->erroneousPlayerInputs);
+			sprintf(stuff->TextLine4,"%lu out-of-order gamestates received by player;  %lu out-of-order player-inputs received from player",stuff->outOfOrderGameStates,stuff->outOfOrderPlayerInputs);
 		}
 		else
 		{
-			sprintf(stuff->TextLine3, " %d corrupt player-inputs received from player",stuff->erroneousPlayerInputs);
-			sprintf(stuff->TextLine4, " %d out-of-order player-inputs received from player",stuff->outOfOrderPlayerInputs);
+			sprintf(stuff->TextLine3, " %lu corrupt player-inputs received from player",stuff->erroneousPlayerInputs);
+			sprintf(stuff->TextLine4, " %lu out-of-order player-inputs received from player",stuff->outOfOrderPlayerInputs);
 		}
 	}
 	else
 	{
-		sprintf(stuff->TextLine3,"%d corrupt gamestates from host",stuff->erroneousGameStates);
-		sprintf(stuff->TextLine4,"%d gamestate discontinuities from host",stuff->outOfOrderGameStates);
+		sprintf(stuff->TextLine3,"%lu corrupt gamestates from host",stuff->erroneousGameStates);
+		sprintf(stuff->TextLine4,"%lu gamestate discontinuities from host",stuff->outOfOrderGameStates);
 	}
 	
 	c2pstr(stuff->TextLine1);
@@ -480,7 +480,7 @@ InitNetworking(NSpGameID inGameID)
 	memset(gWindowStuff, 0, sizeof(WindowStuff) * 8);
 	status = NSpInitialize(kStandardMessageSize, kBufferSize, kQElements, inGameID, kTimeout);
 	if (status != noErr){
-		printf("NSpInitialize returned error %d\n", status);
+		printf("NSpInitialize returned error %ld\n", status);
 		fflush(stdout);
 	}
 	else
@@ -493,7 +493,7 @@ InitNetworking(NSpGameID inGameID)
 	status = NSpInstallAsyncMessageHandler(MessageHandler, gContextString);
 	if (status != noErr)
 	{
-		printf("NSpInstallAsyncMessageHandler returned error %d\n", status);
+		printf("NSpInstallAsyncMessageHandler returned error %ld\n", status);
 		fflush(stdout);
 	}
 	MenuHandle h = GetMenuHandle(131);
@@ -548,14 +548,14 @@ NMErr	status;
 			}
 			else
 			{
-				printf("NSpGame_Dispose returned error %d\n", status);
+				printf("NSpGame_Dispose returned error %ld\n", status);
 				fflush(stdout);
 			}
 //			I REALLY want it to shutdown
 			status = NSpGame_Dispose( gNetGame, kNSpGameFlag_ForceTerminateGame );	
 			if (status != noErr)
 			{
-				printf("NSpGame_Dispose (force) returned error %d\n", status);
+				printf("NSpGame_Dispose (force) returned error %ld\n", status);
 				fflush(stdout);
 			}
 		}
@@ -644,61 +644,61 @@ HandleNetMenuChoice(short menu, short item)
 		break;
 		case i1X:
 			*frequency = 60;
-			printf("frequency set to %d\n",60 / *frequency);
+			printf("frequency set to %lu\n",60 / *frequency);
 			fflush(stdout);
 			break;
 			
 		case i10X:
 			*frequency = 6;
-			printf("frequency set to %d\n",60 / *frequency);
+			printf("frequency set to %lu\n",60 / *frequency);
 			fflush(stdout);
 			break;
 			
 		case i30X:
 			*frequency = 2;
-			printf("frequency set to %d\n",60 / *frequency);
+			printf("frequency set to %lu\n",60 / *frequency);
 			fflush(stdout);
 			break;
 			
 		case iNoLimit:
 			*frequency = 0;
-			printf("frequency set to %d\n",60 / *frequency);
+			printf("frequency set to %lu\n",60 / *frequency);
 			fflush(stdout);
 			break;
 			
 		case i4:
 			*size = 4;
-			printf("size set to %d\n",*size);
+			printf("size set to %lu\n",*size);
 			fflush(stdout);
 			break;
 
 		case i16:
 			*size = 16;
-			printf("size set to %d\n",*size);
+			printf("size set to %lu\n",*size);
 			fflush(stdout);
 			break;
 			
 		case i400:
 			*size = 400;
-			printf("size set to %d\n",*size);
+			printf("size set to %lu\n",*size);
 			fflush(stdout);
 			break;
 			
 		case i1K:
 			*size = 1024;
-			printf("size set to %d\n",*size);
+			printf("size set to %lu\n",*size);
 			fflush(stdout);
 			break;
 			
 		case i10K:
 			*size = 10240;
-			printf("size set to %d\n",*size);
+			printf("size set to %lu\n",*size);
 			fflush(stdout);
 			break;
 			
 		case i100K:
 			*size = 102400;
-			printf("size set to %d\n",*size);
+			printf("size set to %lu\n",*size);
 			fflush(stdout);
 			break;
 			
@@ -824,7 +824,7 @@ DoHost(void)
 	status = NSpProtocolList_New(NULL, &theList);
 	if (status != noErr)
 	{
-		printf("NSpProtocolList_New returned error: %d\n", status);
+		printf("NSpProtocolList_New returned error: %ld\n", status);
 		fflush(stdout);
 		goto failure;
 	}
@@ -850,7 +850,7 @@ DoHost(void)
 				password, playerName, 0, kNSpClientServer, 0);
 	if (status != noErr)
 	{
-		printf("NSpGame_Host returned error %d\n", status);
+		printf("NSpGame_Host returned error %ld\n", status);
 		fflush(stdout);
 		goto failure;
 	}
@@ -897,7 +897,7 @@ DoJoin(void)
 	status = NSpGame_Join(&gNetGame, theAddress, playerName, password, 0, NULL, 0, 0);
 	if (status != noErr)
 	{
-		printf("NSpGame_Join returned error %d\n", status);
+		printf("NSpGame_Join returned error %ld\n", status);
 		fflush(stdout);
 	}
 	else		
@@ -953,7 +953,7 @@ DoHandleMessage(NSpMessageHeader *inMessage)
 			//there's a chance this might get here before the player-joined for the player it belongs to
 			if (stuff == NULL)
 			{
-				printf("Got a PlayerInput message from a player we don't know exists. (%d)\nperhaps we just havn't gotten the PlayerJoined yet\n",inMessage->from);
+				printf("Got a PlayerInput message from a player we don't know exists. (%ld)\nperhaps we just havn't gotten the PlayerJoined yet\n",inMessage->from);
 				fflush(stdout);
 				break;
 			}
@@ -973,7 +973,7 @@ DoHandleMessage(NSpMessageHeader *inMessage)
 			//there's a chance this might get here before the player-joined for the player it belongs to
 			if (stuff == NULL)
 			{
-				printf("Got a GameState message from a player we don't know exists. (%d)\nperhaps we just havn't gotten the PlayerJoined yet\n",inMessage->from);
+				printf("Got a GameState message from a player we don't know exists. (%ld)\nperhaps we just havn't gotten the PlayerJoined yet\n",inMessage->from);
 				fflush(stdout);			
 				break;
 			}
@@ -993,7 +993,7 @@ DoHandleMessage(NSpMessageHeader *inMessage)
 		case kNSpPlayerJoined:
 		{
 			NSpPlayerJoinedMessage *theMessage = (NSpPlayerJoinedMessage *) inMessage;
-			printf("Got player joined message: %d\n", theMessage->playerInfo.id);
+			printf("Got player joined message: %ld\n", theMessage->playerInfo.id);
 			fflush(stdout);
 
 			//the host makes windows for all joiners, and clients only make a window for themselves
@@ -1067,7 +1067,7 @@ DoHandleMessage(NSpMessageHeader *inMessage)
 						
 						//tell whether its a local or remote player
 						{
-							char *whatIsIt;
+							const char *whatIsIt;
 							if ((gHost) && (theMessage->playerInfo.id == gMyPlayerID))
 								whatIsIt = "host";
 							else
@@ -1075,17 +1075,21 @@ DoHandleMessage(NSpMessageHeader *inMessage)
 								
 							if (theMessage->playerInfo.id == gMyPlayerID)
 							{
-								char nameString[256];
-								sprintf(nameString,"%#s (local player; %s; id:%d)",theMessage->playerInfo.name,whatIsIt,theMessage->playerInfo.id);
-								c2pstr(nameString);
-								SetWTitle(wind,(UInt8*)nameString);
+								Str255 titleString;
+								char nameString[kNSpStr32Len];
+								doCopyP2CStr(theMessage->playerInfo.name, nameString);
+								sprintf((char *)titleString,"%s (local player; %s; id:%ld)",nameString,whatIsIt,theMessage->playerInfo.id);
+								c2pstr((char*)titleString);
+								SetWTitle(wind,titleString);
 							}
 							else
 							{
-								char nameString[256];
-								sprintf(nameString,"%#s (remote player; %s; id:%d)",theMessage->playerInfo.name,whatIsIt,theMessage->playerInfo.id);
-								c2pstr(nameString);
-								SetWTitle(wind,(UInt8*)nameString);
+								Str255 titleString;
+								char nameString[kNSpStr32Len];
+								doCopyP2CStr(theMessage->playerInfo.name, nameString);
+								sprintf((char *)titleString,"%s (remote player; %s; id:%ld)",nameString,whatIsIt,theMessage->playerInfo.id);
+								c2pstr((char *)titleString);
+								SetWTitle(wind,titleString);
 							}
 						}
 						SetWRefCon(wind, (long) stuff);
@@ -1105,7 +1109,7 @@ DoHandleMessage(NSpMessageHeader *inMessage)
 			BlockMoveData(theMessage->playerName + 1, name, theMessage->playerName[0]);
 			name[theMessage->playerName[0]] = '\0';
 			
-			printf("Got player left message: %s, player #%d\n", name, theMessage->playerID);
+			printf("Got player left message: %s, player #%ld\n", name, theMessage->playerID);
 			fflush(stdout);
 			
 
@@ -1233,7 +1237,7 @@ NMErr	status;
 		status = NSpMessage_Send(gNetGame, &gPlayerMessage.h, gSendOptions);
 		if (status != noErr)
 		{
-			printf("NSpMessage_Send returned error: %d\n", status);
+			printf("NSpMessage_Send returned error: %ld\n", status);
 			fflush(stdout);
 		}
 
@@ -1268,7 +1272,7 @@ NMErr	status;
 		status = NSpMessage_Send(gNetGame, &gGameStateMessage.h, gHostSendOptions);
 		if (status != noErr)
 		{
-			printf("NSpMessage_Send returned error: %d\n", status);
+			printf("NSpMessage_Send returned error: %ld\n", status);
 			fflush(stdout);
 		}
 		gLastHostUpdate = time;
@@ -1459,7 +1463,7 @@ void decode_transmission(long fromID, WindowStuff *stuff, UInt8 *data, long leng
 		if ((!stuff->first_decode) || (gHost))
 		{
 			(*outOfOrderCount)++;
-			printf("out-of-order packet from player %d: expected start value %d; got %d;\n",fromID,*receiveCodeCount,firstValue);
+			printf("out-of-order packet from player %ld: expected start value %lu; got %lu;\n",fromID,*receiveCodeCount,firstValue);
 			fflush(stdout);
 		}
 		stuff->changed = true;
@@ -1484,7 +1488,7 @@ void decode_transmission(long fromID, WindowStuff *stuff, UInt8 *data, long leng
 		#endif
 		if (*ptr != *receiveCodeCount)
 		{
-			printf("erroneous packet from player %d with start value %d\n",fromID,firstValue);
+			printf("erroneous packet from player %ld with start value %lu\n",fromID,firstValue);
 			fflush(stdout);
 			(*erroneousCount)++;
 			stuff->changed = true;

@@ -153,9 +153,9 @@ NMBoolean doComparePStr(const NMUInt8 *stringOne, const NMUInt8 *stringTwo)
 // doGetConfigSubString
 //----------------------------------------------------------------------------------------
 //obtain the value of an item within a config string
-NMBoolean 	doGetConfigSubString(char *configStr, char *itemName, char *buffer, long bufferLen)
+NMBoolean 	doGetConfigSubString(const char *configStr, const char *itemName, char *buffer, long bufferLen)
 {
-	char *value = strstr(configStr,itemName);
+	const char *value = strstr(configStr,itemName);
 	if (value == NULL){
 		return false;
 	}
@@ -177,7 +177,7 @@ NMBoolean 	doGetConfigSubString(char *configStr, char *itemName, char *buffer, l
 
 //set the value of an item within a config string, or append it if it does not exist
 
-void		doSetConfigSubString(char *configStr, char *itemName, char *itemValue)
+void		doSetConfigSubString(char *configStr, const char *itemName, const char *itemValue)
 {
 	char buffer[256];
 	char *nameStart;

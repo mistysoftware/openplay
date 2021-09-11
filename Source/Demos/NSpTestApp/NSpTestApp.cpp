@@ -885,7 +885,7 @@ Do_Modal_Join( NSpAddressReference  &gAddressRef )
 	cout << "NSpDoModalJoinDialog not yet implemented." << endl;
 
 		//  Remove after NSpDoModalJoinDialog is implemented.
-#endif OP_PLATFORM_MAC_CFM
+#endif /* OP_PLATFORM_MAC_CFM */
 	
 }
 
@@ -1325,10 +1325,10 @@ Send_Message( NSpGameReference  gGameObject, int messageType )
 
 	if (messageType == kNSpSendFlag_Registered)
 		//strcpy( gDataToSend->dataStr, kCannedRegisteredMessage );
-		sprintf(gDataToSend->dataStr,"just a friendly registered message from player %d",ourNSpID);
+		sprintf(gDataToSend->dataStr,"just a friendly registered message from player %ld",ourNSpID);
 	else
 		//strcpy( gDataToSend->dataStr, kCannedJunkMessage );
-		sprintf(gDataToSend->dataStr,"just a friendly junk message from player %d",ourNSpID);
+		sprintf(gDataToSend->dataStr,"just a friendly junk message from player %ld",ourNSpID);
 	
 	gDataToSend->header.messageLen = sizeof(NSpMessageHeader) + 
 										strlen(gDataToSend->dataStr) + 1;

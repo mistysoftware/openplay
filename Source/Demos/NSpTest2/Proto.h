@@ -56,7 +56,7 @@
 	#include <AppleEvents.h>
 #endif
 
-#include "app.h"
+#include "App.h"
 
 #ifdef __cplusplus
 extern "C" {

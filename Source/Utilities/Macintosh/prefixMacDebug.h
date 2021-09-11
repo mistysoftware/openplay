@@ -29,8 +29,6 @@
 	#define DEBUG			1
 	#define DEBUGCALLCHAIN 	0
 
-	#ifndef OP_PLATFORM_MAC_CARBON_FLAG
-		#include "prefixMac.h"
-	#endif
+	#include "prefixMac.h"
 
 #endif // __PREFIXMACDEBUG__

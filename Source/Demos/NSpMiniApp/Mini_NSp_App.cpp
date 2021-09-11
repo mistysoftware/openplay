@@ -38,6 +38,7 @@
 
 #include "OpenPlay.h"
 #include "OPUtils.h"
+#include "String_Utils.h"
 
 using namespace std;  //introduces namespace std
 
@@ -518,9 +519,9 @@ Join_Game_AT( NSpGameReference  &gGameObject)
 
 	//  Freakin' Pascal Strings.  ARRRRRGGGGGGHHHHH!   CRT, July 2, 2000
 	
-	sprintf(gameNameC, "%#s", NBPName);
-	sprintf(gameTypeC, "%#s", NBPType);
-	
+	doCopyP2CStr(NBPName, gameNameC);
+	doCopyP2CStr(NBPType, gameTypeC);
+
 	addressRef = NSpCreateATlkAddressReference(gameNameC, gameTypeC, NULL);
 
 	if ( addressRef == NULL ) {
@@ -609,20 +610,19 @@ Wait_For_Approval(NSpGameReference &gGameObject, char *theDenyReason)
 					break;			
 	
 					case kNSpJoinDenied:
-						sprintf(theDenyReason, "%#s\0", 
-							 ((NSpJoinDeniedMessage *) message) -> reason );
+						doCopyP2CStr(((NSpJoinDeniedMessage *) message) -> reason, theDenyReason);
 						response = true;
 						approved = false;
 					break;			
 							
 					case kNSpError:
-						sprintf(theDenyReason, "Error # %d\0", ((NSpErrorMessage *) message) -> error );
+						sprintf(theDenyReason, "Error # %ld", ((NSpErrorMessage *) message) -> error );
 						response = true;
 						approved = false;
 					break;
 							
 					case kNSpGameTerminated:
-						sprintf(theDenyReason, "Lost connection to server.\0");
+						sprintf(theDenyReason, "Lost connection to server.");
 						response = true;
 						approved = false;
 					break;
@@ -698,8 +698,8 @@ Get_Game_Info( NSpGameReference  gGameObject )
 		char	gameNameC[ kNSpStr32Len ];
 		char	gamePassC[ kNSpStr32Len ];
 		
-		sprintf(gameNameC, "%#s", gameInfo.name);
-		sprintf(gamePassC, "%#s", gameInfo.password);
+		doCopyP2CStr(gameInfo.name, gameNameC);
+		doCopyP2CStr(gameInfo.password, gamePassC);
 
 		cout << endl << "GAME INFO:" << endl;
 		cout << "\t Max Players:  " << gameInfo.maxPlayers << endl;
@@ -908,7 +908,7 @@ Print_Players( NSpGameReference  gGameObject )
 		{
 			playerInfoPtr = playerEnumPtr -> playerInfo[playerIndex];
 						
-			sprintf(playerNameC, "%#s", playerInfoPtr->name);
+			doCopyP2CStr(playerInfoPtr->name, playerNameC);
 
 			cout << endl << "\t\t NetSprocket ID:  " << playerInfoPtr->id << endl;
 			cout << "\t\t Player Type:  " << playerInfoPtr->type << endl;

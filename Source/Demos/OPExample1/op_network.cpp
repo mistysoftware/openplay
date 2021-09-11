@@ -127,7 +127,7 @@ NMErr 		NetworkSendName			(char *name);
 /* ----------------------------------------------------------- Local Variables */
 
 extern "C"{
-	char *GameNameStr = "OpenPlay ProtocolAPI Example1"; 	/* name of this version of the app*/
+	const char *GameNameStr = "OpenPlay ProtocolAPI Example1"; 	/* name of this version of the app*/
 }
 /* Globals used to handle our interaction with OpenPlay's  API */
 
@@ -143,7 +143,7 @@ static NMBoolean _hostClosing = false; 		/* so we dont accidentally close our ho
 static NMBoolean _clientClosing = false; 	/* same for our local active endpoint if we have one */
 static char 	_gameName	[128];			/* name of the current hosted game */
 
-#if TARGET_API_MAC_CARBON
+#if OP_PLATFORM_MAC_CFM && TARGET_API_MAC_CARBON
 	static OTClientContextPtr theOTContext; /* we use open transport for interrupt-safe memory allocation */
 #endif
 
@@ -167,7 +167,7 @@ static void _interruptSafeDispose(void *data)
 		OTFreeMem(data);
 	#elif (OP_PLATFORM_WINDOWS)
 		GlobalFree((HGLOBAL)data);
-	#elif (OP_PLATFORM_UNIX)
+	#else // (OP_PLATFORM_UNIX) || (OP_PLATFORM_MAC_MACHO)
 		free(data);
 	#endif
 
@@ -191,7 +191,7 @@ static void * _interruptSafeAllocate(long size)
 		#endif
 	#elif (OP_PLATFORM_WINDOWS)
 		return GlobalAlloc(GPTR,size);
-	#elif (OP_PLATFORM_UNIX)
+	#else // (OP_PLATFORM_UNIX) || (OP_PLATFORM_MAC_MACHO)
 		return malloc(size);
 	#endif
 }
@@ -353,7 +353,7 @@ static MessageStorageNode* _getNextNetMessage(void)
 	 EXIT:	0 == no error, else error code
 */
 
-static NMErr _replaceConfigStringValue(char *theString, char *name, char *newValue)
+static NMErr _replaceConfigStringValue(char *theString, const char *name, const char *newValue)
 {
 	char buffer[256];
 	char *nameStart;
@@ -842,8 +842,8 @@ NMErr NetworkStartServer
 
 NMErr NetworkStartClient
 (
-	char *ipAddr,					/* IP address (or domain name) to look for server (host) on */
-	char *port,						/* Port to talk to server via */
+	const char *ipAddr,					/* IP address (or domain name) to look for server (host) on */
+	const char *port,					/* Port to talk to server via */
 	const unsigned char *playerNameIn	/* name of player wanting to join */
 )
 {

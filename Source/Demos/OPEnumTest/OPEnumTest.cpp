@@ -59,7 +59,7 @@ NMBoolean endpointClosed = false;
 NMLIFO enumItemList;
 OPEnumGamePtr enumGameList;
 NMBoolean someoneTriedToConnect = false;
-#ifdef OP_PLATFORM_MAC_CARBON_FLAG
+#if defined(OP_PLATFORM_MAC_CFM) && defined(OP_PLATFORM_MAC_CARBON_FLAG)
 	static OTClientContextPtr theOTContext;
 #endif
 
@@ -142,8 +142,9 @@ int main(int argc, char **argv)
 			fflush(stdout);
 		}else{
 			protocolType = ourProtocol.type;
-			printf("chose protocol type: '%c%c%c%c'\n",(protocolType >> 24) & 0xFF,(protocolType >> 16) & 0xFF,
-				(protocolType >> 8) & 0xFF,(protocolType >> 0) & 0xFF);
+			printf("chose protocol type: '%c%c%c%c'\n",
+				(char)((protocolType >> 24) & 0xFF),(char)((protocolType >> 16) & 0xFF),
+				(char)((protocolType >> 8) & 0xFF),(char)((protocolType >> 0) & 0xFF));
 			fflush(stdout);
 			break;
 		}
@@ -168,14 +169,14 @@ int main(int argc, char **argv)
 									NULL,
 									&config);
 		if (err){
-			printf("err %d on doProtocolCreateConfig\n",err);
+			printf("err %ld on doProtocolCreateConfig\n",err);
 			return 0;
 		}
 		
 		//use our config to launch a game
 		err = ProtocolOpenEndpoint(config,ourOPCallback,(void*)NULL, &ourEndPoint, (NMOpenFlags)0);
 		if (err){
-			printf("err %d on ProtocolOpenEndpoint\n",err);
+			printf("err %ld on ProtocolOpenEndpoint\n",err);
 			return 0;
 		}
 		
@@ -187,7 +188,7 @@ int main(int argc, char **argv)
 	//until we're quit
 	err = ProtocolStartEnumeration(config,ourEnumerationCallback,NULL,true);
 	if (err){
-		printf("err %d on ProtocolStartEnumeration",err);
+		printf("err %ld on ProtocolStartEnumeration",err);
 		fflush(stdout);
 		return 0;
 	}
@@ -233,7 +234,7 @@ int main(int argc, char **argv)
 				//we've got a game - bind to it and try connecting
 				err = ProtocolBindEnumerationToConfig(config,theGame->hostID);
 				if (err){
-					printf("err %d binding to config\n",err);
+					printf("err %ld binding to config\n",err);
 					fflush(stdout);
 					return 0;
 				}
@@ -250,7 +251,7 @@ int main(int argc, char **argv)
 					printf("in that case, check the machine you tried to join for a connection attempt notice\n");
 				}
 				else
-					printf("error %d on ProtocolOpenEndpoint\n",err);
+					printf("error %ld on ProtocolOpenEndpoint\n",err);
 			}
 			else
 				printf("invalid game number\n");	
@@ -265,7 +266,7 @@ int main(int argc, char **argv)
 			fflush(stdout);
 			err = ProtocolIdleEnumeration(config);
 			if (err){
-				printf("error type %d on ProtocolIdleEnumeration\n",err);
+				printf("error type %ld on ProtocolIdleEnumeration\n",err);
 				fflush(stdout);
 				return 0;
 			}
@@ -374,7 +375,7 @@ void storeEnumMessage(NMEnumerationCommand command, NMEnumerationItem *item)
 		#endif
 	#elif defined(OP_PLATFORM_WINDOWS)
 		theMessage = (OPEnumMessage*)GlobalAlloc(GPTR,sizeof(OPEnumMessage));
-	#elif defined(OP_PLATFORM_UNIX)
+	#else // defined(OP_PLATFORM_UNIX) || defined(OP_PLATFORM_MAC_MACHO)
 		theMessage = (OPEnumMessage*)malloc(sizeof(OPEnumMessage));
 	#endif
 	
@@ -405,15 +406,13 @@ NMBoolean getEnumMessage(NMEnumerationCommand *command, NMEnumerationItem *item)
 		*item = theMessage->item;
 		currentList = currentList->fNext;
 		//dispose of our interrupt-safely allocated pointer
-		#if (OP_PLATFORM_MAC_CFM)
+		#if OP_PLATFORM_MAC_CFM
 			OTFreeMem(theMessage);
-		#endif //OP_PLATFORM_MAC_CFM
-		#if (OP_PLATFORM_WINDOWS)
+		#elif OP_PLATFORM_WINDOWS
 			GlobalFree((HGLOBAL)theMessage);
-		#endif //OP_PLATFORM_WINDOWS
-		#if (OP_PLATFORM_UNIX)
+		#else // OP_PLATFORM_UNIX || OP_PLATFORM_MAC_MACHO
 			free(theMessage);
-		#endif //OP_PLATFORM_UNIX
+		#endif
 		return true;
 	}
 	return false;

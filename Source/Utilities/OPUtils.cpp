@@ -238,7 +238,7 @@ NMUInt32 GetTimestampMilliseconds()
 //----------------------------------------------------------------------------------------
 
 char *
-csprintf(char *buffer, char *format, ...)
+csprintf(char *buffer, const char *format, ...)
 {
 va_list arglist;
 	
@@ -275,14 +275,14 @@ NMSInt16	length;
 
 	void
 	_assertion_failure(
-		char		*information,
-		char		*file,
+		const char		*information,
+		const char		*file,
 		NMUInt32	line,
 		NMBoolean	fatal)
 	{
 	  char buffer[256];
 
-	  sprintf((char *) buffer, "%s in %s,#%d: %s", fatal ? "op_halt" : "op_pause", file, line,
+	  sprintf((char *) buffer, "%s in %s,#%lu: %s", fatal ? "op_halt" : "op_pause", file, line,
 	          information ? information : "<no reason given>");
 
 	  debug_message(buffer);
@@ -319,12 +319,12 @@ NMSInt16	length;
 		void
 		dprintf_oterr(
 			EndpointRef	ep,
-			char		*message,
+			const char		*message,
 			NMErr	err,
-			char		*file,
+			const char		*file,
 			NMSInt32	line)
 		{
-		char	*name;
+		const char	*name;
 		char	error[256];
 		char	state[256];
 
@@ -469,12 +469,12 @@ NMSInt16	length;
 
 	NMErr
 	dprintf_err(
-		char	*message,
+		const char	*message,
 		NMErr	err,
-		char		*file,
+		const char		*file,
 		NMSInt32	line)
 	{
-	char 	*name;
+	const char 	*name;
 		
 		if (err == SOCKET_ERROR)
 			err = WSAGetLastError();
@@ -549,12 +549,12 @@ NMSInt16	length;
 
 	NMErr
 	dprintf_err(
-		char	*message,
+		const char	*message,
 		NMErr	err,
-		char		*file,
+		const char		*file,
 		NMSInt32	line)
 	{
-	char 	*name;
+	const char 	*name;
 		
 		if (err != -1)
 		{

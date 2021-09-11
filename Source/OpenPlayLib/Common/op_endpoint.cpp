@@ -52,7 +52,7 @@ static Endpoint *create_endpoint_for_accept(PEndpointRef endpoint, NMErr *err, N
 static void clean_up_endpoint(PEndpointRef endpoint, NMBoolean return_to_cache);
 
 #if (DEBUG)
-	char* GetOPErrorName(NMErr err);
+	const char* GetOPErrorName(NMErr err);
 #endif 
 
 
@@ -1296,7 +1296,7 @@ static Endpoint *create_endpoint_for_accept(
 #if (DEBUG)
 #define DO_CASE(a) case a: return #a; break
 
-char* GetOPErrorName(NMErr err)
+const char* GetOPErrorName(NMErr err)
 {
 	switch (err){
 		DO_CASE(kNMOutOfMemoryErr);

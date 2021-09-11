@@ -34,7 +34,7 @@
 #include <signal.h>
 #include <fcntl.h>
 
-#include "Openplay.h"
+#include "OpenPlay.h"
 #include "OPUtils.h"
 #include "configuration.h"
 #include "configfields.h"

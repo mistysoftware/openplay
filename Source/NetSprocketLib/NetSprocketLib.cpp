@@ -522,7 +522,7 @@ NSpProtocol_CreateIP(NMInetPort inPort, NMUInt32 inMaxRTT, NMUInt32 inMinThruput
 #ifdef OP_API_NETWORK_OT
 			sprintf(customConfig, "IPport=%u\tnetSprocket=true\0", inPort);
 #else
-			sprintf(customConfig, "type=%u\tversion=256\tgameID=%u\tgameName=unknown\t"
+			sprintf(customConfig, "type=%ld\tversion=256\tgameID=%lu\tgameName=unknown\t"
 							"mode=%u\tIPaddr=127.0.0.1\tIPport=%u\tnetSprocket=true", 
 							netModuleType, gameID, kUberMode, inPort);
 #endif
@@ -1932,7 +1932,7 @@ NSpAddressReference NSpCreateIPAddressReference(const char *inIPAddress, const c
 	
 	gameID = (NMUInt32) gCreatorType;
 			
-	sprintf(customConfig, "type=%u\tversion=256\tgameID=%u\tgameName=unknown\t"
+	sprintf(customConfig, "type=%ld\tversion=256\tgameID=%lu\tgameName=unknown\t"
 							"mode=%u\tIPaddr=%s\tIPport=%s\tnetSprocket=true", 
 							netModuleType, gameID, kUberMode,
 							inIPAddress, inIPPort);

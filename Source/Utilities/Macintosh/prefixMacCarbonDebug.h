@@ -26,7 +26,9 @@
 #ifndef __PREFIXMACCARBONDEBUG__
 #define __PREFIXMACCARBONDEBUG__
 
+	#define DEBUG			1
+	#define DEBUGCALLCHAIN 	0
+
 	#include "prefixMacCarbon.h"
-	#include "prefixMacDebug.h"
 
 #endif // __PREFIXMACCARBONDEBUG__

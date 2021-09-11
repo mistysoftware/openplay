@@ -119,7 +119,7 @@ extern "C" {
 	
 		extern char sz_temporary[1024];
 
-		extern void _assertion_failure(char *assertion, char *file, NMUInt32 line, NMBoolean fatal);
+		extern void _assertion_failure(const char *assertion, const char *file, NMUInt32 line, NMBoolean fatal);
 
 		#define op_halt() _assertion_failure((char *)NULL, __FILE__, __LINE__, true)
 		#define op_vhalt(diag) _assertion_failure(diag, __FILE__, __LINE__, true)
@@ -138,12 +138,12 @@ extern "C" {
 		
 		#ifdef OP_PLATFORM_MAC_CFM
 
-			void 	dprintf_oterr		(EndpointRef endpoint, char *message, NMErr err, char *file, NMSInt32 line);
+			void 	dprintf_oterr		(EndpointRef endpoint, const char *message, NMErr err, const char *file, NMSInt32 line);
 			#define DEBUG_NETWORK_API(endpoint, message, err)	if (err != kNMNoError)	dprintf_oterr(endpoint, message, err, __FILE__, __LINE__)
 
 		#else
 
-			NMErr	dprintf_err			( char	*message, NMErr	err, char *file,NMSInt32	line);
+			NMErr	dprintf_err			( const char	*message, NMErr	err, const char *file,NMSInt32	line);
 			#define DEBUG_NETWORK_API(message, err)	if (err != kNMNoError) { dprintf_err(message, err, __FILE__, __LINE__);}
 
 		#endif
@@ -161,8 +161,13 @@ extern "C" {
 		#define op_vassert_return(expr,diag,err) if (!(expr)) {  return err; }
 		#define op_vassert_justreturn(expr,diag) if (!(expr)) {  return; }
 
-		#define DEBUG_PRINT
-		#define DEBUG_PRINTonERR(format,err)
+		#ifdef __MWERKS__
+			inline	NMSInt32						op_dprintf(const char *format, ...) { return 0L; }
+			#define DEBUG_PRINT (void)op_dprintf
+		#else
+			#define DEBUG_PRINT(format, args...) ((void)0)
+		#endif
+		#define DEBUG_PRINTonERR(format,err) ((void)0)
 
 		#ifdef OP_PLATFORM_MAC_CFM
 			#define DEBUG_NETWORK_API(endpoint, message, err)
@@ -304,7 +309,7 @@ extern "C" {
 	
 	extern NMSInt32 	psprintf(unsigned char *buffer, const char *format, ...);
 
-	extern char *		csprintf(char *buffer, char *format, ...);
+	extern char *		csprintf(char *buffer, const char *format, ...);
 
 	extern NMUInt32 	machine_tick_count(void);
 

@@ -5,23 +5,23 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>tcpip.so</string>
+	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>
-	<string></string>
+	<string>com.apple.$(PRODUCT_NAME:rfc1034identifier)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>OpenPlay TCP/IP Module</string>
+	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.2r4</string>
+	<string>2.2r5</string>
 	<key>CFBundleSignature</key>
 	<string>OPmo</string>
 	<key>CFBundleVersion</key>
-	<string>2.2r4</string>
+	<string>2.2r5</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 1999-2021 Apple Inc.</string>
 </dict>

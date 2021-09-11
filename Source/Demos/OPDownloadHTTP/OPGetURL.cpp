@@ -61,31 +61,18 @@ typedef struct MessageStorageNode
 }MessageStorageNode, *MessageStorageNodePtr;
 
 
-#if TARGET_API_MAC_CARBON
+#if OP_PLATFORM_MAC_CFM && TARGET_API_MAC_CARBON
 	static OTClientContextPtr 	gOTContext; /* we use open transport for interrupt-safe memory allocation */
-	static NMBoolean 		gInitedOTContext;
 #endif
 
-#if (OP_PLATFORM_MAC_CARBON_FLAG)
-	void OPHTTPInit(OTClientContextPtr gOTContextIn)
-#else
-	void OPHTTPInit(void *unused)
-#endif
+void OPHTTPInit(void)
 {
 	NMErr err = kNMNoError;
 	
-		
 	/*on mac, we gotta set up OpenTransport, which we use for interrupt-safe allocations (since OpenPlay's messages come in at interrupt time)*/
 	#if (OP_PLATFORM_MAC_CFM)
 		#if (TARGET_API_MAC_CARBON)
-			if (gOTContext){
-				gOTContext = gOTContextIn;
-				gInitedOTContext = false;
-			}
-			else{
-				err = InitOpenTransportInContext(kInitOTForApplicationMask,&gOTContext);
-				gInitedOTContext = true;
-			}
+			err = InitOpenTransportInContext(kInitOTForApplicationMask,&gOTContext);
 		#else
 			err = InitOpenTransport();
 		#endif
@@ -99,8 +86,7 @@ void OPHTTPTerm( void )
 		
 	#if (OP_PLATFORM_MAC_CFM)
 		#if TARGET_API_MAC_CARBON
-			if (gInitedOTContext)
-				CloseOpenTransportInContext(gOTContext);
+			CloseOpenTransportInContext(gOTContext);
 		#else
 			CloseOpenTransport();
 		#endif
@@ -120,7 +106,7 @@ static void*	InterruptSafeAllocate(long size)
 		#endif
 	#elif (OP_PLATFORM_WINDOWS)
 		chunk = GlobalAlloc(GPTR,size);
-	#elif (OP_PLATFORM_UNIX)
+	#else // (OP_PLATFORM_UNIX) || (OP_PLATFORM_MAC_MACHO)
 		chunk =  malloc(size);
 	#endif
 	
@@ -133,7 +119,7 @@ static void	InterruptSafeDispose(void *data)
 		OTFreeMem(data);
 	#elif (OP_PLATFORM_WINDOWS)
 		GlobalFree((HGLOBAL)data);
-	#elif (OP_PLATFORM_UNIX)
+	#else // (OP_PLATFORM_UNIX) || (OP_PLATFORM_MAC_MACHO)
 		free(data);
 	#endif
 
@@ -303,7 +289,7 @@ static void OpenPlay_Callback( PEndpointRef inEndpoint, void* inContext,NMCallba
 	
 }
 
-OPHTTPDownload* NewOPHTTPDownload(char *urlString, NMBoolean skipHeader)
+OPHTTPDownload* NewOPHTTPDownload(const char *urlString, NMBoolean skipHeader)
 {
 	char httpGetCommand[1024];
 	OPHTTPDownload *theDL;

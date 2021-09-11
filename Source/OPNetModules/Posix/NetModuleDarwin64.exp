@@ -18,11 +18,6 @@ _NMSend
 _NMReceive
 _NMEnterNotifier
 _NMLeaveNotifier
-_NMSetupDialog
-_NMHandleEvent
-_NMHandleItemHit
-_NMTeardownDialog
-_NMGetRequiredDialogFrame
 _NMStartEnumeration
 _NMIdleEnumeration
 _NMEndEnumeration

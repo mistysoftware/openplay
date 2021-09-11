@@ -163,7 +163,7 @@ void NetworkHandleMessage( void )
 /* --- Handle NetSprocket's generic messages */
 
 			case kNSpJoinApproved:
-				printf( "Approved!\n\n", str );
+				printf( "Approved! %s\n\n", str );
 				fflush(stdout);
 				_response = true;
 				_approved = true;	/* tell our waiting loop that we were approved */
@@ -189,7 +189,7 @@ void NetworkHandleMessage( void )
 				break;
 
 			case kNSpError:
-				printf( "*** ERROR *** (reported value: %d)\n\n", ((NSpErrorMessage *)mhp)->error );
+				printf( "*** ERROR *** (reported value: %ld)\n\n", ((NSpErrorMessage *)mhp)->error );
 				fflush(stdout);
 
 				_response = true;
@@ -218,7 +218,7 @@ void NetworkHandleMessage( void )
 					strcpy( gamename, "ERRROR" );
 
 				GameP2CStr( ((NSpPlayerJoinedMessage *)mhp)->playerInfo.name, str );
-				printf( "===> Player %s joined game '%s', %d players now!\n\n",
+				printf( "===> Player %s joined game '%s', %lu players now!\n\n",
 						str, gamename, ((NSpPlayerJoinedMessage *)mhp)->playerCount );
 				fflush(stdout);
 
@@ -234,43 +234,43 @@ void NetworkHandleMessage( void )
 
 			case kNSpPlayerLeft:
 				GameP2CStr( ((NSpPlayerLeftMessage *)mhp)->playerName, str );
-				printf( "===> Player, %s, Left game, leaving %d players!\n\n",
+				printf( "===> Player, %s, Left game, leaving %lu players!\n\n",
 						str, ((NSpPlayerLeftMessage *)mhp)->playerCount );
 				fflush(stdout);
 				break;
 
 			case kNSpHostChanged:
-				printf( "===> ??? Host changed to player ID %d\n\n",
+				printf( "===> ??? Host changed to player ID %ld\n\n",
 						((NSpHostChangedMessage *)mhp)->newHost );
 				fflush(stdout);
 				break;
 
 			case kNSpGroupCreated:
-				printf( "===> Player #%d created a new Group, ID %d\n\n",
+				printf( "===> Player #%ld created a new Group, ID %ld\n\n",
 						((NSpCreateGroupMessage *)mhp)->requestingPlayer, ((NSpCreateGroupMessage *)mhp)->groupID );
 				fflush(stdout);
 				break;
 
 			case kNSpGroupDeleted:
-				printf( "===> Player #%d deleted group #%d\n\n",
+				printf( "===> Player #%ld deleted group #%ld\n\n",
 						((NSpDeleteGroupMessage *)mhp)->requestingPlayer, ((NSpDeleteGroupMessage *)mhp)->groupID );
 				fflush(stdout);
 				break;
 			
 			case kNSpPlayerAddedToGroup:
-				printf( "===> Player %d was added to group %d\n\n",
+				printf( "===> Player %ld was added to group %ld\n\n",
 						((NSpAddPlayerToGroupMessage *)mhp)->player, ((NSpAddPlayerToGroupMessage *)mhp)->group );
 				fflush(stdout);
 				break;
 
 			case kNSpPlayerRemovedFromGroup:
-				printf( "===> Player %d was removed from group %d\n\n",
+				printf( "===> Player %ld was removed from group %ld\n\n",
 						((NSpRemovePlayerFromGroupMessage *)mhp)->player, ((NSpRemovePlayerFromGroupMessage *)mhp)->group );
 				fflush(stdout);
 				break;
 
 			case kNSpPlayerTypeChanged:
-				printf( "===> Player %d changed to a new type, %d\n\n",
+				printf( "===> Player %ld changed to a new type, %ld\n\n",
 						((NSpPlayerTypeChangedMessage *)mhp)->player, ((NSpPlayerTypeChangedMessage *)mhp)->newType );
 				break;
 
@@ -296,7 +296,7 @@ void NetworkHandleMessage( void )
 				else
 					strcpy( cname, "UNKOWN -- error!" );
 
-				sprintf( str, "Player #%d, %s, answered with '%c', which is %s", mhp->from, cname, ((AnswerPacketPtr)mhp)->answer,
+				sprintf( str, "Player #%ld, %s, answered with '%c', which is %s", mhp->from, cname, ((AnswerPacketPtr)mhp)->answer,
 							GameCheckAnswer( ((AnswerPacketPtr)mhp)->answer ) ? "Correct!" : "WRONG!" );
 
 				NetworkSendInformation( str );
@@ -377,7 +377,7 @@ NMErr NetworkSendAnswer
 	err = NSpMessage_Send( _gameReference, &answerPacket.header, kNSpSendFlag_Registered );
 	if( err )
 	{
-		printf( "*** ERROR *** Unable to send answer packet, error # %d\n\n", err );
+		printf( "*** ERROR *** Unable to send answer packet, error # %ld\n\n", err );
 		fflush(stdout);
 	}
 
@@ -444,7 +444,7 @@ NMErr NetworkSendPlayerMessage
 
 	if( err )
 	{
-		printf( "*** ERROR *** Unable to send message packet, error # %d\n\n", err );
+		printf( "*** ERROR *** Unable to send message packet, error # %ld\n\n", err );
 		fflush(stdout);
 	}
 
@@ -545,8 +545,8 @@ NMErr NetworkStartServer
 
 NMErr NetworkStartClient
 (
-	char *ipAddr,					/* IP address (or domain name) to look for server (host) on */
-	char *port,						/* Port to talk to server via */
+	const char *ipAddr,				/* IP address (or domain name) to look for server (host) on */
+	const char *port,				/* Port to talk to server via */
 	const unsigned char *playerName	/* name of player wanting to join */
 )
 {
@@ -622,7 +622,7 @@ NMErr NetworkStartClient
 				{
 					GameP2CStr( gameInfo.name, str );
 
-					printf( "   Welcome to the game '%s', with %d players\n\n", str, (int)gameInfo.currentPlayers );
+					printf( "   Welcome to the game '%s', with %lu players\n\n", str, gameInfo.currentPlayers );
 					fflush(stdout);
 				}
 			}
@@ -698,7 +698,7 @@ NMErr NetworkStartup( void )
 
 	/* First, make sure that NetSprockets is available (we weak linked to OpenPlayStubLib) */
 
-	if( NULL == NSpInitialize )	/*|| NULL == ProtocolAcceptConnection )*/
+	if( NULL == &NSpInitialize )	/*|| NULL == ProtocolAcceptConnection )*/
 		return( kNMModuleNotFoundErr );
 
 	/* Initialize NetSprockets, 0 == use defaults & NSe1 stands for "NetSprocket Example 1" 

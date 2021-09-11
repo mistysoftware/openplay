@@ -35,4 +35,4 @@
 	extern	NMBoolean	machine_acquire_lock(machine_lock *lockPtr);
 	extern	void		machine_clear_lock(machine_lock *lockPtr);
 
-#endif __MACHINELOCK__
+#endif /* __MACHINELOCK__ */

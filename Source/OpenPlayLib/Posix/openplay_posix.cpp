@@ -35,19 +35,19 @@ static void release_openplay(void);
 extern "C"{
 
 /* _init is called when the library is loaded */
+extern void _init(void) __attribute__ ((constructor));
 void _init(void)
 {
   initialize_openplay(NULL);
   refresh_protocols();
 }
-#pragma CALL_ON_LOAD _init
 
 /* _fini is called when the library is unloaded */
+extern void _fini(void) __attribute__ ((destructor));
 void _fini(void)
 {
   release_openplay();
 }
-#pragma CALL_ON_UNLOAD _fini
 
 } //extern C
 

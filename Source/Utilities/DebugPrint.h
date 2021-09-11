@@ -42,7 +42,7 @@
 		{
 		public:
 
-			DebugPrintEntryExit(char *inFunctionName);
+			DebugPrintEntryExit(const char *inFunctionName);
 			~DebugPrintEntryExit();
 
 			static	NMUInt32 	gDepth;

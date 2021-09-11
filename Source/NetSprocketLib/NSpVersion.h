@@ -35,13 +35,13 @@ typedef enum
         release     = 0x80
 } op_release_defs;
 
-	// The following corresponds to 2.2r1
+	// The following corresponds to 2.2r5
 
 	#define __NSpVersionMajor__		2
 	#define __NSpVersionMinor__		2
 	#define __NSpVersionBugFix__		0
 	#define __NSpReleaseStage__		release
-	#define __NSpNonRelRev__			1
+	#define __NSpNonRelRev__			5
 
 #endif // __NSPVERSION__
 

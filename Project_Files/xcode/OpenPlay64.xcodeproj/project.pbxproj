@@ -18,9 +18,7 @@
 				9758F2F60588DE89008F071A /* PBXTargetDependency */,
 				9758F2F40588DE89008F071A /* PBXTargetDependency */,
 				9758F2EC0588DE89008F071A /* PBXTargetDependency */,
-				9758F2F00588DE89008F071A /* PBXTargetDependency */,
 				2CF0566926E458C300163478 /* PBXTargetDependency */,
-				9758F2EA0588DE89008F071A /* PBXTargetDependency */,
 				9758F2EE0588DE89008F071A /* PBXTargetDependency */,
 				9758F2F20588DE89008F071A /* PBXTargetDependency */,
 			);
@@ -30,21 +28,15 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		186CFACD05D43B8F00BE49C2 /* OPUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE67102556F8801A80105 /* OPUtils.cpp */; };
 		18AD33E105D0708E006D9A32 /* OpenPlay.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
 		18AD33EC05D070A8006D9A32 /* OpenPlay.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
 		18AD33F005D070AF006D9A32 /* OpenPlay.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
-		18AD33F705D070B8006D9A32 /* OpenPlay.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
 		18AD33FB05D070C0006D9A32 /* OpenPlay.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
-		18AD33FF05D070C8006D9A32 /* OpenPlay.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
 		18EB655A05D055CF006B1F7B /* tcpip.so.bundle in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9758F2610588DE88008F071A /* tcpip.so.bundle */; };
 		18EB657F05D05794006B1F7B /* OpenPlay.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
 		2C25E82026C55B1A000E73E5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2C25E81E26C55B1A000E73E5 /* InfoPlist.strings */; };
-		2C5B321B26C4054600217E09 /* machine_lock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE67002556F8801A80105 /* machine_lock.cpp */; };
 		2C5B321D26C4054600217E09 /* machine_lock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE67002556F8801A80105 /* machine_lock.cpp */; };
-		2C5B321E26C4054600217E09 /* String_Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE67202556F8801A80105 /* String_Utils.cpp */; };
 		2C5B321F26C4054600217E09 /* String_Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE67202556F8801A80105 /* String_Utils.cpp */; };
-		2C5B322026C4054600217E09 /* DebugPrint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE66E02556F8801A80105 /* DebugPrint.cpp */; };
 		2C5B322226C4054600217E09 /* DebugPrint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE66E02556F8801A80105 /* DebugPrint.cpp */; };
 		2C8547F026E46DC1005A70D9 /* OPUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE67102556F8801A80105 /* OPUtils.cpp */; };
 		2C8547F126E46DC1005A70D9 /* String_Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE67202556F8801A80105 /* String_Utils.cpp */; };
@@ -86,7 +78,6 @@
 		9758F2410588DE88008F071A /* OPUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE67102556F8801A80105 /* OPUtils.cpp */; };
 		9758F2420588DE88008F071A /* String_Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE67202556F8801A80105 /* String_Utils.cpp */; };
 		9758F2430588DE88008F071A /* TPointerArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE67302556F8801A80105 /* TPointerArray.cpp */; };
-		9758F2440588DE88008F071A /* NSpDialogMacOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5679E0E026A340201A80105 /* NSpDialogMacOS.cpp */; };
 		9758F2460588DE88008F071A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5FE302102558CD301A80105 /* Carbon.framework */; };
 		9758F2480588DE88008F071A /* NetSprocketMachO.r in Rez */ = {isa = PBXBuildFile; fileRef = F5679E12026A382401A80105 /* NetSprocketMachO.r */; };
 		9758F2500588DE88008F071A /* tcp_module_communication.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5530D710256BFDF01A80105 /* tcp_module_communication.cpp */; };
@@ -99,36 +90,16 @@
 		9758F2570588DE88008F071A /* configuration.c in Sources */ = {isa = PBXBuildFile; fileRef = F5530D760256BFDF01A80105 /* configuration.c */; };
 		9758F2580588DE88008F071A /* ip_enumeration.c in Sources */ = {isa = PBXBuildFile; fileRef = F5530D770256BFDF01A80105 /* ip_enumeration.c */; };
 		9758F2590588DE88008F071A /* String_Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE67202556F8801A80105 /* String_Utils.cpp */; };
-		9758F25A0588DE88008F071A /* tcp_module_gui_mac.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5679E07026A1E3701A80105 /* tcp_module_gui_mac.cpp */; };
-		9758F25C0588DE88008F071A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5FE302102558CD301A80105 /* Carbon.framework */; };
 		9758F25E0588DE88008F071A /* tcp_module_mac.r in Rez */ = {isa = PBXBuildFile; fileRef = F5679E09026A1F2001A80105 /* tcp_module_mac.r */; };
-		9758F2670588DE88008F071A /* OPUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE67102556F8801A80105 /* OPUtils.cpp */; };
-		9758F2680588DE88008F071A /* String_Utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE67202556F8801A80105 /* String_Utils.cpp */; };
-		9758F2690588DE88008F071A /* dialog_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = F5FE301B02558C6F01A80105 /* dialog_utils.c */; };
-		9758F26A0588DE88008F071A /* testbed.c in Sources */ = {isa = PBXBuildFile; fileRef = F5FE301C02558C6F01A80105 /* testbed.c */; };
-		9758F26B0588DE88008F071A /* dialog_lists.c in Sources */ = {isa = PBXBuildFile; fileRef = F5FE302602558D7901A80105 /* dialog_lists.c */; };
-		9758F26C0588DE88008F071A /* log.c in Sources */ = {isa = PBXBuildFile; fileRef = F5FE302702558D7901A80105 /* log.c */; };
-		9758F26D0588DE88008F071A /* shell.c in Sources */ = {isa = PBXBuildFile; fileRef = F5FE302802558D7901A80105 /* shell.c */; };
-		9758F2700588DE88008F071A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5FE302102558CD301A80105 /* Carbon.framework */; };
-		9758F2720588DE88008F071A /* OpenPlayTestMachO.r in Rez */ = {isa = PBXBuildFile; fileRef = F5530D5F0256B56901A80105 /* OpenPlayTestMachO.r */; };
 		9758F27D0588DE88008F071A /* NSpTestApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5CE6E01025AF68701A80105 /* NSpTestApp.cpp */; };
 		9758F27E0588DE88008F071A /* OPUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5ABE67102556F8801A80105 /* OPUtils.cpp */; };
-		9758F28D0588DE88008F071A /* aevt.c in Sources */ = {isa = PBXBuildFile; fileRef = F5CE6E21025AFB5301A80105 /* aevt.c */; };
-		9758F28E0588DE88008F071A /* events.c in Sources */ = {isa = PBXBuildFile; fileRef = F5CE6E22025AFB5301A80105 /* events.c */; };
-		9758F28F0588DE88008F071A /* init.c in Sources */ = {isa = PBXBuildFile; fileRef = F5CE6E23025AFB5301A80105 /* init.c */; };
-		9758F2900588DE88008F071A /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = F5CE6E24025AFB5301A80105 /* main.c */; };
-		9758F2910588DE88008F071A /* NetStuff.cp in Sources */ = {isa = PBXBuildFile; fileRef = F5CE6E25025AFB5301A80105 /* NetStuff.cp */; };
-		9758F2930588DE88008F071A /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5FE302102558CD301A80105 /* Carbon.framework */; };
-		9758F2960588DE88008F071A /* NSpTest2Mach.r in Rez */ = {isa = PBXBuildFile; fileRef = F536EB9D03232CB401A8008C /* NSpTest2Mach.r */; };
 		9758F2A10588DE88008F071A /* OPEnumTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F5CE6E11025AF8AC01A80105 /* OPEnumTest.cpp */; };
 		9758F2B10588DE88008F071A /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = F587B687025C6DD401A80105 /* main.c */; };
 		9758F2B20588DE88008F071A /* op_network.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F587B688025C6DD401A80105 /* op_network.cpp */; };
 		9758F2C10588DE89008F071A /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = F587B687025C6DD401A80105 /* main.c */; };
 		9758F2C20588DE89008F071A /* nsp_network.c in Sources */ = {isa = PBXBuildFile; fileRef = F587B68C025C70BB01A80105 /* nsp_network.c */; };
 		9758F2D10588DE89008F071A /* miniplay.c in Sources */ = {isa = PBXBuildFile; fileRef = F5A7370502667C4401A80105 /* miniplay.c */; };
-		9758F2F70588DE89008F071A /* OpenPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
 		9758F2F80588DE89008F071A /* OpenPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
-		9758F2F90588DE89008F071A /* OpenPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
 		9758F2FA0588DE89008F071A /* OpenPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
 		9758F2FB0588DE89008F071A /* OpenPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
 		9758F2FC0588DE89008F071A /* OpenPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9758F24B0588DE88008F071A /* OpenPlay.framework */; };
@@ -164,13 +135,6 @@
 			remoteGlobalIDString = 9758F2220588DE88008F071A;
 			remoteInfo = "OpenPlay Framework (Upgraded)";
 		};
-		9758F2E90588DE89008F071A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9758F2620588DE88008F071A;
-			remoteInfo = "OpenPlayTest (Upgraded)";
-		};
 		9758F2EB0588DE89008F071A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
@@ -184,13 +148,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 9758F29D0588DE88008F071A;
 			remoteInfo = "OPEnumTest (Upgraded)";
-		};
-		9758F2EF0588DE89008F071A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9758F2890588DE88008F071A;
-			remoteInfo = "NetSprocketTest2 (Upgraded)";
 		};
 		9758F2F10588DE89008F071A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -246,16 +203,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9758F2730588DE88008F071A /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 12;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				18AD33FF05D070C8006D9A32 /* OpenPlay.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9758F2830588DE88008F071A /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -263,16 +210,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				18AD33FB05D070C0006D9A32 /* OpenPlay.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9758F2970588DE88008F071A /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				18AD33F705D070B8006D9A32 /* OpenPlay.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,11 +278,6 @@
 		2C85480626E52696005A70D9 /* module_management.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = module_management.h; sourceTree = "<group>"; };
 		2C85480726E526C6005A70D9 /* op_dlfcn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = op_dlfcn.h; sourceTree = "<group>"; };
 		2C85480826E52704005A70D9 /* NSpPrefix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSpPrefix.h; sourceTree = "<group>"; };
-		2C85480926E549D1005A70D9 /* log.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = log.h; sourceTree = "<group>"; };
-		2C85480A26E549E8005A70D9 /* dialog_lists.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dialog_lists.h; sourceTree = "<group>"; };
-		2C85480B26E54A05005A70D9 /* OpenPlayTest_resources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenPlayTest_resources.h; sourceTree = "<group>"; };
-		2C85480C26E54A18005A70D9 /* dialog_utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dialog_utils.h; sourceTree = "<group>"; };
-		2C85480D26E54A2A005A70D9 /* testbed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = testbed.h; sourceTree = "<group>"; };
 		2C8780D526C57E9800E3CAC0 /* OpenPlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenPlay.h; sourceTree = "<group>"; };
 		2C8780D826C580C400E3CAC0 /* OPUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OPUtils.h; sourceTree = "<group>"; };
 		2C8780D926C5812E00E3CAC0 /* LinkedList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinkedList.h; sourceTree = "<group>"; };
@@ -362,12 +294,8 @@
 		9758F24B0588DE88008F071A /* OpenPlay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = OpenPlay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9758F2600588DE88008F071A /* Info-IP_Module.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Info-IP_Module.plist"; sourceTree = "<group>"; };
 		9758F2610588DE88008F071A /* tcpip.so.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tcpip.so.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
-		9758F2760588DE88008F071A /* Info-OpenPlayTest.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Info-OpenPlayTest.plist"; sourceTree = "<group>"; };
-		9758F2770588DE88008F071A /* OpenPlayTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OpenPlayTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9758F2860588DE88008F071A /* Info-NSpTest.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-NSpTest.plist"; sourceTree = "<group>"; };
 		9758F2870588DE88008F071A /* NSpTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NSpTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9758F29A0588DE88008F071A /* Info-NSpTest2.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-NSpTest2.plist"; sourceTree = "<group>"; };
-		9758F29B0588DE88008F071A /* NSpTest2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NSpTest2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9758F2A90588DE88008F071A /* Info-OPEnumTest.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Info-OPEnumTest.plist"; sourceTree = "<group>"; };
 		9758F2AA0588DE88008F071A /* OPEnumTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OPEnumTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9758F2BA0588DE89008F071A /* Info-OPExample1.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Info-OPExample1.plist"; sourceTree = "<group>"; };
@@ -376,17 +304,13 @@
 		9758F2CB0588DE89008F071A /* NSpExample1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NSpExample1.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9758F2D80588DE89008F071A /* Info-MiniPlay.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info-MiniPlay.plist"; sourceTree = "<group>"; };
 		9758F2D90588DE89008F071A /* MiniPlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MiniPlay.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		F536EB9D03232CB401A8008C /* NSpTest2Mach.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; path = NSpTest2Mach.r; sourceTree = "<group>"; };
-		F5530D5F0256B56901A80105 /* OpenPlayTestMachO.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; path = OpenPlayTestMachO.r; sourceTree = "<group>"; };
 		F5530D710256BFDF01A80105 /* tcp_module_communication.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tcp_module_communication.cpp; sourceTree = "<group>"; };
 		F5530D720256BFDF01A80105 /* tcp_module_config.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tcp_module_config.cpp; sourceTree = "<group>"; };
 		F5530D730256BFDF01A80105 /* tcp_module_enumeration.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tcp_module_enumeration.cpp; sourceTree = "<group>"; };
 		F5530D750256BFDF01A80105 /* tcp_module_main.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tcp_module_main.cpp; sourceTree = "<group>"; };
 		F5530D760256BFDF01A80105 /* configuration.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = configuration.c; sourceTree = "<group>"; };
 		F5530D770256BFDF01A80105 /* ip_enumeration.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = ip_enumeration.c; sourceTree = "<group>"; };
-		F5679E07026A1E3701A80105 /* tcp_module_gui_mac.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = tcp_module_gui_mac.cpp; sourceTree = "<group>"; };
 		F5679E09026A1F2001A80105 /* tcp_module_mac.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; path = tcp_module_mac.r; sourceTree = "<group>"; };
-		F5679E0E026A340201A80105 /* NSpDialogMacOS.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = NSpDialogMacOS.cpp; sourceTree = "<group>"; };
 		F5679E12026A382401A80105 /* NetSprocketMachO.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; path = NetSprocketMachO.r; sourceTree = "<group>"; };
 		F587B687025C6DD401A80105 /* main.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		F587B688025C6DD401A80105 /* op_network.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = op_network.cpp; sourceTree = "<group>"; };
@@ -423,17 +347,7 @@
 		F5ABE67302556F8801A80105 /* TPointerArray.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = TPointerArray.cpp; sourceTree = "<group>"; };
 		F5CE6E01025AF68701A80105 /* NSpTestApp.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = NSpTestApp.cpp; sourceTree = "<group>"; };
 		F5CE6E11025AF8AC01A80105 /* OPEnumTest.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = OPEnumTest.cpp; sourceTree = "<group>"; };
-		F5CE6E21025AFB5301A80105 /* aevt.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = aevt.c; sourceTree = "<group>"; };
-		F5CE6E22025AFB5301A80105 /* events.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = events.c; sourceTree = "<group>"; };
-		F5CE6E23025AFB5301A80105 /* init.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = init.c; sourceTree = "<group>"; };
-		F5CE6E24025AFB5301A80105 /* main.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
-		F5CE6E25025AFB5301A80105 /* NetStuff.cp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; path = NetStuff.cp; sourceTree = "<group>"; };
-		F5FE301B02558C6F01A80105 /* dialog_utils.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = dialog_utils.c; path = ../../Source/Demos/OpenPlayTest/Common/dialog_utils.c; sourceTree = SOURCE_ROOT; };
-		F5FE301C02558C6F01A80105 /* testbed.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = testbed.c; path = ../../Source/Demos/OpenPlayTest/Common/testbed.c; sourceTree = SOURCE_ROOT; };
 		F5FE302102558CD301A80105 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
-		F5FE302602558D7901A80105 /* dialog_lists.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = dialog_lists.c; path = ../../Source/Demos/OpenPlayTest/Macintosh/dialog_lists.c; sourceTree = SOURCE_ROOT; };
-		F5FE302702558D7901A80105 /* log.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = log.c; path = ../../Source/Demos/OpenPlayTest/Macintosh/log.c; sourceTree = SOURCE_ROOT; };
-		F5FE302802558D7901A80105 /* shell.c */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.c; name = shell.c; path = ../../Source/Demos/OpenPlayTest/Macintosh/shell.c; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -465,16 +379,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9758F25C0588DE88008F071A /* Carbon.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9758F26E0588DE88008F071A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9758F2700588DE88008F071A /* Carbon.framework in Frameworks */,
-				9758F2F70588DE89008F071A /* OpenPlay.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,15 +387,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9758F2F80588DE89008F071A /* OpenPlay.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9758F2920588DE88008F071A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9758F2F90588DE89008F071A /* OpenPlay.framework in Frameworks */,
-				9758F2930588DE88008F071A /* Carbon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -540,9 +435,7 @@
 				9758F2D90588DE89008F071A /* MiniPlay.app */,
 				9758F2CB0588DE89008F071A /* NSpExample1.app */,
 				9758F2870588DE88008F071A /* NSpTest.app */,
-				9758F29B0588DE88008F071A /* NSpTest2.app */,
 				2CF0566426E4585F00163478 /* OPDownloadHTTP.app */,
-				9758F2770588DE88008F071A /* OpenPlayTest.app */,
 				9758F2AA0588DE88008F071A /* OPEnumTest.app */,
 				9758F2BB0588DE89008F071A /* OPExample1.app */,
 			);
@@ -577,10 +470,8 @@
 			isa = PBXGroup;
 			children = (
 				2C5B320626C3FF7000217E09 /* NSpMiniApp */,
-				2C5B320726C3FF8500217E09 /* NSpTest2 */,
 				2C5B320826C3FF9300217E09 /* NSpTestApp */,
 				2C5B320A26C3FFB300217E09 /* OPDownloadHTTP */,
-				2C5B320B26C3FFFA00217E09 /* OpenPlayTest */,
 				2C5B320C26C4001600217E09 /* OPEnumTest */,
 				2C5B320D26C4004600217E09 /* OPExample1 */,
 				2C5B320F26C4006D00217E09 /* OPMiniDemo */,
@@ -594,19 +485,6 @@
 				2CF0566A26E460F600163478 /* Mini_NSp_App.cpp */,
 			);
 			path = NSpMiniApp;
-			sourceTree = "<group>";
-		};
-		2C5B320726C3FF8500217E09 /* NSpTest2 */ = {
-			isa = PBXGroup;
-			children = (
-				F5CE6E21025AFB5301A80105 /* aevt.c */,
-				F5CE6E22025AFB5301A80105 /* events.c */,
-				F5CE6E23025AFB5301A80105 /* init.c */,
-				F5CE6E24025AFB5301A80105 /* main.c */,
-				F5CE6E25025AFB5301A80105 /* NetStuff.cp */,
-				F536EB9D03232CB401A8008C /* NSpTest2Mach.r */,
-			);
-			path = NSpTest2;
 			sourceTree = "<group>";
 		};
 		2C5B320826C3FF9300217E09 /* NSpTestApp */ = {
@@ -624,15 +502,6 @@
 				2CF0566C26E4614A00163478 /* OPGetURL.cpp */,
 			);
 			path = OPDownloadHTTP;
-			sourceTree = "<group>";
-		};
-		2C5B320B26C3FFFA00217E09 /* OpenPlayTest */ = {
-			isa = PBXGroup;
-			children = (
-				2C5B321126C401F000217E09 /* Common */,
-				2C5B321026C401C900217E09 /* Macintosh */,
-			);
-			path = OpenPlayTest;
 			sourceTree = "<group>";
 		};
 		2C5B320C26C4001600217E09 /* OPEnumTest */ = {
@@ -659,39 +528,6 @@
 				F5A7370502667C4401A80105 /* miniplay.c */,
 			);
 			path = OPMiniDemo;
-			sourceTree = "<group>";
-		};
-		2C5B321026C401C900217E09 /* Macintosh */ = {
-			isa = PBXGroup;
-			children = (
-				2C5B321226C4023A00217E09 /* Binaries */,
-				F5FE302602558D7901A80105 /* dialog_lists.c */,
-				F5FE302702558D7901A80105 /* log.c */,
-				F5FE302802558D7901A80105 /* shell.c */,
-			);
-			path = Macintosh;
-			sourceTree = "<group>";
-		};
-		2C5B321126C401F000217E09 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				2C85480A26E549E8005A70D9 /* dialog_lists.h */,
-				F5FE301B02558C6F01A80105 /* dialog_utils.c */,
-				2C85480C26E54A18005A70D9 /* dialog_utils.h */,
-				2C85480926E549D1005A70D9 /* log.h */,
-				2C85480B26E54A05005A70D9 /* OpenPlayTest_resources.h */,
-				F5FE301C02558C6F01A80105 /* testbed.c */,
-				2C85480D26E54A2A005A70D9 /* testbed.h */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
-		2C5B321226C4023A00217E09 /* Binaries */ = {
-			isa = PBXGroup;
-			children = (
-				F5530D5F0256B56901A80105 /* OpenPlayTestMachO.r */,
-			);
-			path = Binaries;
 			sourceTree = "<group>";
 		};
 		2C5B321426C4035600217E09 /* NetSprocketLib */ = {
@@ -777,7 +613,6 @@
 				F5530D710256BFDF01A80105 /* tcp_module_communication.cpp */,
 				F5530D720256BFDF01A80105 /* tcp_module_config.cpp */,
 				F5530D730256BFDF01A80105 /* tcp_module_enumeration.cpp */,
-				F5679E07026A1E3701A80105 /* tcp_module_gui_mac.cpp */,
 				F5679E09026A1F2001A80105 /* tcp_module_mac.r */,
 				F5530D750256BFDF01A80105 /* tcp_module_main.cpp */,
 			);
@@ -808,7 +643,6 @@
 		2C5B322426C4062400217E09 /* Macintosh */ = {
 			isa = PBXGroup;
 			children = (
-				F5679E0E026A340201A80105 /* NSpDialogMacOS.cpp */,
 				F5679E12026A382401A80105 /* NetSprocketMachO.r */,
 			);
 			path = Macintosh;
@@ -860,9 +694,7 @@
 				9758F2D80588DE89008F071A /* Info-MiniPlay.plist */,
 				9758F2CA0588DE89008F071A /* Info-NSpExample1.plist */,
 				9758F2860588DE88008F071A /* Info-NSpTest.plist */,
-				9758F29A0588DE88008F071A /* Info-NSpTest2.plist */,
 				2CF0564526E456B200163478 /* Info-OPDownloadHTTP.plist */,
-				9758F2760588DE88008F071A /* Info-OpenPlayTest.plist */,
 				9758F2A90588DE88008F071A /* Info-OPEnumTest.plist */,
 				9758F2BA0588DE89008F071A /* Info-OPExample1.plist */,
 			);
@@ -918,21 +750,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9758F2630588DE88008F071A /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9758F27A0588DE88008F071A /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9758F28A0588DE88008F071A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1053,27 +871,6 @@
 			productReference = 9758F2610588DE88008F071A /* tcpip.so.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
-		9758F2620588DE88008F071A /* OpenPlayTest */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2CF360A826AE179A00D26910 /* Build configuration list for PBXNativeTarget "OpenPlayTest" */;
-			buildPhases = (
-				9758F2630588DE88008F071A /* Headers */,
-				9758F2640588DE88008F071A /* Resources */,
-				9758F2660588DE88008F071A /* Sources */,
-				9758F26E0588DE88008F071A /* Frameworks */,
-				9758F2710588DE88008F071A /* Rez */,
-				9758F2730588DE88008F071A /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = OpenPlayTest;
-			productInstallPath = "$(USER_APPS_DIR)";
-			productName = OpenPlayTest;
-			productReference = 9758F2770588DE88008F071A /* OpenPlayTest.app */;
-			productType = "com.apple.product-type.application";
-		};
 		9758F2790588DE88008F071A /* NSpTest */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2CF360A926AE179A00D26910 /* Build configuration list for PBXNativeTarget "NSpTest" */;
@@ -1093,27 +890,6 @@
 			productInstallPath = "$(USER_APPS_DIR)";
 			productName = NetSprocketTest;
 			productReference = 9758F2870588DE88008F071A /* NSpTest.app */;
-			productType = "com.apple.product-type.application";
-		};
-		9758F2890588DE88008F071A /* NSpTest2 */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 2CF360AB26AE179A00D26910 /* Build configuration list for PBXNativeTarget "NSpTest2" */;
-			buildPhases = (
-				9758F28A0588DE88008F071A /* Headers */,
-				9758F28B0588DE88008F071A /* Resources */,
-				9758F28C0588DE88008F071A /* Sources */,
-				9758F2920588DE88008F071A /* Frameworks */,
-				9758F2950588DE88008F071A /* Rez */,
-				9758F2970588DE88008F071A /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = NSpTest2;
-			productInstallPath = "$(USER_APPS_DIR)";
-			productName = NetSprocketTest2;
-			productReference = 9758F29B0588DE88008F071A /* NSpTest2.app */;
 			productType = "com.apple.product-type.application";
 		};
 		9758F29D0588DE88008F071A /* OPEnumTest */ = {
@@ -1204,7 +980,7 @@
 /* Begin PBXProject section */
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = 2CF360A526AE179900D26910 /* Build configuration list for PBXProject "OpenPlay" */;
+			buildConfigurationList = 2CF360A526AE179900D26910 /* Build configuration list for PBXProject "OpenPlay64" */;
 			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = en;
 			hasScannedForEncodings = 1;
@@ -1223,9 +999,7 @@
 				9758F2CD0588DE89008F071A /* MiniPlay */,
 				9758F2BD0588DE89008F071A /* NSpExample1 */,
 				9758F2790588DE88008F071A /* NSpTest */,
-				9758F2890588DE88008F071A /* NSpTest2 */,
 				2CF0565626E4585F00163478 /* OPDownloadHTTP */,
-				9758F2620588DE88008F071A /* OpenPlayTest */,
 				9758F29D0588DE88008F071A /* OPEnumTest */,
 				9758F2AC0588DE88008F071A /* OPExample1 */,
 			);
@@ -1262,21 +1036,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9758F2640588DE88008F071A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9758F27B0588DE88008F071A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9758F28B0588DE88008F071A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1344,26 +1104,10 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9758F2710588DE88008F071A /* Rez */ = {
-			isa = PBXRezBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9758F2720588DE88008F071A /* OpenPlayTestMachO.r in Rez */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		9758F2820588DE88008F071A /* Rez */ = {
 			isa = PBXRezBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9758F2950588DE88008F071A /* Rez */ = {
-			isa = PBXRezBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9758F2960588DE88008F071A /* NSpTest2Mach.r in Rez */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1422,7 +1166,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9758F2440588DE88008F071A /* NSpDialogMacOS.cpp in Sources */,
 				9758F22F0588DE88008F071A /* CATEndpoint_OP.cpp in Sources */,
 				9758F2300588DE88008F071A /* CEndpoint_OP.cpp in Sources */,
 				9758F2310588DE88008F071A /* CIPEndpoint_OP.cpp in Sources */,
@@ -1464,28 +1207,11 @@
 				9758F2500588DE88008F071A /* tcp_module_communication.cpp in Sources */,
 				9758F2510588DE88008F071A /* tcp_module_config.cpp in Sources */,
 				9758F2520588DE88008F071A /* tcp_module_enumeration.cpp in Sources */,
-				9758F25A0588DE88008F071A /* tcp_module_gui_mac.cpp in Sources */,
 				9758F2530588DE88008F071A /* tcp_module_main.cpp in Sources */,
 				9758F2550588DE88008F071A /* DebugPrint.cpp in Sources */,
 				9758F2560588DE88008F071A /* machine_lock.cpp in Sources */,
 				9758F2540588DE88008F071A /* OPUtils.cpp in Sources */,
 				9758F2590588DE88008F071A /* String_Utils.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9758F2660588DE88008F071A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9758F2690588DE88008F071A /* dialog_utils.c in Sources */,
-				9758F26A0588DE88008F071A /* testbed.c in Sources */,
-				9758F26B0588DE88008F071A /* dialog_lists.c in Sources */,
-				9758F26C0588DE88008F071A /* log.c in Sources */,
-				9758F26D0588DE88008F071A /* shell.c in Sources */,
-				2C5B322026C4054600217E09 /* DebugPrint.cpp in Sources */,
-				2C5B321B26C4054600217E09 /* machine_lock.cpp in Sources */,
-				9758F2670588DE88008F071A /* OPUtils.cpp in Sources */,
-				9758F2680588DE88008F071A /* String_Utils.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1498,20 +1224,6 @@
 				2C5B321D26C4054600217E09 /* machine_lock.cpp in Sources */,
 				9758F27E0588DE88008F071A /* OPUtils.cpp in Sources */,
 				2C5B321F26C4054600217E09 /* String_Utils.cpp in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9758F28C0588DE88008F071A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9758F28D0588DE88008F071A /* aevt.c in Sources */,
-				9758F28E0588DE88008F071A /* events.c in Sources */,
-				9758F28F0588DE88008F071A /* init.c in Sources */,
-				9758F2900588DE88008F071A /* main.c in Sources */,
-				9758F2910588DE88008F071A /* NetStuff.cp in Sources */,
-				186CFACD05D43B8F00BE49C2 /* OPUtils.cpp in Sources */,
-				2C5B321E26C4054600217E09 /* String_Utils.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1573,11 +1285,6 @@
 			target = 9758F2220588DE88008F071A /* OpenPlay Framework */;
 			targetProxy = 9758F2E50588DE89008F071A /* PBXContainerItemProxy */;
 		};
-		9758F2EA0588DE89008F071A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9758F2620588DE88008F071A /* OpenPlayTest */;
-			targetProxy = 9758F2E90588DE89008F071A /* PBXContainerItemProxy */;
-		};
 		9758F2EC0588DE89008F071A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 9758F2790588DE88008F071A /* NSpTest */;
@@ -1587,11 +1294,6 @@
 			isa = PBXTargetDependency;
 			target = 9758F29D0588DE88008F071A /* OPEnumTest */;
 			targetProxy = 9758F2ED0588DE89008F071A /* PBXContainerItemProxy */;
-		};
-		9758F2F00588DE89008F071A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9758F2890588DE88008F071A /* NSpTest2 */;
-			targetProxy = 9758F2EF0588DE89008F071A /* PBXContainerItemProxy */;
 		};
 		9758F2F20588DE89008F071A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1662,7 +1364,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1672,9 +1373,8 @@
 					"DEBUGCALLCHAIN=0",
 					"project_builder=1",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.2;
-				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.apple.$(PRODUCT_NAME:rfc1034identifier)";
 				WARNING_CFLAGS = (
 					"-Wno-four-char-constants",
 					"-Wno-unknown-pragmas",
@@ -1686,15 +1386,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PREPROCESSOR_DEFINITIONS = "project_builder=1";
-				MACOSX_DEPLOYMENT_TARGET = 10.2;
-				PREBINDING = NO;
-				SDKROOT = macosx10.5;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.apple.$(PRODUCT_NAME:rfc1034identifier)";
 				WARNING_CFLAGS = (
 					"-Wno-four-char-constants",
 					"-Wno-unknown-pragmas",
@@ -1719,7 +1417,7 @@
 		2CF3608A26AE179700D26910 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				EXPORTED_SYMBOLS_FILE = ../../Source/OPNetModules/posix/NetModuleDarwin.exp;
+				EXPORTED_SYMBOLS_FILE = ../../Source/OPNetModules/posix/NetModuleDarwin64.exp;
 				INFOPLIST_FILE = "Info-IP_Module.plist";
 				PRODUCT_NAME = tcpip.so;
 				WRAPPER_EXTENSION = bundle;
@@ -1729,7 +1427,7 @@
 		2CF3608B26AE179700D26910 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				EXPORTED_SYMBOLS_FILE = ../../Source/OPNetModules/posix/NetModuleDarwin.exp;
+				EXPORTED_SYMBOLS_FILE = ../../Source/OPNetModules/posix/NetModuleDarwin64.exp;
 				INFOPLIST_FILE = "Info-IP_Module.plist";
 				PRODUCT_NAME = tcpip.so;
 				WRAPPER_EXTENSION = bundle;
@@ -1741,7 +1439,7 @@
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				EXPORTED_SYMBOLS_FILE = ../../Source/OpenPlayLib/posix/openplay_darwin.exp;
+				EXPORTED_SYMBOLS_FILE = ../../Source/OpenPlayLib/posix/openplay_darwin64.exp;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "Info-OpenPlay_Framework.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
@@ -1756,31 +1454,13 @@
 			buildSettings = {
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
-				EXPORTED_SYMBOLS_FILE = ../../Source/OpenPlayLib/posix/openplay_darwin.exp;
+				EXPORTED_SYMBOLS_FILE = ../../Source/OpenPlayLib/posix/openplay_darwin64.exp;
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = "Info-OpenPlay_Framework.plist";
 				INSTALL_PATH = "@executable_path/../Frameworks";
 				PRODUCT_NAME = OpenPlay;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = framework;
-			};
-			name = Release;
-		};
-		2CF3609026AE179700D26910 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = "Info-OpenPlayTest.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Debug;
-		};
-		2CF3609126AE179700D26910 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = "Info-OpenPlayTest.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
@@ -1798,26 +1478,6 @@
 			buildSettings = {
 				INFOPLIST_FILE = "Info-NSpTest.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		2CF3609626AE179700D26910 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = "Info-NSpTest2.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				REZ_SHOW_DEBUG_OUTPUT = YES;
-				WRAPPER_EXTENSION = app;
-			};
-			name = Debug;
-		};
-		2CF3609726AE179700D26910 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = "Info-NSpTest2.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				REZ_SHOW_DEBUG_OUTPUT = YES;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -1915,7 +1575,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2CF360A526AE179900D26910 /* Build configuration list for PBXProject "OpenPlay" */ = {
+		2CF360A526AE179900D26910 /* Build configuration list for PBXProject "OpenPlay64" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2CF3608426AE179700D26910 /* Debug */,
@@ -1942,15 +1602,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2CF360A826AE179A00D26910 /* Build configuration list for PBXNativeTarget "OpenPlayTest" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2CF3609026AE179700D26910 /* Debug */,
-				2CF3609126AE179700D26910 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		2CF360A926AE179A00D26910 /* Build configuration list for PBXNativeTarget "NSpTest" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1965,15 +1616,6 @@
 			buildConfigurations = (
 				2CF3609926AE179700D26910 /* Debug */,
 				2CF3609A26AE179700D26910 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		2CF360AB26AE179A00D26910 /* Build configuration list for PBXNativeTarget "NSpTest2" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2CF3609626AE179700D26910 /* Debug */,
-				2CF3609726AE179700D26910 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

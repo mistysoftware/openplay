@@ -28,7 +28,7 @@
 #include "OPUtils.h"
 #include "dialog_utils.h"
 #include "log.h"
-#include "openplaytest_resources.h"
+#include "OpenPlayTest_resources.h"
 #include "dialog_lists.h"
 #include "testbed.h"
 
@@ -690,7 +690,7 @@ callback_function(
 			
 //				endpoint_data->endpoint= (PEndpointRef) inCookie;
  				endpoint_data->endpoint= (PEndpointRef) inEndpoint;
-				sprintf(title, "Client #%d (0x%x) on host 0x%x", private_connection_count++,inEndpoint, inCookie);
+				sprintf(title, "Client #%d (0x%lx) on host 0x%lx", private_connection_count++,(NMUInt32)inEndpoint, (NMUInt32)inCookie);
 				attach_new_endpoint_to_application(endpoint_data, title, false);
 			}
 			break;
@@ -751,10 +751,10 @@ static void handle_open(
 					char title[128];
 					NMType actual_type= type;
 					
-					sprintf(title, "%s: 0x%x; Type: '%c%c%c%c'; %s;",
-						active ? "Client(Active)" : "Host(Passive)",					
-						new_endpoint_data->endpoint,
-						(actual_type>>24) & 0xff, (actual_type>>16) & 0xff,	(actual_type>>8) & 0xff, actual_type & 0xff,
+					sprintf(title, "%s: 0x%lx; Type: '%c%c%c%c'; %s;",
+						active ? "Client(Active)" : "Host(Passive)",
+						(NMUInt32)new_endpoint_data->endpoint,
+						(char)((actual_type>>24) & 0xff), (char)((actual_type>>16) & 0xff),	(char)((actual_type>>8) & 0xff), (char)(actual_type & 0xff),
 						use_ui ? "UI Configured" :  "Default Configured");
 				
 					attach_new_endpoint_to_application(new_endpoint_data, title, true);

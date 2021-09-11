@@ -51,4 +51,4 @@
 	extern NMBoolean gPolling;
 
 
-#endif	__NTSPPREFIX__
+#endif /* __NTSPPREFIX__ */

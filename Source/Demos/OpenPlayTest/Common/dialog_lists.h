@@ -43,7 +43,7 @@ void empty_list(NMDialogPtr dialog, short item);
 void select_list_item(NMDialogPtr dialog, short item,	short row);
 short find_text_in_list(NMDialogPtr dialog, short item, char *text);
 
-#ifdef OP_PLATFORM_MAC_CFM
+#if defined(OP_PLATFORM_MAC_CFM) || defined(OP_PLATFORM_MAC_MACHO)
 // --- these are only used by the general_filter_proc.
 void activate_dialog_lists(DialogPtr dialog, NMBoolean becoming_active);
 NMBoolean list_handled_key(DialogPtr dialog, short *item_hit, short modifiers, short key);

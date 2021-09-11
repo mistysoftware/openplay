@@ -107,7 +107,7 @@ void shutdown_report(void)
 			ep = loaded_module->first_loaded_endpoint;
 			while (ep)
 			{
-				char *stateString;
+				const char *stateString;
 				switch (ep->state){
 					case _state_unknown: stateString = "_state_unknown"; break;
 					case _state_closing: stateString = "_state_closing"; break;
