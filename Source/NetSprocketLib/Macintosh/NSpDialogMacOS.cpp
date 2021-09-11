@@ -275,7 +275,7 @@ NSpDoModalDialog( eDialogMode mode,
 #if OP_PLATFORM_MAC_CFM
 		gOp_globals.res_refnum = FSpOpenResFile((FSSpec *)&gOp_globals.file_spec,fsRdPerm);
 #else
-		gOp_globals.selfBundleRef = CFBundleGetBundleWithIdentifier ( CFSTR ( "com.apple.openplay" ) );
+		gOp_globals.selfBundleRef = CFBundleGetBundleWithIdentifier ( CFSTR ( "com.apple.OpenPlay" ) );
 		if( gOp_globals.selfBundleRef )
 			gOp_globals.res_refnum = CFBundleOpenBundleResourceMap ( gOp_globals.selfBundleRef );
 		else
