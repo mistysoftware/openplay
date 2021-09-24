@@ -117,14 +117,14 @@ NSpInitialize(NMUInt32 inStandardMessageSize, NMUInt32 inBufferSize, NMUInt32 in
 {
 	//SetupLibraryState	state;
 	
-	if (inBufferSize < 200000)	// if they ask for less than 200k, prealloc 200k
-		inBufferSize = 200000;
-		
 	//Ä	We shan't be initialized more than once per application
 	if (gPPInitialized)
 		return (kNSpAlreadyInitializedErr);
 	
 #ifdef OP_API_NETWORK_OT
+    if (inBufferSize < 200000)    // if they ask for less than 200k, prealloc 200k
+        inBufferSize = 200000;
+
 	NMErr			status = kNMNoError;
 
 	NMErr		theErr;
@@ -140,7 +140,6 @@ NSpInitialize(NMUInt32 inStandardMessageSize, NMUInt32 inBufferSize, NMUInt32 in
 
 	if (status != kNMNoError)
 		return (kNSpInitializationFailedErr);
-	
 #endif
 
 	
@@ -260,7 +259,10 @@ NSpProtocol_Dispose(NSpProtocolReference inProtocolRef)
 	//	encourage developers to start using the new function.  (CRT, Aug 2000)
 		
 	if (inProtocolRef != NULL)
+    {
 		status = ProtocolDisposeConfig((PConfigRef) inProtocolRef);
+		DEBUG_PRINTonERR("Unable to dispose of protocol ref in NSpProtocol_Dispose (%lu)", status);
+    }
 }
 
 //----------------------------------------------------------------------------------------
@@ -930,36 +932,41 @@ NSpGame_Join(
 
 	//Ä	Insert the pointer to the game into our list
 	theMember = new UInt32ListMember( (NMUInt32) theGame);
-	if (theMember == NULL){
+	if (theMember)
+    {
+        //Ä    Tell the game object to join the specified game
+        status = slave->Join(inName, inPassword, inType, inCustomData, inCustomDataLen, inAddress);
+        //ThrowIfOSErr_(err);
+        if (!status)
+        {
+            gGameList->Append(theMember);
+
+            info = slave->GetGameInfo();
+
+            //*    Set up our info structure
+            info->maxPlayers = 0;
+            info->topology = kNSpClientServer;        //Ä HACK!!!!
+
+            //*    Get password, game name sent in JoinAccepted message (2.2 or later only!)
+            if (inPassword)
+                doCopyPStrMax(inPassword, info->password, 31);
+        }
+    }
+    else
+    {
 		status = kNSpMemAllocationErr;
-		goto error;
 	}
-
-	
-	//Ä	Tell the game object to join the specified game
-	status = slave->Join(inName, inPassword, inType, inCustomData, inCustomDataLen, inAddress);
-	//ThrowIfOSErr_(err);
-	if (status)
-		goto error;
-		
-	gGameList->Append(theMember);
-
-	info = slave->GetGameInfo();
-	
-	//*	Set up our info structure
-	info->maxPlayers = 0;
-	info->topology = kNSpClientServer;		//Ä HACK!!!!
-
-	//*	Get password, game name sent in JoinAccepted message (2.2 or later only!)
-	if (inPassword)
-		doCopyPStrMax(inPassword, info->password, 31);
-	
-	error:
+    
+error:
 	if (status)
 	{
 		if (theGame)
 			delete (theGame);
-			
+        if( slave )
+            delete( slave );
+        if( theMember )
+            delete( theMember );
+
 		*outGame = NULL;
 	}
 	return (status);
@@ -1249,7 +1256,7 @@ void
 NSpPlayer_ReleaseEnumeration(NSpGameReference inGame, NSpPlayerEnumerationPtr inPlayers)
 {
 	NSpGamePrivate	*theGame = (NSpGamePrivate *)inGame;
-	NMErr status = kNMNoError;
+//	NMErr status = kNMNoError;
 	op_vassert_justreturn(NULL != inGame, "NSpPlayer_ReleaseEnumeration: inGame == NULL");
 	op_vassert_justreturn(NULL != inPlayers, "NSpPlayer_ReleaseEnumeration: inPlayers == NULL");
 		
@@ -1258,12 +1265,12 @@ NSpPlayer_ReleaseEnumeration(NSpGameReference inGame, NSpPlayerEnumerationPtr in
 		(theGame->GetGameObject())->NSpPlayer_ReleaseEnumeration(inPlayers);
 	}
 	//Catch_(err)
-	error:
-	if (status)
-	{
-		NMErr code = status;
-		//(void) err;
-	}
+
+//    if (status)
+//	{
+//		NMErr code = status;
+//		//(void) err;
+//	}
 }
 
 //----------------------------------------------------------------------------------------
@@ -1964,8 +1971,10 @@ NSpReleaseAddressReference(NSpAddressReference inAddress)
 	NMErr status;
 	
 	if (inAddress != NULL)
+    {
 		status = ProtocolDisposeConfig((PConfigRef)inAddress);
-
+		DEBUG_PRINTonERR("Unable to dispose of address config in NSpReleaseAddressReference (%lu)", status);
+    }
 }
 
 #if defined(__MWERKS__)

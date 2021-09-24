@@ -275,9 +275,10 @@ NSpGameMaster::AddLocalPlayer(NMConstStr31Param inPlayerName, NSpPlayerType inPl
 								NSpProtocolPriv *theProt)
 {
 	NMErr	status = kNMNoError;
+#ifdef OP_API_NETWORK_OT
 	CEndpoint	*ep = NULL;
-	
-	
+#endif
+
 	//Ä	Check the flags.  Create a player on this workstation if necessary
 	if (inPlayerName == NULL || inPlayerName[0] == 0)
 	{
@@ -305,7 +306,7 @@ NSpGameMaster::AddLocalPlayer(NMConstStr31Param inPlayerName, NSpPlayerType inPl
 		}
 		else if (bAdvertisingIP)
 		{
-			ep = mAdvertisingIPEndpoint;
+//			ep = mAdvertisingIPEndpoint;
 			mPlayersEndpoint = new COTIPEndpoint(this);
 			if (mPlayersEndpoint == NULL){
 				status = kNSpMemAllocationErr;
@@ -382,7 +383,13 @@ NSpGameMaster::HandleJoinRequest(
 	NMErr			status = kNMNoError;
 	CEndpoint 		*commEndpoint = NULL;
 
-	// dair, added NSpJoinResponseMessage support
+    if( !inEndpoint )
+    {
+        DEBUG_PRINT("FATAL: nil endpoint in HandleJoinRequest");
+        return false;
+    }
+
+    // dair, added NSpJoinResponseMessage support
 	NSpJoinResponseMessage	msgJoinResponse;
 
 	memset(&msgJoinResponse, 0x00, sizeof(msgJoinResponse));
@@ -421,7 +428,6 @@ NSpGameMaster::HandleJoinRequest(
 	
 	if (approved)
 	{
-	
 		commEndpoint = inEndpoint->Clone(inCookie);
 		if (commEndpoint == NULL){
 			status = kNSpMemAllocationErr;
@@ -452,7 +458,8 @@ NSpGameMaster::HandleJoinRequest(
 			if (msgJoinResponse.responseDataLen != 0)
 			{
 				msgJoinResponse.header.to = player;
-				status                    = commEndpoint->SendMessage(&msgJoinResponse.header, ((NMUInt8 *) &msgJoinResponse) + sizeof(NSpMessageHeader), kNSpSendFlag_Registered);
+				status = commEndpoint->SendMessage(&msgJoinResponse.header, ((NMUInt8 *) &msgJoinResponse) + sizeof(NSpMessageHeader), kNSpSendFlag_Registered);
+				DEBUG_PRINTonERR("Unable to send message in HandleJoinRequest (%lu)", status);
 			}
 
 			//Ä	Include the old player map for the new player	
@@ -473,11 +480,17 @@ NSpGameMaster::HandleJoinRequest(
 	}
 	else
 	{
-			// dair, added NSpJoinResponseMessage support
+        // dair, added NSpJoinResponseMessage support
 		if (msgJoinResponse.responseDataLen != 0)
+        {
 			status = inEndpoint->SendMessage(&msgJoinResponse.header, ((NMUInt8 *) &msgJoinResponse) + sizeof(NSpMessageHeader), kNSpSendFlag_Registered);
-
-		status = SendJoinDenied(inEndpoint, inCookie, message);
+			DEBUG_PRINTonERR("Unable to send mesage in HandleJoinRequest (%lu)", status);
+        }
+        if( !status )
+        {
+            status = SendJoinDenied(inEndpoint, inCookie, message);
+			DEBUG_PRINTonERR("Unable to send JoinDenied in HandleJoinRequest (%lu)", status);
+        }
 	}
 
 error:
@@ -719,7 +732,6 @@ NSpGameMaster::SendUserMessage(NSpMessageHeader *inMessage, NSpFlags inFlags)
 	PlayerListItem				*thePlayer;
 	GroupListItem				*theGroup;
 	NSpPlayerID					inTo;
-	NMSInt32					inWhat;
 	void						*inData;
 #if !big_endian
 	NMBoolean						swapBack = true;	//?? why here and not in next routine?
@@ -736,15 +748,16 @@ NSpGameMaster::SendUserMessage(NSpMessageHeader *inMessage, NSpFlags inFlags)
 	inMessage->id = mNextMessageID++;
 
 	inTo = inMessage->to;
-	inWhat = inMessage->what;
 	inData = (NMUInt8 *)inMessage + sizeof(NSpMessageHeader);
 	
 	if (inTo == kNSpAllPlayers)			//Ä	To all
 	{
 		//Ä	First give it to ourselves
 		if (inFlags & kNSpSendFlag_SelfSend)
+        {
 			status = DoSelfSend(inMessage, (NMUInt8 *) inData, inFlags);
-
+			DEBUG_PRINTonERR("Unable to do self send in SendUserMessage (%lu)", status);
+        }
 		//Ä	Now hand it off to the host to send to everyone
 		status = mPlayersEndpoint->SendMessage(inMessage, (NMUInt8 *) inData, inFlags);
 	}
@@ -786,6 +799,7 @@ NSpGameMaster::SendUserMessage(NSpMessageHeader *inMessage, NSpFlags inFlags)
 					if (thePlayer->id == mPlayerID)
 					{
 						status = DoSelfSend(inMessage, inData, inFlags);
+						DEBUG_PRINTonERR("Unable to do self send #2 in SendUserMessage (%lu)", status);
 						break;
 					}
 				}
@@ -872,7 +886,10 @@ NSpGameMaster::SendTo(NSpPlayerID inTo, NMSInt32 inWhat, void *inData, NMUInt32 
 	{
 		//Ä	First give it to ourselves
 		if (inFlags & kNSpSendFlag_SelfSend)
+        {
 			status = DoSelfSend(headerPtr, (NMUInt8 *) inData, inFlags);
+			DEBUG_PRINTonERR("Unable to do self send in SendTo (%lu)", status);
+        }
 
 		//Ä	Now hand it off to the host to send to everyone
 		status = mPlayersEndpoint->SendMessage(headerPtr, (NMUInt8 *) inData, inFlags);
@@ -912,6 +929,7 @@ NSpGameMaster::SendTo(NSpPlayerID inTo, NMSInt32 inWhat, void *inData, NMUInt32 
 					if (thePlayer->id == mPlayerID)
 					{
 						status = DoSelfSend(headerPtr, inData, inFlags);
+						DEBUG_PRINTonERR("Unable to do self send #2 in SendTo (%lu)", status);
 						break;
 					}
 				}
@@ -1135,8 +1153,9 @@ NMErr				err = kNMNoError;
 	else
 		theReply.reason[0] = 0;
 
-	inEndpoint->Veto(inCookie, &theReply.header);
-	
+    if( inEndpoint )
+		inEndpoint->Veto(inCookie, &theReply.header);
+
 	return (err);
 }
 
@@ -1458,9 +1477,11 @@ NSpGameMaster::NegotiateNewHost()
 	//Ä	Pause the game!
 	mGameState = kPaused;
 	status = SendPauseGame();
-	
-	//Ä	Ask for someone else to volunteer
+	DEBUG_PRINTonERR("Unable to send PuaseGame in NegotiateNewHost (%lu)", status);
+
+    //Ä	Ask for someone else to volunteer
 	status = SendBecomeHostRequest();
+	DEBUG_PRINTonERR("Unable to send BecomeHostRequest in NegotiateNewHost (%lu)", status);
 
 	return (false);
 }
@@ -1522,6 +1543,7 @@ NMBoolean					found = false;
 	if (removeAll)
 	{
 		status = DoDeleteGroup(kNSpAllGroups);
+		DEBUG_PRINTonERR("Unable to send DeleteGroup in RemovePlayer (%lu)", status);
 	}
 	else if (mGameInfo.currentGroups > 0)	//Ä	Remove this player from any groups
 	{

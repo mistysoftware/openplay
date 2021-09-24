@@ -186,10 +186,10 @@ NMBoolean ProtocolDialogTeardown(
 		{
 			can_teardown= config->NMTeardownDialog(dialog, update_config, (NMProtocolConfigPriv*)config->configuration_data);
 		} else {
-			err= kNMFunctionNotBoundErr;
+//			err= kNMFunctionNotBoundErr;
 		}
 	} else {
-		err= kNMParameterErr;
+//		err= kNMParameterErr;
 	}
 
 	return can_teardown;
@@ -219,10 +219,10 @@ void ProtocolGetRequiredDialogFrame(
 		{
 			config->NMGetRequiredDialogFrame(r, (NMProtocolConfigPriv*)config->configuration_data);
 		} else {
-			err= kNMFunctionNotBoundErr;
+//			err= kNMFunctionNotBoundErr;
 		}
 	} else {
-		err= kNMParameterErr;
+//		err= kNMParameterErr;
 	}
 }
 /** @}*/

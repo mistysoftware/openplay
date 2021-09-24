@@ -290,7 +290,7 @@ ProtocolAcceptConnection(
 		if(endpoint->NMAcceptConnection)
 		{
 			Endpoint *new_endpoint;
-			NMBoolean from_cache;
+			NMBoolean from_cache = false;
 			
 			new_endpoint= create_endpoint_for_accept(endpoint, &err, &from_cache);
 			if(!err)
@@ -1031,45 +1031,48 @@ static void net_module_callback_function(
 	NMBoolean callback= true;
 	
 	op_assert(ep);
-	op_assert(ep->callback.user_callback);
-	op_vassert(ep->cookie==PENDPOINT_COOKIE, csprintf(sz_temporary, "inCookie wasn't our PEndpointRef? 0x%x Cookie: 0x%x", ep, ep->cookie));
+    if( ep )
+    {
+        op_assert(ep->callback.user_callback);
+        op_vassert(ep->cookie==PENDPOINT_COOKIE, csprintf(sz_temporary, "inCookie wasn't our PEndpointRef? 0x%x Cookie: 0x%x", ep, ep->cookie));
 
-	/* must always reset it, because it may not be set yet. (trust me) */
-	op_assert(valid_endpoint(ep));
-	ep->module= inEndpoint;
-	switch(inCode)
-	{
-		case kNMAcceptComplete: /* new endpoint, cookie is the parent endpoint. (easy) */
-			/* generate the kNMHandoffComplete code.. */
-			op_assert(ep->parent);
-			if(ep->parent->callback.user_callback)
-			{
-				ep->parent->callback.user_callback(ep->parent, ep->parent->callback.user_context, kNMHandoffComplete, 
-					inError, ep);
-			}
-			
-			/* now setup for the kNMAcceptComplete */
-			inCookie= ep->parent;
-			op_assert(inCookie);
-			break;
-			
-		case kNMHandoffComplete:
-			/* eat it. */
-			callback= false;
-			break;
-		default:
-		break;
-	}
+        /* must always reset it, because it may not be set yet. (trust me) */
+        op_assert(valid_endpoint(ep));
+        ep->module= inEndpoint;
+        switch(inCode)
+        {
+            case kNMAcceptComplete: /* new endpoint, cookie is the parent endpoint. (easy) */
+                /* generate the kNMHandoffComplete code.. */
+                op_assert(ep->parent);
+                if(ep->parent->callback.user_callback)
+                {
+                    ep->parent->callback.user_callback(ep->parent, ep->parent->callback.user_context, kNMHandoffComplete,
+                        inError, ep);
+                }
 
-	if(callback && ep->callback.user_callback)
-		ep->callback.user_callback(ep, ep->callback.user_context, inCode, inError, inCookie);
-	if(inCode==kNMCloseComplete)
-	{
-		op_vwarn(ep->state==_state_closing, csprintf(sz_temporary, 
-			"endpoint state was %d should have been _state_closing (%d) for kNMCloseComplete", 
-			ep->state, _state_closing));
-		clean_up_endpoint(ep, true); /* Must try to return to the cache, because we can't deallocate memory at interrupt time. */
-	}
+                /* now setup for the kNMAcceptComplete */
+                inCookie= ep->parent;
+                op_assert(inCookie);
+                break;
+
+            case kNMHandoffComplete:
+                /* eat it. */
+                callback= false;
+                break;
+            default:
+            break;
+        }
+
+        if(callback && ep->callback.user_callback)
+            ep->callback.user_callback(ep, ep->callback.user_context, inCode, inError, inCookie);
+        if(inCode==kNMCloseComplete)
+        {
+            op_vwarn(ep->state==_state_closing, csprintf(sz_temporary,
+                "endpoint state was %d should have been _state_closing (%d) for kNMCloseComplete",
+                ep->state, _state_closing));
+            clean_up_endpoint(ep, true); /* Must try to return to the cache, because we can't deallocate memory at interrupt time. */
+        }
+    }
 }
 
 //----------------------------------------------------------------------------------------

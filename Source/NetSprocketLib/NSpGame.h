@@ -156,7 +156,7 @@
 
 	// Other private methods
 				ERObject	*GetCookieERObject(void);
-				void		FillInGroups(NSpPlayerID inPlayer, NSpGroupID **outGroups, NMUInt32 *outGroupCount);
+				NMErr		FillInGroups(NSpPlayerID inPlayer, NSpGroupID **outGroups, NMUInt32 *outGroupCount);
 				void		ReleaseGroups(NSpGroupID *inGroups);
 				
 		NSpGroupID						mNextAvailableGroupID;

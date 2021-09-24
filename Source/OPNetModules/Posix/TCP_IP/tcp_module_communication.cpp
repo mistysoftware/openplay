@@ -767,6 +767,7 @@ static void _send_datagram_socket(NMEndpointRef endpoint)
 		DEBUG_PRINT("sending udp port: %d",ntohs(port_data.port));
 		
 		err = _send_data(endpoint, _stream_socket, (void *)&port_data, sizeof(port_data), 0);
+		DEBUG_PRINTonERR("Warning: unable to send data (%lu)", err);
 	}
 }
 
@@ -847,13 +848,20 @@ internally_handled_datagram(NMEndpointRef endpoint)
 				byteswap_ip_enumeration_packet(response_packet);
 
 				// send!
-				result= sendto(endpoint->sockets[_datagram_socket], response_packet, 
-					bytes_to_send, 0, (sockaddr*) &remote_address, sizeof (remote_address));
+                if( bytes_read > 0 )
+                {
+                    result= sendto(endpoint->sockets[_datagram_socket], response_packet,
+                        bytes_to_send, 0, (sockaddr*) &remote_address, sizeof (remote_address));
 
-				if (result > 0)
-					op_assert(result==bytes_to_send);
-				else if (result < 0)
-					DEBUG_NETWORK_API("Sendto on enum response",result);
+                    if (result > 0)
+                    {
+                        op_assert(result==bytes_to_send);
+                    }
+                    else if (result < 0)
+                    {
+                        DEBUG_NETWORK_API("Sendto on enum response",result);
+                    }
+                }
 			}
 			// we handled it.
 			handled_internally= true;
@@ -1113,15 +1121,21 @@ NMErr NMClose(NMEndpointRef Endpoint, NMBoolean Orderly)
 				/* cause socket to discard remaining data and reset on close */
 				status = setsockopt(Endpoint->sockets[index], SOL_SOCKET, SO_LINGER,
 					(char*)&linger_option, sizeof(struct linger));
+                if (status)
+                {
+                    DEBUG_PRINT("Warning: unable to clear socket");
+                }
 			}
 
     		DEBUG_PRINT("Shutting down a socket in NMClose...");
 			/* shutdown the socket, not allowing any further send/receives */
 			status = shutdown(Endpoint->sockets[index], 2);
+			DEBUG_PRINTonERR("Warning: unable to shutdown socket (%lu)", status);
 
     		DEBUG_PRINT("Closing a socket in NMClose...");
 			status = close(Endpoint->sockets[index]);
-		} 
+			DEBUG_PRINTonERR("Warning: unable to close socket (%lu)", status);
+		}
 	} /* for (index) */
 
 	// notify that it is closed, if necessary
@@ -1203,16 +1217,13 @@ NMAcceptConnection(
 		if (new_endpoint->sockets[_stream_socket] != INVALID_SOCKET)
 		{
 			sockaddr_in	address;
-			NMUInt16	required_port;
 			posix_size_type     size  = sizeof(address);
 
 			err = getpeername(new_endpoint->sockets[_stream_socket], (sockaddr*) &address, &size);
 
 	  		if (!err)
 			{
-		 		required_port = 0;
-
-				     // if we need a datagram socket
+                // if we need a datagram socket
 		      	if (inEndpoint->connectionMode & 1)
 		 		{
 					// create the datagram socket with the default port and host set..
@@ -1894,7 +1905,7 @@ void sendWakeMessage(void)
 	char buffer[10];
 	//DEBUG_PRINT("sending wake message");
 	int result = send(wakeSocket,buffer,1,0);
-	//DEBUG_PRINT("sendWakeMessage result: %d",result);
+	DEBUG_PRINTonERR("Warning: unable to send data (%lu)", result);
 }
 
 
@@ -2511,7 +2522,6 @@ receive_udp_port(NMEndpointRef endpoint)
 	err = _receive_data(endpoint, _stream_socket, (unsigned char *)&port_data, &size, &flags);
 	if (!err && size==sizeof (port_data))
 	{
-		NMSInt16 	old_port;
 		sockaddr_in address;
 		posix_size_type	address_size= sizeof (address);
 
@@ -2519,7 +2529,6 @@ receive_udp_port(NMEndpointRef endpoint)
 		
 		// And change our local port to match theirs..
 		getpeername(endpoint->sockets[_datagram_socket], (sockaddr*) &address, &address_size);
-		old_port= address.sin_port;
 		address.sin_port= port_data.port; // already in network order
 		{
 			long port = ntohs(address.sin_port);
