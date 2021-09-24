@@ -431,10 +431,7 @@ NMErr NMCreateConfig(char *ConfigStr,
 		_config->new_game_count = 0;
 
         status = gethostname(_config->host_name, 256);
-        if (status)
-        {
-            DEBUG_PRINT("Warning: unable to get host name");
-        }
+		DEBUG_PRINTonERR("Warning: unable to get host name (%lu)", status);
 
         if (GameName)
         {

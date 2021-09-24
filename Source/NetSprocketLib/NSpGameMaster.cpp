@@ -459,8 +459,7 @@ NSpGameMaster::HandleJoinRequest(
 			{
 				msgJoinResponse.header.to = player;
 				status = commEndpoint->SendMessage(&msgJoinResponse.header, ((NMUInt8 *) &msgJoinResponse) + sizeof(NSpMessageHeader), kNSpSendFlag_Registered);
-                if( status )
-                    DEBUG_PRINT("Unable to send message in HandleJoinRequest");
+				DEBUG_PRINTonERR("Unable to send message in HandleJoinRequest (%lu)", status);
 			}
 
 			//Ä	Include the old player map for the new player	
@@ -485,14 +484,12 @@ NSpGameMaster::HandleJoinRequest(
 		if (msgJoinResponse.responseDataLen != 0)
         {
 			status = inEndpoint->SendMessage(&msgJoinResponse.header, ((NMUInt8 *) &msgJoinResponse) + sizeof(NSpMessageHeader), kNSpSendFlag_Registered);
-            if( status )
-                DEBUG_PRINT("Unable to send mesage in HandleJoinRequest");
+			DEBUG_PRINTonERR("Unable to send mesage in HandleJoinRequest (%lu)", status);
         }
         if( !status )
         {
             status = SendJoinDenied(inEndpoint, inCookie, message);
-            if( status )
-                DEBUG_PRINT("Unable to send JoinDenied in HandleJoinRequest");
+			DEBUG_PRINTonERR("Unable to send JoinDenied in HandleJoinRequest (%lu)", status);
         }
 	}
 
@@ -759,8 +756,7 @@ NSpGameMaster::SendUserMessage(NSpMessageHeader *inMessage, NSpFlags inFlags)
 		if (inFlags & kNSpSendFlag_SelfSend)
         {
 			status = DoSelfSend(inMessage, (NMUInt8 *) inData, inFlags);
-            if( status )
-                DEBUG_PRINT("Unable to do self send in SendUserMessage");
+			DEBUG_PRINTonERR("Unable to do self send in SendUserMessage (%lu)", status);
         }
 		//Ä	Now hand it off to the host to send to everyone
 		status = mPlayersEndpoint->SendMessage(inMessage, (NMUInt8 *) inData, inFlags);
@@ -803,8 +799,7 @@ NSpGameMaster::SendUserMessage(NSpMessageHeader *inMessage, NSpFlags inFlags)
 					if (thePlayer->id == mPlayerID)
 					{
 						status = DoSelfSend(inMessage, inData, inFlags);
-                        if( status )
-                            DEBUG_PRINT("Unable to do self send #2 in SendUserMessage");
+						DEBUG_PRINTonERR("Unable to do self send #2 in SendUserMessage (%lu)", status);
 						break;
 					}
 				}
@@ -893,8 +888,7 @@ NSpGameMaster::SendTo(NSpPlayerID inTo, NMSInt32 inWhat, void *inData, NMUInt32 
 		if (inFlags & kNSpSendFlag_SelfSend)
         {
 			status = DoSelfSend(headerPtr, (NMUInt8 *) inData, inFlags);
-            if( status )
-                DEBUG_PRINT("Unable to do self send in SendTo");
+			DEBUG_PRINTonERR("Unable to do self send in SendTo (%lu)", status);
         }
 
 		//Ä	Now hand it off to the host to send to everyone
@@ -935,8 +929,7 @@ NSpGameMaster::SendTo(NSpPlayerID inTo, NMSInt32 inWhat, void *inData, NMUInt32 
 					if (thePlayer->id == mPlayerID)
 					{
 						status = DoSelfSend(headerPtr, inData, inFlags);
-                        if( status )
-                            DEBUG_PRINT("Unable to do self send #2 in SendTo");
+						DEBUG_PRINTonERR("Unable to do self send #2 in SendTo (%lu)", status);
 						break;
 					}
 				}
@@ -1484,13 +1477,11 @@ NSpGameMaster::NegotiateNewHost()
 	//Ä	Pause the game!
 	mGameState = kPaused;
 	status = SendPauseGame();
-    if( status )
-        DEBUG_PRINT("Unable to send PuaseGame in NegotiateNewHost");
+	DEBUG_PRINTonERR("Unable to send PuaseGame in NegotiateNewHost (%lu)", status);
 
     //Ä	Ask for someone else to volunteer
 	status = SendBecomeHostRequest();
-    if( status )
-        DEBUG_PRINT("Unable to send BecomeHostRequest in NegotiateNewHost");
+	DEBUG_PRINTonERR("Unable to send BecomeHostRequest in NegotiateNewHost (%lu)", status);
 
 	return (false);
 }
@@ -1552,8 +1543,7 @@ NMBoolean					found = false;
 	if (removeAll)
 	{
 		status = DoDeleteGroup(kNSpAllGroups);
-        if( status )
-            DEBUG_PRINT("Unable to send DeleteGroup in RemovePlayer");
+		DEBUG_PRINTonERR("Unable to send DeleteGroup in RemovePlayer (%lu)", status);
 	}
 	else if (mGameInfo.currentGroups > 0)	//Ä	Remove this player from any groups
 	{

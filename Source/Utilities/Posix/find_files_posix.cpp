@@ -137,7 +137,7 @@ static FileError enumerate_files(struct find_file_pb *param_block)
                 {
 					result = param_block->callback(&temp_file, param_block->user_data); /* callback with user data */
                 }
-                if (result)
+                if (!result)
                     DEBUG_PRINT("Warning: callback failed in enumerate_files");
 			}
 			CFRelease(temp_file.bundle);

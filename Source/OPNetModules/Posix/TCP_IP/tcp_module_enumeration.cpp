@@ -342,10 +342,7 @@ NMErr NMStartEnumeration(NMConfigRef Config, NMEnumerationCallbackPtr Callback, 
 
 				/* enable broadcast on socket */
 				status = setsockopt(Config->enumeration_socket, SOL_SOCKET, SO_BROADCAST, (char*)&option_val, sizeof(int));
-                if( status )
-                {
-                    DEBUG_PRINT("Warning: unable to set socket");
-                }
+				DEBUG_PRINTonERR("Warning: unable to set socket (%lu)", status);
 
 				/* set socket non-blocking */
 				SetNonBlockingMode(Config->enumeration_socket);

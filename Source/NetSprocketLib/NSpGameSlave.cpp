@@ -247,7 +247,7 @@ NMBoolean					swapBack = false;	//?? why here and not below?
 	{
 		status = DoSelfSend(inMessage, (NMUInt8 *)inMessage + sizeof (NSpMessageHeader), inFlags);
         if( status )
-            DEBUG_PRINT("Unable to do self send in SendUserMessage");
+            DEBUG_PRINT("Unable to do self send in SendUserMessage (%lu)", status);
         else
 			bSelfSent = true;
 	}
@@ -256,8 +256,7 @@ NMBoolean					swapBack = false;	//?? why here and not below?
 	if (inMessage->to == mPlayerID && !bSelfSent)
 	{
 		status = DoSelfSend(inMessage, (NMUInt8 *)inMessage + sizeof (NSpMessageHeader), inFlags);
-        if( status )
-            DEBUG_PRINT("Unable to do self send to self in SendUserMessage");
+		DEBUG_PRINTonERR("Unable to do self send to self in SendUserMessage (%lu)", status);
 //		bSelfSent = true;
 	}
 	else if (inMessage->to < kNSpMasterEndpointID)	//Ä	We need to handle if its a group. In case we're a member
@@ -279,8 +278,7 @@ NMBoolean					swapBack = false;	//?? why here and not below?
 						if (thePlayer->id == mPlayerID)
 						{
 							status = DoSelfSend(inMessage, (NMUInt8 *)inMessage + sizeof (NSpMessageHeader), inFlags);
-                            if( status )
-                                DEBUG_PRINT("Unable to do self send to other player in SendUserMessage");
+							DEBUG_PRINTonERR("Unable to do self send to other player in SendUserMessage (%lu)", status);
 //							bSelfSent = true;
 							break;
 						}
@@ -379,8 +377,7 @@ NMBoolean						bSelfSent = false;
 	if (inTo == mPlayerID && !bSelfSent)
 	{
 		status = DoSelfSend(headerPtr, inData, inFlags);
-        if( status )
-            DEBUG_PRINT("Unable to do self send #2 in SendTo");
+		DEBUG_PRINTonERR("Unable to do self send #2 in SendTo (%lu)", status);
 //		bSelfSent = true;
 	}
 	else if (inTo < kNSpMasterEndpointID)	// We need to handle if its a group. In case we're a member
@@ -402,8 +399,7 @@ NMBoolean						bSelfSent = false;
 						if (thePlayer->id == mPlayerID)
 						{
 							status = DoSelfSend(headerPtr, inData, inFlags);
-                            if( status )
-                                DEBUG_PRINT("Unable to do self send #3 in SendTo");
+							DEBUG_PRINTonERR("Unable to do self send #3 in SendTo (%lu)", status);
 //							bSelfSent = true;
 							break;
 						}
@@ -487,8 +483,7 @@ NMUInt32		hostProcessingTime;
 		if (inMessage->groupCount > 0)
 		{
 			status = MakeGroupListFromJoinApprovedMessage(&groupInfoPtr, inMessage->groupCount);
-            if( status )
-                DEBUG_PRINT("Unable to MakeGroupListFromJoinApprovedMessage in NSpProtocol_Dispose");
+			DEBUG_PRINTonERR("Unable to MakeGroupListFromJoinApprovedMessage in NSpProtocol_Dispose (%lu)", status);
 		}
 
 		//Ä	The to field contains our player id

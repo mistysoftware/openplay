@@ -261,8 +261,7 @@ NSpProtocol_Dispose(NSpProtocolReference inProtocolRef)
 	if (inProtocolRef != NULL)
     {
 		status = ProtocolDisposeConfig((PConfigRef) inProtocolRef);
-        if( status )
-            DEBUG_PRINT("Unable to dispose of protocol ref in NSpProtocol_Dispose");
+		DEBUG_PRINTonERR("Unable to dispose of protocol ref in NSpProtocol_Dispose (%lu)", status);
     }
 }
 
@@ -1974,8 +1973,7 @@ NSpReleaseAddressReference(NSpAddressReference inAddress)
 	if (inAddress != NULL)
     {
 		status = ProtocolDisposeConfig((PConfigRef)inAddress);
-        if( status )
-            DEBUG_PRINT("Unable to dispose of address config in NSpReleaseAddressReference");
+		DEBUG_PRINTonERR("Unable to dispose of address config in NSpReleaseAddressReference (%lu)", status);
     }
 }
 

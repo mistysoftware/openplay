@@ -220,8 +220,7 @@ NMSInt32					messageLength;
 
 	result = ::ProtocolCloseEndpoint(theCookie->endpointRefOP, true);
 	theCookie->endpointRefOP = NULL;
-    if (kNMNoError != result)
-		DEBUG_PRINT("ProtocolSendOrderlyDisconnect returned %ld in CEndpoint::Veto", result);
+    DEBUG_PRINTonERR("ProtocolSendOrderlyDisconnect returned %ld in CEndpoint::Veto", result);
 
 	InterruptSafe_free(inCookie);
 }
@@ -314,8 +313,7 @@ CEndpoint::Close()
 
 		if (status != kNMNoError)
 			status = ::ProtocolCloseEndpoint(mOpenPlayEndpoint, false);
-        if (status != kNMNoError)
-            DEBUG_PRINT("CloseEndpoint returned %ld in CEndpoint::Close", status);
+        DEBUG_PRINTonERR("CloseEndpoint returned %ld in CEndpoint::Close", status);
 		mOpenPlayEndpoint = NULL;
 
 	}
@@ -1109,8 +1107,7 @@ CEndpoint::Notifier(PEndpointRef		inEndpoint,
 		break;
 
 	}
-    if (status != kNMNoError)
-        DEBUG_PRINT("Endpoint handler returned %ld in CEndpoint::Notifier", status);
+    DEBUG_PRINTonERR("Endpoint handler returned %ld in CEndpoint::Notifier", status);
 }
 
 #if defined(__MWERKS__)

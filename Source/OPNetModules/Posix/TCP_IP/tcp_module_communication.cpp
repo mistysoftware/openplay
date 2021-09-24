@@ -767,10 +767,7 @@ static void _send_datagram_socket(NMEndpointRef endpoint)
 		DEBUG_PRINT("sending udp port: %d",ntohs(port_data.port));
 		
 		err = _send_data(endpoint, _stream_socket, (void *)&port_data, sizeof(port_data), 0);
-        if (err)
-        {
-            DEBUG_PRINT("Warning: unable to send data");
-        }
+		DEBUG_PRINTonERR("Warning: unable to send data (%lu)", err);
 	}
 }
 
@@ -1133,17 +1130,11 @@ NMErr NMClose(NMEndpointRef Endpoint, NMBoolean Orderly)
     		DEBUG_PRINT("Shutting down a socket in NMClose...");
 			/* shutdown the socket, not allowing any further send/receives */
 			status = shutdown(Endpoint->sockets[index], 2);
-            if (status)
-            {
-                DEBUG_PRINT("Warning: unable to shutdown socket");
-            }
+			DEBUG_PRINTonERR("Warning: unable to shutdown socket (%lu)", status);
 
     		DEBUG_PRINT("Closing a socket in NMClose...");
 			status = close(Endpoint->sockets[index]);
-            if (status)
-            {
-                DEBUG_PRINT("Warning: unable to close socket");
-            }
+			DEBUG_PRINTonERR("Warning: unable to close socket (%lu)", status);
 		}
 	} /* for (index) */
 
@@ -1914,11 +1905,7 @@ void sendWakeMessage(void)
 	char buffer[10];
 	//DEBUG_PRINT("sending wake message");
 	int result = send(wakeSocket,buffer,1,0);
-    if( result )
-    {
-        DEBUG_PRINT("Warning: unable to send data");
-    }
-	//DEBUG_PRINT("sendWakeMessage result: %d",result);
+	DEBUG_PRINTonERR("Warning: unable to send data (%lu)", result);
 }
 
 
